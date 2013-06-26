@@ -25,7 +25,7 @@
 class MixsonicMenuBarModel : public MenuBarModel
 {
 public:
-  MixsonicMenuBarModel::MixsonicMenuBarModel(ApplicationCommandManager *commandManagerToUse);
+  MixsonicMenuBarModel(ApplicationCommandManager *commandManagerToUse);
   virtual const StringArray getMenuBarNames();
   virtual const PopupMenu getMenuForIndex(int topLevelMenuIndex, const String &menuName);
   virtual void 	menuItemSelected (int menuItemID, int topLevelMenuIndex);

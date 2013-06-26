@@ -37,8 +37,8 @@ lifetime of the application and be accessible from everywhere. */
 class MixsonicGlobals
 {
 public:
-  MixsonicGlobals::MixsonicGlobals();
-  MixsonicGlobals::~MixsonicGlobals();
+  MixsonicGlobals();
+  ~MixsonicGlobals();
   void logMessage(const String& message);
   //FileLogger *logger;
   // maybe define the colors here, too

@@ -30,7 +30,7 @@ public:
     setResizable(true, true);
     setResizeLimits(960, 640, 4000, 3000);
     setVisible(true);
-    centreWithSize(1024, 768);
+    centreWithSize(960, 640);
     //setUsingNativeTitleBar(true);
     setUsingNativeTitleBar(false);
   }

@@ -199,9 +199,9 @@ class AudioPluginSlotComponent : public Component
 
 public:
 
-  AudioPluginSlotComponent::AudioPluginSlotComponent();
+  AudioPluginSlotComponent();
 
-  virtual AudioPluginSlotComponent::~AudioPluginSlotComponent();
+  virtual ~AudioPluginSlotComponent();
 
   // void setPlugIn(AudioPluginInstance *newPlugIn);
 
@@ -228,7 +228,7 @@ class AudioPluginChainComponent : public Component
 public:
 
 
-  virtual AudioPluginChainComponent::~AudioPluginChainComponent();
+  virtual ~AudioPluginChainComponent();
 
   /** Adds a slot-component to this chain. This object takes over responsibility for deleting it
   eventually. */
@@ -338,9 +338,9 @@ public:
   //-----------------------------------------------------------------------------------------------
   // construction/destruction:
 
-  TrackComponent::TrackComponent(Track* newTrackToEdit);
+  TrackComponent(Track* newTrackToEdit);
 
-  virtual TrackComponent::~TrackComponent();
+  virtual ~TrackComponent();
 
   //-----------------------------------------------------------------------------------------------
   // manipulation:

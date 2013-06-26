@@ -21,6 +21,9 @@
 		0AC1A6E90F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1A6E60F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp */; };
 		0AC1BB3D0F1BE39800E5AA41 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC1BB3C0F1BE39800E5AA41 /* AGL.framework */; };
 		0AC1BB410F1BE3B100E5AA41 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC1BB400F1BE3B100E5AA41 /* AudioUnit.framework */; };
+		0AC256C6177AFC780036DF2B /* MixsonicCommandManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC256C4177AFC780036DF2B /* MixsonicCommandManager.cpp */; };
+		0AC256C7177AFC780036DF2B /* TransportController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC256C5177AFC780036DF2B /* TransportController.cpp */; };
+		0AC256CE177AFCF10036DF2B /* TransportComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC256CD177AFCF10036DF2B /* TransportComponent.cpp */; };
 		0AE585DE1744F81900C49382 /* juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585DD1744F81900C49382 /* juce_core.mm */; };
 		0AE585E01744F83200C49382 /* juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585DF1744F83200C49382 /* juce_data_structures.mm */; };
 		0AE585E21744F84A00C49382 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585E11744F84A00C49382 /* juce_events.mm */; };
@@ -135,6 +138,9 @@
 		0AC1A6E70F1D0C1D009D4652 /* ThreadedDrawingComponent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ThreadedDrawingComponent.h; sourceTree = "<group>"; };
 		0AC1BB3C0F1BE39800E5AA41 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		0AC1BB400F1BE3B100E5AA41 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		0AC256C4177AFC780036DF2B /* MixsonicCommandManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MixsonicCommandManager.cpp; path = control/MixsonicCommandManager.cpp; sourceTree = "<group>"; };
+		0AC256C5177AFC780036DF2B /* TransportController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransportController.cpp; path = control/TransportController.cpp; sourceTree = "<group>"; };
+		0AC256CD177AFCF10036DF2B /* TransportComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TransportComponent.cpp; sourceTree = "<group>"; };
 		0AE585DD1744F81900C49382 /* juce_core.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_core.mm; path = libs/juce/modules/juce_core/juce_core.mm; sourceTree = "<group>"; };
 		0AE585DF1744F83200C49382 /* juce_data_structures.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_data_structures.mm; path = libs/juce/modules/juce_data_structures/juce_data_structures.mm; sourceTree = "<group>"; };
 		0AE585E11744F84A00C49382 /* juce_events.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_events.mm; path = libs/juce/modules/juce_events/juce_events.mm; sourceTree = "<group>"; };
@@ -358,6 +364,15 @@
 			name = juce;
 			sourceTree = "<group>";
 		};
+		0AC256C3177AFC370036DF2B /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				0AC256C4177AFC780036DF2B /* MixsonicCommandManager.cpp */,
+				0AC256C5177AFC780036DF2B /* TransportController.cpp */,
+			);
+			name = Control;
+			sourceTree = "<group>";
+		};
 		195DF8CFFE9D517E11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,6 +434,7 @@
 		9132B5690EC1D18500A24978 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				0AC256C3177AFC370036DF2B /* Control */,
 				0ABB98F51744F6C000013521 /* libs */,
 				9132B56A0EC1D18500A24978 /* components */,
 				9132B5C40EC1D18500A24978 /* core */,
@@ -498,6 +514,7 @@
 		9132B58D0EC1D18500A24978 /* reusable */ = {
 			isa = PBXGroup;
 			children = (
+				0AC256CD177AFCF10036DF2B /* TransportComponent.cpp */,
 				0ABB98E01744F4F400013521 /* RFileTreeComponent.cpp */,
 				0ABB98E11744F4F400013521 /* RFileTreeComponent.h */,
 				0A22D5740F1E8B9400BF3DC8 /* ThreadedDrawingPanel.cpp */,
@@ -795,6 +812,9 @@
 				0AE585E61744F88700C49382 /* juce_gui_basics.mm in Sources */,
 				0A726F101744FE98001B395F /* MixsonicSettings.cpp in Sources */,
 				0A726F5417450079001B395F /* MixsonicGlobalSettingsDialog.cpp in Sources */,
+				0AC256C6177AFC780036DF2B /* MixsonicCommandManager.cpp in Sources */,
+				0AC256C7177AFC780036DF2B /* TransportController.cpp in Sources */,
+				0AC256CE177AFCF10036DF2B /* TransportComponent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

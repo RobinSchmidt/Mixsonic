@@ -8,9 +8,9 @@ class TransportComponent : public Component, public ButtonListener
 {
 public:
 
-  TransportComponent::TransportComponent(TransportController *controllerToUse);
+  TransportComponent(TransportController *controllerToUse);
 
-  virtual TransportComponent::~TransportComponent();
+  virtual ~TransportComponent();
 
 
   /** Computes the width required by this component given a desired height. */

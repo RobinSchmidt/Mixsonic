@@ -1,7 +1,7 @@
 #ifndef TransportController_h
 #define TransportController_h
 
-#include "../../libs/JuceIncludes.h"
+#include "../libs/JuceIncludes.h"
 
 /** Abstract baseclass for classes that want to receive transport-control callbacks from a 
 TransportController.

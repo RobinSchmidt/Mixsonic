@@ -1,7 +1,7 @@
 #ifndef MixsonicCommandManager_h
 #define MixsonicCommandManager_h
 
-#include "../../libs/JuceIncludes.h"
+#include "../libs/JuceIncludes.h"
 
 class MixsonicCommandManager : public ApplicationCommandManager
 {
@@ -71,7 +71,7 @@ public:
   };
 
   /** Constructor.  */
-  MixsonicCommandManager::MixsonicCommandManager();
+  MixsonicCommandManager();
 
 };
 
