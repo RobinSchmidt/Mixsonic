@@ -11,6 +11,11 @@ This class represents an audio clip that can be used in audio sequencer applicat
 pointer to the actual audio data (in form of a juce::AudioSampleBuffer), it stores additional 
 information like the relative path to the source file and parameters which control the playback.
 
+\todo
+Maybe factor out a baseclass AccumulatingAudioSource with virtual function addSignalToAudioBlock
+and (maybe) prepareToPlay, releaseResources. - could be used as baseclass for Track as well. For
+efficiency reasons, we should probably not derive it from juce::AudioSource.
+
 */
 
 class AudioClip : public Clip, public AudioFileBufferUser

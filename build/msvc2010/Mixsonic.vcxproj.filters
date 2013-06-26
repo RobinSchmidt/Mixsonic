@@ -312,6 +312,9 @@
     <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp">
       <Filter>src\components\reusable</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\PluginChain.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
@@ -568,6 +571,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\components\reusable\TransportComponent.h">
       <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\PluginChain.h">
+      <Filter>src\core\infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

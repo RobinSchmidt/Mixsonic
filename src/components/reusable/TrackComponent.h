@@ -194,12 +194,15 @@ protected:
 
 //=================================================================================================
 
+/** A component to show a slot for an audio plugin which shows the name of the plugin and 
+facilitates plugging in, replacing, plugging out, bypassing, opening the plugin GUI, etc.  */
+
 class AudioPluginSlotComponent : public Component
 {
 
 public:
 
-  AudioPluginSlotComponent();
+  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit);
 
   virtual ~AudioPluginSlotComponent();
 
@@ -209,43 +212,97 @@ public:
   // lifetime
   //virtual Component* getCustomGUI();
 
+  //virtual AudioProcessorEditor* getEditor();
+
+
+  //-----------------------------------------------------------------------------------------------
+  // inquiry:
+
+  /** Returns true when our pluginSlot pointer is a nullpointer or (if it isn't) the 
+  pluginSlot is empty. */
+  virtual bool isEmpty();
+
+  //-----------------------------------------------------------------------------------------------
+  // callbacks:
+
+  virtual void mouseDown(const MouseEvent &e);
   virtual void resized();
 
 protected:
+
+  /** Opens the popup menu which lets the user select plugins, bypass, etc. */
+  virtual void openPopUpMenu();
+
+  /** Opens the plugin's GUI editor, or a generic editor for GUI-less plugins. */
+  virtual void openEditor();
+
+  /** Opens a dialog where the user can pick the plugin to load. At the moment, this is a native 
+  file-chooser dialog where the user picks the plugin's shared library file (i.e. the .dll, .dylib, 
+  .so or whatever it is on the particular platform). */
+  virtual void openLoadPluginDialog();
+
 
   RLabel *nameLabel;
   RButton *onOffButton;
   //RSlider *dryWetSlider; // maybe add later
 
-  AudioPluginInstance *plugIn;
+  //AudioPluginInstance *plugIn;
+
+  PluginSlot *pluginSlot;
+
+
+  JUCE_LEAK_DETECTOR(AudioPluginSlotComponent);
 };
 
 //=================================================================================================
 
-class AudioPluginChainComponent : public Component
+/** A component showing an arbitrary number of AudioPluginSlotComponents in a vertical column. It
+also takes care to always have an empty slot at the bottom, for a new plugin to be plugged in. */
+
+class AudioPluginChainComponent : public Component, public ChangeListener
 {
 
 public:
 
+  //-----------------------------------------------------------------------------------------------
+  // construction/destruction:
+
+  AudioPluginChainComponent(PluginChain *chainToEdit);
 
   virtual ~AudioPluginChainComponent();
 
+  //-----------------------------------------------------------------------------------------------
+  // setup:
+
   /** Adds a slot-component to this chain. This object takes over responsibility for deleting it
   eventually. */
-  virtual void addSlotComponent(AudioPluginSlotComponent *newSlotComponent);
+  //virtual void addSlotComponent(AudioPluginSlotComponent *newSlotComponent);
+    // get rid of that - makes no sense anymore
+
+  /** Deletes the components for all slots. */
+  //virtual void deleteAllSlotComponents();
 
   // \todo provide functionality to change the order of the plugins by drag-and-drop
 
-  // \todo on mouseOver show the full component (with all slot), even if some slots are hidden
-  // due to a too small track-height - on mouseOver, it expands downward. if necesarry
+  //-----------------------------------------------------------------------------------------------
+  // callbacks:
 
+  // \todo on mouseOver show the full component (with all slots), even if some slots are hidden
+  // due to a too small track-height - on mouseOver, it expands downward, if necesarry - but what
+  // should we do, when there's not enough space below? expand upward? that might be weird because
+  // the mouse won't be over the same slot as in the non-expanded state ...hmmm
+
+  /** Updates all slot components, possibly deleting some and/or creating new ones. */
+  virtual void updateSlotComponents();
+
+  virtual void changeListenerCallback(ChangeBroadcaster* source);
   virtual void resized();
 
 protected:
 
-  //Array<AudioPluginSlotComponent*> slotComponents;
+  PluginChain *pluginChain;
 
-
+  JUCE_LEAK_DETECTOR(AudioPluginChainComponent);
 };
 
 //=================================================================================================

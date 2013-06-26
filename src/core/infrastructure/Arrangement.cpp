@@ -7,7 +7,10 @@ Arrangement::Arrangement(SamplePool *samplePoolToUse) : SamplePoolClient(sampleP
 {
   clipSelectionListener = NULL;
   defaultSkipInSeconds  = 5.0;
+
   initializeArrangement();
+    // calling this here causes the function to be called 2 times on app startup - maybe we can 
+    // avoid one of these 2 calls, but maybe it doesn't matter
 }
 
 Arrangement::~Arrangement()
@@ -540,6 +543,8 @@ void Arrangement::setStateFromXml(const XmlElement& xmlState, const File& songDi
     track->setStateFromXml(*trackState);
     track->registerObserver(this);
     tracks.add(track);
+
+    // \todo handle the inner loop in the Track class:
     forEachXmlChildElementWithTagName(*trackState, clipState, "CLIP")
     {
       // the child object 'clipState' is now guaranteed to be a <CLIP> element..

@@ -8,6 +8,10 @@
 This class is to be used as baseclass for objects that must keep track of deletion of a Clip 
 objects such as the ClipComponent class.
 
+\todo generalize this to a general DeletionWatcher with callback 
+objectWillBeDeleted(void *object). the 2nd callback clipNameChanged can be removed and Clip
+can send out a generic cchnage message, when the name is changed
+
 */
 
 class ClipDeletionWatcher

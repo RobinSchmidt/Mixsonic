@@ -75,6 +75,7 @@
     <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
     <ClCompile Include="..\..\src\control\TransportController.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\PluginChain.cpp" />
     <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_basics\juce_audio_basics.cpp" />
     <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_devices\juce_audio_devices.cpp" />
     <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_formats\juce_audio_formats.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="..\..\src\core\infrastructure\MessageBoxes.h" />
     <ClInclude Include="..\..\src\core\infrastructure\MixsonicSettings.h" />
     <ClInclude Include="..\..\src\core\infrastructure\MixsonicStrings.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\PluginChain.h" />
     <ClInclude Include="..\..\src\core\infrastructure\SamplePool.h" />
     <ClInclude Include="..\..\src\core\infrastructure\SamplePoolClient.h" />
     <ClInclude Include="..\..\src\core\infrastructure\SelectableItem.h" />

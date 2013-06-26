@@ -2,12 +2,13 @@
 #define Track_h
 
 #include "AudioClip.h"
+#include "PluginChain.h"
 
 class Track;
 
 /**
 
-Baseclass for object which must observe a Track object.
+Baseclass for object which must observe a Track object. 
 
 */
 
@@ -33,8 +34,9 @@ class Track
 {  
 
   //friend class TrackComponent; // this component needs direct access to the clips
-  friend class TrackBodyComponent; // this component needs direct access to the clips
-  friend class Arrangement;    // this class also needs direct access to the clips
+  friend class MixsonicTrackControlComponent; // needs direct access to the pluginChain
+  friend class TrackBodyComponent;    // needs direct access to clips
+  friend class Arrangement;           // ditto
 
 public:
 
@@ -140,6 +142,22 @@ public:
   virtual void deleteSelectedClips();
 
   //-----------------------------------------------------------------------------------------------
+  // plugin handling:
+
+  /** Adds an audio-plugin to this track.  */
+  //virtual void addAudioPlugIn(AudioPluginInstance* pluginToAdd);
+
+  /** Removes an audio-plugin from this Track. */
+  //virtual void removeAudioPlugin(AudioPluginInstance* pluginToRemove, bool deleteObject);
+
+  // \todo virtual void movePlugin - or maybe have an optional 2nd parameter "position" in 
+  // addAudioPlugin which inserts the plugin at a specified position in the plugin chain - moving
+  // would then be accomplished by remove/add
+
+  /** Inserts the passed plugin instance into the plugin slot with given index. */
+  //virtual void insertPlugin(int slotIndex, AudioPluginInstance* pluginToInsert);
+
+  //-----------------------------------------------------------------------------------------------
   // audio related callbacks:
 
   /** Should be called before starting to call addSignalToAudioBlock - it will cause the 
@@ -167,11 +185,24 @@ public:
 
 protected:
 
-  /** An array of (pointers to) the clips which are inside this track. */
-  Array<AudioClip*, CriticalSection> audioClips;
-
   /** Observers that needs to be informed, when something about this track has changed. */
   Array<TrackObserver*> observers;
+
+  /** An array of (pointers to) the clips which are inside this track. */
+  Array<AudioClip*, CriticalSection> audioClips;
+    // todo: rename to "clips", let it be a baseclass pointer, get rid of the critical section
+    // thread-sync should be managed centrally (maybe in class Arrangement or ArrangementEditor)
+
+  /** Array of plugin slots which are to be applied to the output of the track */
+  //Array<PluginSlot*, CriticalSection> pluginSlots;
+
+  /** The chain of plugins to be applied to this track. */
+  PluginChain pluginChain;
+
+    // later, we may want to have midi-clips and midi-plugins (i.e. plugins that produce midi 
+    // events as output) - in this case, the signal-flow should be: 
+    // midiClips -> midiPlugins -> audioClips -> audioPlugins where the audioClips are optional
+    // (i.e. there may be none) and the audioPlugins may also be instrument plugins
 
 
   String name;

@@ -183,6 +183,9 @@ public:
   virtual void zoomToAllY();
   virtual void mouseWheelMove(const MouseEvent& e, float  wheelIncrementX, float  wheelIncrementY);
 
+
+  virtual void paintOverChildren(Graphics &g);
+
 protected:
 
 

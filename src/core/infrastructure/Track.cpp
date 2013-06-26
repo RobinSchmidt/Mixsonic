@@ -12,6 +12,10 @@ Track::Track(int newIndex)
   level = 0.0;
   pan   = 0.0;
   amp   = 1.0;
+
+  // we initially should have 2 empty plugin slots:
+  //pluginChain.addEmptySlot();
+  //pluginChain.addEmptySlot();
 }
 
 Track::~Track()
@@ -26,6 +30,13 @@ Track::~Track()
   // why no for-loop? has this to do with callbacks that get triggered from the destructor of
   // AudioClip?
   audioClips.getLock().exit();
+
+
+  // \todo: do the same thing with our array of audioPlugins - perhaps, we should also make sure 
+  // that no editor is open and no other objects maintain references to the to-be-deleted 
+  // AudioPluginInstance
+
+
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -181,6 +192,34 @@ void Track::deleteSelectedClips()
   }
   audioClips.getLock().exit();
 }
+ 
+/*
+void Track::addAudioPlugIn(AudioPluginInstance* pluginToAdd)
+{
+  const ScopedLock lock(audioPlugins.getLock());
+  audioPlugins.add(pluginToAdd);
+}
+
+void Track::removeAudioPlugin(AudioPluginInstance* pluginToRemove, bool deleteObject)
+{
+  const ScopedLock lock(audioPlugins.getLock());
+  audioPlugins.removeValue(pluginToRemove);
+  if( deleteObject )
+    delete pluginToRemove;
+}
+*/
+/*
+void Track::insertPlugin(int slotIndex, AudioPluginInstance* pluginToInsert)
+{
+  jassert( slotIndex >= 0 && slotIndex < pluginSlots.size() );
+  int dummy = 0;
+
+  // \todo if the last slot is not empty anymore, create a new slot
+  // maybe we should have a function updateNumPluginSlots() which makes sure that there's always 
+  // one (and only one) empty slot at the end of the array. this should probably also send out a 
+  // callback message to our TrackObservers
+}
+*/
 
 //-------------------------------------------------------------------------------------------------
 // audio related callbacks:
@@ -199,13 +238,22 @@ void Track::addSignalToAudioBlock(const AudioSourceChannelInfo &bufferToFill,
   if( mute )
     return;
 
-  // accumulate the signals from all clips on this track (clips may overlap - in this case we want
-  // to sum the signals from the overlapping clips - the clips will themselves detect whether or 
-  // not they have some signal inside the current time-slice and return immediatly if they don't:
+  // Accumulate the signals from all clips on this track (clips may overlap - in this case we want
+  // to sum the signals from the overlapping clips). The clips will themselves detect whether or 
+  // not they have some signal inside the current time-slice and return immediately if they don't.
+  // Maybe we could optimize this by maintaining an array of possibly active clips and iterate 
+  // only over that (smaller) array. This array should always contain all clips which have their 
+  // end-sample after or at the start-sample of this block and their start-sample before or at the 
+  // end-sample of this block. It would have to be initialized in a prepareToPlay() function and 
+  // updated here in each call. But perhaps this complication would do more harm than good.
   audioClips.getLock().enter();
-  for(int c=0; c<audioClips.size(); c++)
-    audioClips[c]->addSignalToAudioBlock(bufferToFill, sliceStartInSamples, amp, pan);
+  for(int i = 0; i < audioClips.size(); i++)
+    audioClips[i]->addSignalToAudioBlock(bufferToFill, sliceStartInSamples, amp, pan);
   audioClips.getLock().exit();
+
+
+  MidiBuffer dummyMidiBuffer;
+  pluginChain.processBlock(bufferToFill, dummyMidiBuffer);
 }
 
 //-------------------------------------------------------------------------------------------------

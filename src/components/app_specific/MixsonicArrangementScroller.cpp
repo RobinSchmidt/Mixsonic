@@ -505,3 +505,10 @@ void ArrangementScroller::mouseWheelMove(const MouseEvent& e,
 
   updateScrollbars();
 }
+
+void ArrangementScroller::paintOverChildren(Graphics &g)
+{
+  // just for development:
+  Colour c((uint8)255, (uint8)0, (uint8)0, (uint8)100);
+  g.fillAll(c);
+}

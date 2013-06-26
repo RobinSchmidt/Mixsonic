@@ -458,27 +458,48 @@ void TrackBodyComponent::alignClipToTimeLine(AudioClipComponent *clipToAlign,
 
 
 
-AudioPluginSlotComponent::AudioPluginSlotComponent()
+AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
 {
+  pluginSlot = pluginSlotToEdit;
+
   addAndMakeVisible( nameLabel = new RLabel() );
   nameLabel->setText("", false); 
   nameLabel->setColour(Label::outlineColourId, outlineColor);
   nameLabel->setColour(Label::backgroundColourId, backgroundColor);
   nameLabel->setColour(Label::textColourId, textColor);
-
+  nameLabel->addMouseListener(this, false);
 
   addAndMakeVisible( onOffButton = new RButton("M") );
   onOffButton->setDescription("Switches plugin on/off");
   onOffButton->setClickingTogglesState(true);
   //onOffButton->addListener(this); 
-
-
-  plugIn = nullptr;
 }
 
 AudioPluginSlotComponent::~AudioPluginSlotComponent()
 {
   deleteAllChildren();
+}
+
+// inquiry:
+
+bool AudioPluginSlotComponent::isEmpty()
+{
+  return pluginSlot == nullptr || pluginSlot->plugin == nullptr;
+}
+
+// callbacks:
+ 
+void AudioPluginSlotComponent::mouseDown(const MouseEvent &e)
+{
+  if( e.mods.isLeftButtonDown() )
+  {
+    if( isEmpty() )
+      openPopUpMenu();
+    else
+      openEditor();
+  }
+  else if( e.mods.isRightButtonDown() )
+    openPopUpMenu();
 }
 
 void AudioPluginSlotComponent::resized()
@@ -490,16 +511,97 @@ void AudioPluginSlotComponent::resized()
   //onOffButton->setBounds(nameLabel->getRight(), 0, h, h);
 }
 
+void AudioPluginSlotComponent::openPopUpMenu()
+{
+  PopupMenu menu;
 
+  if( !isEmpty() )
+    menu.addItem(1, "Bypass", true, pluginSlot->isBypassed());
+  menu.addItem(2, "Load Plugin");
+  menu.addItem(3, "Show Parameters");
+
+  const int result = menu.show();
+
+  if(result == 0)
+  {
+    // user dismissed the menu without picking anything
+  }
+  else if(result == 1)
+    pluginSlot->setBypass(!pluginSlot->isBypassed());
+  else if(result == 2)
+    openLoadPluginDialog();
+  else if(result == 3)
+  {
+    // user picked item 2
+  }
+}
+
+void AudioPluginSlotComponent::openEditor()
+{
+  int dummy = 0;
+}
+
+void AudioPluginSlotComponent::openLoadPluginDialog()
+{
+  File startDirectory = getApplicationDirectory(); 
+    // later use a user-specified plugin folder stored in the global preferences
+
+  FileChooser chooser("Select Plugin", startDirectory, "*.dll"); 
+    // later use a system-specific extension - write a function getPluginFileExtensions()
+
+  if( chooser.browseForFileToOpen() )
+  {
+    File pluginFile(chooser.getResult());
+    pluginSlot->loadPlugin(pluginFile);
+  }
+}
+
+//=================================================================================================
+
+AudioPluginChainComponent::AudioPluginChainComponent(PluginChain *chainToEdit)
+{
+  pluginChain = chainToEdit;
+  pluginChain->addChangeListener(this);
+}
 
 AudioPluginChainComponent::~AudioPluginChainComponent()
 {
+  pluginChain->removeChangeListener(this);
   deleteAllChildren();
 }
-
+/*
 void AudioPluginChainComponent::addSlotComponent(AudioPluginSlotComponent *newSlotComponent)
 {
   addAndMakeVisible(newSlotComponent);
+}
+*/
+/*
+void AudioPluginChainComponent::deleteAllSlotComponents()
+{
+
+}
+*/
+void AudioPluginChainComponent::updateSlotComponents()
+{
+  deleteAllChildren(); 
+    // deletes all slot components - maybe, as an optimization, we may later retain some or all but
+    // the code is easier, if we delete them all and recreate them, if necessary
+
+  // create slot components for all slots:
+  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
+    addAndMakeVisible(new AudioPluginSlotComponent(pluginChain->pluginSlots[i]));
+
+  // create one additional slot component which is not yet assigned to a slot. there should always 
+  // be one empty slot component at the end to be used to plug in another plugins into the chain:
+  addAndMakeVisible(new AudioPluginSlotComponent(nullptr));
+}
+
+void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source)
+{
+  jassert( source == pluginChain);
+
+  jassertfalse; // we have something to do here
 }
 
 void AudioPluginChainComponent::resized()
@@ -548,10 +650,10 @@ MixsonicTrackControlComponent::MixsonicTrackControlComponent(Track* newTrackToEd
   panSlider->setThumbColour(Colours::transparentBlack);
   panSlider->addListener(this);
 
-  pluginChainComponent = new AudioPluginChainComponent();
+  pluginChainComponent = new AudioPluginChainComponent(&trackToEdit->pluginChain);
   addAndMakeVisible(pluginChainComponent);
-  pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
-  pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
+  //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
+  //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
   //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
 
   trackToEdit->registerObserver(this);
@@ -584,6 +686,7 @@ void MixsonicTrackControlComponent::updateWidgetsAccordingToState()
     panSlider->setValue(       trackToEdit->getPan(),         false, false);
     soloButton->setToggleState(trackToEdit->isSolo(),         false);
     muteButton->setToggleState(trackToEdit->isMuted(),        false);
+    pluginChainComponent->updateSlotComponents();;
   }
 }
 

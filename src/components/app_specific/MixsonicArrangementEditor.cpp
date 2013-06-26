@@ -15,6 +15,7 @@ MixsonicArrangementEditor::MixsonicArrangementEditor(Arrangement* newArrangement
   headline->setJustificationType(Justification::centred);
 
   addAndMakeVisible( arrangementNavigator = new ArrangementScroller() );
+
   addAndMakeVisible( arrangementPanel     
     = new MixsonicArrangementPanel(newArrangementToEdit, samplePoolToUse) );
   arrangementPanel->addMouseListener(this, true);
