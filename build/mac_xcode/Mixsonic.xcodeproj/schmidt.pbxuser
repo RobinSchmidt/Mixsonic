@@ -1,0 +1,491 @@
+// !$*UTF8*$!
+{
+	0A0C06B51757D11A00FEA103 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 911A2EF30EED367F00704729 /* MixsonicTextEntryDialog.cpp */;
+		name = "MixsonicTextEntryDialog.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	0A0C07891757ED8600FEA103 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9132B56E0EC1D18500A24978 /* MixsonicArrangementPanel.cpp */;
+		name = "MixsonicArrangementPanel.cpp: 646";
+		rLen = 0;
+		rLoc = 21812;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	0A726F5217450079001B395F /* MixsonicGlobalSettingsDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 2106}}";
+			sepNavSelRange = "{5507, 0}";
+			sepNavVisRange = "{5391, 456}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	0A726F5A174500B8001B395F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 91E4757B0EE6C63800216405 /* ClipComponent.h */;
+		name = "ClipComponent.h: 49";
+		rLen = 0;
+		rLoc = 1260;
+		rType = 0;
+		vrLen = 507;
+		vrLoc = 25;
+	};
+	0A726F5B174500B8001B395F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9132B5E40EC1D18500A24978 /* GlobalFunctions.h */;
+		name = "GlobalFunctions.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 411;
+		vrLoc = 0;
+	};
+	0A726F5C174500B8001B395F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9132B5E70EC1D18500A24978 /* MixsonicStrings.cpp */;
+		name = "MixsonicStrings.cpp: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 32;
+		vrLoc = 0;
+	};
+	0AA68DC31758AF4B007ADBF6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9132B56E0EC1D18500A24978 /* MixsonicArrangementPanel.cpp */;
+		name = "MixsonicArrangementPanel.cpp: 646";
+		rLen = 0;
+		rLoc = 21812;
+		rType = 0;
+		vrLen = 0;
+		vrLoc = 0;
+	};
+	0ABB988A1744EFB900013521 /* Mixsonic */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Mixsonic;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	0ABB98AE1744EFDA00013521 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	0ABB98AF1744EFDA00013521 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	0ABB98FE1744F77500013521 /* juce_audio_devices.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0ABB99001744F78900013521 /* juce_audio_formats.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0ABB99021744F79D00013521 /* juce_audio_processors.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0ABB99041744F7B300013521 /* juce_audio_utils.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0AC1A6E60F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 2795}}";
+			sepNavSelRange = "{3349, 0}";
+			sepNavVisRange = "{3136, 469}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	0AE585DD1744F81900C49382 /* juce_core.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0AE585DF1744F83200C49382 /* juce_data_structures.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0AE585E11744F84A00C49382 /* juce_events.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0AE585E31744F86D00C49382 /* juce_graphics.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	0AE585E51744F88700C49382 /* juce_gui_basics.mm */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 338}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 819}";
+		};
+	};
+	20286C28FDCF999611CA2CEA /* Project object */ = {
+		activeArchitecturePreference = i386;
+		activeBuildConfigurationName = Debug;
+		activeExecutable = 0ABB988A1744EFB900013521 /* Mixsonic */;
+		activeTarget = 8D0C4E890486CD37000505A6 /* Mixsonic */;
+		addToTargets = (
+			8D0C4E890486CD37000505A6 /* Mixsonic */,
+		);
+		codeSenseManager = 0ABB98AF1744EFDA00013521 /* Code sense */;
+		executables = (
+			0ABB988A1744EFB900013521 /* Mixsonic */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					559,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					671,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					631,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 391680158;
+			PBXWorkspaceStateSaveDate = 391680158;
+		};
+		perUserProjectItems = {
+			0A0C06B51757D11A00FEA103 /* PBXTextBookmark */ = 0A0C06B51757D11A00FEA103 /* PBXTextBookmark */;
+			0A0C07891757ED8600FEA103 /* PBXTextBookmark */ = 0A0C07891757ED8600FEA103 /* PBXTextBookmark */;
+			0A726F5A174500B8001B395F /* PBXTextBookmark */ = 0A726F5A174500B8001B395F /* PBXTextBookmark */;
+			0A726F5B174500B8001B395F /* PBXTextBookmark */ = 0A726F5B174500B8001B395F /* PBXTextBookmark */;
+			0A726F5C174500B8001B395F /* PBXTextBookmark */ = 0A726F5C174500B8001B395F /* PBXTextBookmark */;
+			0AA68DC31758AF4B007ADBF6 /* PBXTextBookmark */ = 0AA68DC31758AF4B007ADBF6 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 0ABB98AE1744EFDA00013521 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D0C4E890486CD37000505A6 /* Mixsonic */ = {
+		activeExec = 0;
+		executables = (
+			0ABB988A1744EFB900013521 /* Mixsonic */,
+		);
+	};
+	911A2EF30EED367F00704729 /* MixsonicTextEntryDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 702}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 0}";
+		};
+	};
+	9132B56C0EC1D18500A24978 /* MixsonicArrangementEditor.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {987, 8450}}";
+			sepNavSelRange = "{19505, 0}";
+			sepNavVisRange = "{18447, 1803}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B56E0EC1D18500A24978 /* MixsonicArrangementPanel.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 11284}}";
+			sepNavSelRange = "{21812, 0}";
+			sepNavVisRange = "{0, 0}";
+			sepNavWindowFrame = "{{251, 0}, {1046, 746}}";
+		};
+	};
+	9132B5720EC1D18500A24978 /* MixsonicBrowserBase.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 2574}}";
+			sepNavSelRange = "{3941, 0}";
+			sepNavVisRange = "{3765, 204}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5740EC1D18500A24978 /* MixsonicContentComponent.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 11180}}";
+			sepNavSelRange = "{15379, 0}";
+			sepNavVisRange = "{15068, 409}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B57C0EC1D18500A24978 /* MixsonicTrackControlComponent.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 4017}}";
+			sepNavSelRange = "{11025, 0}";
+			sepNavVisRange = "{10893, 425}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5810EC1D18500A24978 /* MixsonicCreateDirectoryDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1417}}";
+			sepNavSelRange = "{2788, 0}";
+			sepNavVisRange = "{2625, 346}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5830EC1D18500A24978 /* MixsonicEnterProjectNameDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1443}}";
+			sepNavSelRange = "{2803, 0}";
+			sepNavVisRange = "{2639, 347}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5890EC1D18500A24978 /* MixsonicNewProjectDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {987, 1365}}";
+			sepNavSelRange = "{2731, 0}";
+			sepNavVisRange = "{1631, 1461}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B58F0EC1D18500A24978 /* AudioClipComponent.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 3250}}";
+			sepNavSelRange = "{1032, 0}";
+			sepNavVisRange = "{653, 1012}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B59A0EC1D18500A24978 /* DualWaveformDisplay.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 2860}}";
+			sepNavSelRange = "{1890, 0}";
+			sepNavVisRange = "{1638, 323}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5AA0EC1D18500A24978 /* WaveformDisplay.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 2574}}";
+			sepNavSelRange = "{5547, 0}";
+			sepNavVisRange = "{5332, 422}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5AD0EC1D18500A24978 /* HalfTransparentButton.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 624}}";
+			sepNavSelRange = "{811, 0}";
+			sepNavVisRange = "{649, 301}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5BC0EC1D18500A24978 /* RButton.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 2171}}";
+			sepNavSelRange = "{2921, 0}";
+			sepNavVisRange = "{2834, 235}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5C60EC1D18500A24978 /* AudioFileBuffer.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 2951}}";
+			sepNavSelRange = "{857, 0}";
+			sepNavVisRange = "{714, 376}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5D20EC1D18500A24978 /* ImmediatePlaybackAudioSource.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1547}}";
+			sepNavSelRange = "{720, 0}";
+			sepNavVisRange = "{547, 379}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5D50EC1D18500A24978 /* Arrangement.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 7722}}";
+			sepNavSelRange = "{14838, 0}";
+			sepNavVisRange = "{14658, 507}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5E40EC1D18500A24978 /* GlobalFunctions.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 2769}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 411}";
+		};
+	};
+	9132B5E70EC1D18500A24978 /* MixsonicStrings.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 162}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 32}";
+		};
+	};
+	9132B5E90EC1D18500A24978 /* SamplePool.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 5447}}";
+			sepNavSelRange = "{921, 0}";
+			sepNavVisRange = "{686, 445}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	9132B5F70EC1D18500A24978 /* Track.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 3211}}";
+			sepNavSelRange = "{717, 0}";
+			sepNavVisRange = "{557, 309}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	91B91B160ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {987, 2782}}";
+			sepNavSelRange = "{6733, 0}";
+			sepNavVisRange = "{5632, 1655}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	91B91B180ED6BB5F00B43749 /* MixsonicAudioRecordDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1898}}";
+			sepNavSelRange = "{2749, 0}";
+			sepNavVisRange = "{2510, 318}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	91B91B1A0ED6BB5F00B43749 /* MixsonicEnterNameDialog.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1053}}";
+			sepNavSelRange = "{1936, 0}";
+			sepNavVisRange = "{1779, 340}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	91E475710EE6C62500216405 /* ClipManipulator.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1326}}";
+			sepNavSelRange = "{572, 0}";
+			sepNavVisRange = "{0, 706}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	91E4757A0EE6C63800216405 /* ClipComponent.cpp */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 4641}}";
+			sepNavSelRange = "{5343, 63}";
+			sepNavVisRange = "{5176, 499}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+	91E4757B0EE6C63800216405 /* ClipComponent.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {849, 2028}}";
+			sepNavSelRange = "{1260, 0}";
+			sepNavVisRange = "{25, 507}";
+			sepNavWindowFrame = "{{87, 0}, {1046, 746}}";
+		};
+	};
+}

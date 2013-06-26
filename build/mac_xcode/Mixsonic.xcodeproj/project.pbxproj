@@ -1,0 +1,886 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0A22D5760F1E8B9500BF3DC8 /* ThreadedDrawingPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A22D5740F1E8B9400BF3DC8 /* ThreadedDrawingPanel.cpp */; };
+		0A726F101744FE98001B395F /* MixsonicSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A726F0E1744FE98001B395F /* MixsonicSettings.cpp */; };
+		0A726F441744FF64001B395F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A726F431744FF64001B395F /* AudioToolbox.framework */; };
+		0A726F4C17450036001B395F /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A726F4B17450036001B395F /* Quartz.framework */; };
+		0A726F5417450079001B395F /* MixsonicGlobalSettingsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A726F5217450079001B395F /* MixsonicGlobalSettingsDialog.cpp */; };
+		0ABB98E21744F4F400013521 /* RFileTreeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB98E01744F4F400013521 /* RFileTreeComponent.cpp */; };
+		0ABB98FA1744F73D00013521 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB98F91744F73D00013521 /* juce_audio_basics.mm */; };
+		0ABB98FF1744F77500013521 /* juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB98FE1744F77500013521 /* juce_audio_devices.mm */; };
+		0ABB99011744F78900013521 /* juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB99001744F78900013521 /* juce_audio_formats.mm */; };
+		0ABB99031744F79D00013521 /* juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB99021744F79D00013521 /* juce_audio_processors.mm */; };
+		0ABB99051744F7B300013521 /* juce_audio_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB99041744F7B300013521 /* juce_audio_utils.mm */; };
+		0AC1A6E90F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AC1A6E60F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp */; };
+		0AC1BB3D0F1BE39800E5AA41 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC1BB3C0F1BE39800E5AA41 /* AGL.framework */; };
+		0AC1BB410F1BE3B100E5AA41 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AC1BB400F1BE3B100E5AA41 /* AudioUnit.framework */; };
+		0AE585DE1744F81900C49382 /* juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585DD1744F81900C49382 /* juce_core.mm */; };
+		0AE585E01744F83200C49382 /* juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585DF1744F83200C49382 /* juce_data_structures.mm */; };
+		0AE585E21744F84A00C49382 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585E11744F84A00C49382 /* juce_events.mm */; };
+		0AE585E41744F86D00C49382 /* juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585E31744F86D00C49382 /* juce_graphics.mm */; };
+		0AE585E61744F88700C49382 /* juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0AE585E51744F88700C49382 /* juce_gui_basics.mm */; };
+		911A2ED40EED335B00704729 /* MixsonicTextEntryField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911A2ED20EED335B00704729 /* MixsonicTextEntryField.cpp */; };
+		911A2EF50EED367F00704729 /* MixsonicTextEntryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 911A2EF30EED367F00704729 /* MixsonicTextEntryDialog.cpp */; };
+		913201E40EEFD35A00A03B73 /* AudioFileBufferUser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 913201E20EEFD35A00A03B73 /* AudioFileBufferUser.cpp */; };
+		9132B6300EC1D18500A24978 /* MixsonicArrangementEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B56C0EC1D18500A24978 /* MixsonicArrangementEditor.cpp */; };
+		9132B6310EC1D18500A24978 /* MixsonicArrangementPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B56E0EC1D18500A24978 /* MixsonicArrangementPanel.cpp */; };
+		9132B6320EC1D18500A24978 /* MixsonicArrangementScroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5700EC1D18500A24978 /* MixsonicArrangementScroller.cpp */; };
+		9132B6330EC1D18500A24978 /* MixsonicBrowserBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5720EC1D18500A24978 /* MixsonicBrowserBase.cpp */; };
+		9132B6340EC1D18500A24978 /* MixsonicContentComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5740EC1D18500A24978 /* MixsonicContentComponent.cpp */; };
+		9132B6350EC1D18500A24978 /* MixsonicProjectComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5760EC1D18500A24978 /* MixsonicProjectComponent.cpp */; };
+		9132B6360EC1D18500A24978 /* MixsonicSampleBrowser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5780EC1D18500A24978 /* MixsonicSampleBrowser.cpp */; };
+		9132B6370EC1D18500A24978 /* MixsonicSubBrowser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B57A0EC1D18500A24978 /* MixsonicSubBrowser.cpp */; };
+		9132B6380EC1D18500A24978 /* MixsonicTrackControlComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B57C0EC1D18500A24978 /* MixsonicTrackControlComponent.cpp */; };
+		9132B63A0EC1D18500A24978 /* MixsonicCreateDirectoryDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5810EC1D18500A24978 /* MixsonicCreateDirectoryDialog.cpp */; };
+		9132B63B0EC1D18500A24978 /* MixsonicEnterProjectNameDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5830EC1D18500A24978 /* MixsonicEnterProjectNameDialog.cpp */; };
+		9132B63C0EC1D18500A24978 /* MixsonicModalDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5850EC1D18500A24978 /* MixsonicModalDialog.cpp */; };
+		9132B63D0EC1D18500A24978 /* MixsonicMoveFileDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5870EC1D18500A24978 /* MixsonicMoveFileDialog.cpp */; };
+		9132B63E0EC1D18500A24978 /* MixsonicNewProjectDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5890EC1D18500A24978 /* MixsonicNewProjectDialog.cpp */; };
+		9132B6400EC1D18500A24978 /* AudioClipComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B58E0EC1D18500A24978 /* AudioClipComponent.cpp */; };
+		9132B6420EC1D18500A24978 /* ComponentDragContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5920EC1D18500A24978 /* ComponentDragContainer.cpp */; };
+		9132B6430EC1D18500A24978 /* ComponentGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5940EC1D18500A24978 /* ComponentGrabber.cpp */; };
+		9132B6460EC1D18500A24978 /* DualWaveformDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B59A0EC1D18500A24978 /* DualWaveformDisplay.cpp */; };
+		9132B6470EC1D18500A24978 /* GlobalTimeFrameComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B59C0EC1D18500A24978 /* GlobalTimeFrameComponent.cpp */; };
+		9132B6480EC1D18500A24978 /* GrabbableComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B59E0EC1D18500A24978 /* GrabbableComponent.cpp */; };
+		9132B6490EC1D18500A24978 /* Panel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5A00EC1D18500A24978 /* Panel.cpp */; };
+		9132B64A0EC1D18500A24978 /* PanelRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5A20EC1D18500A24978 /* PanelRange.cpp */; };
+		9132B64B0EC1D18500A24978 /* RectangleComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5A40EC1D18500A24978 /* RectangleComponent.cpp */; };
+		9132B64C0EC1D18500A24978 /* TimeLineComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5A60EC1D18500A24978 /* TimeLineComponent.cpp */; };
+		9132B64D0EC1D18500A24978 /* TrackComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5A80EC1D18500A24978 /* TrackComponent.cpp */; };
+		9132B64E0EC1D18500A24978 /* WaveformDisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5AA0EC1D18500A24978 /* WaveformDisplay.cpp */; };
+		9132B64F0EC1D18500A24978 /* HalfTransparentButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5AD0EC1D18500A24978 /* HalfTransparentButton.cpp */; };
+		9132B6500EC1D18500A24978 /* MixsonicArrangementEditorResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5AF0EC1D18500A24978 /* MixsonicArrangementEditorResources.cpp */; };
+		9132B6510EC1D18500A24978 /* MixsonicButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5B10EC1D18500A24978 /* MixsonicButton.cpp */; };
+		9132B6520EC1D18500A24978 /* MixsonicProjectComponentResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5B30EC1D18500A24978 /* MixsonicProjectComponentResources.cpp */; };
+		9132B6530EC1D18500A24978 /* MixsonicSampleBrowserResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5B50EC1D18500A24978 /* MixsonicSampleBrowserResources.cpp */; };
+		9132B6540EC1D18500A24978 /* MixsonicSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5B70EC1D18500A24978 /* MixsonicSlider.cpp */; };
+		9132B6550EC1D18500A24978 /* MixsonicTrackControlComponentResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5BA0EC1D18500A24978 /* MixsonicTrackControlComponentResources.cpp */; };
+		9132B6560EC1D18500A24978 /* RButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5BC0EC1D18500A24978 /* RButton.cpp */; };
+		9132B6570EC1D18500A24978 /* RComboBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5BE0EC1D18500A24978 /* RComboBox.cpp */; };
+		9132B6580EC1D18500A24978 /* RLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5C00EC1D18500A24978 /* RLabel.cpp */; };
+		9132B6590EC1D18500A24978 /* RWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5C20EC1D18500A24978 /* RWidget.cpp */; };
+		9132B65A0EC1D18500A24978 /* AudioFileBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5C60EC1D18500A24978 /* AudioFileBuffer.cpp */; };
+		9132B65D0EC1D18500A24978 /* AudioFileInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5CC0EC1D18500A24978 /* AudioFileInfo.cpp */; };
+		9132B65E0EC1D18500A24978 /* AudioRenderingThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5CE0EC1D18500A24978 /* AudioRenderingThread.cpp */; };
+		9132B65F0EC1D18500A24978 /* AudioSampleBufferFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5D00EC1D18500A24978 /* AudioSampleBufferFunctions.cpp */; };
+		9132B6600EC1D18500A24978 /* ImmediatePlaybackAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5D20EC1D18500A24978 /* ImmediatePlaybackAudioSource.cpp */; };
+		9132B6610EC1D18500A24978 /* Arrangement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5D50EC1D18500A24978 /* Arrangement.cpp */; };
+		9132B6620EC1D18500A24978 /* AudioClip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5D70EC1D18500A24978 /* AudioClip.cpp */; };
+		9132B6640EC1D18500A24978 /* Clip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5DB0EC1D18500A24978 /* Clip.cpp */; };
+		9132B6650EC1D18500A24978 /* DescribedItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5DD0EC1D18500A24978 /* DescribedItem.cpp */; };
+		9132B6660EC1D18500A24978 /* FileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5E10EC1D18500A24978 /* FileManager.cpp */; };
+		9132B6670EC1D18500A24978 /* GlobalFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5E30EC1D18500A24978 /* GlobalFunctions.cpp */; };
+		9132B6680EC1D18500A24978 /* MessageBoxes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5E50EC1D18500A24978 /* MessageBoxes.cpp */; };
+		9132B6690EC1D18500A24978 /* MixsonicStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5E70EC1D18500A24978 /* MixsonicStrings.cpp */; };
+		9132B66A0EC1D18500A24978 /* SamplePool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5E90EC1D18500A24978 /* SamplePool.cpp */; };
+		9132B66B0EC1D18500A24978 /* SamplePoolClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5EB0EC1D18500A24978 /* SamplePoolClient.cpp */; };
+		9132B66C0EC1D18500A24978 /* SelectableItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5ED0EC1D18500A24978 /* SelectableItem.cpp */; };
+		9132B66D0EC1D18500A24978 /* SelectionListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5EF0EC1D18500A24978 /* SelectionListener.cpp */; };
+		9132B66E0EC1D18500A24978 /* StateFileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5F10EC1D18500A24978 /* StateFileManager.cpp */; };
+		9132B66F0EC1D18500A24978 /* TimeFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5F30EC1D18500A24978 /* TimeFrame.cpp */; };
+		9132B6700EC1D18500A24978 /* TimeUnitConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5F50EC1D18500A24978 /* TimeUnitConverter.cpp */; };
+		9132B6710EC1D18500A24978 /* Track.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B5F70EC1D18500A24978 /* Track.cpp */; };
+		9132B68F0EC1D18500A24978 /* MixsonicMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9132B62F0EC1D18500A24978 /* MixsonicMain.cpp */; };
+		91B126710EE41FD400154EDE /* MixsonicLookAndFeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B1266E0EE41FD400154EDE /* MixsonicLookAndFeel.cpp */; };
+		91B126740EE41FEB00154EDE /* DirectoryTreeComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B126720EE41FEB00154EDE /* DirectoryTreeComponent.cpp */; };
+		91B91B130ED6BB3700B43749 /* AudioRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B91B110ED6BB3700B43749 /* AudioRecorder.cpp */; };
+		91B91B1C0ED6BB5F00B43749 /* MixsonicAudioExportDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B91B140ED6BB5F00B43749 /* MixsonicAudioExportDialog.cpp */; };
+		91B91B1D0ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B91B160ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.cpp */; };
+		91B91B1E0ED6BB5F00B43749 /* MixsonicAudioRecordDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B91B180ED6BB5F00B43749 /* MixsonicAudioRecordDialog.cpp */; };
+		91B91B1F0ED6BB5F00B43749 /* MixsonicEnterNameDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91B91B1A0ED6BB5F00B43749 /* MixsonicEnterNameDialog.cpp */; };
+		91D64A560EE42A1200AED074 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A4B0EE42A1200AED074 /* Cocoa.framework */; };
+		91D64A570EE42A1200AED074 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A4C0EE42A1200AED074 /* CoreAudio.framework */; };
+		91D64A580EE42A1200AED074 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A4D0EE42A1200AED074 /* CoreMIDI.framework */; };
+		91D64A590EE42A1200AED074 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A4E0EE42A1200AED074 /* DiscRecording.framework */; };
+		91D64A5A0EE42A1200AED074 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A4F0EE42A1200AED074 /* IOKit.framework */; };
+		91D64A5B0EE42A1200AED074 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A500EE42A1200AED074 /* OpenGL.framework */; };
+		91D64A5C0EE42A1200AED074 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A510EE42A1200AED074 /* QTKit.framework */; };
+		91D64A5D0EE42A1200AED074 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A520EE42A1200AED074 /* QuickTime.framework */; };
+		91D64A5E0EE42A1200AED074 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A530EE42A1200AED074 /* WebKit.framework */; };
+		91D64A5F0EE42A1200AED074 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A540EE42A1200AED074 /* AppKit.framework */; };
+		91D64A600EE42A1200AED074 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A550EE42A1200AED074 /* Foundation.framework */; };
+		91D64A690EE42B0F00AED074 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D64A680EE42B0F00AED074 /* Carbon.framework */; };
+		91E475720EE6C62500216405 /* ClipDeletionWatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E4756C0EE6C62500216405 /* ClipDeletionWatcher.cpp */; };
+		91E475730EE6C62500216405 /* ClipInstantiationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E4756E0EE6C62500216405 /* ClipInstantiationManager.cpp */; };
+		91E475740EE6C62500216405 /* ClipManipulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E475700EE6C62500216405 /* ClipManipulator.cpp */; };
+		91E4757C0EE6C63800216405 /* ClipComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91E4757A0EE6C63800216405 /* ClipComponent.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0A22D5740F1E8B9400BF3DC8 /* ThreadedDrawingPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadedDrawingPanel.cpp; sourceTree = "<group>"; };
+		0A22D5750F1E8B9500BF3DC8 /* ThreadedDrawingPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ThreadedDrawingPanel.h; sourceTree = "<group>"; };
+		0A726F0E1744FE98001B395F /* MixsonicSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicSettings.cpp; sourceTree = "<group>"; };
+		0A726F0F1744FE98001B395F /* MixsonicSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicSettings.h; sourceTree = "<group>"; };
+		0A726F431744FF64001B395F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0A726F4B17450036001B395F /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		0A726F5217450079001B395F /* MixsonicGlobalSettingsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicGlobalSettingsDialog.cpp; sourceTree = "<group>"; };
+		0A726F5317450079001B395F /* MixsonicGlobalSettingsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicGlobalSettingsDialog.h; sourceTree = "<group>"; };
+		0ABB98E01744F4F400013521 /* RFileTreeComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RFileTreeComponent.cpp; sourceTree = "<group>"; };
+		0ABB98E11744F4F400013521 /* RFileTreeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFileTreeComponent.h; sourceTree = "<group>"; };
+		0ABB98F71744F6EC00013521 /* JuceIncludes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JuceIncludes.h; path = libs/JuceIncludes.h; sourceTree = "<group>"; };
+		0ABB98F81744F71B00013521 /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppConfig.h; path = libs/juce/AppConfig.h; sourceTree = "<group>"; };
+		0ABB98F91744F73D00013521 /* juce_audio_basics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_audio_basics.mm; path = libs/juce/modules/juce_audio_basics/juce_audio_basics.mm; sourceTree = "<group>"; };
+		0ABB98FE1744F77500013521 /* juce_audio_devices.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_audio_devices.mm; path = libs/juce/modules/juce_audio_devices/juce_audio_devices.mm; sourceTree = "<group>"; };
+		0ABB99001744F78900013521 /* juce_audio_formats.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_audio_formats.mm; path = libs/juce/modules/juce_audio_formats/juce_audio_formats.mm; sourceTree = "<group>"; };
+		0ABB99021744F79D00013521 /* juce_audio_processors.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_audio_processors.mm; path = libs/juce/modules/juce_audio_processors/juce_audio_processors.mm; sourceTree = "<group>"; };
+		0ABB99041744F7B300013521 /* juce_audio_utils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_audio_utils.mm; path = libs/juce/modules/juce_audio_utils/juce_audio_utils.mm; sourceTree = "<group>"; };
+		0AC1A6E60F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadedDrawingComponent.cpp; sourceTree = "<group>"; };
+		0AC1A6E70F1D0C1D009D4652 /* ThreadedDrawingComponent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ThreadedDrawingComponent.h; sourceTree = "<group>"; };
+		0AC1BB3C0F1BE39800E5AA41 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		0AC1BB400F1BE3B100E5AA41 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		0AE585DD1744F81900C49382 /* juce_core.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_core.mm; path = libs/juce/modules/juce_core/juce_core.mm; sourceTree = "<group>"; };
+		0AE585DF1744F83200C49382 /* juce_data_structures.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_data_structures.mm; path = libs/juce/modules/juce_data_structures/juce_data_structures.mm; sourceTree = "<group>"; };
+		0AE585E11744F84A00C49382 /* juce_events.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_events.mm; path = libs/juce/modules/juce_events/juce_events.mm; sourceTree = "<group>"; };
+		0AE585E31744F86D00C49382 /* juce_graphics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_graphics.mm; path = libs/juce/modules/juce_graphics/juce_graphics.mm; sourceTree = "<group>"; };
+		0AE585E51744F88700C49382 /* juce_gui_basics.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_gui_basics.mm; path = libs/juce/modules/juce_gui_basics/juce_gui_basics.mm; sourceTree = "<group>"; };
+		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D0C4E970486CD37000505A6 /* Mixsonic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mixsonic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9109CC350EF7B66300C6E25D /* MixsonicStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicStrings.h; sourceTree = "<group>"; };
+		911A2ED20EED335B00704729 /* MixsonicTextEntryField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicTextEntryField.cpp; sourceTree = "<group>"; };
+		911A2ED30EED335B00704729 /* MixsonicTextEntryField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicTextEntryField.h; sourceTree = "<group>"; };
+		911A2EF30EED367F00704729 /* MixsonicTextEntryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicTextEntryDialog.cpp; sourceTree = "<group>"; };
+		911A2EF40EED367F00704729 /* MixsonicTextEntryDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicTextEntryDialog.h; sourceTree = "<group>"; };
+		913201E20EEFD35A00A03B73 /* AudioFileBufferUser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFileBufferUser.cpp; sourceTree = "<group>"; };
+		913201E30EEFD35A00A03B73 /* AudioFileBufferUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileBufferUser.h; sourceTree = "<group>"; };
+		9132B56C0EC1D18500A24978 /* MixsonicArrangementEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicArrangementEditor.cpp; sourceTree = "<group>"; };
+		9132B56D0EC1D18500A24978 /* MixsonicArrangementEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicArrangementEditor.h; sourceTree = "<group>"; };
+		9132B56E0EC1D18500A24978 /* MixsonicArrangementPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicArrangementPanel.cpp; sourceTree = "<group>"; };
+		9132B56F0EC1D18500A24978 /* MixsonicArrangementPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicArrangementPanel.h; sourceTree = "<group>"; };
+		9132B5700EC1D18500A24978 /* MixsonicArrangementScroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicArrangementScroller.cpp; sourceTree = "<group>"; };
+		9132B5710EC1D18500A24978 /* MixsonicArrangementScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicArrangementScroller.h; sourceTree = "<group>"; };
+		9132B5720EC1D18500A24978 /* MixsonicBrowserBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicBrowserBase.cpp; sourceTree = "<group>"; };
+		9132B5730EC1D18500A24978 /* MixsonicBrowserBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicBrowserBase.h; sourceTree = "<group>"; };
+		9132B5740EC1D18500A24978 /* MixsonicContentComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicContentComponent.cpp; sourceTree = "<group>"; };
+		9132B5750EC1D18500A24978 /* MixsonicContentComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicContentComponent.h; sourceTree = "<group>"; };
+		9132B5760EC1D18500A24978 /* MixsonicProjectComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicProjectComponent.cpp; sourceTree = "<group>"; };
+		9132B5770EC1D18500A24978 /* MixsonicProjectComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicProjectComponent.h; sourceTree = "<group>"; };
+		9132B5780EC1D18500A24978 /* MixsonicSampleBrowser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicSampleBrowser.cpp; sourceTree = "<group>"; };
+		9132B5790EC1D18500A24978 /* MixsonicSampleBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicSampleBrowser.h; sourceTree = "<group>"; };
+		9132B57A0EC1D18500A24978 /* MixsonicSubBrowser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicSubBrowser.cpp; sourceTree = "<group>"; };
+		9132B57B0EC1D18500A24978 /* MixsonicSubBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicSubBrowser.h; sourceTree = "<group>"; };
+		9132B57C0EC1D18500A24978 /* MixsonicTrackControlComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicTrackControlComponent.cpp; sourceTree = "<group>"; };
+		9132B57D0EC1D18500A24978 /* MixsonicTrackControlComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicTrackControlComponent.h; sourceTree = "<group>"; };
+		9132B5810EC1D18500A24978 /* MixsonicCreateDirectoryDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicCreateDirectoryDialog.cpp; sourceTree = "<group>"; };
+		9132B5820EC1D18500A24978 /* MixsonicCreateDirectoryDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicCreateDirectoryDialog.h; sourceTree = "<group>"; };
+		9132B5830EC1D18500A24978 /* MixsonicEnterProjectNameDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicEnterProjectNameDialog.cpp; sourceTree = "<group>"; };
+		9132B5840EC1D18500A24978 /* MixsonicEnterProjectNameDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicEnterProjectNameDialog.h; sourceTree = "<group>"; };
+		9132B5850EC1D18500A24978 /* MixsonicModalDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicModalDialog.cpp; sourceTree = "<group>"; };
+		9132B5860EC1D18500A24978 /* MixsonicModalDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicModalDialog.h; sourceTree = "<group>"; };
+		9132B5870EC1D18500A24978 /* MixsonicMoveFileDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicMoveFileDialog.cpp; sourceTree = "<group>"; };
+		9132B5880EC1D18500A24978 /* MixsonicMoveFileDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicMoveFileDialog.h; sourceTree = "<group>"; };
+		9132B5890EC1D18500A24978 /* MixsonicNewProjectDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicNewProjectDialog.cpp; sourceTree = "<group>"; };
+		9132B58A0EC1D18500A24978 /* MixsonicNewProjectDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicNewProjectDialog.h; sourceTree = "<group>"; };
+		9132B58E0EC1D18500A24978 /* AudioClipComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioClipComponent.cpp; sourceTree = "<group>"; };
+		9132B58F0EC1D18500A24978 /* AudioClipComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioClipComponent.h; sourceTree = "<group>"; };
+		9132B5920EC1D18500A24978 /* ComponentDragContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentDragContainer.cpp; sourceTree = "<group>"; };
+		9132B5930EC1D18500A24978 /* ComponentDragContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentDragContainer.h; sourceTree = "<group>"; };
+		9132B5940EC1D18500A24978 /* ComponentGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentGrabber.cpp; sourceTree = "<group>"; };
+		9132B5950EC1D18500A24978 /* ComponentGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComponentGrabber.h; sourceTree = "<group>"; };
+		9132B59A0EC1D18500A24978 /* DualWaveformDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DualWaveformDisplay.cpp; sourceTree = "<group>"; };
+		9132B59B0EC1D18500A24978 /* DualWaveformDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DualWaveformDisplay.h; sourceTree = "<group>"; };
+		9132B59C0EC1D18500A24978 /* GlobalTimeFrameComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlobalTimeFrameComponent.cpp; sourceTree = "<group>"; };
+		9132B59D0EC1D18500A24978 /* GlobalTimeFrameComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalTimeFrameComponent.h; sourceTree = "<group>"; };
+		9132B59E0EC1D18500A24978 /* GrabbableComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GrabbableComponent.cpp; sourceTree = "<group>"; };
+		9132B59F0EC1D18500A24978 /* GrabbableComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GrabbableComponent.h; sourceTree = "<group>"; };
+		9132B5A00EC1D18500A24978 /* Panel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Panel.cpp; sourceTree = "<group>"; };
+		9132B5A10EC1D18500A24978 /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panel.h; sourceTree = "<group>"; };
+		9132B5A20EC1D18500A24978 /* PanelRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanelRange.cpp; sourceTree = "<group>"; };
+		9132B5A30EC1D18500A24978 /* PanelRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanelRange.h; sourceTree = "<group>"; };
+		9132B5A40EC1D18500A24978 /* RectangleComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectangleComponent.cpp; sourceTree = "<group>"; };
+		9132B5A50EC1D18500A24978 /* RectangleComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectangleComponent.h; sourceTree = "<group>"; };
+		9132B5A60EC1D18500A24978 /* TimeLineComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeLineComponent.cpp; sourceTree = "<group>"; };
+		9132B5A70EC1D18500A24978 /* TimeLineComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineComponent.h; sourceTree = "<group>"; };
+		9132B5A80EC1D18500A24978 /* TrackComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrackComponent.cpp; sourceTree = "<group>"; };
+		9132B5A90EC1D18500A24978 /* TrackComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackComponent.h; sourceTree = "<group>"; };
+		9132B5AA0EC1D18500A24978 /* WaveformDisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WaveformDisplay.cpp; sourceTree = "<group>"; };
+		9132B5AB0EC1D18500A24978 /* WaveformDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveformDisplay.h; sourceTree = "<group>"; };
+		9132B5AD0EC1D18500A24978 /* HalfTransparentButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HalfTransparentButton.cpp; sourceTree = "<group>"; };
+		9132B5AE0EC1D18500A24978 /* HalfTransparentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HalfTransparentButton.h; sourceTree = "<group>"; };
+		9132B5AF0EC1D18500A24978 /* MixsonicArrangementEditorResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicArrangementEditorResources.cpp; sourceTree = "<group>"; };
+		9132B5B00EC1D18500A24978 /* MixsonicArrangementEditorResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicArrangementEditorResources.h; sourceTree = "<group>"; };
+		9132B5B10EC1D18500A24978 /* MixsonicButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicButton.cpp; sourceTree = "<group>"; };
+		9132B5B20EC1D18500A24978 /* MixsonicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicButton.h; sourceTree = "<group>"; };
+		9132B5B30EC1D18500A24978 /* MixsonicProjectComponentResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicProjectComponentResources.cpp; sourceTree = "<group>"; };
+		9132B5B40EC1D18500A24978 /* MixsonicProjectComponentResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicProjectComponentResources.h; sourceTree = "<group>"; };
+		9132B5B50EC1D18500A24978 /* MixsonicSampleBrowserResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicSampleBrowserResources.cpp; sourceTree = "<group>"; };
+		9132B5B60EC1D18500A24978 /* MixsonicSampleBrowserResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicSampleBrowserResources.h; sourceTree = "<group>"; };
+		9132B5B70EC1D18500A24978 /* MixsonicSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicSlider.cpp; sourceTree = "<group>"; };
+		9132B5B80EC1D18500A24978 /* MixsonicSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicSlider.h; sourceTree = "<group>"; };
+		9132B5B90EC1D18500A24978 /* MixsonicSliderListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicSliderListener.h; sourceTree = "<group>"; };
+		9132B5BA0EC1D18500A24978 /* MixsonicTrackControlComponentResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicTrackControlComponentResources.cpp; sourceTree = "<group>"; };
+		9132B5BB0EC1D18500A24978 /* MixsonicTrackControlComponentResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicTrackControlComponentResources.h; sourceTree = "<group>"; };
+		9132B5BC0EC1D18500A24978 /* RButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RButton.cpp; sourceTree = "<group>"; };
+		9132B5BD0EC1D18500A24978 /* RButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RButton.h; sourceTree = "<group>"; };
+		9132B5BE0EC1D18500A24978 /* RComboBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RComboBox.cpp; sourceTree = "<group>"; };
+		9132B5BF0EC1D18500A24978 /* RComboBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RComboBox.h; sourceTree = "<group>"; };
+		9132B5C00EC1D18500A24978 /* RLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RLabel.cpp; sourceTree = "<group>"; };
+		9132B5C10EC1D18500A24978 /* RLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLabel.h; sourceTree = "<group>"; };
+		9132B5C20EC1D18500A24978 /* RWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RWidget.cpp; sourceTree = "<group>"; };
+		9132B5C30EC1D18500A24978 /* RWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWidget.h; sourceTree = "<group>"; };
+		9132B5C60EC1D18500A24978 /* AudioFileBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFileBuffer.cpp; sourceTree = "<group>"; };
+		9132B5C70EC1D18500A24978 /* AudioFileBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileBuffer.h; sourceTree = "<group>"; };
+		9132B5CC0EC1D18500A24978 /* AudioFileInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFileInfo.cpp; sourceTree = "<group>"; };
+		9132B5CD0EC1D18500A24978 /* AudioFileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFileInfo.h; sourceTree = "<group>"; };
+		9132B5CE0EC1D18500A24978 /* AudioRenderingThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioRenderingThread.cpp; sourceTree = "<group>"; };
+		9132B5CF0EC1D18500A24978 /* AudioRenderingThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRenderingThread.h; sourceTree = "<group>"; };
+		9132B5D00EC1D18500A24978 /* AudioSampleBufferFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioSampleBufferFunctions.cpp; sourceTree = "<group>"; };
+		9132B5D10EC1D18500A24978 /* AudioSampleBufferFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioSampleBufferFunctions.h; sourceTree = "<group>"; };
+		9132B5D20EC1D18500A24978 /* ImmediatePlaybackAudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImmediatePlaybackAudioSource.cpp; sourceTree = "<group>"; };
+		9132B5D30EC1D18500A24978 /* ImmediatePlaybackAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImmediatePlaybackAudioSource.h; sourceTree = "<group>"; };
+		9132B5D50EC1D18500A24978 /* Arrangement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arrangement.cpp; sourceTree = "<group>"; };
+		9132B5D60EC1D18500A24978 /* Arrangement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arrangement.h; sourceTree = "<group>"; };
+		9132B5D70EC1D18500A24978 /* AudioClip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioClip.cpp; sourceTree = "<group>"; };
+		9132B5D80EC1D18500A24978 /* AudioClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioClip.h; sourceTree = "<group>"; };
+		9132B5DB0EC1D18500A24978 /* Clip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Clip.cpp; sourceTree = "<group>"; };
+		9132B5DC0EC1D18500A24978 /* Clip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Clip.h; sourceTree = "<group>"; };
+		9132B5DD0EC1D18500A24978 /* DescribedItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DescribedItem.cpp; sourceTree = "<group>"; };
+		9132B5DE0EC1D18500A24978 /* DescribedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescribedItem.h; sourceTree = "<group>"; };
+		9132B5DF0EC1D18500A24978 /* FileComparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileComparator.h; sourceTree = "<group>"; };
+		9132B5E00EC1D18500A24978 /* FileFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileFilters.h; sourceTree = "<group>"; };
+		9132B5E10EC1D18500A24978 /* FileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileManager.cpp; sourceTree = "<group>"; };
+		9132B5E20EC1D18500A24978 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
+		9132B5E30EC1D18500A24978 /* GlobalFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GlobalFunctions.cpp; sourceTree = "<group>"; };
+		9132B5E40EC1D18500A24978 /* GlobalFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalFunctions.h; sourceTree = "<group>"; };
+		9132B5E50EC1D18500A24978 /* MessageBoxes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MessageBoxes.cpp; sourceTree = "<group>"; };
+		9132B5E60EC1D18500A24978 /* MessageBoxes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBoxes.h; sourceTree = "<group>"; };
+		9132B5E70EC1D18500A24978 /* MixsonicStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicStrings.cpp; sourceTree = "<group>"; };
+		9132B5E90EC1D18500A24978 /* SamplePool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplePool.cpp; sourceTree = "<group>"; };
+		9132B5EA0EC1D18500A24978 /* SamplePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePool.h; sourceTree = "<group>"; };
+		9132B5EB0EC1D18500A24978 /* SamplePoolClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SamplePoolClient.cpp; sourceTree = "<group>"; };
+		9132B5EC0EC1D18500A24978 /* SamplePoolClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SamplePoolClient.h; sourceTree = "<group>"; };
+		9132B5ED0EC1D18500A24978 /* SelectableItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectableItem.cpp; sourceTree = "<group>"; };
+		9132B5EE0EC1D18500A24978 /* SelectableItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectableItem.h; sourceTree = "<group>"; };
+		9132B5EF0EC1D18500A24978 /* SelectionListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectionListener.cpp; sourceTree = "<group>"; };
+		9132B5F00EC1D18500A24978 /* SelectionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectionListener.h; sourceTree = "<group>"; };
+		9132B5F10EC1D18500A24978 /* StateFileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateFileManager.cpp; sourceTree = "<group>"; };
+		9132B5F20EC1D18500A24978 /* StateFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateFileManager.h; sourceTree = "<group>"; };
+		9132B5F30EC1D18500A24978 /* TimeFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeFrame.cpp; sourceTree = "<group>"; };
+		9132B5F40EC1D18500A24978 /* TimeFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFrame.h; sourceTree = "<group>"; };
+		9132B5F50EC1D18500A24978 /* TimeUnitConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeUnitConverter.cpp; sourceTree = "<group>"; };
+		9132B5F60EC1D18500A24978 /* TimeUnitConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUnitConverter.h; sourceTree = "<group>"; };
+		9132B5F70EC1D18500A24978 /* Track.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Track.cpp; sourceTree = "<group>"; };
+		9132B5F80EC1D18500A24978 /* Track.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track.h; sourceTree = "<group>"; };
+		9132B62F0EC1D18500A24978 /* MixsonicMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicMain.cpp; sourceTree = "<group>"; };
+		91B1266E0EE41FD400154EDE /* MixsonicLookAndFeel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicLookAndFeel.cpp; sourceTree = "<group>"; };
+		91B1266F0EE41FD400154EDE /* MixsonicLookAndFeel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicLookAndFeel.h; sourceTree = "<group>"; };
+		91B126720EE41FEB00154EDE /* DirectoryTreeComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DirectoryTreeComponent.cpp; sourceTree = "<group>"; };
+		91B126730EE41FEB00154EDE /* DirectoryTreeComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryTreeComponent.h; sourceTree = "<group>"; };
+		91B91B110ED6BB3700B43749 /* AudioRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioRecorder.cpp; sourceTree = "<group>"; };
+		91B91B120ED6BB3700B43749 /* AudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRecorder.h; sourceTree = "<group>"; };
+		91B91B140ED6BB5F00B43749 /* MixsonicAudioExportDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicAudioExportDialog.cpp; sourceTree = "<group>"; };
+		91B91B150ED6BB5F00B43749 /* MixsonicAudioExportDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicAudioExportDialog.h; sourceTree = "<group>"; };
+		91B91B160ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicAudioFileSettingsDialog.cpp; sourceTree = "<group>"; };
+		91B91B170ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicAudioFileSettingsDialog.h; sourceTree = "<group>"; };
+		91B91B180ED6BB5F00B43749 /* MixsonicAudioRecordDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicAudioRecordDialog.cpp; sourceTree = "<group>"; };
+		91B91B190ED6BB5F00B43749 /* MixsonicAudioRecordDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicAudioRecordDialog.h; sourceTree = "<group>"; };
+		91B91B1A0ED6BB5F00B43749 /* MixsonicEnterNameDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MixsonicEnterNameDialog.cpp; sourceTree = "<group>"; };
+		91B91B1B0ED6BB5F00B43749 /* MixsonicEnterNameDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixsonicEnterNameDialog.h; sourceTree = "<group>"; };
+		91D64A4B0EE42A1200AED074 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		91D64A4C0EE42A1200AED074 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		91D64A4D0EE42A1200AED074 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
+		91D64A4E0EE42A1200AED074 /* DiscRecording.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiscRecording.framework; path = /System/Library/Frameworks/DiscRecording.framework; sourceTree = "<absolute>"; };
+		91D64A4F0EE42A1200AED074 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		91D64A500EE42A1200AED074 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		91D64A510EE42A1200AED074 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
+		91D64A520EE42A1200AED074 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
+		91D64A530EE42A1200AED074 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		91D64A540EE42A1200AED074 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		91D64A550EE42A1200AED074 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		91D64A680EE42B0F00AED074 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		91E4756C0EE6C62500216405 /* ClipDeletionWatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipDeletionWatcher.cpp; sourceTree = "<group>"; };
+		91E4756D0EE6C62500216405 /* ClipDeletionWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipDeletionWatcher.h; sourceTree = "<group>"; };
+		91E4756E0EE6C62500216405 /* ClipInstantiationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipInstantiationManager.cpp; sourceTree = "<group>"; };
+		91E4756F0EE6C62500216405 /* ClipInstantiationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipInstantiationManager.h; sourceTree = "<group>"; };
+		91E475700EE6C62500216405 /* ClipManipulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipManipulator.cpp; sourceTree = "<group>"; };
+		91E475710EE6C62500216405 /* ClipManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipManipulator.h; sourceTree = "<group>"; };
+		91E4757A0EE6C63800216405 /* ClipComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClipComponent.cpp; sourceTree = "<group>"; };
+		91E4757B0EE6C63800216405 /* ClipComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipComponent.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D0C4E910486CD37000505A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91D64A560EE42A1200AED074 /* Cocoa.framework in Frameworks */,
+				91D64A570EE42A1200AED074 /* CoreAudio.framework in Frameworks */,
+				91D64A580EE42A1200AED074 /* CoreMIDI.framework in Frameworks */,
+				91D64A590EE42A1200AED074 /* DiscRecording.framework in Frameworks */,
+				91D64A5A0EE42A1200AED074 /* IOKit.framework in Frameworks */,
+				91D64A5B0EE42A1200AED074 /* OpenGL.framework in Frameworks */,
+				91D64A5C0EE42A1200AED074 /* QTKit.framework in Frameworks */,
+				91D64A5D0EE42A1200AED074 /* QuickTime.framework in Frameworks */,
+				91D64A5E0EE42A1200AED074 /* WebKit.framework in Frameworks */,
+				91D64A5F0EE42A1200AED074 /* AppKit.framework in Frameworks */,
+				91D64A600EE42A1200AED074 /* Foundation.framework in Frameworks */,
+				91D64A690EE42B0F00AED074 /* Carbon.framework in Frameworks */,
+				0AC1BB3D0F1BE39800E5AA41 /* AGL.framework in Frameworks */,
+				0AC1BB410F1BE3B100E5AA41 /* AudioUnit.framework in Frameworks */,
+				0A726F441744FF64001B395F /* AudioToolbox.framework in Frameworks */,
+				0A726F4C17450036001B395F /* Quartz.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0ABB98F51744F6C000013521 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				0ABB98F71744F6EC00013521 /* JuceIncludes.h */,
+				0ABB98F61744F6D300013521 /* juce */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
+		0ABB98F61744F6D300013521 /* juce */ = {
+			isa = PBXGroup;
+			children = (
+				0AE585E51744F88700C49382 /* juce_gui_basics.mm */,
+				0AE585E31744F86D00C49382 /* juce_graphics.mm */,
+				0AE585E11744F84A00C49382 /* juce_events.mm */,
+				0AE585DF1744F83200C49382 /* juce_data_structures.mm */,
+				0AE585DD1744F81900C49382 /* juce_core.mm */,
+				0ABB99041744F7B300013521 /* juce_audio_utils.mm */,
+				0ABB99021744F79D00013521 /* juce_audio_processors.mm */,
+				0ABB99001744F78900013521 /* juce_audio_formats.mm */,
+				0ABB98FE1744F77500013521 /* juce_audio_devices.mm */,
+				0ABB98F91744F73D00013521 /* juce_audio_basics.mm */,
+				0ABB98F81744F71B00013521 /* AppConfig.h */,
+			);
+			name = juce;
+			sourceTree = "<group>";
+		};
+		195DF8CFFE9D517E11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D0C4E970486CD37000505A6 /* Mixsonic.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20286C29FDCF999611CA2CEA /* Mixsonic */ = {
+			isa = PBXGroup;
+			children = (
+				20286C2AFDCF999611CA2CEA /* Sources */,
+				20286C2CFDCF999611CA2CEA /* Resources */,
+				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				195DF8CFFE9D517E11CA2CBB /* Products */,
+			);
+			name = Mixsonic;
+			sourceTree = "<group>";
+		};
+		20286C2AFDCF999611CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				9132B5690EC1D18500A24978 /* src */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		20286C2CFDCF999611CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8D0C4E960486CD37000505A6 /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				0A726F4B17450036001B395F /* Quartz.framework */,
+				0A726F431744FF64001B395F /* AudioToolbox.framework */,
+				0AC1BB400F1BE3B100E5AA41 /* AudioUnit.framework */,
+				0AC1BB3C0F1BE39800E5AA41 /* AGL.framework */,
+				91D64A680EE42B0F00AED074 /* Carbon.framework */,
+				91D64A4B0EE42A1200AED074 /* Cocoa.framework */,
+				91D64A4C0EE42A1200AED074 /* CoreAudio.framework */,
+				91D64A4D0EE42A1200AED074 /* CoreMIDI.framework */,
+				91D64A4E0EE42A1200AED074 /* DiscRecording.framework */,
+				91D64A4F0EE42A1200AED074 /* IOKit.framework */,
+				91D64A500EE42A1200AED074 /* OpenGL.framework */,
+				91D64A510EE42A1200AED074 /* QTKit.framework */,
+				91D64A520EE42A1200AED074 /* QuickTime.framework */,
+				91D64A530EE42A1200AED074 /* WebKit.framework */,
+				91D64A540EE42A1200AED074 /* AppKit.framework */,
+				91D64A550EE42A1200AED074 /* Foundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		9132B5690EC1D18500A24978 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				0ABB98F51744F6C000013521 /* libs */,
+				9132B56A0EC1D18500A24978 /* components */,
+				9132B5C40EC1D18500A24978 /* core */,
+				9132B62F0EC1D18500A24978 /* MixsonicMain.cpp */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = SOURCE_ROOT;
+		};
+		9132B56A0EC1D18500A24978 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				9132B56B0EC1D18500A24978 /* app_specific */,
+				9132B57E0EC1D18500A24978 /* dialogs */,
+				9132B58D0EC1D18500A24978 /* reusable */,
+				9132B5AC0EC1D18500A24978 /* widgets */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		9132B56B0EC1D18500A24978 /* app_specific */ = {
+			isa = PBXGroup;
+			children = (
+				91B1266E0EE41FD400154EDE /* MixsonicLookAndFeel.cpp */,
+				91B1266F0EE41FD400154EDE /* MixsonicLookAndFeel.h */,
+				9132B56C0EC1D18500A24978 /* MixsonicArrangementEditor.cpp */,
+				9132B56D0EC1D18500A24978 /* MixsonicArrangementEditor.h */,
+				9132B56E0EC1D18500A24978 /* MixsonicArrangementPanel.cpp */,
+				9132B56F0EC1D18500A24978 /* MixsonicArrangementPanel.h */,
+				9132B5700EC1D18500A24978 /* MixsonicArrangementScroller.cpp */,
+				9132B5710EC1D18500A24978 /* MixsonicArrangementScroller.h */,
+				9132B5720EC1D18500A24978 /* MixsonicBrowserBase.cpp */,
+				9132B5730EC1D18500A24978 /* MixsonicBrowserBase.h */,
+				9132B5740EC1D18500A24978 /* MixsonicContentComponent.cpp */,
+				9132B5750EC1D18500A24978 /* MixsonicContentComponent.h */,
+				9132B5760EC1D18500A24978 /* MixsonicProjectComponent.cpp */,
+				9132B5770EC1D18500A24978 /* MixsonicProjectComponent.h */,
+				9132B5780EC1D18500A24978 /* MixsonicSampleBrowser.cpp */,
+				9132B5790EC1D18500A24978 /* MixsonicSampleBrowser.h */,
+				9132B57A0EC1D18500A24978 /* MixsonicSubBrowser.cpp */,
+				9132B57B0EC1D18500A24978 /* MixsonicSubBrowser.h */,
+				9132B57C0EC1D18500A24978 /* MixsonicTrackControlComponent.cpp */,
+				9132B57D0EC1D18500A24978 /* MixsonicTrackControlComponent.h */,
+			);
+			path = app_specific;
+			sourceTree = "<group>";
+		};
+		9132B57E0EC1D18500A24978 /* dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				0A726F5217450079001B395F /* MixsonicGlobalSettingsDialog.cpp */,
+				0A726F5317450079001B395F /* MixsonicGlobalSettingsDialog.h */,
+				911A2EF30EED367F00704729 /* MixsonicTextEntryDialog.cpp */,
+				911A2EF40EED367F00704729 /* MixsonicTextEntryDialog.h */,
+				91B91B140ED6BB5F00B43749 /* MixsonicAudioExportDialog.cpp */,
+				91B91B150ED6BB5F00B43749 /* MixsonicAudioExportDialog.h */,
+				91B91B160ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.cpp */,
+				91B91B170ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.h */,
+				91B91B180ED6BB5F00B43749 /* MixsonicAudioRecordDialog.cpp */,
+				91B91B190ED6BB5F00B43749 /* MixsonicAudioRecordDialog.h */,
+				91B91B1A0ED6BB5F00B43749 /* MixsonicEnterNameDialog.cpp */,
+				91B91B1B0ED6BB5F00B43749 /* MixsonicEnterNameDialog.h */,
+				9132B5810EC1D18500A24978 /* MixsonicCreateDirectoryDialog.cpp */,
+				9132B5820EC1D18500A24978 /* MixsonicCreateDirectoryDialog.h */,
+				9132B5830EC1D18500A24978 /* MixsonicEnterProjectNameDialog.cpp */,
+				9132B5840EC1D18500A24978 /* MixsonicEnterProjectNameDialog.h */,
+				9132B5850EC1D18500A24978 /* MixsonicModalDialog.cpp */,
+				9132B5860EC1D18500A24978 /* MixsonicModalDialog.h */,
+				9132B5870EC1D18500A24978 /* MixsonicMoveFileDialog.cpp */,
+				9132B5880EC1D18500A24978 /* MixsonicMoveFileDialog.h */,
+				9132B5890EC1D18500A24978 /* MixsonicNewProjectDialog.cpp */,
+				9132B58A0EC1D18500A24978 /* MixsonicNewProjectDialog.h */,
+			);
+			path = dialogs;
+			sourceTree = "<group>";
+		};
+		9132B58D0EC1D18500A24978 /* reusable */ = {
+			isa = PBXGroup;
+			children = (
+				0ABB98E01744F4F400013521 /* RFileTreeComponent.cpp */,
+				0ABB98E11744F4F400013521 /* RFileTreeComponent.h */,
+				0A22D5740F1E8B9400BF3DC8 /* ThreadedDrawingPanel.cpp */,
+				0A22D5750F1E8B9500BF3DC8 /* ThreadedDrawingPanel.h */,
+				0AC1A6E60F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp */,
+				0AC1A6E70F1D0C1D009D4652 /* ThreadedDrawingComponent.h */,
+				91E4757A0EE6C63800216405 /* ClipComponent.cpp */,
+				91E4757B0EE6C63800216405 /* ClipComponent.h */,
+				91B126720EE41FEB00154EDE /* DirectoryTreeComponent.cpp */,
+				91B126730EE41FEB00154EDE /* DirectoryTreeComponent.h */,
+				9132B58E0EC1D18500A24978 /* AudioClipComponent.cpp */,
+				9132B58F0EC1D18500A24978 /* AudioClipComponent.h */,
+				9132B5920EC1D18500A24978 /* ComponentDragContainer.cpp */,
+				9132B5930EC1D18500A24978 /* ComponentDragContainer.h */,
+				9132B5940EC1D18500A24978 /* ComponentGrabber.cpp */,
+				9132B5950EC1D18500A24978 /* ComponentGrabber.h */,
+				9132B59A0EC1D18500A24978 /* DualWaveformDisplay.cpp */,
+				9132B59B0EC1D18500A24978 /* DualWaveformDisplay.h */,
+				9132B59C0EC1D18500A24978 /* GlobalTimeFrameComponent.cpp */,
+				9132B59D0EC1D18500A24978 /* GlobalTimeFrameComponent.h */,
+				9132B59E0EC1D18500A24978 /* GrabbableComponent.cpp */,
+				9132B59F0EC1D18500A24978 /* GrabbableComponent.h */,
+				9132B5A00EC1D18500A24978 /* Panel.cpp */,
+				9132B5A10EC1D18500A24978 /* Panel.h */,
+				9132B5A20EC1D18500A24978 /* PanelRange.cpp */,
+				9132B5A30EC1D18500A24978 /* PanelRange.h */,
+				9132B5A40EC1D18500A24978 /* RectangleComponent.cpp */,
+				9132B5A50EC1D18500A24978 /* RectangleComponent.h */,
+				9132B5A60EC1D18500A24978 /* TimeLineComponent.cpp */,
+				9132B5A70EC1D18500A24978 /* TimeLineComponent.h */,
+				9132B5A80EC1D18500A24978 /* TrackComponent.cpp */,
+				9132B5A90EC1D18500A24978 /* TrackComponent.h */,
+				9132B5AA0EC1D18500A24978 /* WaveformDisplay.cpp */,
+				9132B5AB0EC1D18500A24978 /* WaveformDisplay.h */,
+			);
+			path = reusable;
+			sourceTree = "<group>";
+		};
+		9132B5AC0EC1D18500A24978 /* widgets */ = {
+			isa = PBXGroup;
+			children = (
+				911A2ED20EED335B00704729 /* MixsonicTextEntryField.cpp */,
+				911A2ED30EED335B00704729 /* MixsonicTextEntryField.h */,
+				9132B5AD0EC1D18500A24978 /* HalfTransparentButton.cpp */,
+				9132B5AE0EC1D18500A24978 /* HalfTransparentButton.h */,
+				9132B5AF0EC1D18500A24978 /* MixsonicArrangementEditorResources.cpp */,
+				9132B5B00EC1D18500A24978 /* MixsonicArrangementEditorResources.h */,
+				9132B5B10EC1D18500A24978 /* MixsonicButton.cpp */,
+				9132B5B20EC1D18500A24978 /* MixsonicButton.h */,
+				9132B5B30EC1D18500A24978 /* MixsonicProjectComponentResources.cpp */,
+				9132B5B40EC1D18500A24978 /* MixsonicProjectComponentResources.h */,
+				9132B5B50EC1D18500A24978 /* MixsonicSampleBrowserResources.cpp */,
+				9132B5B60EC1D18500A24978 /* MixsonicSampleBrowserResources.h */,
+				9132B5B70EC1D18500A24978 /* MixsonicSlider.cpp */,
+				9132B5B80EC1D18500A24978 /* MixsonicSlider.h */,
+				9132B5B90EC1D18500A24978 /* MixsonicSliderListener.h */,
+				9132B5BA0EC1D18500A24978 /* MixsonicTrackControlComponentResources.cpp */,
+				9132B5BB0EC1D18500A24978 /* MixsonicTrackControlComponentResources.h */,
+				9132B5BC0EC1D18500A24978 /* RButton.cpp */,
+				9132B5BD0EC1D18500A24978 /* RButton.h */,
+				9132B5BE0EC1D18500A24978 /* RComboBox.cpp */,
+				9132B5BF0EC1D18500A24978 /* RComboBox.h */,
+				9132B5C00EC1D18500A24978 /* RLabel.cpp */,
+				9132B5C10EC1D18500A24978 /* RLabel.h */,
+				9132B5C20EC1D18500A24978 /* RWidget.cpp */,
+				9132B5C30EC1D18500A24978 /* RWidget.h */,
+			);
+			path = widgets;
+			sourceTree = "<group>";
+		};
+		9132B5C40EC1D18500A24978 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				9132B5C50EC1D18500A24978 /* audio */,
+				9132B5D40EC1D18500A24978 /* infrastructure */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		9132B5C50EC1D18500A24978 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				913201E20EEFD35A00A03B73 /* AudioFileBufferUser.cpp */,
+				913201E30EEFD35A00A03B73 /* AudioFileBufferUser.h */,
+				91B91B110ED6BB3700B43749 /* AudioRecorder.cpp */,
+				91B91B120ED6BB3700B43749 /* AudioRecorder.h */,
+				9132B5C60EC1D18500A24978 /* AudioFileBuffer.cpp */,
+				9132B5C70EC1D18500A24978 /* AudioFileBuffer.h */,
+				9132B5CC0EC1D18500A24978 /* AudioFileInfo.cpp */,
+				9132B5CD0EC1D18500A24978 /* AudioFileInfo.h */,
+				9132B5CE0EC1D18500A24978 /* AudioRenderingThread.cpp */,
+				9132B5CF0EC1D18500A24978 /* AudioRenderingThread.h */,
+				9132B5D00EC1D18500A24978 /* AudioSampleBufferFunctions.cpp */,
+				9132B5D10EC1D18500A24978 /* AudioSampleBufferFunctions.h */,
+				9132B5D20EC1D18500A24978 /* ImmediatePlaybackAudioSource.cpp */,
+				9132B5D30EC1D18500A24978 /* ImmediatePlaybackAudioSource.h */,
+			);
+			path = audio;
+			sourceTree = "<group>";
+		};
+		9132B5D40EC1D18500A24978 /* infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				0A726F0E1744FE98001B395F /* MixsonicSettings.cpp */,
+				0A726F0F1744FE98001B395F /* MixsonicSettings.h */,
+				9109CC350EF7B66300C6E25D /* MixsonicStrings.h */,
+				91E4756C0EE6C62500216405 /* ClipDeletionWatcher.cpp */,
+				91E4756D0EE6C62500216405 /* ClipDeletionWatcher.h */,
+				91E4756E0EE6C62500216405 /* ClipInstantiationManager.cpp */,
+				91E4756F0EE6C62500216405 /* ClipInstantiationManager.h */,
+				91E475700EE6C62500216405 /* ClipManipulator.cpp */,
+				91E475710EE6C62500216405 /* ClipManipulator.h */,
+				9132B5D50EC1D18500A24978 /* Arrangement.cpp */,
+				9132B5D60EC1D18500A24978 /* Arrangement.h */,
+				9132B5D70EC1D18500A24978 /* AudioClip.cpp */,
+				9132B5D80EC1D18500A24978 /* AudioClip.h */,
+				9132B5DB0EC1D18500A24978 /* Clip.cpp */,
+				9132B5DC0EC1D18500A24978 /* Clip.h */,
+				9132B5DD0EC1D18500A24978 /* DescribedItem.cpp */,
+				9132B5DE0EC1D18500A24978 /* DescribedItem.h */,
+				9132B5DF0EC1D18500A24978 /* FileComparator.h */,
+				9132B5E00EC1D18500A24978 /* FileFilters.h */,
+				9132B5E10EC1D18500A24978 /* FileManager.cpp */,
+				9132B5E20EC1D18500A24978 /* FileManager.h */,
+				9132B5E30EC1D18500A24978 /* GlobalFunctions.cpp */,
+				9132B5E40EC1D18500A24978 /* GlobalFunctions.h */,
+				9132B5E50EC1D18500A24978 /* MessageBoxes.cpp */,
+				9132B5E60EC1D18500A24978 /* MessageBoxes.h */,
+				9132B5E70EC1D18500A24978 /* MixsonicStrings.cpp */,
+				9132B5E90EC1D18500A24978 /* SamplePool.cpp */,
+				9132B5EA0EC1D18500A24978 /* SamplePool.h */,
+				9132B5EB0EC1D18500A24978 /* SamplePoolClient.cpp */,
+				9132B5EC0EC1D18500A24978 /* SamplePoolClient.h */,
+				9132B5ED0EC1D18500A24978 /* SelectableItem.cpp */,
+				9132B5EE0EC1D18500A24978 /* SelectableItem.h */,
+				9132B5EF0EC1D18500A24978 /* SelectionListener.cpp */,
+				9132B5F00EC1D18500A24978 /* SelectionListener.h */,
+				9132B5F10EC1D18500A24978 /* StateFileManager.cpp */,
+				9132B5F20EC1D18500A24978 /* StateFileManager.h */,
+				9132B5F30EC1D18500A24978 /* TimeFrame.cpp */,
+				9132B5F40EC1D18500A24978 /* TimeFrame.h */,
+				9132B5F50EC1D18500A24978 /* TimeUnitConverter.cpp */,
+				9132B5F60EC1D18500A24978 /* TimeUnitConverter.h */,
+				9132B5F70EC1D18500A24978 /* Track.cpp */,
+				9132B5F80EC1D18500A24978 /* Track.h */,
+			);
+			path = infrastructure;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D0C4E890486CD37000505A6 /* Mixsonic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0E91AC508A95435008D54AB /* Build configuration list for PBXNativeTarget "Mixsonic" */;
+			buildPhases = (
+				8D0C4E8C0486CD37000505A6 /* Resources */,
+				8D0C4E8F0486CD37000505A6 /* Sources */,
+				8D0C4E910486CD37000505A6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mixsonic;
+			productInstallPath = "$(HOME)/Applications";
+			productName = Mixsonic;
+			productReference = 8D0C4E970486CD37000505A6 /* Mixsonic.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20286C28FDCF999611CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "Mixsonic" */;
+			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 20286C29FDCF999611CA2CEA /* Mixsonic */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D0C4E890486CD37000505A6 /* Mixsonic */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D0C4E8C0486CD37000505A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D0C4E8F0486CD37000505A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9132B6300EC1D18500A24978 /* MixsonicArrangementEditor.cpp in Sources */,
+				9132B6310EC1D18500A24978 /* MixsonicArrangementPanel.cpp in Sources */,
+				9132B6320EC1D18500A24978 /* MixsonicArrangementScroller.cpp in Sources */,
+				9132B6330EC1D18500A24978 /* MixsonicBrowserBase.cpp in Sources */,
+				9132B6340EC1D18500A24978 /* MixsonicContentComponent.cpp in Sources */,
+				9132B6350EC1D18500A24978 /* MixsonicProjectComponent.cpp in Sources */,
+				9132B6360EC1D18500A24978 /* MixsonicSampleBrowser.cpp in Sources */,
+				9132B6370EC1D18500A24978 /* MixsonicSubBrowser.cpp in Sources */,
+				9132B6380EC1D18500A24978 /* MixsonicTrackControlComponent.cpp in Sources */,
+				9132B63A0EC1D18500A24978 /* MixsonicCreateDirectoryDialog.cpp in Sources */,
+				9132B63B0EC1D18500A24978 /* MixsonicEnterProjectNameDialog.cpp in Sources */,
+				9132B63C0EC1D18500A24978 /* MixsonicModalDialog.cpp in Sources */,
+				9132B63D0EC1D18500A24978 /* MixsonicMoveFileDialog.cpp in Sources */,
+				9132B63E0EC1D18500A24978 /* MixsonicNewProjectDialog.cpp in Sources */,
+				9132B6400EC1D18500A24978 /* AudioClipComponent.cpp in Sources */,
+				9132B6420EC1D18500A24978 /* ComponentDragContainer.cpp in Sources */,
+				9132B6430EC1D18500A24978 /* ComponentGrabber.cpp in Sources */,
+				9132B6460EC1D18500A24978 /* DualWaveformDisplay.cpp in Sources */,
+				9132B6470EC1D18500A24978 /* GlobalTimeFrameComponent.cpp in Sources */,
+				9132B6480EC1D18500A24978 /* GrabbableComponent.cpp in Sources */,
+				9132B6490EC1D18500A24978 /* Panel.cpp in Sources */,
+				9132B64A0EC1D18500A24978 /* PanelRange.cpp in Sources */,
+				9132B64B0EC1D18500A24978 /* RectangleComponent.cpp in Sources */,
+				9132B64C0EC1D18500A24978 /* TimeLineComponent.cpp in Sources */,
+				9132B64D0EC1D18500A24978 /* TrackComponent.cpp in Sources */,
+				9132B64E0EC1D18500A24978 /* WaveformDisplay.cpp in Sources */,
+				9132B64F0EC1D18500A24978 /* HalfTransparentButton.cpp in Sources */,
+				9132B6500EC1D18500A24978 /* MixsonicArrangementEditorResources.cpp in Sources */,
+				9132B6510EC1D18500A24978 /* MixsonicButton.cpp in Sources */,
+				9132B6520EC1D18500A24978 /* MixsonicProjectComponentResources.cpp in Sources */,
+				9132B6530EC1D18500A24978 /* MixsonicSampleBrowserResources.cpp in Sources */,
+				9132B6540EC1D18500A24978 /* MixsonicSlider.cpp in Sources */,
+				9132B6550EC1D18500A24978 /* MixsonicTrackControlComponentResources.cpp in Sources */,
+				9132B6560EC1D18500A24978 /* RButton.cpp in Sources */,
+				9132B6570EC1D18500A24978 /* RComboBox.cpp in Sources */,
+				9132B6580EC1D18500A24978 /* RLabel.cpp in Sources */,
+				9132B6590EC1D18500A24978 /* RWidget.cpp in Sources */,
+				9132B65A0EC1D18500A24978 /* AudioFileBuffer.cpp in Sources */,
+				9132B65D0EC1D18500A24978 /* AudioFileInfo.cpp in Sources */,
+				9132B65E0EC1D18500A24978 /* AudioRenderingThread.cpp in Sources */,
+				9132B65F0EC1D18500A24978 /* AudioSampleBufferFunctions.cpp in Sources */,
+				9132B6600EC1D18500A24978 /* ImmediatePlaybackAudioSource.cpp in Sources */,
+				9132B6610EC1D18500A24978 /* Arrangement.cpp in Sources */,
+				9132B6620EC1D18500A24978 /* AudioClip.cpp in Sources */,
+				9132B6640EC1D18500A24978 /* Clip.cpp in Sources */,
+				9132B6650EC1D18500A24978 /* DescribedItem.cpp in Sources */,
+				9132B6660EC1D18500A24978 /* FileManager.cpp in Sources */,
+				9132B6670EC1D18500A24978 /* GlobalFunctions.cpp in Sources */,
+				9132B6680EC1D18500A24978 /* MessageBoxes.cpp in Sources */,
+				9132B6690EC1D18500A24978 /* MixsonicStrings.cpp in Sources */,
+				9132B66A0EC1D18500A24978 /* SamplePool.cpp in Sources */,
+				9132B66B0EC1D18500A24978 /* SamplePoolClient.cpp in Sources */,
+				9132B66C0EC1D18500A24978 /* SelectableItem.cpp in Sources */,
+				9132B66D0EC1D18500A24978 /* SelectionListener.cpp in Sources */,
+				9132B66E0EC1D18500A24978 /* StateFileManager.cpp in Sources */,
+				9132B66F0EC1D18500A24978 /* TimeFrame.cpp in Sources */,
+				9132B6700EC1D18500A24978 /* TimeUnitConverter.cpp in Sources */,
+				9132B6710EC1D18500A24978 /* Track.cpp in Sources */,
+				9132B68F0EC1D18500A24978 /* MixsonicMain.cpp in Sources */,
+				91B91B130ED6BB3700B43749 /* AudioRecorder.cpp in Sources */,
+				91B91B1C0ED6BB5F00B43749 /* MixsonicAudioExportDialog.cpp in Sources */,
+				91B91B1D0ED6BB5F00B43749 /* MixsonicAudioFileSettingsDialog.cpp in Sources */,
+				91B91B1E0ED6BB5F00B43749 /* MixsonicAudioRecordDialog.cpp in Sources */,
+				91B91B1F0ED6BB5F00B43749 /* MixsonicEnterNameDialog.cpp in Sources */,
+				91B126710EE41FD400154EDE /* MixsonicLookAndFeel.cpp in Sources */,
+				91B126740EE41FEB00154EDE /* DirectoryTreeComponent.cpp in Sources */,
+				91E475720EE6C62500216405 /* ClipDeletionWatcher.cpp in Sources */,
+				91E475730EE6C62500216405 /* ClipInstantiationManager.cpp in Sources */,
+				91E475740EE6C62500216405 /* ClipManipulator.cpp in Sources */,
+				91E4757C0EE6C63800216405 /* ClipComponent.cpp in Sources */,
+				911A2ED40EED335B00704729 /* MixsonicTextEntryField.cpp in Sources */,
+				911A2EF50EED367F00704729 /* MixsonicTextEntryDialog.cpp in Sources */,
+				913201E40EEFD35A00A03B73 /* AudioFileBufferUser.cpp in Sources */,
+				0AC1A6E90F1D0C1D009D4652 /* ThreadedDrawingComponent.cpp in Sources */,
+				0A22D5760F1E8B9500BF3DC8 /* ThreadedDrawingPanel.cpp in Sources */,
+				0ABB98E21744F4F400013521 /* RFileTreeComponent.cpp in Sources */,
+				0ABB98FA1744F73D00013521 /* juce_audio_basics.mm in Sources */,
+				0ABB98FF1744F77500013521 /* juce_audio_devices.mm in Sources */,
+				0ABB99011744F78900013521 /* juce_audio_formats.mm in Sources */,
+				0ABB99031744F79D00013521 /* juce_audio_processors.mm in Sources */,
+				0ABB99051744F7B300013521 /* juce_audio_utils.mm in Sources */,
+				0AE585DE1744F81900C49382 /* juce_core.mm in Sources */,
+				0AE585E01744F83200C49382 /* juce_data_structures.mm in Sources */,
+				0AE585E21744F84A00C49382 /* juce_events.mm in Sources */,
+				0AE585E41744F86D00C49382 /* juce_graphics.mm in Sources */,
+				0AE585E61744F88700C49382 /* juce_gui_basics.mm in Sources */,
+				0A726F101744FE98001B395F /* MixsonicSettings.cpp in Sources */,
+				0A726F5417450079001B395F /* MixsonicGlobalSettingsDialog.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C0E91AC608A95435008D54AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../src/libs/juce/bin\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../src/libs/juce/bin\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../juce/bin\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../juce/bin\"";
+				PRODUCT_NAME = Mixsonic;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C0E91AC708A95435008D54AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
+				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../src/libs/juce/bin\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../src/libs/juce/bin\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../juce/bin\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../juce/bin\"";
+				PRODUCT_NAME = Mixsonic;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C0E91ACA08A95435008D54AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = Debug;
+		};
+		C0E91ACB08A95435008D54AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				DEAD_CODE_STRIPPING = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.6.sdk";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0E91AC508A95435008D54AB /* Build configuration list for PBXNativeTarget "Mixsonic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0E91AC608A95435008D54AB /* Debug */,
+				C0E91AC708A95435008D54AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "Mixsonic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0E91ACA08A95435008D54AB /* Debug */,
+				C0E91ACB08A95435008D54AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20286C28FDCF999611CA2CEA /* Project object */;
+}
