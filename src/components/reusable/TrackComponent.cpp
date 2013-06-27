@@ -458,12 +458,13 @@ void TrackBodyComponent::alignClipToTimeLine(AudioClipComponent *clipToAlign,
 
 
 
-AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
+AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, 
+                                                   PluginChain *pluginChainToUse)
 {
-  pluginSlot = pluginSlotToEdit;
+  slotToEdit = pluginSlotToEdit;
+  chainToUse = pluginChainToUse;
 
   addAndMakeVisible( nameLabel = new RLabel() );
-  nameLabel->setText("", false); 
   nameLabel->setColour(Label::outlineColourId, outlineColor);
   nameLabel->setColour(Label::backgroundColourId, backgroundColor);
   nameLabel->setColour(Label::textColourId, textColor);
@@ -473,10 +474,19 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
   onOffButton->setDescription("Switches plugin on/off");
   onOffButton->setClickingTogglesState(true);
   //onOffButton->addListener(this); 
+
+  if( slotToEdit != nullptr )
+    slotToEdit->addChangeListener(this);
+
+  updateLabelText();
 }
 
 AudioPluginSlotComponent::~AudioPluginSlotComponent()
 {
+  if( slotToEdit != nullptr )
+    slotToEdit->removeChangeListener(this);
+  if( chainToUse == nullptr )
+    delete slotToEdit;
   deleteAllChildren();
 }
 
@@ -484,10 +494,15 @@ AudioPluginSlotComponent::~AudioPluginSlotComponent()
 
 bool AudioPluginSlotComponent::isEmpty()
 {
-  return pluginSlot == nullptr || pluginSlot->plugin == nullptr;
+  return slotToEdit == nullptr || slotToEdit->plugin == nullptr;
 }
 
 // callbacks:
+
+void AudioPluginSlotComponent::changeListenerCallback(ChangeBroadcaster *source)
+{
+  updateLabelText();
+}
  
 void AudioPluginSlotComponent::mouseDown(const MouseEvent &e)
 {
@@ -511,12 +526,24 @@ void AudioPluginSlotComponent::resized()
   //onOffButton->setBounds(nameLabel->getRight(), 0, h, h);
 }
 
+// misc:
+
+void AudioPluginSlotComponent::updateLabelText()
+{
+  if( isEmpty() )
+    nameLabel->setText("insert plugin", false);
+  else
+    nameLabel->setText(slotToEdit->plugin->getName(), false);
+}
+
+// internal:
+
 void AudioPluginSlotComponent::openPopUpMenu()
 {
   PopupMenu menu;
 
   if( !isEmpty() )
-    menu.addItem(1, "Bypass", true, pluginSlot->isBypassed());
+    menu.addItem(1, "Bypass", true, slotToEdit->isBypassed());
   menu.addItem(2, "Load Plugin");
   menu.addItem(3, "Show Parameters");
 
@@ -527,7 +554,7 @@ void AudioPluginSlotComponent::openPopUpMenu()
     // user dismissed the menu without picking anything
   }
   else if(result == 1)
-    pluginSlot->setBypass(!pluginSlot->isBypassed());
+    slotToEdit->setBypass(!slotToEdit->isBypassed());
   else if(result == 2)
     openLoadPluginDialog();
   else if(result == 3)
@@ -538,7 +565,31 @@ void AudioPluginSlotComponent::openPopUpMenu()
 
 void AudioPluginSlotComponent::openEditor()
 {
-  int dummy = 0;
+  jassert(!isEmpty());
+
+  if( slotToEdit->plugin->hasEditor() )
+  {
+    AudioProcessorEditor *editor = slotToEdit->plugin->createEditorIfNeeded();
+    if( editor != nullptr )
+    {
+      editor->setOpaque(true);
+      editor->setVisible(true);
+      editor->setTopLeftPosition(100, 100);
+      //int styleFlags = ComponentPeer::windowIsTemporary | ComponentPeer::windowHasCloseButton 
+      //  | ComponentPeer::windowHasDropShadow;
+      int styleFlags = ComponentPeer::windowHasTitleBar | ComponentPeer::windowHasCloseButton;
+      editor->addToDesktop(styleFlags);
+    }
+    else
+    {
+      // \todo open error message box "Open plugin GUI failed."
+    }
+  }
+  else
+  {
+    // openGenericParameterEditor
+    int dummy = 0;
+  }
 }
 
 void AudioPluginSlotComponent::openLoadPluginDialog()
@@ -550,9 +601,27 @@ void AudioPluginSlotComponent::openLoadPluginDialog()
     // later use a system-specific extension - write a function getPluginFileExtensions()
 
   if( chooser.browseForFileToOpen() )
+    loadPluginFromFile(chooser.getResult());
+}
+
+void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
+{ 
+  if( slotToEdit == nullptr )
   {
-    File pluginFile(chooser.getResult());
-    pluginSlot->loadPlugin(pluginFile);
+    AudioPluginInstance *plugin = getVSTPluginInstanceFromFile(pluginFile);
+    if( plugin != nullptr )
+    {
+      slotToEdit = new PluginSlot(plugin);
+      slotToEdit->addChangeListener(this);
+      if( chainToUse != nullptr )
+        chainToUse->addSlot(slotToEdit);
+      updateLabelText();
+    }
+  }
+  else
+  {
+    slotToEdit->loadPlugin(pluginFile);
+      // update of the label-text will be triggered by a changeListenerCallback in this branch
   }
 }
 
@@ -590,11 +659,11 @@ void AudioPluginChainComponent::updateSlotComponents()
   // create slot components for all slots:
   ScopedLock lock(pluginChain->pluginSlots.getLock());
   for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
-    addAndMakeVisible(new AudioPluginSlotComponent(pluginChain->pluginSlots[i]));
+    addAndMakeVisible(new AudioPluginSlotComponent(pluginChain->pluginSlots[i], pluginChain));
 
   // create one additional slot component which is not yet assigned to a slot. there should always 
   // be one empty slot component at the end to be used to plug in another plugins into the chain:
-  addAndMakeVisible(new AudioPluginSlotComponent(nullptr));
+  addAndMakeVisible(new AudioPluginSlotComponent(nullptr, pluginChain));
 }
 
 void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source)

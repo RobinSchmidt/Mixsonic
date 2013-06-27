@@ -89,6 +89,11 @@ File getAudioFileFromPath(const String& path);
 true, if so and false otherwise. */
 bool hasDirectoryFiles(const File& directoryToCheck);
 
+/** Tries to open the given file as VST plugin instance. If it succeeds, it returns a pointer
+to the instance (which the caller should delete eventually). If it doesn't succeed, it returns a
+nullptr. */
+AudioPluginInstance* getVSTPluginInstanceFromFile(const File& pluginFile);
+
 /** Checks, if x is close to some target-value within some tolerance. */
 bool isCloseTo(double x, double targetValue, double tolerance);
 

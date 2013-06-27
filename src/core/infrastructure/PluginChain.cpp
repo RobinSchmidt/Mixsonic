@@ -5,6 +5,7 @@
 PluginSlot::PluginSlot(AudioPluginInstance *pluginToUse) 
 {
   plugin = pluginToUse;
+  bypass = false;
 }
 
 PluginSlot::~PluginSlot()
@@ -16,9 +17,11 @@ PluginSlot::~PluginSlot()
 
 void PluginSlot::loadPlugin(const File& pluginFile)
 {
-
-
-  int dummy = 0;
+  AudioPluginInstance* tmpInstance = getVSTPluginInstanceFromFile(pluginFile);
+  if( tmpInstance != nullptr )
+    setPlugin(tmpInstance, true);
+  else
+    jassertfalse; // preliminary \todo show error message
 }
 
 void PluginSlot::setPlugin(AudioPluginInstance* pluginToUse, bool deleteOldPlugin)
@@ -79,11 +82,19 @@ void PluginChain::addEmptySlot()
   sendChangeMessage();
 }
 
+void PluginChain::addSlot(PluginSlot *slotToAdd)
+{
+  ScopedLock lock(pluginSlots.getLock());
+  pluginSlots.add(slotToAdd);
+  sendChangeMessage();
+}
+
 void PluginChain::removeSlot(int index, bool deletePluginInstance)
 {
   jassertfalse; // not yet implemented
 }
 
+/*
 void PluginChain::insertPlugin(int slotIndex, AudioPluginInstance* pluginToInsert,
                                bool deleteOldPlugin)
 {
@@ -97,16 +108,41 @@ void PluginChain::removePlugin(int slotIndex, bool deletePluginInstance)
 {
   insertPlugin(slotIndex, nullptr, deletePluginInstance);
 }
+*/
 
 void PluginChain::processBlock(const AudioSourceChannelInfo &bufferToFill, 
                                MidiBuffer &midiMessages) const
 {
   ScopedLock lock(pluginSlots.getLock());
 
+
+  int i;
+  //AudioSampleBuffer tmpBuffer(*bufferToFill.buffer);
+
+  // modify the pointers in the tmpBuffer to take into accout a possibly nonzero
+  // startSample value in bufferToFill:
+  float **channelArray = bufferToFill.buffer->getArrayOfChannels();
+  for(i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
+    channelArray[i] += bufferToFill.startSample;
+
+  // loop over the slots to apply all the plugins:
+  for(i = 0; i < pluginSlots.size(); i++)
+  {
+    if( pluginSlots[i]->plugin != nullptr && !pluginSlots[i]->bypass )
+      pluginSlots[i]->plugin->processBlock(*bufferToFill.buffer, midiMessages);
+  }
+
+  // undo the startsample offset:
+  for(i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
+    channelArray[i] -= bufferToFill.startSample;
+
+
+
+  /*
+  // doesn't work - the copy-constructor for AudioSampleBuffer creates a deep copy:
   int i;
   AudioSampleBuffer tmpBuffer(*bufferToFill.buffer);
 
-   
   // modify the pointers in the tmpBuffer to take into accout a possibly nonzero
   // startSample value in bufferToFill:
   float **channelArray = tmpBuffer.getArrayOfChannels();
@@ -123,4 +159,5 @@ void PluginChain::processBlock(const AudioSourceChannelInfo &bufferToFill,
   // undo the startsample offset:
   for(i = 0; i < tmpBuffer.getNumChannels(); i++)
     channelArray[i] -= bufferToFill.startSample;
+    */
 }

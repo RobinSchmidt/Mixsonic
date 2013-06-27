@@ -1,3 +1,6 @@
+#include "juce/AppConfig.h" // move this file to somewhere else and add the path to the search-path
+                            // (maybe just a folder up)
+
 #include "juce/modules/juce_core/juce_core.h"
 #include "juce/modules/juce_gui_basics/juce_gui_basics.h"
 #include "juce/modules/juce_data_structures/juce_data_structures.h"

@@ -187,6 +187,23 @@ bool hasDirectoryFiles(const File& directoryToCheck)
   // Note: we can't use File::getNumberOfChildFiles here because it doesn't scan recursively
 }
 
+AudioPluginInstance* getVSTPluginInstanceFromFile(const File& pluginFile)
+{
+  KnownPluginList pluginList;
+  OwnedArray<PluginDescription> descriptionArray;
+  VSTPluginFormat vstFormat;
+  bool success = pluginList.scanAndAddFile(pluginFile.getFullPathName(), true, descriptionArray, 
+                                           vstFormat);
+  PluginDescription* description = pluginList.getTypeForFile(pluginFile.getFullPathName());
+
+  if( description == nullptr )
+    return nullptr;
+  else
+    return vstFormat.createInstanceFromDescription(*description);
+
+  // \todo generalize this function to other formats
+}
+
 bool isCloseTo(double x, double targetValue, double tolerance)
 {
   if( fabs(x-targetValue) <= tolerance )

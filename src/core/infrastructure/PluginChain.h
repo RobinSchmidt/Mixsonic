@@ -1,8 +1,8 @@
 #ifndef PluginChain_h
 #define PluginChain_h
 
-#include "../../libs/JuceIncludes.h"
-
+//#include "../../libs/JuceIncludes.h"
+#include "GlobalFunctions.h"
 
 /**
 
@@ -95,19 +95,30 @@ public:
   /** Adds an empty slot to the end of this chain. */
   virtual void addEmptySlot();
 
+  /** Adds the passed slot to the end.
+  \todo generalize this function into an "insertSlot" function which also takes an index at which
+        position it should be inserted (with -1 as default which means "at the end").  */
+  virtual void addSlot(PluginSlot *slotToAdd);
+
   /** Removes the slot with given index and optionally deletes the 
   AudioPluginInstance object.*/
   virtual void removeSlot(int index, bool deletePluginInstance);
 
   /** Inserts the passed plugin instance into the plugin slot with given index, optionally 
   deleting the old plugin instance. */
-  virtual void insertPlugin(int slotIndex, AudioPluginInstance* pluginToInsert, 
-                            bool deleteOldPlugin = true);
+  //virtual void insertPlugin(int slotIndex, AudioPluginInstance* pluginToInsert, 
+  //                          bool deleteOldPlugin = true);
+
+  /** Inserts the passed plugin instance into the slot to which the passed pointer points. If this 
+  slot is not yet element of our "pluginSlots" array, it will be appended */
+  //virtual void insertPlugin(PluginSlot *slot, AudioPluginInstance* pluginToInsert, 
+  //                          bool deleteOldPlugin = true);
+
 
   /** Removes a plugin from the slot with given index and optionally deletes the 
   AudioPluginInstance object. The slot it self will not be removed - it will remain as empty 
   slot. */
-  virtual void removePlugin(int slotIndex, bool deletePluginInstance);
+  //virtual void removePlugin(int slotIndex, bool deletePluginInstance);
 
   //-----------------------------------------------------------------------------------------------
   // inquiry:

@@ -197,12 +197,12 @@ protected:
 /** A component to show a slot for an audio plugin which shows the name of the plugin and 
 facilitates plugging in, replacing, plugging out, bypassing, opening the plugin GUI, etc.  */
 
-class AudioPluginSlotComponent : public Component
+class AudioPluginSlotComponent : public Component, public ChangeListener
 {
 
 public:
 
-  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit);
+  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, PluginChain *pluginChainToUse = nullptr);
 
   virtual ~AudioPluginSlotComponent();
 
@@ -224,9 +224,15 @@ public:
 
   //-----------------------------------------------------------------------------------------------
   // callbacks:
-
+  virtual void changeListenerCallback(ChangeBroadcaster *source);
   virtual void mouseDown(const MouseEvent &e);
   virtual void resized();
+
+  //-----------------------------------------------------------------------------------------------
+  // misc:
+
+  /** Updates the text in our Label to show the (possibly new) name of the plugin. */
+  virtual void updateLabelText();
 
 protected:
 
@@ -241,6 +247,9 @@ protected:
   .so or whatever it is on the particular platform). */
   virtual void openLoadPluginDialog();
 
+  /** Loads a plugin from the given file into our slot. */
+  virtual void loadPluginFromFile(const File& pluginFile);
+
 
   RLabel *nameLabel;
   RButton *onOffButton;
@@ -248,7 +257,21 @@ protected:
 
   //AudioPluginInstance *plugIn;
 
-  PluginSlot *pluginSlot;
+  /** Pointer to the actual PluginSlot object which we edit. */
+  PluginSlot *slotToEdit;
+
+  /** Pointer to a PluginChain object in which our PluginSlot object sits. This chain object shall
+  also take over ownership for the object pointed to by "slotToEdit". Only when chainToUse is a 
+  nullptr, we will take care of the deletion of "slotToEdit" ourselves. */
+  PluginChain *chainToUse;
+
+
+  // \todo - we need a pointer to the pluginChain as well because the pluginSlot will be inserted 
+  // into the chain and the chain will take ownership of the slot
+
+  //AudioProcessorEditor *editor;
+    // probably we should not maintain a pointer to the editor, instead, retrieve it, if needed
+    // via 
 
 
   JUCE_LEAK_DETECTOR(AudioPluginSlotComponent);
