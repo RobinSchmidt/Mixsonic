@@ -1,20 +1,21 @@
 #include "PluginComponents.h"
 
 
-AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap) 
+AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap,  
+  bool shouldTakeOwnership) 
 : editor(editorToWrap)
 {
   titleBarHeight = 16;
+  ownsEditor     = shouldTakeOwnership;
   setSize(editor->getWidth(), editor->getHeight() + titleBarHeight);
   addAndMakeVisible(editor);
 }
 
 AudioProcessorEditorContainer::~AudioProcessorEditorContainer()
 {
-  removeAllChildren(); 
-    // removes the wrapped editor without deleting it - hmm - not sure - maybe, we should 
-    // delete it - find out whether AudioProcessor retains a pointer to it. if not, we can
-    // probably safely delete it
+  removeAllChildren();
+  if( ownsEditor )
+    delete editor;
 }
 
 // setup:  
@@ -89,19 +90,23 @@ bool AudioPluginSlotComponent::isEmpty()
   return slotToEdit == nullptr || slotToEdit->plugin == nullptr;
 }
 
-bool AudioPluginSlotComponent::isEditorOpenAndInFront()
+bool AudioPluginSlotComponent::isEditorVisible()
 {
-  jassertfalse; // this function does not yet work - it's hard to find out whether or not the 
-                // editor-window in front of or behind the app-window
-
   if( editor == nullptr )
     return false;
+  return editor->isVisible();
+}
 
-  return false; // preliminary
+bool AudioPluginSlotComponent::isParameterEditorVisible()
+{
+  if( parameterEditor == nullptr )
+    return false;
+  return parameterEditor->isVisible();
+}
 
-  //bool result  = editor->isVisible();
-  //result      &= isInFrontOf(editor, this);  // this doesn't work yet
-  //return result;
+bool AudioPluginSlotComponent::isAnyEditorVisible()
+{
+  return isEditorVisible() || isParameterEditorVisible();
 }
 
 // callbacks:
@@ -119,16 +124,16 @@ void AudioPluginSlotComponent::mouseDown(const MouseEvent &e)
       openPopUpMenu();
     else
     {
-      openEditor();
+      //openEditor();
         // actually, the desired behavior is: when the editor is open and in front: hide it, else
         // show it. but it turned out to be hard to find out, if the editor is actually in front
         // of the app-window, so for the time being, we just show it regardless of current state
         // this is some detail for later
 
-      //if( !isEditorOpenAndInFront() )
-      //  openEditor();
-      //else
-      //  hideEditor();
+      if( !isAnyEditorVisible() )
+        openEditor();
+      else
+        hideEditors();
     }
   }
   else if( e.mods.isRightButtonDown() )
@@ -190,17 +195,10 @@ void AudioPluginSlotComponent::openEditor()
 
   if( slotToEdit->plugin->hasEditor() )
   {
+    // maybe we should wrap this into a function openCustomEditor:
     AudioProcessorEditor *pluginEditor = slotToEdit->plugin->createEditorIfNeeded();
     if( pluginEditor != nullptr )
-    {
-      int styleFlags = ComponentPeer::windowHasDropShadow;
-      editor = new AudioProcessorEditorContainer(pluginEditor);
-      editor->setOpaque(true);
-      editor->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
-      setupEditorPosition(editor);
-      editor->setWantsKeyboardFocus(true);
-      editor->showInFrontOfAppWindow();
-    }
+      wrapPluginEditorIntoContainerAndShow(editor, pluginEditor, false);
     else
     {
       // \todo open error message box "Open plugin GUI failed."
@@ -212,29 +210,37 @@ void AudioPluginSlotComponent::openEditor()
 
 void AudioPluginSlotComponent::openParameterEditor()
 {
-  // preliminary - later, we want ouw own customized generic editor and we want to have it in 
-  // addition to the plugin GUI:
   if( parameterEditor != nullptr )
   {
     parameterEditor->showInFrontOfAppWindow();
     return; 
   }
   GenericAudioProcessorEditor *pluginEditor = new GenericAudioProcessorEditor(slotToEdit->plugin);
-
-  // maybe wrap into function - there's some duplication from openEditor:
-  int styleFlags = ComponentPeer::windowHasDropShadow;
-  parameterEditor = new AudioProcessorEditorContainer(pluginEditor);
-  parameterEditor->setOpaque(true);
-  parameterEditor->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
-  setupEditorPosition(parameterEditor);
-  parameterEditor->setWantsKeyboardFocus(true);
-  parameterEditor->showInFrontOfAppWindow();
+  wrapPluginEditorIntoContainerAndShow(parameterEditor, pluginEditor, true);
 }
 
-void AudioPluginSlotComponent::hideEditor()
+void AudioPluginSlotComponent::wrapPluginEditorIntoContainerAndShow(AudioProcessorEditorContainer* &container, 
+                                                                    AudioProcessorEditor *pluginEditor, 
+                                                                    bool shouldTakeOwnership)
+{
+  int styleFlags = ComponentPeer::windowHasDropShadow;
+  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership);
+  container->setOpaque(true);
+  container->setAlwaysOnTop(true);     // not really optimal: it even remains on top when the whole 
+                                       // app is brought to background - but i currently don't know
+                                       // how to handle that
+  container->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
+  setupEditorPosition(container);
+  container->setWantsKeyboardFocus(true);
+  container->showInFrontOfAppWindow();
+}
+
+void AudioPluginSlotComponent::hideEditors()
 {
   if( editor != nullptr )
     editor->setVisible(false);
+  if( parameterEditor != nullptr )
+    parameterEditor->setVisible(false);
 }
 
 void AudioPluginSlotComponent::openLoadPluginDialog()

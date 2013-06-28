@@ -21,9 +21,10 @@ public:
   //-----------------------------------------------------------------------------------------------
   // construction/destruction:
 
-  /** Constructor. You must pass a pointer to the AudioProcessorEditor to be wrapped. This class 
-  will NOT take over ownership over the editor, it should be deleted elsewhere. */
-  AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap);
+  /** Constructor. You must pass a pointer to the AudioProcessorEditor to be wrapped. Depending on
+  the "shouldTakeOwnership" parameter, this object with either delete the "editorToWrap" when 
+  itself is deleted or not. If you pass "false", "editorToWrap" should be deleted elsewhere. */
+  AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap, bool shouldTakeOwnership);
 
   /** Destructor */
   virtual ~AudioProcessorEditorContainer();
@@ -59,6 +60,10 @@ protected:
   int titleBarHeight;
     // maybe factor this out into a class ComponentWithCustomTitleBar
 
+  bool ownsEditor;
+    // flag to indicate whether we should delete the wrapped editor or not when this object
+    // is itself is deleted
+
   JUCE_LEAK_DETECTOR(AudioProcessorEditorContainer);
 };
 
@@ -86,9 +91,15 @@ public:
   pluginSlot is empty. */
   virtual bool isEmpty();
 
-  /** Returns true, when the (custom) editor is currently open and in front of the application 
-  window. */
-  virtual bool isEditorOpenAndInFront();
+  /** Returns true, when the (custom) editor is currently visible. */
+  virtual bool isEditorVisible();
+
+  /** Returns true, when the generic parameter editor is currently visible. */
+  virtual bool isParameterEditorVisible();
+
+  /** Returns true, when either the custom editor or the generic parameter editor or both are 
+  currently visible. */
+  virtual bool isAnyEditorVisible();
 
   //-----------------------------------------------------------------------------------------------
   // callbacks:
@@ -113,11 +124,15 @@ protected:
   /** Opens a generic editor for the plugin's numeric parameters. */
   virtual void openParameterEditor();
 
-  //virtual void wrapPluginEditorIntoContainerAnShow(AudioProcessorEditorContainer *container, 
-  //                                                 AudioProcessorEditor *pluginEditor);
+  /** Wraps the passed AudioProcessorEditor into an AudioProcessorEditorContainer, the pointer to 
+  which is passed by reference. This has the effect, that the "container" pointer will afterwards
+  point to a newly created AudioProcessorEditorContainer object which contains the pluginEditor. */
+  virtual void wrapPluginEditorIntoContainerAndShow(AudioProcessorEditorContainer* &container,                                                 
+    AudioProcessorEditor* pluginEditor, bool shouldTakeOwnership);
 
-  /** Makes the editor invisible but leaves the object itself around. */
-  virtual void hideEditor();
+  /** Makes the both editors (custom and generic) invisible but leaves the objects themselves 
+  around. */
+  virtual void hideEditors();
 
   //virtual void closeEditor();
 
