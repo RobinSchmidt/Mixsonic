@@ -23,6 +23,16 @@ void MixsonicGlobals::logMessage(const String& message)
   }
 }
 
+void alignWithVisibilityConstraintTo(Component *referenceComponent, Component *toBeAlignedComponent)
+{
+  if( referenceComponent == nullptr || toBeAlignedComponent == nullptr )
+    return;
+  Point<int> topLeft = referenceComponent->getScreenPosition();
+  topLeft.x += referenceComponent->getWidth();
+  topLeft = constrainPositionToScreen(topLeft, toBeAlignedComponent->getWidth(), 
+                                               toBeAlignedComponent->getHeight());
+  toBeAlignedComponent->setTopLeftPosition(topLeft);
+}
 
 double amp2dB(double amp)
 {

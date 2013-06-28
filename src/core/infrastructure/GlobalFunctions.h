@@ -46,6 +46,15 @@ public:
 extern MixsonicGlobals *mixsonicGlobals; 
 #define LOGGING_ENABLED 0 // set this to 1, if you want to write log-messages
 
+/** Aligns the top-left corner of the toBeAlignedComponent to the top-right corner of the 
+referenceComponent, but if that means that the toBeAlignedComponent extends outside the screens 
+work-area, it might shift it to the left and or top as much as necessary to make it fully visible 
+(but never more than into the top-left corner of the screen's work area).  
+Note that this function considers the full screen work area as visible - it is not suitable to
+ensure visibility when both components are inside some smaller parent component. \todo write 
+another function for that. */
+void alignWithVisibilityConstraintTo(Component *referenceComponent, 
+                                     Component *toBeAlignedComponent);
 
 /** Converts a raw amplitude value/factor to a value in decibels. */
 double amp2dB(double amp);

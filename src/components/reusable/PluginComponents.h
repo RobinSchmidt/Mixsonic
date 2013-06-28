@@ -92,7 +92,7 @@ public:
   virtual bool isEmpty();
 
   /** Returns true, when the (custom) editor is currently visible. */
-  virtual bool isEditorVisible();
+  virtual bool isCustomEditorVisible();
 
   /** Returns true, when the generic parameter editor is currently visible. */
   virtual bool isParameterEditorVisible();
@@ -120,6 +120,9 @@ protected:
 
   /** Opens the plugin's GUI editor, or a generic editor for GUI-less plugins. */
   virtual void openEditor();
+  
+  /** Opens the plugin's GUI editor. */
+  virtual void openCustomEditor();
 
   /** Opens a generic editor for the plugin's numeric parameters. */
   virtual void openParameterEditor();
@@ -136,7 +139,6 @@ protected:
 
   //virtual void closeEditor();
 
-
   /** Opens a dialog where the user can pick the plugin to load. At the moment, this is a native 
   file-chooser dialog where the user picks the plugin's shared library file (i.e. the .dll, .dylib, 
   .so or whatever it is on the particular platform). */
@@ -144,12 +146,6 @@ protected:
 
   /** Loads a plugin from the given file into our slot. */
   virtual void loadPluginFromFile(const File& pluginFile);
-
-  /** Sets up the position of the passed editor to a meaningful position. The editor is passed as
-  parameter, beacuse it may be either the generic parameter editor or the plugin's custom GUI. */
-  virtual void setupEditorPosition(AudioProcessorEditorContainer *editor);
-
-
 
   /** Label to show the name of the plugin */
   RLabel *nameLabel;
@@ -163,7 +159,7 @@ protected:
   PluginChain *chainToUse;
 
   /** Pointer to a component that holds the actual plugin-editor. */
-  AudioProcessorEditorContainer *editor;
+  AudioProcessorEditorContainer *customEditor;
 
   /** Pointer to a generic plugin parameter editor. */
   AudioProcessorEditorContainer *parameterEditor;

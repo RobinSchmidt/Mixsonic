@@ -54,9 +54,8 @@ void AudioProcessorEditorContainer::paint(Graphics &g)
 AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, 
                                                    PluginChain *pluginChainToUse)
 {
-  editor          = nullptr;
+  customEditor    = nullptr;
   parameterEditor = nullptr;
-  //editorIsInFront = false;
   slotToEdit      = pluginSlotToEdit;
   chainToUse      = pluginChainToUse;
 
@@ -74,7 +73,7 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit,
 
 AudioPluginSlotComponent::~AudioPluginSlotComponent()
 {
-  delete editor;
+  delete customEditor;
   delete parameterEditor;
   if( slotToEdit != nullptr )
     slotToEdit->removeChangeListener(this);
@@ -90,11 +89,11 @@ bool AudioPluginSlotComponent::isEmpty()
   return slotToEdit == nullptr || slotToEdit->plugin == nullptr;
 }
 
-bool AudioPluginSlotComponent::isEditorVisible()
+bool AudioPluginSlotComponent::isCustomEditorVisible()
 {
-  if( editor == nullptr )
+  if( customEditor == nullptr )
     return false;
-  return editor->isVisible();
+  return customEditor->isVisible();
 }
 
 bool AudioPluginSlotComponent::isParameterEditorVisible()
@@ -106,7 +105,7 @@ bool AudioPluginSlotComponent::isParameterEditorVisible()
 
 bool AudioPluginSlotComponent::isAnyEditorVisible()
 {
-  return isEditorVisible() || isParameterEditorVisible();
+  return isCustomEditorVisible() || isParameterEditorVisible();
 }
 
 // callbacks:
@@ -129,6 +128,8 @@ void AudioPluginSlotComponent::mouseDown(const MouseEvent &e)
         // show it. but it turned out to be hard to find out, if the editor is actually in front
         // of the app-window, so for the time being, we just show it regardless of current state
         // this is some detail for later
+
+      // maybe, we should just close (i.e.) delet the editor completely instead of just hiding it
 
       if( !isAnyEditorVisible() )
         openEditor();
@@ -164,7 +165,7 @@ void AudioPluginSlotComponent::openPopUpMenu()
   if( !isEmpty() )
     menu.addItem(1, "Bypass", true, slotToEdit->isBypassed());
   menu.addItem(2, "Load Plugin");
-  menu.addItem(3, "Show Parameters");
+  //menu.addItem(3, "Show Parameters"); // should be under if-clause
 
   const int result = menu.show();
 
@@ -185,27 +186,26 @@ void AudioPluginSlotComponent::openPopUpMenu()
 void AudioPluginSlotComponent::openEditor()
 {
   jassert(!isEmpty());
-
-  if( editor != nullptr )
-  {
-    // editor was already created
-    editor->showInFrontOfAppWindow();
-    return; 
-  }
-
   if( slotToEdit->plugin->hasEditor() )
-  {
-    // maybe we should wrap this into a function openCustomEditor:
-    AudioProcessorEditor *pluginEditor = slotToEdit->plugin->createEditorIfNeeded();
-    if( pluginEditor != nullptr )
-      wrapPluginEditorIntoContainerAndShow(editor, pluginEditor, false);
-    else
-    {
-      // \todo open error message box "Open plugin GUI failed."
-    }
-  }
+    openCustomEditor();
   else
     openParameterEditor();
+}
+
+void AudioPluginSlotComponent::openCustomEditor()
+{
+  if( customEditor != nullptr )
+  {
+    customEditor->showInFrontOfAppWindow();
+    return; 
+  }
+  AudioProcessorEditor *pluginEditor = slotToEdit->plugin->createEditorIfNeeded();
+  if( pluginEditor != nullptr )
+    wrapPluginEditorIntoContainerAndShow(customEditor, pluginEditor, false);
+  else
+  {
+    // \todo open error message box "Open plugin GUI failed."
+  }
 }
 
 void AudioPluginSlotComponent::openParameterEditor()
@@ -230,15 +230,15 @@ void AudioPluginSlotComponent::wrapPluginEditorIntoContainerAndShow(AudioProcess
                                        // app is brought to background - but i currently don't know
                                        // how to handle that
   container->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
-  setupEditorPosition(container);
+  alignWithVisibilityConstraintTo(this, container);
   container->setWantsKeyboardFocus(true);
   container->showInFrontOfAppWindow();
 }
 
 void AudioPluginSlotComponent::hideEditors()
 {
-  if( editor != nullptr )
-    editor->setVisible(false);
+  if( customEditor != nullptr )
+    customEditor->setVisible(false);
   if( parameterEditor != nullptr )
     parameterEditor->setVisible(false);
 }
@@ -275,20 +275,6 @@ void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
       // update of the label-text will be triggered by a changeListenerCallback in this branch
   }
   openEditor();
-}
-
-void AudioPluginSlotComponent::setupEditorPosition(AudioProcessorEditorContainer *editor)
-{
-  // actually, we expect this function to be called only from places where it is guaranteed, that
-  // the editor object actually exists:
-  jassert( editor != nullptr );
-  if( editor == nullptr )
-    return; 
-
-  Point<int> topLeft = getScreenPosition();
-  topLeft.x += getWidth();
-  topLeft = constrainPositionToScreen(topLeft, editor->getWidth(), editor->getHeight());
-  editor->setTopLeftPosition(topLeft);
 }
 
 //=================================================================================================
