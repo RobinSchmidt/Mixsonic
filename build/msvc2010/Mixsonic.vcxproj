@@ -73,6 +73,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\components\reusable\PluginComponents.cpp" />
     <ClCompile Include="..\..\src\components\reusable\RFileTreeComponent.cpp" />
     <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="..\..\src\components\reusable\WaveformDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\components\reusable\PluginComponents.h" />
     <ClInclude Include="..\..\src\components\reusable\RFileTreeComponent.h" />
     <ClInclude Include="..\..\src\components\reusable\TransportComponent.h" />
     <ClInclude Include="..\..\src\control\MixsonicCommandManager.h" />

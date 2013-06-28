@@ -35,6 +35,33 @@ double beatsToSeconds(double beat, double bpm)
   return (60.0/bpm)*beat;
 }
 
+Point<int> constrainPositionToScreen(Point<int> desiredPosition, int width, int height)
+{
+  Rectangle<int> workArea = Desktop::getInstance().getMonitorAreaContaining(desiredPosition, true);
+
+  int x  = desiredPosition.x;
+  int y  = desiredPosition.y;
+  int w  = width;
+  int h  = height;
+  int xw = workArea.getX();
+  int yw = workArea.getY();
+  int ww = workArea.getWidth();
+  int hw = workArea.getHeight();
+  int r  = x  + w;                // desired right
+  int rw = xw + ww;               // work area right
+  int b  = y  + h;                // desired bottom
+  int bw = yw + hw;               // work area bottom
+
+  if( r > rw )
+    x -= r-rw;
+  if( b > bw )
+    y -= b-bw;
+  x = jmax(x, xw);
+  y = jmax(y, yw);
+
+  return Point<int>(x, y);
+}
+
 /*
 String createAudioFileInfoString(File fileToCreateStringFrom)
 {
@@ -218,6 +245,22 @@ bool isEven(int x)
     return true;
   else
     return false;
+}
+
+bool isInFrontOf(Component *c1, Component *c2) 
+{
+  ComponentPeer *peer1 = c1->getPeer();
+  ComponentPeer *peer2 = c2->getPeer();
+  if( peer1 != peer2 )
+    return isInFrontOf(peer1, peer2);
+  else
+  {
+    jassertfalse;
+      // not yet implemented - it means, that c1 and c2 are both in the same TopLevelComponent
+      // - we perhaps have to check the position inside the array of childComponents in the closest
+      // common ancestor - or something
+  }
+  return true; // preliminary
 }
 
 bool isOdd(int x)
@@ -425,4 +468,58 @@ String valueToString2(double value)
 double wholeNotesToSeconds(double noteValue, double bpm)
 {
   return (240.0/bpm)*noteValue;
+}
+
+// platform specific stuff:
+
+#ifdef JUCE_WINDOWS
+  #include <Windows.h>
+#endif
+
+bool isInFrontOf(ComponentPeer *p1, ComponentPeer *p2)
+{
+#ifdef JUCE_WINDOWS
+  HWND window1 = (HWND) p1->getNativeHandle();
+  HWND window2 = (HWND) p2->getNativeHandle();
+
+  /*
+  int z1 = 0;
+  HWND nextWindow = GetTopWindow(NULL);
+  while( nextWindow != NULL )
+  {
+    if( nextWindow == window1 )
+      break;
+    z1++;
+    nextWindow = GetNextWindow(nextWindow, GW_HWNDNEXT);
+  }
+
+  int z2 = 0;
+  nextWindow = GetTopWindow(NULL);
+  while( nextWindow != NULL )
+  {
+    if( nextWindow == window2 )
+      break;  
+    z2++;
+    nextWindow = GetNextWindow(nextWindow, GW_HWNDNEXT);
+  }
+
+  return z1 < z2;
+  */
+
+  
+  HWND nextWindow = GetTopWindow(NULL);
+  while( nextWindow != NULL )
+  {
+    if( nextWindow == window1 )
+      return true;  // window1 was found first, so p1 is in front of p2
+    else if( nextWindow == window2 )
+      return false; // window2 was found first, so p2 is in front of p1
+    nextWindow = GetNextWindow(nextWindow, GW_HWNDNEXT);
+  }
+  jassertfalse; // none of the windows was found - should not happen
+  return true;
+#else
+  // todo: provide mac and linux implementations
+  return true;
+#endif
 }

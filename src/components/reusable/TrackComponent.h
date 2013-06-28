@@ -5,9 +5,8 @@
 #include "AudioClipComponent.h"
 #include "../../core/infrastructure/Track.h"
 #include "../../core/infrastructure/ClipInstantiationManager.h"
-#include "../widgets/RButton.h"
+#include "PluginComponents.h"
 #include "../widgets/MixsonicSlider.h"
-#include "../widgets/RLabel.h"
 
 /**
 
@@ -193,142 +192,6 @@ protected:
 };
 
 //=================================================================================================
-
-/** A component to show a slot for an audio plugin which shows the name of the plugin and 
-facilitates plugging in, replacing, plugging out, bypassing, opening the plugin GUI, etc.  */
-
-class AudioPluginSlotComponent : public Component, public ChangeListener
-{
-
-public:
-
-  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, PluginChain *pluginChainToUse = nullptr);
-
-  virtual ~AudioPluginSlotComponent();
-
-  // void setPlugIn(AudioPluginInstance *newPlugIn);
-
-  // return a component with a custom GUI - the caller should take over responsibility for further
-  // lifetime
-  //virtual Component* getCustomGUI();
-
-  //virtual AudioProcessorEditor* getEditor();
-
-
-  //-----------------------------------------------------------------------------------------------
-  // inquiry:
-
-  /** Returns true when our pluginSlot pointer is a nullpointer or (if it isn't) the 
-  pluginSlot is empty. */
-  virtual bool isEmpty();
-
-  //-----------------------------------------------------------------------------------------------
-  // callbacks:
-  virtual void changeListenerCallback(ChangeBroadcaster *source);
-  virtual void mouseDown(const MouseEvent &e);
-  virtual void resized();
-
-  //-----------------------------------------------------------------------------------------------
-  // misc:
-
-  /** Updates the text in our Label to show the (possibly new) name of the plugin. */
-  virtual void updateLabelText();
-
-protected:
-
-  /** Opens the popup menu which lets the user select plugins, bypass, etc. */
-  virtual void openPopUpMenu();
-
-  /** Opens the plugin's GUI editor, or a generic editor for GUI-less plugins. */
-  virtual void openEditor();
-
-  /** Opens a dialog where the user can pick the plugin to load. At the moment, this is a native 
-  file-chooser dialog where the user picks the plugin's shared library file (i.e. the .dll, .dylib, 
-  .so or whatever it is on the particular platform). */
-  virtual void openLoadPluginDialog();
-
-  /** Loads a plugin from the given file into our slot. */
-  virtual void loadPluginFromFile(const File& pluginFile);
-
-
-  RLabel *nameLabel;
-  RButton *onOffButton;
-  //RSlider *dryWetSlider; // maybe add later
-
-  //AudioPluginInstance *plugIn;
-
-  /** Pointer to the actual PluginSlot object which we edit. */
-  PluginSlot *slotToEdit;
-
-  /** Pointer to a PluginChain object in which our PluginSlot object sits. This chain object shall
-  also take over ownership for the object pointed to by "slotToEdit". Only when chainToUse is a 
-  nullptr, we will take care of the deletion of "slotToEdit" ourselves. */
-  PluginChain *chainToUse;
-
-
-  // \todo - we need a pointer to the pluginChain as well because the pluginSlot will be inserted 
-  // into the chain and the chain will take ownership of the slot
-
-  //AudioProcessorEditor *editor;
-    // probably we should not maintain a pointer to the editor, instead, retrieve it, if needed
-    // via 
-
-
-  JUCE_LEAK_DETECTOR(AudioPluginSlotComponent);
-};
-
-//=================================================================================================
-
-/** A component showing an arbitrary number of AudioPluginSlotComponents in a vertical column. It
-also takes care to always have an empty slot at the bottom, for a new plugin to be plugged in. */
-
-class AudioPluginChainComponent : public Component, public ChangeListener
-{
-
-public:
-
-  //-----------------------------------------------------------------------------------------------
-  // construction/destruction:
-
-  AudioPluginChainComponent(PluginChain *chainToEdit);
-
-  virtual ~AudioPluginChainComponent();
-
-  //-----------------------------------------------------------------------------------------------
-  // setup:
-
-  /** Adds a slot-component to this chain. This object takes over responsibility for deleting it
-  eventually. */
-  //virtual void addSlotComponent(AudioPluginSlotComponent *newSlotComponent);
-    // get rid of that - makes no sense anymore
-
-  /** Deletes the components for all slots. */
-  //virtual void deleteAllSlotComponents();
-
-  // \todo provide functionality to change the order of the plugins by drag-and-drop
-
-  //-----------------------------------------------------------------------------------------------
-  // callbacks:
-
-  // \todo on mouseOver show the full component (with all slots), even if some slots are hidden
-  // due to a too small track-height - on mouseOver, it expands downward, if necesarry - but what
-  // should we do, when there's not enough space below? expand upward? that might be weird because
-  // the mouse won't be over the same slot as in the non-expanded state ...hmmm
-
-  /** Updates all slot components, possibly deleting some and/or creating new ones. */
-  virtual void updateSlotComponents();
-
-  virtual void changeListenerCallback(ChangeBroadcaster* source);
-  virtual void resized();
-
-protected:
-
-  PluginChain *pluginChain;
-
-  JUCE_LEAK_DETECTOR(AudioPluginChainComponent);
-};
-
-//=================================================================================================
 /**
 
 This class is a component that assembles some controllers for a Track such as sliders for level and 
@@ -457,7 +320,7 @@ protected:
 
   TrackBodyComponent    *bodyComponent;
   MixsonicTrackControlComponent *outputComponent; // later call this outputComponent and also have an 
-                                           // inputComponent
+                                                  // inputComponent
 
 };
 

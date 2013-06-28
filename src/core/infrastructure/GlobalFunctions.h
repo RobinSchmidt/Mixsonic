@@ -64,6 +64,14 @@ int arrayMinIndex(T* theArray, int numValues);
 minute (bpm). */
 double beatsToSeconds(double beat, double bpm);
 
+/** Modifies a desired (top-left) position, presumably for some Component, such that the Component 
+does not extend beyond the bounds of the screen's work area. If the desired position is too far 
+right, such that (with given desired width) the Component would extend rightwards out of the 
+screen's work area, the x-coordinate will be reduced as much as necessary. Likewise for the 
+y-coordinate. It also ensures, that the x- and y-coordinates leave enough space for a top and/or 
+left taskbar, if such is present. */
+Point<int> constrainPositionToScreen(Point<int> desiredPosition, int width, int height);
+
 /** Creates a string with informations about an audiofile that was passed. */
 //String createAudioFileInfoString(File fileToCreateStringFrom);
 
@@ -99,6 +107,13 @@ bool isCloseTo(double x, double targetValue, double tolerance);
 
 /** Checks, if x is even. */
 bool isEven(int x);
+
+/** Determines, if one Component is in front of another one. If the components are inside different
+ComponentPeers, it will check, which of the peers is in front. */
+bool isInFrontOf(Component *c1, Component *c2); // add const declarations
+
+/** Determines, if one ComponentPeer (i.e. native window) is in front of another one. */
+bool isInFrontOf(ComponentPeer *p1, ComponentPeer *p2);
 
 /** Checks, if x is odd. */
 bool isOdd(int x);
