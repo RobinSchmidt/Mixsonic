@@ -2,6 +2,7 @@
 #define PluginComponents_h
 
 #include "../../core/infrastructure/PluginChain.h"
+#include "../../control/ActivationObserver.h"
 #include "../widgets/RLabel.h"
 #include "../widgets/RButton.h"
 
@@ -13,7 +14,7 @@ the desktop, moved around, closed and re-opened.
 
 */
 
-class AudioProcessorEditorContainer : public Component
+class AudioProcessorEditorContainer : public Component, public ActivationObserver
 {
 
 public:
@@ -23,8 +24,12 @@ public:
 
   /** Constructor. You must pass a pointer to the AudioProcessorEditor to be wrapped. Depending on
   the "shouldTakeOwnership" parameter, this object with either delete the "editorToWrap" when 
-  itself is deleted or not. If you pass "false", "editorToWrap" should be deleted elsewhere. */
-  AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap, bool shouldTakeOwnership);
+  itself is deleted or not. If you pass "false", "editorToWrap" should be deleted elsewhere. The 
+  "ownerToWatchForActivation" is supposed to be some window that has openend this editor window and
+  should be watched for (de)activation, to which this object responds with making itself 
+  (in)visible - it may be a nullptr, in which case it won't become invisible. */
+  AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap, bool shouldTakeOwnership, 
+    Activatable *ownerToWatchForActivation = nullptr);
 
   /** Destructor */
   virtual ~AudioProcessorEditorContainer();
@@ -43,13 +48,12 @@ public:
   //-----------------------------------------------------------------------------------------------
   // callbacks:
 
-  //virtual void focusLost(FocusChangeType cause);
+  virtual void activationStatusChanged(Activatable *activatable, bool isActive);
   virtual void childBoundsChanged(Component *child);
   virtual void resized();
   virtual void paint(Graphics &g);
 
   //virtual void mouseDown(const MouseEvent &e);
-
 
 protected:
    	
@@ -63,6 +67,11 @@ protected:
   bool ownsEditor;
     // flag to indicate whether we should delete the wrapped editor or not when this object
     // is itself is deleted
+
+  Activatable *owner;
+    // pointer to an object (usually a TopLevelWindow) that "owns" (in a sense) this plugin-editor 
+    // window. we want to keep track of (de)activation of this owning window in order to ourselves
+    // invisible on deactivation
 
   JUCE_LEAK_DETECTOR(AudioProcessorEditorContainer);
 };

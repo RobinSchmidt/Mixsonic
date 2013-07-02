@@ -8,7 +8,7 @@ MixsonicContentComponent component.
 
 */
 
-class MixsonicWindow : public DocumentWindow, public ChangeListener
+class MixsonicWindow : public DocumentWindow, public ChangeListener, public Activatable
 {
 
 public:
@@ -45,6 +45,11 @@ public:
   virtual void changeListenerCallback(ChangeBroadcaster *objectThatHasChanged) 
   {
     setName(String("Mixsonic - ") + contentComponent->getProjectName());
+  }
+
+  virtual void activeWindowStatusChanged()
+  {
+    sendActivationStatusChangeMessage(isActiveWindow());
   }
 
   void closeButtonPressed()

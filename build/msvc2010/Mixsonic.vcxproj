@@ -76,6 +76,7 @@
     <ClCompile Include="..\..\src\components\reusable\PluginComponents.cpp" />
     <ClCompile Include="..\..\src\components\reusable\RFileTreeComponent.cpp" />
     <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp" />
+    <ClCompile Include="..\..\src\control\ActivationObserver.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
     <ClCompile Include="..\..\src\control\TransportController.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\PluginChain.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="..\..\src\components\reusable\PluginComponents.h" />
     <ClInclude Include="..\..\src\components\reusable\RFileTreeComponent.h" />
     <ClInclude Include="..\..\src\components\reusable\TransportComponent.h" />
+    <ClInclude Include="..\..\src\control\ActivationObserver.h" />
     <ClInclude Include="..\..\src\control\MixsonicCommandManager.h" />
     <ClInclude Include="..\..\src\control\TransportController.h" />
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h" />

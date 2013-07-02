@@ -2,17 +2,23 @@
 
 
 AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap,  
-  bool shouldTakeOwnership) 
+  bool shouldTakeOwnership, Activatable *ownerToWatchForActivation) 
 : editor(editorToWrap)
 {
   titleBarHeight = 16;
   ownsEditor     = shouldTakeOwnership;
   setSize(editor->getWidth(), editor->getHeight() + titleBarHeight);
   addAndMakeVisible(editor);
+
+  owner = ownerToWatchForActivation;
+  if( owner != nullptr )
+    owner->registerActivationObserver(this);
 }
 
 AudioProcessorEditorContainer::~AudioProcessorEditorContainer()
 {
+  if( owner != nullptr )
+    owner->deregisterActivationObserver(this);
   removeAllChildren();
   if( ownsEditor )
     delete editor;
@@ -24,6 +30,12 @@ void AudioProcessorEditorContainer::showInFrontOfAppWindow()
 {
   setVisible(true);
   toFront(true);
+}
+
+void AudioProcessorEditorContainer::activationStatusChanged(Activatable *activatable, 
+                                                            bool isActive)
+{
+  setVisible(isActive);
 }
 
 void AudioProcessorEditorContainer::childBoundsChanged(Component *child)
@@ -224,11 +236,17 @@ void AudioPluginSlotComponent::wrapPluginEditorIntoContainerAndShow(AudioProcess
                                                                     bool shouldTakeOwnership)
 {
   int styleFlags = ComponentPeer::windowHasDropShadow;
-  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership);
+
+  Activatable *containerOwner = dynamic_cast<Activatable*>(getTopLevelComponent());
+  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership, containerOwner);
+
   container->setOpaque(true);
-  container->setAlwaysOnTop(true);     // not really optimal: it even remains on top when the whole 
-                                       // app is brought to background - but i currently don't know
-                                       // how to handle that
+  container->setAlwaysOnTop(true);  
+    // not really optimal: it even remains on top when the whole app is brought to background - but 
+    // i currently don't know how to handle that - maybe we can attach ourselves as 
+    // ComponentListener to the top-level component and receive a callback when it is brought to 
+    // the background and make the editors invisible in this case
+
   container->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
   alignWithVisibilityConstraintTo(this, container);
   container->setWantsKeyboardFocus(true);
