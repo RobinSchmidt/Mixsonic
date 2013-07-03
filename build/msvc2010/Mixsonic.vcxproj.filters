@@ -321,6 +321,9 @@
     <ClCompile Include="..\..\src\control\ActivationObserver.cpp">
       <Filter>src\control</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
@@ -586,6 +589,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\control\ActivationObserver.h">
       <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\DeletionManagement.h">
+      <Filter>src\core\infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

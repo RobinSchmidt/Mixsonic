@@ -2,26 +2,37 @@
 
 
 AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap,  
-  bool shouldTakeOwnership, Activatable *ownerToWatchForActivation) 
+  bool shouldTakeOwnership, DeletionManager *deletor, Activatable *ownerToWatchForActivation) 
 : editor(editorToWrap)
+, DeletionRequester(deletor)
 {
   titleBarHeight = 16;
   ownsEditor     = shouldTakeOwnership;
-  setSize(editor->getWidth(), editor->getHeight() + titleBarHeight);
+
   addAndMakeVisible(editor);
 
-  owner = ownerToWatchForActivation;
-  if( owner != nullptr )
-    owner->registerActivationObserver(this);
+  visibilityController = ownerToWatchForActivation;
+  if( visibilityController != nullptr )
+    visibilityController->registerActivationObserver(this);
+
+  addAndMakeVisible( closeButton = new RButton("X") );
+  closeButton->setDescription("Close pugin editor");
+  closeButton->addListener(this);
+
+
+  setSize(editor->getWidth(), editor->getHeight() + titleBarHeight);
 }
 
 AudioProcessorEditorContainer::~AudioProcessorEditorContainer()
 {
-  if( owner != nullptr )
-    owner->deregisterActivationObserver(this);
-  removeAllChildren();
+  if( visibilityController != nullptr )
+    visibilityController->deregisterActivationObserver(this);
+
+  removeChildComponent(editor);
   if( ownsEditor )
     delete editor;
+
+  deleteAllChildren(); 
 }
 
 // setup:  
@@ -32,32 +43,39 @@ void AudioProcessorEditorContainer::showInFrontOfAppWindow()
   toFront(true);
 }
 
-void AudioProcessorEditorContainer::activationStatusChanged(Activatable *activatable, 
-                                                            bool isActive)
-{
-  setVisible(isActive);
-}
-
 void AudioProcessorEditorContainer::childBoundsChanged(Component *child)
 {
-  jassert( child == editor );
-  if( editor != nullptr )
+  if( child == editor )
     setSize(editor->getWidth(), editor->getHeight() + titleBarHeight);
 }
 
 void AudioProcessorEditorContainer::resized()
 {
-  // \todo set up title-bar (close-button, load/save widgets, etc.);
-
-
   if( editor != nullptr )
     editor->setTopLeftPosition(0, titleBarHeight);
+
+  int buttonSize = titleBarHeight;
+  closeButton->setBounds(getWidth()-buttonSize, 0, buttonSize, buttonSize);
+
+  // \todo set up title-bar (close-button, load/save widgets, etc.);
 }
 
 void AudioProcessorEditorContainer::paint(Graphics &g)
 {
   g.setColour(Colours::black); // preliminary
   g.fillRect(0, 0, getWidth(), titleBarHeight);
+}
+
+void AudioProcessorEditorContainer::activationStatusChanged(Activatable *activatable, 
+                                                            bool isActive)
+{
+  setVisible(isActive);
+}
+
+void AudioProcessorEditorContainer::buttonClicked(Button* button)
+{
+  if( button == closeButton )
+    requestDeletion();
 }
 
 //=================================================================================================
@@ -101,23 +119,19 @@ bool AudioPluginSlotComponent::isEmpty()
   return slotToEdit == nullptr || slotToEdit->plugin == nullptr;
 }
 
-bool AudioPluginSlotComponent::isCustomEditorVisible()
+bool AudioPluginSlotComponent::isCustomEditorOpen()
 {
-  if( customEditor == nullptr )
-    return false;
-  return customEditor->isVisible();
+  return customEditor != nullptr;
 }
 
-bool AudioPluginSlotComponent::isParameterEditorVisible()
+bool AudioPluginSlotComponent::isParameterEditorOpen()
 {
-  if( parameterEditor == nullptr )
-    return false;
-  return parameterEditor->isVisible();
+  return parameterEditor != nullptr;
 }
 
-bool AudioPluginSlotComponent::isAnyEditorVisible()
+bool AudioPluginSlotComponent::isAnyEditorOpen()
 {
-  return isCustomEditorVisible() || isParameterEditorVisible();
+  return isCustomEditorOpen() || isParameterEditorOpen();
 }
 
 // callbacks:
@@ -135,18 +149,10 @@ void AudioPluginSlotComponent::mouseDown(const MouseEvent &e)
       openPopUpMenu();
     else
     {
-      //openEditor();
-        // actually, the desired behavior is: when the editor is open and in front: hide it, else
-        // show it. but it turned out to be hard to find out, if the editor is actually in front
-        // of the app-window, so for the time being, we just show it regardless of current state
-        // this is some detail for later
-
-      // maybe, we should just close (i.e.) delet the editor completely instead of just hiding it
-
-      if( !isAnyEditorVisible() )
+      if( !isAnyEditorOpen() )
         openEditor();
       else
-        hideEditors();
+        closeEditors();
     }
   }
   else if( e.mods.isRightButtonDown() )
@@ -156,6 +162,14 @@ void AudioPluginSlotComponent::mouseDown(const MouseEvent &e)
 void AudioPluginSlotComponent::resized()
 {
   nameLabel->setBounds(0, 0, getWidth(), getHeight());
+}
+
+void AudioPluginSlotComponent::handleDeletionRequest(DeletionRequester *objectThatWantsToBeDeleted)
+{
+  if( objectThatWantsToBeDeleted == customEditor )
+    closeCustomEditor();
+  else if( objectThatWantsToBeDeleted == parameterEditor )
+    closeParameterEditor();
 }
 
 // misc:
@@ -193,6 +207,40 @@ void AudioPluginSlotComponent::openPopUpMenu()
   {
     // user picked item 2
   }
+}
+
+void AudioPluginSlotComponent::openLoadPluginDialog()
+{
+  File startDirectory = getApplicationDirectory(); 
+    // later use a user-specified plugin folder stored in the global preferences
+
+  FileChooser chooser("Select Plugin", startDirectory, "*.dll"); 
+    // later use a system-specific extension - write a function getPluginFileExtensions()
+
+  if( chooser.browseForFileToOpen() )
+    loadPluginFromFile(chooser.getResult());
+}
+
+void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
+{ 
+  if( slotToEdit == nullptr )
+  {
+    AudioPluginInstance *plugin = getVSTPluginInstanceFromFile(pluginFile);
+    if( plugin != nullptr )
+    {
+      slotToEdit = new PluginSlot(plugin);
+      slotToEdit->addChangeListener(this);
+      if( chainToUse != nullptr )
+        chainToUse->addSlot(slotToEdit);
+      updateLabelText();
+    }
+  }
+  else
+  {
+    slotToEdit->loadPlugin(pluginFile);
+      // update of the label-text will be triggered by a changeListenerCallback in this branch
+  }
+  openEditor();
 }
 
 void AudioPluginSlotComponent::openEditor()
@@ -236,63 +284,34 @@ void AudioPluginSlotComponent::wrapPluginEditorIntoContainerAndShow(AudioProcess
                                                                     bool shouldTakeOwnership)
 {
   int styleFlags = ComponentPeer::windowHasDropShadow;
-
   Activatable *containerOwner = dynamic_cast<Activatable*>(getTopLevelComponent());
-  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership, containerOwner);
-
+  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership, this, containerOwner);
   container->setOpaque(true);
   container->setAlwaysOnTop(true);  
-    // not really optimal: it even remains on top when the whole app is brought to background - but 
-    // i currently don't know how to handle that - maybe we can attach ourselves as 
-    // ComponentListener to the top-level component and receive a callback when it is brought to 
-    // the background and make the editors invisible in this case
-
   container->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
   alignWithVisibilityConstraintTo(this, container);
   container->setWantsKeyboardFocus(true);
   container->showInFrontOfAppWindow();
 }
 
-void AudioPluginSlotComponent::hideEditors()
+void AudioPluginSlotComponent::closeEditors()
+{
+  closeCustomEditor();
+  closeParameterEditor();
+}
+
+void AudioPluginSlotComponent::closeCustomEditor()
 {
   if( customEditor != nullptr )
-    customEditor->setVisible(false);
-  if( parameterEditor != nullptr )
-    parameterEditor->setVisible(false);
+    delete customEditor;
+  customEditor = nullptr;
 }
 
-void AudioPluginSlotComponent::openLoadPluginDialog()
+void AudioPluginSlotComponent::closeParameterEditor()
 {
-  File startDirectory = getApplicationDirectory(); 
-    // later use a user-specified plugin folder stored in the global preferences
-
-  FileChooser chooser("Select Plugin", startDirectory, "*.dll"); 
-    // later use a system-specific extension - write a function getPluginFileExtensions()
-
-  if( chooser.browseForFileToOpen() )
-    loadPluginFromFile(chooser.getResult());
-}
-
-void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
-{ 
-  if( slotToEdit == nullptr )
-  {
-    AudioPluginInstance *plugin = getVSTPluginInstanceFromFile(pluginFile);
-    if( plugin != nullptr )
-    {
-      slotToEdit = new PluginSlot(plugin);
-      slotToEdit->addChangeListener(this);
-      if( chainToUse != nullptr )
-        chainToUse->addSlot(slotToEdit);
-      updateLabelText();
-    }
-  }
-  else
-  {
-    slotToEdit->loadPlugin(pluginFile);
-      // update of the label-text will be triggered by a changeListenerCallback in this branch
-  }
-  openEditor();
+  if( parameterEditor != nullptr )
+    delete parameterEditor;
+  parameterEditor = nullptr;
 }
 
 //=================================================================================================

@@ -2,6 +2,7 @@
 #define PluginComponents_h
 
 #include "../../core/infrastructure/PluginChain.h"
+#include "../../core/infrastructure/DeletionManagement.h"
 #include "../../control/ActivationObserver.h"
 #include "../widgets/RLabel.h"
 #include "../widgets/RButton.h"
@@ -14,7 +15,8 @@ the desktop, moved around, closed and re-opened.
 
 */
 
-class AudioProcessorEditorContainer : public Component, public ActivationObserver
+class AudioProcessorEditorContainer : public Component, public ActivationObserver, 
+  public ButtonListener, public DeletionRequester
 {
 
 public:
@@ -25,11 +27,13 @@ public:
   /** Constructor. You must pass a pointer to the AudioProcessorEditor to be wrapped. Depending on
   the "shouldTakeOwnership" parameter, this object with either delete the "editorToWrap" when 
   itself is deleted or not. If you pass "false", "editorToWrap" should be deleted elsewhere. The 
-  "ownerToWatchForActivation" is supposed to be some window that has openend this editor window and
-  should be watched for (de)activation, to which this object responds with making itself 
-  (in)visible - it may be a nullptr, in which case it won't become invisible. */
+  deletor should be some object that is responsible for deleting this object, when itself requests 
+  this deletion (for example, by clicking on the close-button). The "ownerToWatchForActivation" is 
+  supposed to be some window that has openend this editor window and should be watched for 
+  (de)activation, to which this object responds with making itself (in)visible - it may be a 
+  nullptr, in which case it won't become invisible.  */
   AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap, bool shouldTakeOwnership, 
-    Activatable *ownerToWatchForActivation = nullptr);
+     DeletionManager *deletor, Activatable *ownerToWatchForActivation = nullptr);
 
   /** Destructor */
   virtual ~AudioProcessorEditorContainer();
@@ -48,10 +52,11 @@ public:
   //-----------------------------------------------------------------------------------------------
   // callbacks:
 
-  virtual void activationStatusChanged(Activatable *activatable, bool isActive);
   virtual void childBoundsChanged(Component *child);
   virtual void resized();
   virtual void paint(Graphics &g);
+  virtual void activationStatusChanged(Activatable *activatable, bool isActive);
+  virtual void buttonClicked(Button* button);
 
   //virtual void mouseDown(const MouseEvent &e);
 
@@ -68,10 +73,13 @@ protected:
     // flag to indicate whether we should delete the wrapped editor or not when this object
     // is itself is deleted
 
-  Activatable *owner;
+  Activatable *visibilityController;
     // pointer to an object (usually a TopLevelWindow) that "owns" (in a sense) this plugin-editor 
     // window. we want to keep track of (de)activation of this owning window in order to ourselves
     // invisible on deactivation
+
+  RButton *closeButton;
+    // button to close the editor-window
 
   JUCE_LEAK_DETECTOR(AudioProcessorEditorContainer);
 };
@@ -79,9 +87,15 @@ protected:
 //=================================================================================================
 
 /** A component to show a slot for an audio plugin which shows the name of the plugin and 
-facilitates plugging in, replacing, plugging out, bypassing, opening the plugin GUI, etc.  */
+facilitates plugging in, replacing, plugging out, bypassing, opening the plugin GUI, etc.  
 
-class AudioPluginSlotComponent : public Component, public ChangeListener
+\todo maybe factor out a class AudioProcessorEditorContainerOwner which manages all this open/close
+business but is not a component - later, we may want to open/close plugin editors from places other
+than such plugin-slot components
+
+*/
+
+class AudioPluginSlotComponent : public Component, public ChangeListener, public DeletionManager
 {
 
 public:
@@ -100,21 +114,22 @@ public:
   pluginSlot is empty. */
   virtual bool isEmpty();
 
-  /** Returns true, when the (custom) editor is currently visible. */
-  virtual bool isCustomEditorVisible();
+  /** Returns true, when the (custom) editor is open. */
+  virtual bool isCustomEditorOpen();
 
-  /** Returns true, when the generic parameter editor is currently visible. */
-  virtual bool isParameterEditorVisible();
+  /** Returns true, when the generic parameter editor is open. */
+  virtual bool isParameterEditorOpen();
 
   /** Returns true, when either the custom editor or the generic parameter editor or both are 
-  currently visible. */
-  virtual bool isAnyEditorVisible();
+  open. */
+  virtual bool isAnyEditorOpen();
 
   //-----------------------------------------------------------------------------------------------
   // callbacks:
   virtual void changeListenerCallback(ChangeBroadcaster *source);
   virtual void mouseDown(const MouseEvent &e);
   virtual void resized();
+  virtual void handleDeletionRequest(DeletionRequester *objectThatWantsToBeDeleted);
 
   //-----------------------------------------------------------------------------------------------
   // misc:
@@ -126,6 +141,14 @@ protected:
 
   /** Opens the popup menu which lets the user select plugins, bypass, etc. */
   virtual void openPopUpMenu();
+
+  /** Opens a dialog where the user can pick the plugin to load. At the moment, this is a native 
+  file-chooser dialog where the user picks the plugin's shared library file (i.e. the .dll, .dylib, 
+  .so or whatever it is on the particular platform). */
+  virtual void openLoadPluginDialog();
+
+  /** Loads a plugin from the given file into our slot. */
+  virtual void loadPluginFromFile(const File& pluginFile);
 
   /** Opens the plugin's GUI editor, or a generic editor for GUI-less plugins. */
   virtual void openEditor();
@@ -142,19 +165,16 @@ protected:
   virtual void wrapPluginEditorIntoContainerAndShow(AudioProcessorEditorContainer* &container,                                                 
     AudioProcessorEditor* pluginEditor, bool shouldTakeOwnership);
 
-  /** Makes the both editors (custom and generic) invisible but leaves the objects themselves 
-  around. */
-  virtual void hideEditors();
+  /** Closes any open editor (custom or generic or both) */
+  virtual void closeEditors();
 
-  //virtual void closeEditor();
+  /** Closes the plugin's GUI editor (if open). */
+  virtual void closeCustomEditor();
 
-  /** Opens a dialog where the user can pick the plugin to load. At the moment, this is a native 
-  file-chooser dialog where the user picks the plugin's shared library file (i.e. the .dll, .dylib, 
-  .so or whatever it is on the particular platform). */
-  virtual void openLoadPluginDialog();
+  /** Closes the plugin's generic parameter editor (if open). */
+  virtual void closeParameterEditor();
 
-  /** Loads a plugin from the given file into our slot. */
-  virtual void loadPluginFromFile(const File& pluginFile);
+
 
   /** Label to show the name of the plugin */
   RLabel *nameLabel;
