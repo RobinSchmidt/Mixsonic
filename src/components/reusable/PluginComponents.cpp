@@ -6,7 +6,7 @@ AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEdito
 : editor(editorToWrap)
 , DeletionRequester(deletor)
 {
-  titleBarHeight = 16;
+  titleBarHeight = 18;
   ownsEditor     = shouldTakeOwnership;
 
   addAndMakeVisible(editor);
@@ -15,10 +15,16 @@ AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEdito
   if( visibilityController != nullptr )
     visibilityController->registerActivationObserver(this);
 
+  addAndMakeVisible( nameLabel = new RLabel() );
+  nameLabel->setText(editor->getAudioProcessor()->getName(), false);
+  //nameLabel->setColour(Label::outlineColourId, outlineColor);
+  //nameLabel->setColour(Label::backgroundColourId, backgroundColor);
+  //nameLabel->setColour(Label::textColourId, textColor);
+  nameLabel->addMouseListener(this, false);
+
   addAndMakeVisible( closeButton = new RButton("X") );
   closeButton->setDescription("Close pugin editor");
   closeButton->addListener(this);
-
 
   setSize(editor->getWidth(), editor->getHeight() + titleBarHeight);
 }
@@ -54,10 +60,13 @@ void AudioProcessorEditorContainer::resized()
   if( editor != nullptr )
     editor->setTopLeftPosition(0, titleBarHeight);
 
-  int buttonSize = titleBarHeight;
+  int labelHeight = titleBarHeight;
+  int buttonSize  = titleBarHeight;
+
+  nameLabel->setBounds(0, 0, getWidth()-buttonSize+1, labelHeight);
   closeButton->setBounds(getWidth()-buttonSize, 0, buttonSize, buttonSize);
 
-  // \todo set up title-bar (close-button, load/save widgets, etc.);
+  // \todo set up preset load/save widgets
 }
 
 void AudioProcessorEditorContainer::paint(Graphics &g)
@@ -76,6 +85,16 @@ void AudioProcessorEditorContainer::buttonClicked(Button* button)
 {
   if( button == closeButton )
     requestDeletion();
+}
+
+void AudioProcessorEditorContainer::mouseDown(const MouseEvent &e)
+{ 
+  dragger.startDraggingComponent(this, e);
+}
+ 
+void AudioProcessorEditorContainer::mouseDrag(const MouseEvent &e)
+{
+  dragger.dragComponent(this, e, nullptr);
 }
 
 //=================================================================================================

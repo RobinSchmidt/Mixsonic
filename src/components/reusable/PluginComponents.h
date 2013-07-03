@@ -57,8 +57,8 @@ public:
   virtual void paint(Graphics &g);
   virtual void activationStatusChanged(Activatable *activatable, bool isActive);
   virtual void buttonClicked(Button* button);
-
-  //virtual void mouseDown(const MouseEvent &e);
+  virtual void mouseDown(const MouseEvent &e);
+  virtual void mouseDrag(const MouseEvent &e);
 
 protected:
    	
@@ -78,8 +78,13 @@ protected:
     // window. we want to keep track of (de)activation of this owning window in order to ourselves
     // invisible on deactivation
 
+  RLabel *nameLabel;
+    // label to show the name of the plugin
+
   RButton *closeButton;
     // button to close the editor-window
+
+  ComponentDragger dragger;
 
   JUCE_LEAK_DETECTOR(AudioProcessorEditorContainer);
 };
