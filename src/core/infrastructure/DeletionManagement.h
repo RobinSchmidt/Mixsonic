@@ -19,7 +19,7 @@ class DeletionRequester
 public:
 
   /** Constructor. */
-  DeletionRequester(DeletionManager *deletionManagerToUse);  
+  DeletionRequester(DeletionManager *deletionManagerToUse = nullptr);  
 
   /** Sets our deletion manager, which this object calls when it wants to request its own 
   deletion. */

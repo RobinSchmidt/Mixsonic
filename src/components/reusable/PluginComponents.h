@@ -95,22 +95,36 @@ protected:
 facilitates plugging in, replacing, plugging out, bypassing, opening the plugin GUI, etc.  
 
 \todo maybe factor out a class AudioProcessorEditorContainerOwner which manages all this open/close
-business but is not a component - later, we may want to open/close plugin editors from places other
-than such plugin-slot components
+business but is not a component, later, we may want to open/close plugin editors from places other
+than such plugin-slot components, the AudioPluginSlotComponent may have only a pointer to such
+an Owner object such that to each owner, more than one slot-component may be assigned (for example,
+when an arrangement- and mixer-window should show the same plugin chain but open/use shared 
+plugin-editors)
 
 */
 
-class AudioPluginSlotComponent : public Component, public ChangeListener, public DeletionManager
+class AudioPluginSlotComponent : public Component, public ChangeListener, public DeletionManager,
+  public DeletionRequester
 {
+
+  friend class AudioPluginChainComponent;
 
 public:
 
   //-----------------------------------------------------------------------------------------------
   // construction/destruction:
 
-  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, PluginChain *pluginChainToUse = nullptr);
+  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit);
 
   virtual ~AudioPluginSlotComponent();
+
+
+  //-----------------------------------------------------------------------------------------------
+  // setup:
+
+  /** Sets, whether or not this slot can be removed by the user (and provides a corresponding 
+  option in the right-click popup menu). */
+  virtual void setRemovable(bool shouldBeRemovable) { slotIsRemovable  = shouldBeRemovable; }
 
   //-----------------------------------------------------------------------------------------------
   // inquiry:
@@ -180,23 +194,20 @@ protected:
   virtual void closeParameterEditor();
 
 
-
   /** Label to show the name of the plugin */
   RLabel *nameLabel;
 
   /** Pointer to the actual PluginSlot object which we edit. */
   PluginSlot *slotToEdit;
 
-  /** Pointer to a PluginChain object in which our PluginSlot object sits. This chain object shall
-  also take over ownership for the object pointed to by "slotToEdit". Only when chainToUse is a 
-  nullptr, we will take care of the deletion of "slotToEdit" ourselves. */
-  PluginChain *chainToUse;
-
   /** Pointer to a component that holds the actual plugin-editor. */
   AudioProcessorEditorContainer *customEditor;
 
   /** Pointer to a generic plugin parameter editor. */
   AudioProcessorEditorContainer *parameterEditor;
+
+  /** Flag to indicate, if this slot is removable. */
+  bool slotIsRemovable;
 
 
   JUCE_LEAK_DETECTOR(AudioPluginSlotComponent);
@@ -207,7 +218,7 @@ protected:
 /** A component showing an arbitrary number of AudioPluginSlotComponents in a vertical column. It
 also takes care to always have an empty slot at the bottom, for a new plugin to be plugged in. */
 
-class AudioPluginChainComponent : public Component, public ChangeListener
+class AudioPluginChainComponent : public Component, public ChangeListener, public DeletionManager
 {
 
 public:
@@ -232,6 +243,24 @@ public:
 
   // \todo provide functionality to change the order of the plugins by drag-and-drop
 
+
+
+  //virtual void appendEmptySlot();
+
+
+  virtual void removeLastSlot();
+
+
+
+  //-----------------------------------------------------------------------------------------------
+  // inquiry:
+
+
+  virtual bool isLastSlotEmpty();
+
+  virtual bool isSlotEmpty(int index);
+
+
   //-----------------------------------------------------------------------------------------------
   // callbacks:
 
@@ -242,13 +271,26 @@ public:
 
   /** Updates all slot components, possibly deleting some and/or creating new ones. */
   virtual void updateSlotComponents();
-
   virtual void changeListenerCallback(ChangeBroadcaster* source);
+  virtual void handleDeletionRequest(DeletionRequester *objectThatWantsToBeDeleted);
   virtual void resized();
+
 
 protected:
 
+
+  virtual void updateSize();
+
   PluginChain *pluginChain;
+
+  PluginSlot *tempSlot;
+    // a temporary PluginSlot object to be used to plugin new plugins at the end of the chain
+    // it should always be empty, whenever it gets filled, it will be appended to the chain and
+    // the "tempSlot" variable should be assigned to a new (empty) PluginSlot object
+
+  AudioPluginSlotComponent *tempSlotComponent;
+    // pointer to the component for the tempSlot
+
 
   int slotHeight; // height for one plugin slot
 

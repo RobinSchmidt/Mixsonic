@@ -4,6 +4,7 @@
 //#include "../../libs/JuceIncludes.h"
 #include "GlobalFunctions.h"
 
+
 /**
 
 This is a class for representing a slot for plugins which may (or may not) contain an 
@@ -46,6 +47,8 @@ public:
   //-----------------------------------------------------------------------------------------------
   // inquiry:
 
+  bool isEmpty() const { return plugin == nullptr; }
+
   bool isBypassed() const { return bypass; }
 
 protected:
@@ -70,7 +73,7 @@ This is a class for representing chain (i.e. series connection) of plugins.
 
 */
 
-class PluginChain : public ChangeBroadcaster
+class PluginChain /*: public ChangeBroadcaster*/
 {  
 
   friend class AudioPluginChainComponent;
@@ -102,8 +105,18 @@ public:
 
   /** Removes the slot with given index and optionally deletes the 
   AudioPluginInstance object.*/
-  virtual void removeSlot(int index, bool deletePluginInstance);
+  //virtual void removeSlot(int index, bool deletePluginInstance);
 
+  /** Removes the given slot object and optionally deletes the AudioPluginInstance object. */
+  //virtual void removeSlot(PluginSlot *slotToRemove, bool deleteSlot);
+
+  virtual void deleteSlot(int index);
+
+  virtual void deleteSlot(PluginSlot *slotToDelete);
+
+
+
+      
   /** Inserts the passed plugin instance into the plugin slot with given index, optionally 
   deleting the old plugin instance. */
   //virtual void insertPlugin(int slotIndex, AudioPluginInstance* pluginToInsert, 
@@ -140,6 +153,7 @@ public:
 protected:
 
   Array<PluginSlot*, CriticalSection> pluginSlots;
+    // maybe we should use an OwnedArray
 
 
   JUCE_LEAK_DETECTOR(PluginChain);

@@ -17,7 +17,6 @@ void DeletionRequester::setDeletionManager(DeletionManager *newDeletionManager)
 
  void DeletionRequester::requestDeletion()
  {
-   jassert(deletionManager != nullptr);
    if( deletionManager != nullptr )
      deletionManager->handleDeletionRequest(this);
  }

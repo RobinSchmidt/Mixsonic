@@ -29,7 +29,8 @@ void PluginSlot::setPlugin(AudioPluginInstance* pluginToUse, bool deleteOldPlugi
   if( deleteOldPlugin )
     deleteUnderlyingPlugin();
   plugin = pluginToUse;
-  sendChangeMessage();
+  sendSynchronousChangeMessage();
+  //sendChangeMessage();
 }
 
 // misc:
@@ -79,19 +80,44 @@ void PluginChain::addEmptySlot()
 {
   ScopedLock lock(pluginSlots.getLock());
   pluginSlots.add(new PluginSlot);
-  sendChangeMessage();
+  //sendSynchronousChangeMessage();
 }
 
 void PluginChain::addSlot(PluginSlot *slotToAdd)
 {
   ScopedLock lock(pluginSlots.getLock());
   pluginSlots.add(slotToAdd);
-  sendChangeMessage();
+  //sendSynchronousChangeMessage();
 }
 
+/*
 void PluginChain::removeSlot(int index, bool deletePluginInstance)
 {
   jassertfalse; // not yet implemented
+}
+
+void PluginChain::removeSlot(PluginSlot *slotToRemove, bool deletePluginInstance)
+{
+  ScopedLock lock(pluginSlots.getLock());
+  jassert(pluginSlots.contains(slotToRemove));
+  pluginSlots.removeValue(slotToRemove);
+}
+*/
+
+void PluginChain::deleteSlot(int index)
+{
+  ScopedLock lock(pluginSlots.getLock());
+  jassert( index >= 0 && index < pluginSlots.size() );
+  delete pluginSlots[index];
+  pluginSlots.remove(index);
+}
+
+void PluginChain::deleteSlot(PluginSlot *slotToDelete)
+{
+  ScopedLock lock(pluginSlots.getLock());
+  jassert(pluginSlots.contains(slotToDelete));
+  pluginSlots.removeValue(slotToDelete);
+  delete slotToDelete;
 }
 
 /*
@@ -101,7 +127,7 @@ void PluginChain::insertPlugin(int slotIndex, AudioPluginInstance* pluginToInser
   ScopedLock lock(pluginSlots.getLock());
   jassert( slotIndex >= 0 && slotIndex < pluginSlots.size() );
   pluginSlots[slotIndex]->setPlugin(pluginToInsert, deleteOldPlugin);
-  sendChangeMessage();
+  sendSynchronousChangeMessage();
 }
 
 void PluginChain::removePlugin(int slotIndex, bool deletePluginInstance)

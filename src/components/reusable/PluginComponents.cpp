@@ -100,13 +100,14 @@ void AudioProcessorEditorContainer::mouseDrag(const MouseEvent &e)
 //=================================================================================================
 // class AudioPluginSlotComponent:
 
-AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, 
-                                                   PluginChain *pluginChainToUse)
+AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
 {
+  jassert(pluginSlotToEdit != nullptr);
+
   customEditor    = nullptr;
   parameterEditor = nullptr;
   slotToEdit      = pluginSlotToEdit;
-  chainToUse      = pluginChainToUse;
+  slotIsRemovable = true;
 
   addAndMakeVisible( nameLabel = new RLabel() );
   nameLabel->setColour(Label::outlineColourId, outlineColor);
@@ -125,9 +126,7 @@ AudioPluginSlotComponent::~AudioPluginSlotComponent()
   delete customEditor;
   delete parameterEditor;
   if( slotToEdit != nullptr )
-    slotToEdit->removeChangeListener(this);
-  if( chainToUse == nullptr )
-    delete slotToEdit;  
+    slotToEdit->removeChangeListener(this); 
   deleteAllChildren();
 }
 
@@ -208,23 +207,27 @@ void AudioPluginSlotComponent::openPopUpMenu()
   PopupMenu menu;
 
   if( !isEmpty() )
+  {
     menu.addItem(1, "Bypass", true, slotToEdit->isBypassed());
-  menu.addItem(2, "Load Plugin");
-  //menu.addItem(3, "Show Parameters"); // should be under if-clause
+    menu.addItem(2, "Show Parameters"); 
+    menu.addItem(3, "Open GUI", slotToEdit->plugin->hasEditor()); 
+    menu.addItem(4, "Remove Plugin"); 
+    menu.addSeparator();
+  }
+  if( slotIsRemovable ) 
+    menu.addItem(5, "Remove Slot"); 
+  menu.addItem(6, "Load Plugin");
 
   const int result = menu.show();
 
-  if(result == 0)
+  switch( result )
   {
-    // user dismissed the menu without picking anything
-  }
-  else if(result == 1)
-    slotToEdit->setBypass(!slotToEdit->isBypassed());
-  else if(result == 2)
-    openLoadPluginDialog();
-  else if(result == 3)
-  {
-    // user picked item 2
+  case 1: slotToEdit->setBypass(!slotToEdit->isBypassed()); break;
+  case 2: openParameterEditor();                            break;
+  case 3: openCustomEditor();                               break;
+  case 4: slotToEdit->setPlugin(nullptr, true);             break;
+  case 5: requestDeletion();                                break;
+  case 6: openLoadPluginDialog();                           break;
   }
 }
 
@@ -249,8 +252,6 @@ void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
     {
       slotToEdit = new PluginSlot(plugin);
       slotToEdit->addChangeListener(this);
-      if( chainToUse != nullptr )
-        chainToUse->addSlot(slotToEdit);
       updateLabelText();
     }
   }
@@ -283,6 +284,7 @@ void AudioPluginSlotComponent::openCustomEditor()
     wrapPluginEditorIntoContainerAndShow(customEditor, pluginEditor, false);
   else
   {
+    jassertfalse;
     // \todo open error message box "Open plugin GUI failed."
   }
 }
@@ -332,6 +334,12 @@ void AudioPluginSlotComponent::closeParameterEditor()
     delete parameterEditor;
   parameterEditor = nullptr;
 }
+/*
+void AudioPluginSlotComponent::removePlugin()
+{
+
+}
+*/
 
 //=================================================================================================
 // class AudioPluginChainComponent:
@@ -340,52 +348,119 @@ AudioPluginChainComponent::AudioPluginChainComponent(PluginChain *chainToEdit)
 {
   slotHeight  = 14;
   pluginChain = chainToEdit;
-  pluginChain->addChangeListener(this);
+  for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
+    pluginChain->pluginSlots[i]->addChangeListener(this);
+  tempSlot = new PluginSlot(nullptr);
+  tempSlot->addChangeListener(this);
 }
 
 AudioPluginChainComponent::~AudioPluginChainComponent()
 {
-  pluginChain->removeChangeListener(this);
+  for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
+    pluginChain->pluginSlots[i]->removeChangeListener(this);
+  delete tempSlot;
   deleteAllChildren();
 }
-/*
-void AudioPluginChainComponent::addSlotComponent(AudioPluginSlotComponent *newSlotComponent)
-{
-  addAndMakeVisible(newSlotComponent);
-}
-*/
-/*
-void AudioPluginChainComponent::deleteAllSlotComponents()
-{
 
+// setup:
+/*
+void AudioPluginChainComponent::appendEmptySlot()
+{
+  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  PluginSlot *emptySlot = new PluginSlot(nullptr);
+  emptySlot->addChangeListener(this);
+  addAndMakeVisible(new AudioPluginSlotComponent(emptySlot));
 }
 */
+
+void AudioPluginChainComponent::removeLastSlot()
+{
+  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  int numSlots = pluginChain->pluginSlots.size();
+  jassert( numSlots == getNumChildComponents() );
+  Component* child = removeChildComponent(numSlots);
+  delete child;
+  //pluginChain->removeSlot(numSlots, true);
+  pluginChain->deleteSlot(numSlots-1);
+  updateSize();
+}
+
+// inquiry:
+  
+bool AudioPluginChainComponent::isLastSlotEmpty()
+{
+  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  int numSlots = pluginChain->pluginSlots.size();
+  return isSlotEmpty(numSlots-1);
+}
+
+bool AudioPluginChainComponent::isSlotEmpty(int index)
+{
+  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  int numSlots = pluginChain->pluginSlots.size();
+  jassert( index < numSlots );
+  return pluginChain->pluginSlots[index]->isEmpty();
+}
+
 void AudioPluginChainComponent::updateSlotComponents()
 {
   deleteAllChildren(); 
-    // deletes all slot components - maybe, as an optimization, we may later retain some or all but
-    // the code is easier, if we delete them all and recreate them, if necessary
-
-  // create slot components for all slots:
   ScopedLock lock(pluginChain->pluginSlots.getLock());
   for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
-    addAndMakeVisible(new AudioPluginSlotComponent(pluginChain->pluginSlots[i], pluginChain));
-
-  // create one additional slot component which is not yet assigned to a slot. there should always 
-  // be one empty slot component at the end to be used to plug in another plugins into the chain:
-  addAndMakeVisible(new AudioPluginSlotComponent(nullptr, pluginChain));
-
-  setSize(getWidth(), slotHeight*getNumChildComponents());
+  {
+    AudioPluginSlotComponent *slotComponent = 
+      new AudioPluginSlotComponent(pluginChain->pluginSlots[i]);
+    slotComponent->setDeletionManager(this);
+    addAndMakeVisible(slotComponent);
+  }
+  tempSlotComponent = new AudioPluginSlotComponent(tempSlot);
+  tempSlotComponent->setRemovable(false);
+  addAndMakeVisible(tempSlotComponent);
+  updateSize();
 }
 
 void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source)
 {
-  jassert( source == pluginChain);
+  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  if( source == tempSlot )
+  {
+    if( !tempSlot->isEmpty() )
+    {
+      pluginChain->addSlot(tempSlot);
+      tempSlot = new PluginSlot(nullptr);
+      tempSlot->addChangeListener(this);
 
-  //jassertfalse;
-    //updateSlotComponents(); //no - that sucks
-    // perhaps we should make a pluginChainObserver class and have callbacks 
-    // slotAppended, slotInserted, slotRemoved
+      tempSlotComponent->setRemovable(true);
+      tempSlotComponent->setDeletionManager(this);
+
+      tempSlotComponent = new AudioPluginSlotComponent(tempSlot);
+      tempSlotComponent->setRemovable(false);
+      addAndMakeVisible(tempSlotComponent);
+
+      updateSize();
+    }
+  }
+  else if( isLastSlotEmpty() )
+    removeLastSlot();
+}
+
+void AudioPluginChainComponent::handleDeletionRequest(DeletionRequester *object)
+{
+  ScopedLock lock(pluginChain->pluginSlots.getLock());
+
+  // \todo - find out the correspondi
+
+  AudioPluginSlotComponent *slotComponent = dynamic_cast<AudioPluginSlotComponent*>(object);
+  if( slotComponent != nullptr )
+  {
+    PluginSlot *slot = slotComponent->slotToEdit;
+    removeChildComponent(slotComponent);
+    delete slotComponent;
+    pluginChain->deleteSlot(slot);
+    resized();
+  }
+
+  int dummy = 0;
 }
 
 void AudioPluginChainComponent::resized()
@@ -393,4 +468,9 @@ void AudioPluginChainComponent::resized()
   int w = getWidth();
   for(int i = 0; i < getNumChildComponents(); i++)
     getChildComponent(i)->setBounds(0, i*(slotHeight-1), w, slotHeight);
+}
+
+void AudioPluginChainComponent::updateSize()
+{
+  setSize(getWidth(), slotHeight*getNumChildComponents());
 }
