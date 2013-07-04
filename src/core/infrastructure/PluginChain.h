@@ -146,10 +146,6 @@ public:
   virtual void processBlock(const AudioSourceChannelInfo &bufferToFill, 
                             MidiBuffer &midiMessages) const;
 
-
-  //===============================================================================================
-  juce_UseDebuggingNewOperator;
-
 protected:
 
   Array<PluginSlot*, CriticalSection> pluginSlots;

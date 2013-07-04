@@ -1,6 +1,5 @@
 #include "PluginComponents.h"
 
-
 AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap,  
   bool shouldTakeOwnership, DeletionManager *deletor, Activatable *ownerToWatchForActivation) 
 : editor(editorToWrap)
@@ -130,6 +129,14 @@ AudioPluginSlotComponent::~AudioPluginSlotComponent()
   deleteAllChildren();
 }
 
+// setup:
+
+void AudioPluginSlotComponent::setBypass(bool shouldBeBypassed)
+{
+  slotToEdit->setBypass(shouldBeBypassed);
+  repaint();
+}
+
 // inquiry:
 
 bool AudioPluginSlotComponent::isEmpty()
@@ -182,6 +189,16 @@ void AudioPluginSlotComponent::resized()
   nameLabel->setBounds(0, 0, getWidth(), getHeight());
 }
 
+void AudioPluginSlotComponent::paintOverChildren(Graphics &g)
+{
+  if( slotToEdit->isBypassed() )
+  {
+    g.setColour(Colour::greyLevel(0.5f).withAlpha(0.75f));
+    g.drawLine(0.f, 0.f, (float) getWidth(), (float) getHeight(), 2.f);
+    g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f, 2.f);
+  }
+}
+
 void AudioPluginSlotComponent::handleDeletionRequest(DeletionRequester *objectThatWantsToBeDeleted)
 {
   if( objectThatWantsToBeDeleted == customEditor )
@@ -195,7 +212,10 @@ void AudioPluginSlotComponent::handleDeletionRequest(DeletionRequester *objectTh
 void AudioPluginSlotComponent::updateLabelText()
 {
   if( isEmpty() )
-    nameLabel->setText("insert plugin", false);
+  {
+    //nameLabel->setText("insert plugin", false);
+    nameLabel->setText("", false);
+  }
   else
     nameLabel->setText(slotToEdit->plugin->getName(), false);
 }
@@ -222,12 +242,13 @@ void AudioPluginSlotComponent::openPopUpMenu()
 
   switch( result )
   {
-  case 1: slotToEdit->setBypass(!slotToEdit->isBypassed()); break;
-  case 2: openParameterEditor();                            break;
-  case 3: openCustomEditor();                               break;
-  case 4: slotToEdit->setPlugin(nullptr, true);             break;
-  case 5: requestDeletion();                                break;
-  case 6: openLoadPluginDialog();                           break;
+  //case 1: slotToEdit->setBypass(!slotToEdit->isBypassed()); break;
+  case 1: setBypass(!slotToEdit->isBypassed()); break;
+  case 2: openParameterEditor();                break;
+  case 3: openCustomEditor();                   break;
+  case 4: removePlugin();                       break;
+  case 5: requestDeletion();                    break;
+  case 6: openLoadPluginDialog();               break;
   }
 }
 
@@ -247,6 +268,9 @@ void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
 { 
   if( slotToEdit == nullptr )
   {
+    // do we actually still need this branch? i think, we have made sure that slotToEdit can't
+    // be a nullptr - this is also asserted in the constructor, so we may probably get rid of
+    // of this branch indeed
     AudioPluginInstance *plugin = getVSTPluginInstanceFromFile(pluginFile);
     if( plugin != nullptr )
     {
@@ -257,10 +281,17 @@ void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
   }
   else
   {
+    closeEditors();
     slotToEdit->loadPlugin(pluginFile);
       // update of the label-text will be triggered by a changeListenerCallback in this branch
   }
   openEditor();
+}
+
+void AudioPluginSlotComponent::removePlugin()
+{
+  closeEditors();
+  slotToEdit->setPlugin(nullptr, true);
 }
 
 void AudioPluginSlotComponent::openEditor()
@@ -300,13 +331,14 @@ void AudioPluginSlotComponent::openParameterEditor()
   wrapPluginEditorIntoContainerAndShow(parameterEditor, pluginEditor, true);
 }
 
-void AudioPluginSlotComponent::wrapPluginEditorIntoContainerAndShow(AudioProcessorEditorContainer* &container, 
-                                                                    AudioProcessorEditor *pluginEditor, 
-                                                                    bool shouldTakeOwnership)
+void AudioPluginSlotComponent::wrapPluginEditorIntoContainerAndShow(
+  AudioProcessorEditorContainer* &container, AudioProcessorEditor *pluginEditor,                                            
+  bool shouldTakeOwnership)
 {
   int styleFlags = ComponentPeer::windowHasDropShadow;
   Activatable *containerOwner = dynamic_cast<Activatable*>(getTopLevelComponent());
-  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership, this, containerOwner);
+  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership, this, 
+                                                containerOwner);
   container->setOpaque(true);
   container->setAlwaysOnTop(true);  
   container->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
@@ -334,12 +366,6 @@ void AudioPluginSlotComponent::closeParameterEditor()
     delete parameterEditor;
   parameterEditor = nullptr;
 }
-/*
-void AudioPluginSlotComponent::removePlugin()
-{
-
-}
-*/
 
 //=================================================================================================
 // class AudioPluginChainComponent:
@@ -363,24 +389,15 @@ AudioPluginChainComponent::~AudioPluginChainComponent()
 }
 
 // setup:
-/*
-void AudioPluginChainComponent::appendEmptySlot()
-{
-  ScopedLock lock(pluginChain->pluginSlots.getLock());
-  PluginSlot *emptySlot = new PluginSlot(nullptr);
-  emptySlot->addChangeListener(this);
-  addAndMakeVisible(new AudioPluginSlotComponent(emptySlot));
-}
-*/
 
 void AudioPluginChainComponent::removeLastSlot()
 {
   ScopedLock lock(pluginChain->pluginSlots.getLock());
   int numSlots = pluginChain->pluginSlots.size();
-  jassert( numSlots == getNumChildComponents() );
-  Component* child = removeChildComponent(numSlots);
+  jassert( numSlots == getNumChildComponents()-1 );
+  int childIndex = numSlots-1; // numSlots's child is the tempSlotComponent
+  Component* child = removeChildComponent(childIndex);
   delete child;
-  //pluginChain->removeSlot(numSlots, true);
   pluginChain->deleteSlot(numSlots-1);
   updateSize();
 }
@@ -429,27 +446,24 @@ void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source
       pluginChain->addSlot(tempSlot);
       tempSlot = new PluginSlot(nullptr);
       tempSlot->addChangeListener(this);
-
       tempSlotComponent->setRemovable(true);
       tempSlotComponent->setDeletionManager(this);
-
       tempSlotComponent = new AudioPluginSlotComponent(tempSlot);
       tempSlotComponent->setRemovable(false);
       addAndMakeVisible(tempSlotComponent);
-
       updateSize();
     }
   }
-  else if( isLastSlotEmpty() )
-    removeLastSlot();
+  else 
+  {
+    while( pluginChain->pluginSlots.size() > 0 && isLastSlotEmpty() )
+      removeLastSlot();
+  }
 }
 
 void AudioPluginChainComponent::handleDeletionRequest(DeletionRequester *object)
 {
   ScopedLock lock(pluginChain->pluginSlots.getLock());
-
-  // \todo - find out the correspondi
-
   AudioPluginSlotComponent *slotComponent = dynamic_cast<AudioPluginSlotComponent*>(object);
   if( slotComponent != nullptr )
   {
@@ -457,10 +471,8 @@ void AudioPluginChainComponent::handleDeletionRequest(DeletionRequester *object)
     removeChildComponent(slotComponent);
     delete slotComponent;
     pluginChain->deleteSlot(slot);
-    resized();
+    updateSize();
   }
-
-  int dummy = 0;
 }
 
 void AudioPluginChainComponent::resized()

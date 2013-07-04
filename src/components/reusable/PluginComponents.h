@@ -126,6 +126,9 @@ public:
   option in the right-click popup menu). */
   virtual void setRemovable(bool shouldBeRemovable) { slotIsRemovable  = shouldBeRemovable; }
 
+
+  virtual void setBypass(bool shouldBeBypassed);
+
   //-----------------------------------------------------------------------------------------------
   // inquiry:
 
@@ -148,6 +151,7 @@ public:
   virtual void changeListenerCallback(ChangeBroadcaster *source);
   virtual void mouseDown(const MouseEvent &e);
   virtual void resized();
+  virtual void paintOverChildren(Graphics &g);
   virtual void handleDeletionRequest(DeletionRequester *objectThatWantsToBeDeleted);
 
   //-----------------------------------------------------------------------------------------------
@@ -168,6 +172,9 @@ protected:
 
   /** Loads a plugin from the given file into our slot. */
   virtual void loadPluginFromFile(const File& pluginFile);
+
+  /** Removes the plugin from our slot. */
+  virtual void removePlugin();
 
   /** Opens the plugin's GUI editor, or a generic editor for GUI-less plugins. */
   virtual void openEditor();
@@ -245,7 +252,6 @@ public:
 
 
 
-  //virtual void appendEmptySlot();
 
 
   virtual void removeLastSlot();
@@ -259,6 +265,8 @@ public:
   virtual bool isLastSlotEmpty();
 
   virtual bool isSlotEmpty(int index);
+
+  //virtual int getNumSlots
 
 
   //-----------------------------------------------------------------------------------------------
@@ -296,6 +304,5 @@ protected:
 
   JUCE_LEAK_DETECTOR(AudioPluginChainComponent);
 };
-
 
 #endif  
