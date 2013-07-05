@@ -5,6 +5,63 @@
 #include "GlobalFunctions.h"
 
 
+
+/** Baseclass for objects that need thread-synchronization via a mutex lock. You can either pass
+a Critical section object which shall be used, or let the class create it's own Critical section 
+object. The former case is useful, if some CriticalSection should be shared among everal objects.
+
+*/
+
+class Lockable
+{ 
+
+public:
+
+  Lockable(CriticalSection *mutexToUse = nullptr)
+  {
+    if( mutexToUse == nullptr )
+    {
+      mutex     = new CriticalSection;
+      ownsMutex = true;
+    }
+    else
+    {
+      mutex     = mutexToUse;
+      ownsMutex = false;
+    }
+  }
+
+  virtual ~Lockable()
+  {
+    if( ownsMutex )
+      delete mutex;
+  }
+
+  virtual void enterLock()
+  {
+    mutex->enter();
+  }
+
+  virtual void tryEnterLock()
+  {
+    mutex->tryEnter();
+  }
+
+  virtual void exitLock()
+  {
+    mutex->exit();
+  }
+
+protected:
+
+  CriticalSection *mutex;
+
+  bool ownsMutex;
+
+};
+
+
+
 /**
 
 This is a class for representing a slot for plugins which may (or may not) contain an 
@@ -51,6 +108,13 @@ public:
 
   bool isBypassed() const { return bypass; }
 
+
+  //-----------------------------------------------------------------------------------------------
+  // audio processing:
+
+  /** Applies the plugin to the passed buffer. */
+  virtual void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
+
 protected:
 
   /** Deletes the plugin instance that is used in this slot, thereby making sure that no editor
@@ -61,6 +125,8 @@ protected:
 
   bool bypass;  // maybe, we can replace this with a continuous dry/wet control (0.0 corresponds
                 // to a bypassed setting)
+
+  CriticalSection pluginLock;
 
   JUCE_LEAK_DETECTOR(PluginSlot);
 };
@@ -150,6 +216,10 @@ protected:
 
   Array<PluginSlot*, CriticalSection> pluginSlots;
     // maybe we should use an OwnedArray
+
+    // \todo have our own CriticalSection object instead of using on in the array, share it with
+    // array-elements
+
 
 
   JUCE_LEAK_DETECTOR(PluginChain);

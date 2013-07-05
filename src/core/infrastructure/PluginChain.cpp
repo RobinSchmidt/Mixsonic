@@ -4,12 +4,14 @@
 
 PluginSlot::PluginSlot(AudioPluginInstance *pluginToUse) 
 {
+  ScopedLock lock(pluginLock);
   plugin = pluginToUse;
   bypass = false;
 }
 
 PluginSlot::~PluginSlot()
 {
+  ScopedLock lock(pluginLock);
   deleteUnderlyingPlugin();
 }
 
@@ -17,6 +19,7 @@ PluginSlot::~PluginSlot()
 
 void PluginSlot::loadPlugin(const File& pluginFile)
 {
+  ScopedLock lock(pluginLock);
   AudioPluginInstance* tmpInstance = getVSTPluginInstanceFromFile(pluginFile);
   if( tmpInstance != nullptr )
     setPlugin(tmpInstance, true);
@@ -26,17 +29,31 @@ void PluginSlot::loadPlugin(const File& pluginFile)
 
 void PluginSlot::setPlugin(AudioPluginInstance* pluginToUse, bool deleteOldPlugin)
 {
+  ScopedLock lock(pluginLock);
   if( deleteOldPlugin )
     deleteUnderlyingPlugin();
   plugin = pluginToUse;
-  sendSynchronousChangeMessage();
+
   //sendChangeMessage();
+  sendSynchronousChangeMessage(); 
+    // may cause a deadlock, but that's fortunate because it points to some general problem with
+    // the locking strategy
+}
+
+// audio processing:
+ 
+void PluginSlot::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+{
+  ScopedLock lock(pluginLock);
+  if( plugin != nullptr && !bypass )     
+    plugin->processBlock(buffer, midiMessages);
 }
 
 // misc:
 
 void PluginSlot::deleteUnderlyingPlugin()
 {
+  ScopedLock lock(pluginLock);
   if( plugin == nullptr )
     return;
 
@@ -141,49 +158,21 @@ void PluginChain::processBlock(const AudioSourceChannelInfo &bufferToFill,
 {
   ScopedLock lock(pluginSlots.getLock());
 
-
-  int i;
-  //AudioSampleBuffer tmpBuffer(*bufferToFill.buffer);
-
-  // modify the pointers in the tmpBuffer to take into accout a possibly nonzero
-  // startSample value in bufferToFill:
+  // modify pointers in tmpBuffer to take into accout a possibly nonzero startSample value in 
+  // bufferToFill:
   float **channelArray = bufferToFill.buffer->getArrayOfChannels();
-  for(i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
+  for(int i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
     channelArray[i] += bufferToFill.startSample;
 
-  // loop over the slots to apply all the plugins:
-  for(i = 0; i < pluginSlots.size(); i++)
+  // loop over slots to apply all plugins:
+  for(int i = 0; i < pluginSlots.size(); i++)
   {
-    if( pluginSlots[i]->plugin != nullptr && !pluginSlots[i]->bypass )
-      pluginSlots[i]->plugin->processBlock(*bufferToFill.buffer, midiMessages);
+    pluginSlots[i]->processBlock(*bufferToFill.buffer, midiMessages);
+    //if( pluginSlots[i]->plugin != nullptr && !pluginSlots[i]->bypass )
+    //  pluginSlots[i]->plugin->processBlock(*bufferToFill.buffer, midiMessages);
   }
 
-  // undo the startsample offset:
-  for(i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
+  // undo startsample offset:
+  for(int i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
     channelArray[i] -= bufferToFill.startSample;
-
-
-
-  /*
-  // doesn't work - the copy-constructor for AudioSampleBuffer creates a deep copy:
-  int i;
-  AudioSampleBuffer tmpBuffer(*bufferToFill.buffer);
-
-  // modify the pointers in the tmpBuffer to take into accout a possibly nonzero
-  // startSample value in bufferToFill:
-  float **channelArray = tmpBuffer.getArrayOfChannels();
-  for(i = 0; i < tmpBuffer.getNumChannels(); i++)
-    channelArray[i] += bufferToFill.startSample;
-
-  // loop over the slots to apply all the plugins:
-  for(i = 0; i < pluginSlots.size(); i++)
-  {
-    if( pluginSlots[i]->plugin != nullptr && !pluginSlots[i]->bypass )
-      pluginSlots[i]->plugin->processBlock(tmpBuffer, midiMessages);
-  }
-
-  // undo the startsample offset:
-  for(i = 0; i < tmpBuffer.getNumChannels(); i++)
-    channelArray[i] -= bufferToFill.startSample;
-    */
 }

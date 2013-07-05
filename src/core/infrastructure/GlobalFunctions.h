@@ -12,15 +12,6 @@
 #define MIN_CLIPWIDTH 2
 
 // colors - move into a a colorscheme class:
-/*
-static Colour backgroundColor          = Colour::Colour((uint8) 64, (uint8) 64, (uint8) 64, (uint8)255);
-static Colour highlightBackgroundColor = Colour::Colour((uint8) 96, (uint8) 96, (uint8) 96, (uint8)255);
-static Colour outlineColor             = Colour::Colour((uint8)192, (uint8)192, (uint8)192, (uint8)255);
-static Colour highlightOutlineColor    = Colour::Colour((uint8)224, (uint8)224, (uint8)224, (uint8)255);
-static Colour textColor                = Colour::Colour((uint8)192, (uint8)192, (uint8)192, (uint8)255);
-static Colour highlightTextColor       = Colour::Colour((uint8)224, (uint8)224, (uint8)224, (uint8)255);
-*/
-
 static Colour widgetBackgroundColor    = Colour::Colour((uint8)  0, (uint8)  0, (uint8)  0, (uint8)255);
 static Colour backgroundColor          = Colour::Colour((uint8) 64, (uint8) 64, (uint8) 64, (uint8)255);
 static Colour highlightBackgroundColor = Colour::Colour((uint8) 96, (uint8) 96, (uint8) 96, (uint8)255);

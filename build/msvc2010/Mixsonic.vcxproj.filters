@@ -324,6 +324,12 @@
     <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp">
       <Filter>src\core\infrastructure</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\control\ApplicationGlobals.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\Skin.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
@@ -592,6 +598,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\core\infrastructure\DeletionManagement.h">
       <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\ApplicationGlobals.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\Skin.h">
+      <Filter>src\control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

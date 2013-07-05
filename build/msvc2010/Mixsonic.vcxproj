@@ -77,7 +77,9 @@
     <ClCompile Include="..\..\src\components\reusable\RFileTreeComponent.cpp" />
     <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp" />
     <ClCompile Include="..\..\src\control\ActivationObserver.cpp" />
+    <ClCompile Include="..\..\src\control\ApplicationGlobals.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
+    <ClCompile Include="..\..\src\control\Skin.cpp" />
     <ClCompile Include="..\..\src\control\TransportController.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\PluginChain.cpp" />
@@ -204,7 +206,9 @@
     <ClInclude Include="..\..\src\components\reusable\RFileTreeComponent.h" />
     <ClInclude Include="..\..\src\components\reusable\TransportComponent.h" />
     <ClInclude Include="..\..\src\control\ActivationObserver.h" />
+    <ClInclude Include="..\..\src\control\ApplicationGlobals.h" />
     <ClInclude Include="..\..\src\control\MixsonicCommandManager.h" />
+    <ClInclude Include="..\..\src\control\Skin.h" />
     <ClInclude Include="..\..\src\control\TransportController.h" />
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h" />
     <ClInclude Include="..\..\src\core\audio\AudioFileBufferUser.h" />

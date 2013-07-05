@@ -62,7 +62,7 @@ protected:
   // \todo include loop-toggling, have a (virtual) function that returns a string for numeric 
   // display of the current position
 
-
+  JUCE_LEAK_DETECTOR(TransportController);
 };
 
 // class Arrangement (later ArrangementPlayer) should then be derived from TransportControlListener
