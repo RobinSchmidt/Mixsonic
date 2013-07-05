@@ -169,7 +169,7 @@ public:
   //virtual void addSignalToAudioBlock(const AudioSourceChannelInfo &bufferToFill, 
   //  const int sliceStartInSamples) const; // 1.46
   virtual void addSignalToAudioBlock(const AudioSourceChannelInfo &bufferToFill, 
-    const int64 sliceStartInSamples) const;
+    const int64 sliceStartInSamples);
 
   //-----------------------------------------------------------------------------------------------
   // state saving and recall:

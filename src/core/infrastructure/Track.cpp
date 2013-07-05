@@ -233,7 +233,7 @@ void Track::prepareToPlay(double sampleRate)
 }
 
 void Track::addSignalToAudioBlock(const AudioSourceChannelInfo &bufferToFill,                                           
-                                  const int64 sliceStartInSamples) const
+                                  const int64 sliceStartInSamples)
 {
   if( mute )
     return;

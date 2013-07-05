@@ -229,6 +229,7 @@
     <ClInclude Include="..\..\src\core\infrastructure\FileFilters.h" />
     <ClInclude Include="..\..\src\core\infrastructure\FileManager.h" />
     <ClInclude Include="..\..\src\core\infrastructure\GlobalFunctions.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\Lockable.h" />
     <ClInclude Include="..\..\src\core\infrastructure\MessageBoxes.h" />
     <ClInclude Include="..\..\src\core\infrastructure\MixsonicSettings.h" />
     <ClInclude Include="..\..\src\core\infrastructure\MixsonicStrings.h" />

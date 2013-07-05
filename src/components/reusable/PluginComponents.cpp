@@ -103,9 +103,14 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
 {
   jassert(pluginSlotToEdit != nullptr);
 
+  slotToEdit = pluginSlotToEdit;
+  slotToEdit->enterLock();
+  if( slotToEdit != nullptr )
+    slotToEdit->addChangeListener(this);
+  slotToEdit->exitLock();
+
   customEditor    = nullptr;
   parameterEditor = nullptr;
-  slotToEdit      = pluginSlotToEdit;
   slotIsRemovable = true;
 
   addAndMakeVisible( nameLabel = new RLabel() );
@@ -114,9 +119,6 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
   nameLabel->setColour(Label::textColourId, textColor);
   nameLabel->addMouseListener(this, false);
 
-  if( slotToEdit != nullptr )
-    slotToEdit->addChangeListener(this);
-
   updateLabelText();
 }
 
@@ -124,8 +126,11 @@ AudioPluginSlotComponent::~AudioPluginSlotComponent()
 {
   delete customEditor;
   delete parameterEditor;
-  if( slotToEdit != nullptr )
-    slotToEdit->removeChangeListener(this); 
+
+  slotToEdit->enterLock();
+  slotToEdit->removeChangeListener(this); 
+  slotToEdit->exitLock();
+
   deleteAllChildren();
 }
 
@@ -141,7 +146,8 @@ void AudioPluginSlotComponent::setBypass(bool shouldBeBypassed)
 
 bool AudioPluginSlotComponent::isEmpty()
 {
-  return slotToEdit == nullptr || slotToEdit->plugin == nullptr;
+  ScopedLock lock(*slotToEdit->getMutex());
+  return slotToEdit->isEmpty();
 }
 
 bool AudioPluginSlotComponent::isCustomEditorOpen()
@@ -193,9 +199,10 @@ void AudioPluginSlotComponent::paintOverChildren(Graphics &g)
 {
   if( slotToEdit->isBypassed() )
   {
-    g.setColour(Colour::greyLevel(0.5f).withAlpha(0.75f));
-    g.drawLine(0.f, 0.f, (float) getWidth(), (float) getHeight(), 2.f);
-    g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f, 2.f);
+    g.setColour(outlineColor);
+    g.drawLine(0.f, 0.f, (float) getWidth(), (float) getHeight(), 1.f);
+    g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f, 1.f);
+      // maybe draw a cross-hatch pattern instead
   }
 }
 
@@ -211,13 +218,11 @@ void AudioPluginSlotComponent::handleDeletionRequest(DeletionRequester *objectTh
 
 void AudioPluginSlotComponent::updateLabelText()
 {
+  ScopedLock lock(*slotToEdit->getMutex());
   if( isEmpty() )
-  {
-    //nameLabel->setText("insert plugin", false);
     nameLabel->setText("", false);
-  }
   else
-    nameLabel->setText(slotToEdit->plugin->getName(), false);
+    nameLabel->setText(slotToEdit->getPlugin()->getName(), false);
 }
 
 // internal:
@@ -228,11 +233,13 @@ void AudioPluginSlotComponent::openPopUpMenu()
 
   if( !isEmpty() )
   {
+    slotToEdit->enterLock();
     menu.addItem(1, "Bypass", true, slotToEdit->isBypassed());
     menu.addItem(2, "Show Parameters"); 
-    menu.addItem(3, "Open GUI", slotToEdit->plugin->hasEditor()); 
+    menu.addItem(3, "Open GUI", slotToEdit->getPlugin()->hasEditor()); 
     menu.addItem(4, "Remove Plugin"); 
     menu.addSeparator();
+    slotToEdit->exitLock();
   }
   if( slotIsRemovable ) 
     menu.addItem(5, "Remove Slot"); 
@@ -242,7 +249,6 @@ void AudioPluginSlotComponent::openPopUpMenu()
 
   switch( result )
   {
-  //case 1: slotToEdit->setBypass(!slotToEdit->isBypassed()); break;
   case 1: setBypass(!slotToEdit->isBypassed()); break;
   case 2: openParameterEditor();                break;
   case 3: openCustomEditor();                   break;
@@ -268,6 +274,7 @@ void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
 { 
   if( slotToEdit == nullptr )
   {
+    /*
     // do we actually still need this branch? i think, we have made sure that slotToEdit can't
     // be a nullptr - this is also asserted in the constructor, so we may probably get rid of
     // of this branch indeed
@@ -278,6 +285,8 @@ void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
       slotToEdit->addChangeListener(this);
       updateLabelText();
     }
+    */
+    jassertfalse; // i think, we should never reach this branch anymore
   }
   else
   {
@@ -296,8 +305,9 @@ void AudioPluginSlotComponent::removePlugin()
 
 void AudioPluginSlotComponent::openEditor()
 {
+  ScopedLock lock(*slotToEdit->getMutex());
   jassert(!isEmpty());
-  if( slotToEdit->plugin->hasEditor() )
+  if( slotToEdit->getPlugin()->hasEditor() )
     openCustomEditor();
   else
     openParameterEditor();
@@ -305,12 +315,13 @@ void AudioPluginSlotComponent::openEditor()
 
 void AudioPluginSlotComponent::openCustomEditor()
 {
+  ScopedLock lock(*slotToEdit->getMutex());
   if( customEditor != nullptr )
   {
     customEditor->showInFrontOfAppWindow();
     return; 
   }
-  AudioProcessorEditor *pluginEditor = slotToEdit->plugin->createEditorIfNeeded();
+  AudioProcessorEditor *pluginEditor = slotToEdit->getPlugin()->createEditorIfNeeded();
   if( pluginEditor != nullptr )
     wrapPluginEditorIntoContainerAndShow(customEditor, pluginEditor, false);
   else
@@ -322,12 +333,14 @@ void AudioPluginSlotComponent::openCustomEditor()
 
 void AudioPluginSlotComponent::openParameterEditor()
 {
+  ScopedLock lock(*slotToEdit->getMutex());
   if( parameterEditor != nullptr )
   {
     parameterEditor->showInFrontOfAppWindow();
     return; 
   }
-  GenericAudioProcessorEditor *pluginEditor = new GenericAudioProcessorEditor(slotToEdit->plugin);
+  GenericAudioProcessorEditor *pluginEditor = 
+    new GenericAudioProcessorEditor(slotToEdit->getPlugin());
   wrapPluginEditorIntoContainerAndShow(parameterEditor, pluginEditor, true);
 }
 
@@ -372,33 +385,43 @@ void AudioPluginSlotComponent::closeParameterEditor()
 
 AudioPluginChainComponent::AudioPluginChainComponent(PluginChain *chainToEdit)
 {
+  jassert(chainToEdit != nullptr);
   slotHeight  = 14;
   pluginChain = chainToEdit;
+
+  pluginChain->enterLock();
   for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
     pluginChain->pluginSlots[i]->addChangeListener(this);
-  tempSlot = new PluginSlot(nullptr);
+  tempSlot = new PluginSlot(nullptr, pluginChain->getMutex());
+  pluginChain->exitLock();
+
   tempSlot->addChangeListener(this);
 }
 
 AudioPluginChainComponent::~AudioPluginChainComponent()
 {
+  deleteAllChildren();
+  delete tempSlot;
+
+  pluginChain->enterLock();
   for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
     pluginChain->pluginSlots[i]->removeChangeListener(this);
-  delete tempSlot;
-  deleteAllChildren();
+  pluginChain->exitLock();
 }
 
 // setup:
 
 void AudioPluginChainComponent::removeLastSlot()
 {
-  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  pluginChain->enterLock();
   int numSlots = pluginChain->pluginSlots.size();
   jassert( numSlots == getNumChildComponents()-1 );
   int childIndex = numSlots-1; // numSlots's child is the tempSlotComponent
   Component* child = removeChildComponent(childIndex);
   delete child;
   pluginChain->deleteSlot(numSlots-1);
+  pluginChain->exitLock();
+
   updateSize();
 }
 
@@ -406,14 +429,12 @@ void AudioPluginChainComponent::removeLastSlot()
   
 bool AudioPluginChainComponent::isLastSlotEmpty()
 {
-  ScopedLock lock(pluginChain->pluginSlots.getLock());
-  int numSlots = pluginChain->pluginSlots.size();
-  return isSlotEmpty(numSlots-1);
+  return isSlotEmpty(pluginChain->pluginSlots.size()-1);
 }
 
 bool AudioPluginChainComponent::isSlotEmpty(int index)
 {
-  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  ScopedLock lock(*pluginChain->getMutex());
   int numSlots = pluginChain->pluginSlots.size();
   jassert( index < numSlots );
   return pluginChain->pluginSlots[index]->isEmpty();
@@ -422,7 +443,8 @@ bool AudioPluginChainComponent::isSlotEmpty(int index)
 void AudioPluginChainComponent::updateSlotComponents()
 {
   deleteAllChildren(); 
-  ScopedLock lock(pluginChain->pluginSlots.getLock());
+
+  pluginChain->enterLock();
   for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
   {
     AudioPluginSlotComponent *slotComponent = 
@@ -430,6 +452,8 @@ void AudioPluginChainComponent::updateSlotComponents()
     slotComponent->setDeletionManager(this);
     addAndMakeVisible(slotComponent);
   }
+  pluginChain->exitLock();
+
   tempSlotComponent = new AudioPluginSlotComponent(tempSlot);
   tempSlotComponent->setRemovable(false);
   addAndMakeVisible(tempSlotComponent);
@@ -438,13 +462,15 @@ void AudioPluginChainComponent::updateSlotComponents()
 
 void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source)
 {
-  ScopedLock lock(pluginChain->pluginSlots.getLock());
   if( source == tempSlot )
   {
     if( !tempSlot->isEmpty() )
     {
+      //pluginChain->enterLock();
       pluginChain->addSlot(tempSlot);
-      tempSlot = new PluginSlot(nullptr);
+      tempSlot = new PluginSlot(nullptr, pluginChain->getMutex());
+      //pluginChain->exitLock();
+
       tempSlot->addChangeListener(this);
       tempSlotComponent->setRemovable(true);
       tempSlotComponent->setDeletionManager(this);
@@ -456,21 +482,29 @@ void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source
   }
   else 
   {
+    pluginChain->enterLock();
     while( pluginChain->pluginSlots.size() > 0 && isLastSlotEmpty() )
       removeLastSlot();
+    pluginChain->exitLock();
   }
 }
 
 void AudioPluginChainComponent::handleDeletionRequest(DeletionRequester *object)
 {
-  ScopedLock lock(pluginChain->pluginSlots.getLock());
+  //ScopedLock lock(*pluginChain->getMutex()); 
+
+
   AudioPluginSlotComponent *slotComponent = dynamic_cast<AudioPluginSlotComponent*>(object);
   if( slotComponent != nullptr )
   {
     PluginSlot *slot = slotComponent->slotToEdit;
     removeChildComponent(slotComponent);
     delete slotComponent;
+
+    //pluginChain->enterLock();
     pluginChain->deleteSlot(slot);
+    //pluginChain->exitLock();
+
     updateSize();
   }
 }
