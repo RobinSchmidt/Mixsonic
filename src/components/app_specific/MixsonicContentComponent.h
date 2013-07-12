@@ -259,7 +259,7 @@ protected:
   TimeSliceThread drawingThread;
     
   // the global application settings:
-  MixsonicSettings settings;
+  //MixsonicSettings settings;
 
   // some objects to keep track of the current song file, etc:
   //File sampleContentDirectory, projectsParentDirectory;  

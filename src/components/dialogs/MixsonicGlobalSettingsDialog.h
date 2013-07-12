@@ -4,7 +4,7 @@
 #include "../widgets/RLabel.h"
 #include "../widgets/RButton.h"
 #include "../widgets/MixsonicTextEntryField.h"
-#include "../../core/infrastructure/MixsonicSettings.h"
+#include "../../control/MixsonicSettings.h"
 #include "MixsonicModalDialog.h"
 
 /**
@@ -52,6 +52,10 @@ protected:
   // the widgets specific to this dialog:
   RLabel                 *projectsParentDirectoryLabel,        *sampleContentDirectoryLabel;;
   MixsonicTextEntryField *projectsParentDirectoryTextField,    *sampleContentDirectoryTextField;
+
+  //FileSearchPathListComponent *pluginDirectoriesList;
+  //RListBox pluginDirectoriesList; // we need to write this class
+
   RButton                *projectsParentDirectoryBrowseButton, *sampleContentDirectoryBrowseButton,
                          *cancelButton, *okButton;
 

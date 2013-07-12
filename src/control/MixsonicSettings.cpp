@@ -16,11 +16,20 @@ MixsonicSettings::~MixsonicSettings()
 void MixsonicSettings::setProjectsParentDirectory(const File& newProjectsParentDirectory)
 {
   projectsParentDirectory = newProjectsParentDirectory;
+  sendProjectsParentDirectoryChangeMessage();
 }
 
 void MixsonicSettings::setSampleContentDirectory(const File& newSampleContentDirectory)
 {
   sampleContentDirectory = newSampleContentDirectory;
+  sendSampleContentDirectoryChangeMessage();
+}
+
+void MixsonicSettings::setPluginDirectoriesFromString(const String& directoriesString)
+{
+  pluginDirectories.clear();
+  pluginDirectories.addTokens(directoriesString, String(";"), String::empty);
+  sendPluginDirectoriesChangeMessage();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -36,6 +45,11 @@ File MixsonicSettings::getSampleContentDirectory()
   return sampleContentDirectory;
 }
 
+StringArray MixsonicSettings::getPluginDirectories()
+{
+  return pluginDirectories;
+}
+
 //-------------------------------------------------------------------------------------------------
 // others:
 
@@ -43,6 +57,7 @@ void MixsonicSettings::initToDefaults()
 {
   setSampleContentDirectory( File(getApplicationDirectory()));
   setProjectsParentDirectory(File(getApplicationDirectory()));
+  pluginDirectories.clear();
 }
 
 bool MixsonicSettings::loadFromFile(const File &fileToLoadFrom)
@@ -103,6 +118,21 @@ bool MixsonicSettings::loadFromFile(const File &fileToLoadFrom)
       // \todo: maybe we can get rid of some code duplication here. maybe we should use a generic 
       // message box which takes the string as parameter
 
+
+      // retrieve the plugin directories:
+      tmpString = xmlSettings->getStringAttribute("pluginDirectories", String::empty);
+      if( tmpString == String::empty )
+      {
+        showSettingsFileIsInvalidBox();
+        delete xmlSettings;
+        return false;
+      }
+      else
+        setPluginDirectoriesFromString(tmpString);
+
+
+
+
       delete xmlSettings;
     }
     else  // xmlSettings == 0
@@ -126,11 +156,47 @@ bool MixsonicSettings::saveToFile(const File &fileToSaveTo)
 
   XmlElement* xmlState = new XmlElement(String("MIXSONICSETTINGS"));
 
-  xmlState->setAttribute("sampleContentDirectory", sampleContentDirectory.getFullPathName() );
-  xmlState->setAttribute("projectsParentDirectory", projectsParentDirectory.getFullPathName() );
+  xmlState->setAttribute("sampleContentDirectory",  sampleContentDirectory.getFullPathName());
+  xmlState->setAttribute("projectsParentDirectory", projectsParentDirectory.getFullPathName());
+  xmlState->setAttribute("pluginDirectories",       pluginDirectories.joinIntoString(";"));
 
   bool success = saveXmlToFile(*xmlState, settingsFile);
   delete xmlState;
   return success;
 }
 
+
+void MixsonicSettings::registerSettingsObserver(MixsonicSettingsObserver *observer)
+{
+  observers.addIfNotAlreadyThere(observer);
+}
+
+void MixsonicSettings::deRegisterSettingsObserver(MixsonicSettingsObserver *observer)
+{
+  observers.removeValue(observer);
+}
+
+void MixsonicSettings::sendProjectsParentDirectoryChangeMessage()
+{
+  for(int i = 0; i < observers.size(); i++)
+    observers[i]->projectsParentDirectoryChanged(projectsParentDirectory);
+}
+
+void MixsonicSettings::sendSampleContentDirectoryChangeMessage()
+{
+  for(int i = 0; i < observers.size(); i++)
+    observers[i]->sampleContentDirectoryChanged(sampleContentDirectory);
+}
+
+void MixsonicSettings::sendPluginDirectoriesChangeMessage()
+{
+  for(int i = 0; i < observers.size(); i++)
+    observers[i]->pluginDirectoriesChanged(pluginDirectories);
+}
+
+void MixsonicSettings::sendAllChangeMessages()
+{
+  sendProjectsParentDirectoryChangeMessage();
+  sendSampleContentDirectoryChangeMessage();
+  sendPluginDirectoriesChangeMessage();
+}

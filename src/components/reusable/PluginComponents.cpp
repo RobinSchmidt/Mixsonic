@@ -111,6 +111,7 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
 
   customEditor    = nullptr;
   parameterEditor = nullptr;
+  knownPluginList = nullptr;
   slotIsRemovable = true;
 
   addAndMakeVisible( nameLabel = new RLabel() );
@@ -140,6 +141,11 @@ void AudioPluginSlotComponent::setBypass(bool shouldBeBypassed)
 {
   slotToEdit->setBypass(shouldBeBypassed);
   repaint();
+}
+
+void AudioPluginSlotComponent::setKnownPluginList(KnownPluginList *listToUse)
+{
+  knownPluginList = listToUse;
 }
 
 // inquiry:
@@ -245,6 +251,15 @@ void AudioPluginSlotComponent::openPopUpMenu()
     menu.addItem(5, "Remove Slot"); 
   menu.addItem(6, "Load Plugin");
 
+
+
+  if( knownPluginList != nullptr )
+  {
+    jassertfalse;
+    // not yet implemented - let the menu show the known plugins directly
+  }
+
+
   const int result = menu.show();
 
   switch( result )
@@ -272,28 +287,8 @@ void AudioPluginSlotComponent::openLoadPluginDialog()
 
 void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
 { 
-  if( slotToEdit == nullptr )
-  {
-    /*
-    // do we actually still need this branch? i think, we have made sure that slotToEdit can't
-    // be a nullptr - this is also asserted in the constructor, so we may probably get rid of
-    // of this branch indeed
-    AudioPluginInstance *plugin = getVSTPluginInstanceFromFile(pluginFile);
-    if( plugin != nullptr )
-    {
-      slotToEdit = new PluginSlot(plugin);
-      slotToEdit->addChangeListener(this);
-      updateLabelText();
-    }
-    */
-    jassertfalse; // i think, we should never reach this branch anymore
-  }
-  else
-  {
-    closeEditors();
-    slotToEdit->loadPlugin(pluginFile);
-      // update of the label-text will be triggered by a changeListenerCallback in this branch
-  }
+  closeEditors();
+  slotToEdit->loadPlugin(pluginFile);
   openEditor();
 }
 
@@ -491,9 +486,6 @@ void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source
 
 void AudioPluginChainComponent::handleDeletionRequest(DeletionRequester *object)
 {
-  //ScopedLock lock(*pluginChain->getMutex()); 
-
-
   AudioPluginSlotComponent *slotComponent = dynamic_cast<AudioPluginSlotComponent*>(object);
   if( slotComponent != nullptr )
   {

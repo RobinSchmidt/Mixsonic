@@ -77,8 +77,9 @@
     <ClCompile Include="..\..\src\components\reusable\RFileTreeComponent.cpp" />
     <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp" />
     <ClCompile Include="..\..\src\control\ActivationObserver.cpp" />
-    <ClCompile Include="..\..\src\control\ApplicationGlobals.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
+    <ClCompile Include="..\..\src\control\MixsonicGlobals.cpp" />
+    <ClCompile Include="..\..\src\control\MixsonicSettings.cpp" />
     <ClCompile Include="..\..\src\control\Skin.cpp" />
     <ClCompile Include="..\..\src\control\TransportController.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp" />
@@ -111,7 +112,6 @@
     <ClCompile Include="..\..\src\core\infrastructure\FileManager.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\GlobalFunctions.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\MessageBoxes.cpp" />
-    <ClCompile Include="..\..\src\core\infrastructure\MixsonicSettings.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\MixsonicStrings.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\SamplePool.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\SamplePoolClient.cpp" />
@@ -206,8 +206,9 @@
     <ClInclude Include="..\..\src\components\reusable\RFileTreeComponent.h" />
     <ClInclude Include="..\..\src\components\reusable\TransportComponent.h" />
     <ClInclude Include="..\..\src\control\ActivationObserver.h" />
-    <ClInclude Include="..\..\src\control\ApplicationGlobals.h" />
     <ClInclude Include="..\..\src\control\MixsonicCommandManager.h" />
+    <ClInclude Include="..\..\src\control\MixsonicGlobals.h" />
+    <ClInclude Include="..\..\src\control\MixsonicSettings.h" />
     <ClInclude Include="..\..\src\control\Skin.h" />
     <ClInclude Include="..\..\src\control\TransportController.h" />
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h" />
@@ -231,7 +232,6 @@
     <ClInclude Include="..\..\src\core\infrastructure\GlobalFunctions.h" />
     <ClInclude Include="..\..\src\core\infrastructure\Lockable.h" />
     <ClInclude Include="..\..\src\core\infrastructure\MessageBoxes.h" />
-    <ClInclude Include="..\..\src\core\infrastructure\MixsonicSettings.h" />
     <ClInclude Include="..\..\src\core\infrastructure\MixsonicStrings.h" />
     <ClInclude Include="..\..\src\core\infrastructure\PluginChain.h" />
     <ClInclude Include="..\..\src\core\infrastructure\SamplePool.h" />

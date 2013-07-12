@@ -93,9 +93,6 @@
     <ClCompile Include="..\..\src\core\infrastructure\MessageBoxes.cpp">
       <Filter>src\core\infrastructure</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\core\infrastructure\MixsonicSettings.cpp">
-      <Filter>src\core\infrastructure</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\core\infrastructure\MixsonicStrings.cpp">
       <Filter>src\core\infrastructure</Filter>
     </ClCompile>
@@ -324,10 +321,13 @@
     <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp">
       <Filter>src\core\infrastructure</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\control\ApplicationGlobals.cpp">
+    <ClCompile Include="..\..\src\control\Skin.cpp">
       <Filter>src\control</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\control\Skin.cpp">
+    <ClCompile Include="..\..\src\control\MixsonicSettings.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\MixsonicGlobals.cpp">
       <Filter>src\control</Filter>
     </ClCompile>
   </ItemGroup>
@@ -387,9 +387,6 @@
       <Filter>src\core\infrastructure</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\core\infrastructure\MessageBoxes.h">
-      <Filter>src\core\infrastructure</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\core\infrastructure\MixsonicSettings.h">
       <Filter>src\core\infrastructure</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\core\infrastructure\MixsonicStrings.h">
@@ -599,14 +596,17 @@
     <ClInclude Include="..\..\src\core\infrastructure\DeletionManagement.h">
       <Filter>src\core\infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\control\ApplicationGlobals.h">
-      <Filter>src\control</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\control\Skin.h">
       <Filter>src\control</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\core\infrastructure\Lockable.h">
       <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\MixsonicSettings.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\MixsonicGlobals.h">
+      <Filter>src\control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

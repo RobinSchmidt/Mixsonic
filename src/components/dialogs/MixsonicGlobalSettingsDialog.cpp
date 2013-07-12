@@ -44,6 +44,18 @@ MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(MixsonicSettings* set
   sampleContentDirectoryBrowseButton->setClickingTogglesState(false);
   sampleContentDirectoryBrowseButton->addListener(this);
 
+
+
+  //pluginDirectoriesList = new FileSearchPathListComponent;
+  //pluginDirectoriesList->setPath(settings->getPluginDirectories());
+  //addAndMakeVisible(pluginDirectoriesList);
+
+
+
+
+
+
+
   addAndMakeVisible( cancelButton = new RButton(cancelStr) );
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);

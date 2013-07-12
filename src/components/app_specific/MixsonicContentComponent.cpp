@@ -67,7 +67,7 @@ MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName)
 
   // initialize the application settings from the MicsonicSettings.xml file which is supposed to 
   // reside in the application directory:
-  settings.loadFromFile();
+  //settings.loadFromFile();
 
   tmpAudioClip     = NULL;
   draggedComponent = NULL;      
@@ -98,7 +98,7 @@ MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName)
   addAndMakeVisible(infoLineTextField = new RLabel(String("InfoLineTextField"), String::empty ));
 
   logMessage("create sampleBrowser");
-  sampleBrowser = new MixsonicSampleBrowser(settings.getSampleContentDirectory());
+  sampleBrowser = new MixsonicSampleBrowser(mixsonicGlobals->settings.getSampleContentDirectory());
   addAndMakeVisible(sampleBrowser );
   sampleBrowser->setDescriptionField(infoLineTextField);
   sampleBrowser->addMouseListener(this, true); // to receive its drag events
@@ -684,7 +684,7 @@ void MixsonicContentComponent::showNewProjectDialog()
 {
  
   MixsonicNewProjectDialog *dialog 
-    = new MixsonicNewProjectDialog(settings.getProjectsParentDirectory());
+    = new MixsonicNewProjectDialog(mixsonicGlobals->settings.getProjectsParentDirectory());
   addAndMakeVisible(dialog);
   dialog->setCentreRelative(0.5f, 0.5f);
   dialog->setDescriptionField(infoLineTextField);
@@ -778,7 +778,8 @@ void MixsonicContentComponent::showCreateDirectoryDialog()
 
 void MixsonicContentComponent::showGlobalSettingsDialog()
 {
-  MixsonicGlobalSettingsDialog *dialog = new MixsonicGlobalSettingsDialog(&settings);
+  MixsonicGlobalSettingsDialog *dialog = 
+    new MixsonicGlobalSettingsDialog(&mixsonicGlobals->settings);
   addAndMakeVisible(dialog);
   dialog->setCentreRelative(0.5f, 0.5f);
   dialog->setDescriptionField(infoLineTextField);
@@ -786,7 +787,12 @@ void MixsonicContentComponent::showGlobalSettingsDialog()
   int result = dialog->runModalLoop();
   dialog->setVisible(false);
   if( result == 1 ) // otherwise: user canceled the action -> do nothing
-    sampleBrowser->setRootDirectory(settings.getSampleContentDirectory());
+    sampleBrowser->setRootDirectory(mixsonicGlobals->settings.getSampleContentDirectory());
+
+
+  jassertfalse; // \todo: instead of retrieving settings here, we should use callbacks like
+                // sampleDirectoryChanged, pluginDirectoriesChanged, etc.
+
 
   // cleanup:
   removeChildComponent(dialog);
@@ -896,7 +902,7 @@ bool MixsonicContentComponent::createNewProject(const String& newProjectName,
 {
   logMessage("MixsonicContentComponent::createNewProject");
 
-  String newProjectPath = settings.getProjectsParentDirectory().getFullPathName() 
+  String newProjectPath = mixsonicGlobals->settings.getProjectsParentDirectory().getFullPathName() 
     + File::separatorString + newProjectName;
   projectDirectory = File(newProjectPath).getNonexistentSibling();
   if( !projectDirectory.createDirectory() )

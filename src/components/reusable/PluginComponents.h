@@ -126,8 +126,12 @@ public:
   option in the right-click popup menu). */
   virtual void setRemovable(bool shouldBeRemovable) { slotIsRemovable  = shouldBeRemovable; }
 
-
+  /** Sets the slot into bypass mode and reflects this setting on the GUI. */
   virtual void setBypass(bool shouldBeBypassed);
+
+  /** Sets a KnownPluginList to be used, such that the context-menu may directly show all the known
+  plugins. */
+  virtual void setKnownPluginList(KnownPluginList *listToUse);
 
   //-----------------------------------------------------------------------------------------------
   // inquiry:
@@ -212,6 +216,9 @@ protected:
 
   /** Pointer to a generic plugin parameter editor. */
   AudioProcessorEditorContainer *parameterEditor;
+
+  /** List of the knwon plugins. */
+  KnownPluginList *knownPluginList;
 
   /** Flag to indicate, if this slot is removable. */
   bool slotIsRemovable;

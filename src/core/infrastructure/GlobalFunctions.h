@@ -25,6 +25,7 @@ static Colour highlightTextColor       = Colour::Colour((uint8)255, (uint8)255, 
 this class "mixsonicGlobals" is declared here and will be assigned to an object which will be 
 created in Mixsonic::initialise and deleted in Mixsonic::shutdown, so it will exist for the whole 
 lifetime of the application and be accessible from everywhere. */
+/*
 class MixsonicGlobals
 {
 public:
@@ -36,6 +37,7 @@ public:
 };
 extern MixsonicGlobals *mixsonicGlobals; 
 #define LOGGING_ENABLED 0 // set this to 1, if you want to write log-messages
+*/
 
 /** Aligns the top-left corner of the toBeAlignedComponent to the top-right corner of the 
 referenceComponent, but if that means that the toBeAlignedComponent extends outside the screens 
@@ -134,9 +136,6 @@ double log2(double x);
 
 /** Calculates logarithm to an arbitrary base b. */
 double logB(double x, double b);
-
-/** Writes a message into our log-file. */
-void logMessage(const String& message);
 
 /** Converts a value between inMin and inMax into a value between outMin and outMax where the 
 mapping is linear for the input and the output. An example: 

@@ -19,7 +19,7 @@ PluginSlot::~PluginSlot()
 
 void PluginSlot::loadPlugin(const File& pluginFile)
 {
-  ScopedLock lock(*mutex);
+  //ScopedLock lock(*mutex); // may be unecessary
   AudioPluginInstance* tmpInstance = getVSTPluginInstanceFromFile(pluginFile);
   if( tmpInstance != nullptr )
     setPlugin(tmpInstance, true);

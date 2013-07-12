@@ -1,5 +1,6 @@
 #include "GlobalFunctions.h"
 
+/*
 MixsonicGlobals *mixsonicGlobals = nullptr;   
 MixsonicGlobals::MixsonicGlobals()
 {
@@ -22,6 +23,7 @@ void MixsonicGlobals::logMessage(const String& message)
     logFile.appendText(logString);
   }
 }
+*/
 
 void alignWithVisibilityConstraintTo(Component *referenceComponent, Component *toBeAlignedComponent)
 {
@@ -317,12 +319,6 @@ double log2(double x)
 double logB(double x, double b)
 {
   return log(x)/log(b);
-}
-
-void logMessage(const String& message)
-{
-  jassert( mixsonicGlobals != nullptr ); // the mixsonicGlobals was not yet created
-  mixsonicGlobals->logMessage(message);
 }
 
 double mapLinearToLinear(double in, double inMin, double inMax, double outMin, double outMax)

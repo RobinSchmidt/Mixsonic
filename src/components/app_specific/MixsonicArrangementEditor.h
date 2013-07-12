@@ -1,6 +1,8 @@
 #ifndef MixsonicArrangementEditor_h
 #define MixsonicArrangementEditor_h
 
+#include "../../control/MixsonicGlobals.h"
+
 #include "../reusable/ComponentGrabber.h"
 #include "MixsonicArrangementPanel.h"
 #include "MixsonicArrangementScroller.h"
