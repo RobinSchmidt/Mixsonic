@@ -99,6 +99,7 @@ MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName)
 
   logMessage("create sampleBrowser");
   sampleBrowser = new MixsonicSampleBrowser(mixsonicGlobals->settings.getSampleContentDirectory());
+  //sampleBrowser = new MixsonicSampleBrowser(getApplicationDirectory());
   addAndMakeVisible(sampleBrowser );
   sampleBrowser->setDescriptionField(infoLineTextField);
   sampleBrowser->addMouseListener(this, true); // to receive its drag events

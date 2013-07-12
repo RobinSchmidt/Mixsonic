@@ -33,6 +33,9 @@ public:
   can't be loaded as plugin, nothing will be done and an error message is shown. */
   void loadPlugin(const File& pluginFile);
 
+  /** Loads a plugin specified by a PluginDescription into this slot. */
+  void loadPlugin(const PluginDescription* description);
+
   /** Assigns a new plugin (instance) to this slot and optionally deletes the old one. */
   void setPlugin(AudioPluginInstance* pluginToUse, bool deleteOldPlugin);
 

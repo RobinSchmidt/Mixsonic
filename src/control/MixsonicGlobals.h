@@ -56,14 +56,10 @@ public:
 
   MixsonicSettings settings;
 
+  KnownPluginList knownPlugins;
+
 
 protected:
-
-
-
-
-
-  KnownPluginList knownPlugins;
 
 
   JUCE_LEAK_DETECTOR(MixsonicGlobals);

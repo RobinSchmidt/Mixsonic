@@ -1,5 +1,5 @@
 #include "MixsonicGlobals.h"
-
+#include "../components/dialogs/MixsonicPluginScannerBox.h"
 
 MixsonicGlobals *mixsonicGlobals = nullptr;   
 
@@ -56,28 +56,27 @@ void MixsonicGlobals::pluginDirectoriesChanged(const StringArray& newDirectories
     // scanner (the scanner writes and reads to/from this file)
 
   PluginDirectoryScanner scanner(knownPlugins, vstFormat, path, true, crashedPluginsFile);
+  String nextFile;
+  do
+    nextFile = scanner.getNextPluginFileThatWillBeScanned();
+  while( scanner.scanNextFile(true) );
 
-   
+  /*
   // todo: open a message box "Scanning Plugins" with progress bar, like:
   // showPluginScannerBox(PluginDirectoryScanner& scanner), that runs this loop and shows the 
   // progress
-  String nextFile;
-  do
-  {
-    nextFile = scanner.getNextPluginFileThatWillBeScanned();
-    // \todo show the name of the file currently being scanned, show the progress bar
-  }
-  while( scanner.scanNextFile(true) );
-
-
-  int dummy = 0;
+  // this doesn't work - the box is never painted:
+  MixsonicPluginScannerBox scannerBox;
+  scannerBox.addToDesktop(0);
+  scannerBox.setOpaque(true);
+  scannerBox.setVisible(true);
+  scannerBox.centreWithSize(300, 100);
+  scannerBox.toFront(false);
+  scannerBox.repaint();
+  scannerBox.scanPluginsAndShowProgress(scanner);
+  scannerBox.removeFromDesktop();
+  */
 }
-
-
-
-
-
-
 
 void logMessage(const String& message)
 {

@@ -4,6 +4,7 @@
 #include "../../core/infrastructure/PluginChain.h"
 #include "../../core/infrastructure/DeletionManagement.h"
 #include "../../control/ActivationObserver.h"
+#include "../../control/MixsonicGlobals.h"
 #include "../widgets/RLabel.h"
 #include "../widgets/RButton.h"
 
@@ -176,6 +177,9 @@ protected:
 
   /** Loads a plugin from the given file into our slot. */
   virtual void loadPluginFromFile(const File& pluginFile);
+
+  /**  Loads a plugin from the given PluginDescription into our slot. */
+  virtual void loadPluginFromDescription(const PluginDescription* description);
 
   /** Removes the plugin from our slot. */
   virtual void removePlugin();

@@ -330,6 +330,9 @@
     <ClCompile Include="..\..\src\control\MixsonicGlobals.cpp">
       <Filter>src\control</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
@@ -607,6 +610,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\control\MixsonicGlobals.h">
       <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.h">
+      <Filter>src\components\dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

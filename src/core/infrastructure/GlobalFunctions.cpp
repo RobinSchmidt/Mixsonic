@@ -234,13 +234,23 @@ AudioPluginInstance* getVSTPluginInstanceFromFile(const File& pluginFile)
   bool success = pluginList.scanAndAddFile(pluginFile.getFullPathName(), true, descriptionArray, 
                                            vstFormat);
   PluginDescription* description = pluginList.getTypeForFile(pluginFile.getFullPathName());
+  return getPluginInstanceFromDescription(description);
 
+  // \todo generalize this function to other formats
+}
+
+AudioPluginInstance* getPluginInstanceFromDescription(const PluginDescription* description)
+{
   if( description == nullptr )
     return nullptr;
   else
-    return vstFormat.createInstanceFromDescription(*description);
+  {
+    jassert(description->pluginFormatName == String("VST")); 
+      // only VST supported, at the moment. \todo generalize to other formats
 
-  // \todo generalize this function to other formats
+    VSTPluginFormat vstFormat;
+    return vstFormat.createInstanceFromDescription(*description);
+  }
 }
 
 bool isCloseTo(double x, double targetValue, double tolerance)

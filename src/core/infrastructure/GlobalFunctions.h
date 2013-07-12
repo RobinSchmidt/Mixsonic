@@ -104,6 +104,9 @@ to the instance (which the caller should delete eventually). If it doesn't succe
 nullptr. */
 AudioPluginInstance* getVSTPluginInstanceFromFile(const File& pluginFile);
 
+/** Creates an AudioPluginInstance from a PluginDescription. */
+AudioPluginInstance* getPluginInstanceFromDescription(const PluginDescription* description);
+
 /** Checks, if x is close to some target-value within some tolerance. */
 bool isCloseTo(double x, double targetValue, double tolerance);
 

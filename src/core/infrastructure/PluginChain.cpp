@@ -27,6 +27,15 @@ void PluginSlot::loadPlugin(const File& pluginFile)
     jassertfalse; // preliminary \todo show error message
 }
 
+void PluginSlot::loadPlugin(const PluginDescription* description)
+{
+  AudioPluginInstance* tmpInstance = getPluginInstanceFromDescription(description);
+  if( tmpInstance != nullptr )
+    setPlugin(tmpInstance, true);
+  else
+    jassertfalse;
+}
+
 void PluginSlot::setPlugin(AudioPluginInstance* pluginToUse, bool deleteOldPlugin)
 {
   ScopedLock lock(*mutex);

@@ -41,7 +41,6 @@ public:
     // it here
   }
 
-  //virtual void changeListenerCallback(void *objectThatHasChanged) // 1.46
   virtual void changeListenerCallback(ChangeBroadcaster *objectThatHasChanged) 
   {
     setName(String("Mixsonic - ") + contentComponent->getProjectName());

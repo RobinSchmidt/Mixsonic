@@ -121,6 +121,8 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
   nameLabel->addMouseListener(this, false);
 
   updateLabelText();
+
+  setKnownPluginList(&mixsonicGlobals->knownPlugins);
 }
 
 AudioPluginSlotComponent::~AudioPluginSlotComponent()
@@ -251,25 +253,29 @@ void AudioPluginSlotComponent::openPopUpMenu()
     menu.addItem(5, "Remove Slot"); 
   menu.addItem(6, "Load Plugin");
 
-
-
   if( knownPluginList != nullptr )
-  {
-    jassertfalse;
-    // not yet implemented - let the menu show the known plugins directly
-  }
-
+    knownPluginList->addToMenu(menu, KnownPluginList::sortByFileSystemLocation);
 
   const int result = menu.show();
 
   switch( result )
   {
+  case 0: /* user dismissed the menu */         break;
   case 1: setBypass(!slotToEdit->isBypassed()); break;
   case 2: openParameterEditor();                break;
   case 3: openCustomEditor();                   break;
   case 4: removePlugin();                       break;
   case 5: requestDeletion();                    break;
   case 6: openLoadPluginDialog();               break;
+  default:
+    {
+      if( knownPluginList != nullptr )
+      {
+        int listIndex = knownPluginList->getIndexChosenByMenu(result);
+        PluginDescription* description = knownPluginList->getType(listIndex);
+        loadPluginFromDescription(description);
+      }
+    }
   }
 }
 
@@ -290,6 +296,13 @@ void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
   closeEditors();
   slotToEdit->loadPlugin(pluginFile);
   openEditor();
+}
+
+void AudioPluginSlotComponent::loadPluginFromDescription(const PluginDescription* description)
+{
+  closeEditors();
+  slotToEdit->loadPlugin(description);
+  openEditor();        
 }
 
 void AudioPluginSlotComponent::removePlugin()
