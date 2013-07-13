@@ -53,7 +53,7 @@ void PluginSlot::setBypass(bool shouldBeBypassed)
 
 // audio processing:
  
-void PluginSlot::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
+void PluginSlot::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages) const
 {
   ScopedLock lock(*mutex);
   if( plugin != nullptr && !bypass )     
@@ -61,6 +61,34 @@ void PluginSlot::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessage
 }
 
 // misc:
+
+XmlElement* PluginSlot::getStateAsXml() const
+{
+  ScopedLock lock(*mutex);
+  XmlElement* xmlState = new XmlElement(String("PLUGIN"));
+  if( !isEmpty() )
+  {
+    // store an identifier string that can be used to identify the plugin inside a KnownPluginList 
+    // (this works across different machines, i.e. with different installation paths for the 
+    // plugin):
+    PluginDescription description;
+    plugin->fillInPluginDescription(description);
+    xmlState->setAttribute("identifier", description.createIdentifierString());
+
+    // we may also store more verbose information about the plugin as xml-child element for 
+    // convenience. this is redundant - for later identification, the identifier string stored 
+    // above would be sufficient:
+    bool verbose = false; // conveniently switch additional info on/off at compile time
+    if( verbose )
+      xmlState->addChildElement(description.createXml());
+
+    // store the state of the plugin
+    MemoryBlock pluginState;
+    plugin->getStateInformation(pluginState);
+    xmlState->setAttribute("state", pluginState.toBase64Encoding());
+  }
+  return xmlState;
+}
 
 void PluginSlot::deleteUnderlyingPlugin()
 {
@@ -130,8 +158,23 @@ void PluginChain::deleteSlot(PluginSlot *slotToDelete)
   exitLock();
 }
 
+// inquiry:
+
+bool PluginChain::isEmpty() const
+{  
+  ScopedLock lock(mutex);
+  for(int i = 0; i < pluginSlots.size(); i++)
+  {
+    if( !pluginSlots[i]->isEmpty() )
+      return false;
+  }
+  return true;
+}
+
+// audio processing:
+
 void PluginChain::processBlock(const AudioSourceChannelInfo &bufferToFill, 
-                               MidiBuffer &midiMessages)
+                               MidiBuffer &midiMessages) const
 {
   // modify pointers in tmpBuffer to take into accout a possibly nonzero startSample value in 
   // bufferToFill:
@@ -148,4 +191,20 @@ void PluginChain::processBlock(const AudioSourceChannelInfo &bufferToFill,
   // undo startsample offset:
   for(int i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
     channelArray[i] -= bufferToFill.startSample;
+}
+
+// misc:  
+
+XmlElement* PluginChain::getStateAsXml() const
+{
+  ScopedLock lock(mutex);
+  if( isEmpty() )
+    return nullptr;
+  else
+  {
+    XmlElement* xmlState = new XmlElement(String("PLUGIN_CHAIN"));
+    for(int i = 0; i < pluginSlots.size(); i++)
+      xmlState->addChildElement(pluginSlots[i]->getStateAsXml());
+    return xmlState;
+  }
 }

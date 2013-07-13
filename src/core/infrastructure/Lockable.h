@@ -7,7 +7,7 @@
 
 Baseclass for objects that need thread-synchronization via a mutex lock. You can either pass
 a Critical section object which shall be used, or let the class create it's own Critical section 
-object. The former case is useful, if some CriticalSection should be shared among everal objects.
+object. The former case is useful, if some CriticalSection should be shared among several objects.
 
 */
 
@@ -36,17 +36,17 @@ public:
       delete mutex;
   }
 
-  virtual void enterLock()
+  virtual void enterLock() const
   {
     mutex->enter();
   }
 
-  virtual void tryEnterLock()
+  virtual void tryEnterLock() const
   {
     mutex->tryEnter();
   }
 
-  virtual void exitLock()
+  virtual void exitLock() const
   {
     mutex->exit();
   }

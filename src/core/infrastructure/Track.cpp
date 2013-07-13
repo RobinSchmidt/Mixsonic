@@ -278,6 +278,8 @@ XmlElement* Track::getStateAsXml(const File& songDirectory) const
   }
   audioClips.getLock().exit();
 
+  xmlState->addChildElement(pluginChain.getStateAsXml());
+
   return xmlState;
 }
 
@@ -289,5 +291,8 @@ void Track::setStateFromXml(const juce::XmlElement &xmlState)
   pan   = xmlState.getDoubleAttribute("pan",          0.0);
   mute  = xmlState.getBoolAttribute(  "mute",       false);
   solo  = xmlState.getBoolAttribute(  "solo",       false);
+
+
+  // \todo retrieve the state of the plugin-chain
 }
 

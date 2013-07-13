@@ -59,7 +59,16 @@ public:
   // audio processing:
 
   /** Applies the plugin to the passed buffer. */
-  virtual void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages);
+  virtual void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages) const;
+
+  // \todo provide an unsafe version of this function and let that be called by the PluginChain
+
+
+  //-----------------------------------------------------------------------------------------------
+  // misc: 
+
+  /** Returns the state in form of an XmlElement. */
+  XmlElement* getStateAsXml() const;
 
 protected:
 
@@ -99,30 +108,43 @@ public:
   PluginChain();  
 
   /** Destructor. */
-  virtual ~PluginChain();    
+  ~PluginChain();    
 
   //-----------------------------------------------------------------------------------------------
   // setup:
 
   /** Deletes all PluginSlot objects in our array and clears the array itself. */
-  virtual void clear();
+  void clear();
 
   /** Adds the passed slot to the end. */
-  virtual void addSlot(PluginSlot *slotToAdd);
+  void addSlot(PluginSlot *slotToAdd);
     // \todo generalize this function into an "insertSlot" function which also takes an index at 
     // which  position it should be inserted (with -1 as default which means "at the end"). 
 
   /** Deletes the slot with given index.*/
-  virtual void deleteSlot(int index);
+  void deleteSlot(int index);
 
   /** Deletes the given slot object. */
-  virtual void deleteSlot(PluginSlot *slotToDelete);
+  void deleteSlot(PluginSlot *slotToDelete);
+
+  //-----------------------------------------------------------------------------------------------
+  // inquiry:
+
+  /** Returns true, when there's currently no pluginSlot in this chain or all pluginSlots in this 
+  chain are empty. */
+  bool isEmpty() const; 
 
   //-----------------------------------------------------------------------------------------------
   // audio processing:   
     
   /** Applies the plugin chain to the passed buffers. */
-  virtual void processBlock(const AudioSourceChannelInfo &bufferToFill, MidiBuffer &midiMessages);
+  void processBlock(const AudioSourceChannelInfo &bufferToFill, MidiBuffer &midiMessages) const;
+
+  //-----------------------------------------------------------------------------------------------
+  // misc: 
+
+  /** Returns the state in form of an XmlElement. */
+  XmlElement* getStateAsXml() const;
 
 protected:
 
