@@ -489,10 +489,20 @@ double AudioClip::getChannelAmplitudeWithoutRamp(int channel, double pan)
 
 double AudioClip::getRampFactor(int64 sampleNumber)
 {
+  
+  if( sampleNumber < fadeInInSamples+activeRegionOffsetInSamples )
+    return sqrt((double) (sampleNumber-activeRegionOffsetInSamples) / (double) fadeInInSamples);
+  else if( sampleNumber > fadeOutStartInSamples )
+    return sqrt(1.0 - (double) (sampleNumber-fadeOutStartInSamples) / (double) fadeOutInSamples);
+  else
+    return 1.0;
+  
+  /*
   if( sampleNumber < fadeInInSamples+activeRegionOffsetInSamples )
     return (double) (sampleNumber-activeRegionOffsetInSamples) / (double) fadeInInSamples;
   else if( sampleNumber > fadeOutStartInSamples )
     return 1.0 - (double) (sampleNumber-fadeOutStartInSamples) / (double) fadeOutInSamples;
   else
     return 1.0;
+    */
 }

@@ -2,6 +2,30 @@
 #define PluginChain_h
 
 #include "Lockable.h"
+#include "../../control/MixsonicGlobals.h"
+
+
+/** A dummy plugin class that is used when a plugin can't be found when a stored state of a 
+PluginSlot is restored via PluginSlot::setStateFromXml. The purpose of the dummy plugin is to
+serve as placeholder and store the identification and state information for the unavailable 
+plugin. */
+
+class DummyPlugin : public AudioPluginInstance
+{
+public:
+
+  virtual void fillInPluginDescription(PluginDescription &description);
+
+  virtual void getStateInformation (juce::MemoryBlock &destData);
+  virtual void setStateInformation (const void *data, int sizeInBytes);
+
+protected:
+
+  PluginDescription description;
+  MemoryBlock state;
+
+};
+
 
 /**
 
@@ -29,15 +53,17 @@ public:
   //-----------------------------------------------------------------------------------------------
   // setup:
 
-  /** Loads a plugin specified by the plugin's shared library file into this slot. If the library 
-  can't be loaded as plugin, nothing will be done and an error message is shown. */
-  void loadPlugin(const File& pluginFile);
+  /** Loads a plugin specified by the plugin's shared library file into this slot and returns true, 
+  if this was successful, false otherwise. */
+  bool loadPlugin(const File& pluginFile);
 
-  /** Loads a plugin specified by a PluginDescription into this slot. */
-  void loadPlugin(const PluginDescription* description);
+  /** Loads a plugin specified by a PluginDescription into this slot and returns true, if this was 
+  successful, false otherwise. */
+  bool loadPlugin(const PluginDescription* description);
 
   /** Assigns a new plugin (instance) to this slot and optionally deletes the old one. */
   void setPlugin(AudioPluginInstance* pluginToUse, bool deleteOldPlugin);
+    // \todo maybe get rid of the 2nd parameter - we should delete the old plugin in any case
 
   /** Switches bypass mode on/off */
   void setBypass(bool shouldBeBypassed);
@@ -67,8 +93,11 @@ public:
   //-----------------------------------------------------------------------------------------------
   // misc: 
 
-  /** Returns the state in form of an XmlElement. */
+  /** Returns the state as XmlElement. */
   XmlElement* getStateAsXml() const;
+
+  /** Recalls a state from an XmlElement. */
+  void setStateFromXml(const XmlElement& xmlState);
 
 protected:
 
@@ -76,12 +105,20 @@ protected:
   is open. It also resets our pointer to null. */
   void deleteUnderlyingPlugin();
 
+  /** Inserts a dummy plugin into the slot which serves as placeholder when a plugin is unavailable
+  when we try to recall a state via setStateFromXml. */
+  void insertDummyPlugin(const XmlElement& xmlState);
+
+
+
   /** Pointer to the actual plugin instance object, maybe a nullptr in which case the slot is 
   empty. */
   AudioPluginInstance *plugin;
 
   bool bypass;  // maybe, we can replace this with a continuous dry/wet control (0.0 corresponds
                 // to a bypassed setting)
+
+  KnownPluginList *knownPlugins;
 
   JUCE_LEAK_DETECTOR(PluginSlot);
 };
