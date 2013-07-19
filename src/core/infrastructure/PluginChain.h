@@ -87,8 +87,9 @@ public:
   /** Applies the plugin to the passed buffer. */
   virtual void processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages) const;
 
-  // \todo provide an unsafe version of this function and let that be called by the PluginChain
-
+  /** Thread-unsafe version of processBlock. You may use this, if you already have acquired the
+  mutex-lock for this object. */
+  virtual void processBlockUnsafe(AudioSampleBuffer& buffer, MidiBuffer& midiMessages) const;
 
   //-----------------------------------------------------------------------------------------------
   // misc: 
@@ -99,6 +100,12 @@ public:
   /** Recalls a state from an XmlElement. */
   void setStateFromXml(const XmlElement& xmlState);
 
+  /** Sets up the state of the plugin loaded from an encoded string (suitable for XML-storage). */
+  void setPluginStateFromBase64Encoding(const String& stateString);
+
+  /** Sets up the state of the plugin loaded from a MemoryBlock */
+  void setPluginState(const MemoryBlock& state);
+
 protected:
 
   /** Deletes the plugin instance that is used in this slot, thereby making sure that no editor
@@ -108,7 +115,6 @@ protected:
   /** Inserts a dummy plugin into the slot which serves as placeholder when a plugin is unavailable
   when we try to recall a state via setStateFromXml. */
   void insertDummyPlugin(const XmlElement& xmlState);
-
 
 
   /** Pointer to the actual plugin instance object, maybe a nullptr in which case the slot is 
@@ -182,6 +188,9 @@ public:
 
   /** Returns the state in form of an XmlElement. */
   XmlElement* getStateAsXml() const;
+
+  /** Recalls a state from an XmlElement. */
+  void setStateFromXml(const XmlElement& xmlState);
 
 protected:
 

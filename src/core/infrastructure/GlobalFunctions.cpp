@@ -398,6 +398,23 @@ void normalizeAudioSampleBuffer(AudioSampleBuffer* buffer, double peakAmplitude)
     buffer->applyGain(c, 0, buffer->getNumSamples(), normalizer);
 }
 
+File openLoadFileDialog(const String& dialogTitle, const File& initialFileOrDirctory, 
+                        const String& filePatternsAllowed)
+{
+  FileChooser chooser(dialogTitle, initialFileOrDirctory, filePatternsAllowed); 
+  if( chooser.browseForFileToOpen() )
+    return chooser.getResult();
+  else
+    return File::nonexistent;
+}
+
+File openLoadAudioPluginDialog()
+{
+  return openLoadFileDialog("Select Plugin", getApplicationDirectory(), "*.dll");
+    // later use a user-specified plugin folder stored in the global preferences and 
+    // use a system-specific extension - write a function getPluginFileExtensions()
+}
+
 double round(double x)
 {
   if( x-floor(x) >= 0.5 )

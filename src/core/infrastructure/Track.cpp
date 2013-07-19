@@ -292,7 +292,11 @@ void Track::setStateFromXml(const juce::XmlElement &xmlState)
   mute  = xmlState.getBoolAttribute(  "mute",       false);
   solo  = xmlState.getBoolAttribute(  "solo",       false);
 
+  // \todo: retrieve clip states here (it's currently done in the Arrangement class - this is
+  // dirty)
 
-  // \todo retrieve the state of the plugin-chain
+  XmlElement *pluginChainState = xmlState.getChildByName("PLUGIN_CHAIN");
+  if( pluginChainState != nullptr )
+    pluginChain.setStateFromXml(*pluginChainState);
 }
 

@@ -20,6 +20,9 @@ PluginSlot::~PluginSlot()
 
 bool PluginSlot::loadPlugin(const File& pluginFile)
 {
+  if( pluginFile == File::nonexistent )
+    return false;
+
   AudioPluginInstance* tmpInstance = getVSTPluginInstanceFromFile(pluginFile);
   if( tmpInstance != nullptr )
   {
@@ -68,7 +71,13 @@ void PluginSlot::setBypass(bool shouldBeBypassed)
  
 void PluginSlot::processBlock(AudioSampleBuffer& buffer, MidiBuffer& midiMessages) const
 {
-  ScopedLock lock(*mutex);
+  enterLock();
+  processBlockUnsafe(buffer, midiMessages);
+  exitLock();
+}
+
+void PluginSlot::processBlockUnsafe(AudioSampleBuffer& buffer, MidiBuffer& midiMessages) const
+{
   if( plugin != nullptr && !bypass )     
     plugin->processBlock(buffer, midiMessages);
 }
@@ -90,45 +99,21 @@ XmlElement* PluginSlot::getStateAsXml() const
   XmlElement* xmlState = nullptr;
   if( !isEmpty() )
   {
-    // store the info to identify the plugin:
+    // store info to identify plugin:
     PluginDescription description;
     plugin->fillInPluginDescription(description);
     xmlState = description.createXml();
 
-    // store the state of the plugin as additional attribute:
+    // store bypass-setting, if toggled:
+    if( isBypassed() )
+      xmlState->setAttribute("bypass", true);
+
+    // store state of the plugin as additional attribute:
     MemoryBlock pluginState;
     plugin->getStateInformation(pluginState);
     xmlState->setAttribute("state", pluginState.toBase64Encoding());
   }
   return xmlState;
-
-  /*
-  XmlElement* xmlState = new XmlElement(String("PLUGIN"));
-  if( !isEmpty() )
-  {
-    // store the information, required to identify the plugin later - actually, only name, format,
-    // uid and fileOrIdentifier are required for identification, the rest is just for info:
-    PluginDescription description;
-    plugin->fillInPluginDescription(description);
-    xmlState->setAttribute("name",             description.name);
-    xmlState->setAttribute("manufacturer",     description.manufacturerName);
-    xmlState->setAttribute("version",          description.version);
-    xmlState->setAttribute("uid",              description.uid);
-    xmlState->setAttribute("format",           description.pluginFormatName);
-    //xmlState->setAttribute("numInputs",        description.numInputChannels);
-    //xmlState->setAttribute("numOutputs",       description.numOutputChannels);
-    if( description.pluginFormatName == "AU" )
-      xmlState->setAttribute("identifier", description.fileOrIdentifier);
-    else
-      xmlState->setAttribute("path", description.fileOrIdentifier);
-
-    // store the state of the plugin:
-    MemoryBlock pluginState;
-    plugin->getStateInformation(pluginState);
-    xmlState->setAttribute("state", pluginState.toBase64Encoding());
-  }
-  return xmlState;
-  */
 }
 
 void PluginSlot::setStateFromXml(const XmlElement& xmlState)
@@ -139,15 +124,8 @@ void PluginSlot::setStateFromXml(const XmlElement& xmlState)
   String fileName = xmlState.getStringAttribute("file");
 
   String identifierString = createPluginIdentifierString(format, name, fileName, uid);
-
-  /*
-  String fileOrIdentifier;
-  if( format == "AU" )
-    fileOrIdentifier = xmlState.getStringAttribute("identifier");
-  else
-    fileOrIdentifier = xmlState.getStringAttribute("path");
-    */
-
+  
+  ScopedLock lock(*mutex);
 
   // try to find the plugin in the list of known plugins, if it is found, load it:
   bool pluginLoaded = false;
@@ -166,13 +144,23 @@ void PluginSlot::setStateFromXml(const XmlElement& xmlState)
       jassertfalse; // it's not an actual filename in case of AUs - not yet sure how to handle this case
     }
     else
+    {
       pluginLoaded = loadPlugin(File(fileName));
+        // \todo maybe open a dialog, where the user can add the plugin's parent directory to the 
+        // plugin search path
+    }
   }
 
   // if loading from the filename also failed, prompt the user to locate the file:
   if( !pluginLoaded )
   {
-    jassertfalse; // here, we should open a filebrowser dialog where the user can locate the plugin
+    File pluginFile = openLoadAudioPluginDialog();
+
+    jassertfalse; 
+      // at this point, we should check if the file selected by the user is indeed the right plugin
+      // file - i.e. has the same uniqueID etc. ....
+
+    pluginLoaded = loadPlugin(pluginFile);
   }
 
   // if loading the plugin still failed (i.e. the user dismissed the filebrowser dialog), we put a 
@@ -180,6 +168,33 @@ void PluginSlot::setStateFromXml(const XmlElement& xmlState)
   // so we can save it again as part of the song:
   if( !pluginLoaded )
     insertDummyPlugin(xmlState);
+
+  // restore bypass setting:
+  setBypass(xmlState.getBoolAttribute("bypass", false));
+
+  // now, we have either inserted the right plugin or else a dummy plugin - now set up the plugin's
+  // state:
+  setPluginStateFromBase64Encoding(xmlState.getStringAttribute("state"));
+}
+
+void PluginSlot::setPluginStateFromBase64Encoding(const String& stateString)
+{
+  ScopedLock lock(*mutex);
+  MemoryBlock block;
+  bool success = block.fromBase64Encoding(stateString);
+  if( success == true )
+    setPluginState(block);
+  else
+    jassertfalse; // stateString corrupted - open message box
+}
+
+void PluginSlot::setPluginState(const MemoryBlock& state)
+{
+  ScopedLock lock(*mutex);
+  if( plugin != nullptr )
+    plugin->setStateInformation(state.getData(), state.getSize());
+  else
+    jassertfalse;
 }
 
 void PluginSlot::deleteUnderlyingPlugin()
@@ -285,12 +300,16 @@ void PluginChain::processBlock(const AudioSourceChannelInfo &bufferToFill,
   // loop over slots to apply all plugins:
   enterLock();
   for(int i = 0; i < pluginSlots.size(); i++)
-    pluginSlots[i]->processBlock(*bufferToFill.buffer, midiMessages);
+    pluginSlots[i]->processBlockUnsafe(*bufferToFill.buffer, midiMessages);
   exitLock();
 
   // undo startsample offset:
   for(int i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
     channelArray[i] -= bufferToFill.startSample;
+
+  // \todo: later, when we have one thread per track, we should to this offset stuff only once
+  // in the audio callback of Arrangement. the tracks should always receive/fill buffers with
+  // zero offset
 }
 
 // misc:  
@@ -306,5 +325,18 @@ XmlElement* PluginChain::getStateAsXml() const
     for(int i = 0; i < pluginSlots.size(); i++)
       xmlState->addChildElement(pluginSlots[i]->getStateAsXml());
     return xmlState;
+  }
+}
+
+void PluginChain::setStateFromXml(const XmlElement& xmlState)
+{
+  ScopedLock lock(mutex);
+  clear();  
+  PluginSlot *slot;
+  forEachXmlChildElementWithTagName(xmlState, pluginState, "PLUGIN")
+  {
+    slot = new PluginSlot(nullptr, &mutex);
+    slot->setStateFromXml(*pluginState);
+    addSlot(slot);
   }
 }

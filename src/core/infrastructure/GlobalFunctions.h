@@ -168,6 +168,14 @@ T nextPowerOfTwo(T x);
 /** Normalizes an AudioSampleBuffer such that the peak amplitude has the given value. */
 void normalizeAudioSampleBuffer(AudioSampleBuffer* buffer, double peakAmplitude);
 
+/** Opens a file chooser dialog and returns the selected file as result. If the user dismisses the
+dialog, it will return File::nonexistent. */
+File openLoadFileDialog(const String& dialogTitle, const File& initialFileOrDirctory, 
+                        const String& filePatternsAllowed);
+
+/** Calls openLoadFileDialog with parameters suitable for audio plugin-files.  */
+File openLoadAudioPluginDialog();
+
 /** Returns the nearest integer (as double). */
 double round(double x);
 

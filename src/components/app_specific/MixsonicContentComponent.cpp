@@ -469,14 +469,19 @@ bool MixsonicContentComponent::perform(const InvocationInfo &info)
  
 void MixsonicContentComponent::playbackStarted()
 {
-  double sampleRate = deviceManager.getCurrentAudioDevice()->getCurrentSampleRate();
-  int    bufferSize = deviceManager.getCurrentAudioDevice()->getCurrentBufferSizeSamples();
+  AudioIODevice* device = deviceManager.getCurrentAudioDevice();
+  if( device != nullptr )    
+  {
+    // for debug:
+    //deviceManager.playTestSound();
 
-  // for debug:
-  //deviceManager.playTestSound();
-
-  GlobalTimeFrameComponent::setSystemSampleRate(sampleRate);
-  arrangementEditor->startPlayback(bufferSize, sampleRate);
+    double sampleRate = device ->getCurrentSampleRate();
+    int    bufferSize = device->getCurrentBufferSizeSamples();
+    GlobalTimeFrameComponent::setSystemSampleRate(sampleRate);
+    arrangementEditor->startPlayback(bufferSize, sampleRate);  
+  }
+  else
+    jassertfalse; // todo: open an error message - no valid audio-device or something
 }
  
 void MixsonicContentComponent::playbackStopped()

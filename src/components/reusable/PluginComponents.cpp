@@ -281,14 +281,7 @@ void AudioPluginSlotComponent::openPopUpMenu()
 
 void AudioPluginSlotComponent::openLoadPluginDialog()
 {
-  File startDirectory = getApplicationDirectory(); 
-    // later use a user-specified plugin folder stored in the global preferences
-
-  FileChooser chooser("Select Plugin", startDirectory, "*.dll"); 
-    // later use a system-specific extension - write a function getPluginFileExtensions()
-
-  if( chooser.browseForFileToOpen() )
-    loadPluginFromFile(chooser.getResult());
+  loadPluginFromFile(openLoadAudioPluginDialog());
 }
 
 void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
