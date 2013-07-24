@@ -84,6 +84,7 @@
     <ClCompile Include="..\..\src\control\Skin.cpp" />
     <ClCompile Include="..\..\src\control\TransportController.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\DummyAudioPlugin.cpp" />
     <ClCompile Include="..\..\src\core\infrastructure\PluginChain.cpp" />
     <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_basics\juce_audio_basics.cpp" />
     <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_devices\juce_audio_devices.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="..\..\src\core\infrastructure\ClipManipulator.h" />
     <ClInclude Include="..\..\src\core\infrastructure\DeletionManagement.h" />
     <ClInclude Include="..\..\src\core\infrastructure\DescribedItem.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\DummyAudioPlugin.h" />
     <ClInclude Include="..\..\src\core\infrastructure\FileComparator.h" />
     <ClInclude Include="..\..\src\core\infrastructure\FileFilters.h" />
     <ClInclude Include="..\..\src\core\infrastructure\FileManager.h" />

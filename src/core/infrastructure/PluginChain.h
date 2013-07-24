@@ -2,30 +2,8 @@
 #define PluginChain_h
 
 #include "Lockable.h"
+#include "DummyAudioPlugin.h"
 #include "../../control/MixsonicGlobals.h"
-
-
-/** A dummy plugin class that is used when a plugin can't be found when a stored state of a 
-PluginSlot is restored via PluginSlot::setStateFromXml. The purpose of the dummy plugin is to
-serve as placeholder and store the identification and state information for the unavailable 
-plugin. */
-
-class DummyPlugin : public AudioPluginInstance
-{
-public:
-
-  virtual void fillInPluginDescription(PluginDescription &description);
-
-  virtual void getStateInformation (juce::MemoryBlock &destData);
-  virtual void setStateInformation (const void *data, int sizeInBytes);
-
-protected:
-
-  PluginDescription description;
-  MemoryBlock state;
-
-};
-
 
 /**
 

@@ -333,6 +333,9 @@
     <ClCompile Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.cpp">
       <Filter>src\components\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\DummyAudioPlugin.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
@@ -613,6 +616,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.h">
       <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\DummyAudioPlugin.h">
+      <Filter>src\core\infrastructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

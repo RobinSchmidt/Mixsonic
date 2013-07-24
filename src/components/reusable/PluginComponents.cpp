@@ -287,8 +287,11 @@ void AudioPluginSlotComponent::openLoadPluginDialog()
 void AudioPluginSlotComponent::loadPluginFromFile(const File& pluginFile)
 { 
   closeEditors();
-  slotToEdit->loadPlugin(pluginFile);
-  openEditor();
+  bool success = slotToEdit->loadPlugin(pluginFile);
+  if( success == true )
+    openEditor();
+  else
+    jassertfalse; // \todo show error-message, that the plugin could not be loaded
 }
 
 void AudioPluginSlotComponent::loadPluginFromDescription(const PluginDescription* description)

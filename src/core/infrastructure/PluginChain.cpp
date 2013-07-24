@@ -30,11 +30,7 @@ bool PluginSlot::loadPlugin(const File& pluginFile)
     return true;
   }
   else
-  {
-    jassertfalse; // preliminary \todo show error message - but we should do this from the GUI
-                  // using the return value of this function
     return false;
-  }
 }
 
 bool PluginSlot::loadPlugin(const PluginDescription* description)
@@ -100,15 +96,27 @@ XmlElement* PluginSlot::getStateAsXml() const
   if( !isEmpty() )
   {
     // store info to identify plugin:
+    xmlState = new XmlElement ("PLUGIN");
     PluginDescription description;
     plugin->fillInPluginDescription(description);
-    xmlState = description.createXml();
+    xmlState->setAttribute("name", description.name);
+    if(description.descriptiveName != description.name)
+        xmlState->setAttribute("descriptiveName", description.descriptiveName);
+    xmlState->setAttribute("format", description.pluginFormatName);
+    xmlState->setAttribute("category", description.category);
+    xmlState->setAttribute("manufacturer", description.manufacturerName);
+    xmlState->setAttribute("version", description.version);
+    xmlState->setAttribute("file", description.fileOrIdentifier);
+    xmlState->setAttribute("uid", String::toHexString (description.uid));
+    xmlState->setAttribute("isInstrument", description.isInstrument);
+    xmlState->setAttribute("numInputs", description.numInputChannels);
+    xmlState->setAttribute("numOutputs", description.numOutputChannels);
 
     // store bypass-setting, if toggled:
     if( isBypassed() )
       xmlState->setAttribute("bypass", true);
 
-    // store state of the plugin as additional attribute:
+    // store state of the plugin:
     MemoryBlock pluginState;
     plugin->getStateInformation(pluginState);
     xmlState->setAttribute("state", pluginState.toBase64Encoding());
@@ -151,10 +159,12 @@ void PluginSlot::setStateFromXml(const XmlElement& xmlState)
     }
   }
 
+  /*
   // if loading from the filename also failed, prompt the user to locate the file:
   if( !pluginLoaded )
   {
     File pluginFile = openLoadAudioPluginDialog();
+      // no - we should open the file-browser before showing a dialog/message-box
 
     jassertfalse; 
       // at this point, we should check if the file selected by the user is indeed the right plugin
@@ -162,6 +172,8 @@ void PluginSlot::setStateFromXml(const XmlElement& xmlState)
 
     pluginLoaded = loadPlugin(pluginFile);
   }
+  */
+
 
   // if loading the plugin still failed (i.e. the user dismissed the filebrowser dialog), we put a 
   // dummy plugin into the slot which just stores the information about the plugin and its state, 
@@ -217,10 +229,9 @@ void PluginSlot::deleteUnderlyingPlugin()
 
 void PluginSlot::insertDummyPlugin(const XmlElement& xmlState)
 {
-  jassertfalse; // this function is still under construction
-
-  //DummyPlugin *dummy = new DummyPlugin();
-  //dummy->setPluginDescriptionFromXml(xmlState);
+  DummyAudioPlugin *dummy = new DummyAudioPlugin();
+  dummy->setPluginDescriptionFromXml(xmlState);
+  setPlugin(dummy, true);
 }
 
 //=================================================================================================
