@@ -94,6 +94,22 @@ protected:
   when we try to recall a state via setStateFromXml. */
   void insertDummyPlugin(const XmlElement& xmlState);
 
+  /** Opens an alert box that asks the user to manually locate a plugin file. This will be opened, 
+  when a plugin can't be found from its description or filename. The user can opt to not manually
+  locate the file, in which case the function returns false, true otherwise. */
+  static bool showPluginManualSearchAlert(const String& format, const String& name, 
+    const String& manufacturer, const String& path);
+
+  /** Opens an alert box that notifies the user that the attempted manually located plugin file is
+  not the right one and gives the option to try again. If the user wants to loacte another file, 
+  the function return true, false otherwise. */
+  static bool showWrongPluginFileAlert(const String& format, const String& name, 
+    const String& manufacturer, const String& path);
+
+  /** Returns true, if the given plugin file has the given unique id, i.e. the file is (likely to 
+  be) the right one for a plugin with given uid. */
+  static bool doesPluginFileHaveUniqueId(const File& pluginFile, int uid);
+
 
   /** Pointer to the actual plugin instance object, maybe a nullptr in which case the slot is 
   empty. */

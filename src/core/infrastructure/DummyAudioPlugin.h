@@ -1,17 +1,16 @@
 #ifndef DummyAudioPlugin_h
 #define DummyAudioPlugin_h
 
-//#include "../../libs/JuceIncludes.h"
 #include "../../components/widgets/RLabel.h"
-
-// todo: make a class DummyAudioPluginEditor which shows information about the missing plugin
-
-
 
 /** A dummy plugin class that is used when a plugin can't be found when a stored state of a 
 PluginSlot is restored via PluginSlot::setStateFromXml. The purpose of the dummy plugin is to
 serve as placeholder and store the identification and state information for the unavailable 
-plugin. */
+plugin. 
+
+maybe rename to PlaceHolderAudioPlugin
+
+*/
 
 class DummyAudioPlugin : public AudioPluginInstance
 {
@@ -24,8 +23,18 @@ public:
   /** Returns the format name of the plugin. */
   virtual const String getFormatName() const;
 
+  /** Returns the name of the plugin without a prepended "Error: ". The overriden getName function
+  instead prepends this error-notification, so we can see it in the PluginSlotComponent. */
+  virtual const String getPluginName() const;
+
   /** Returns the name of the manufacturer of the plugin. */
   virtual const String getManufacturerName() const;
+
+  /** Returns a string representing the version of the plugin. */
+  virtual const String getVersion() const;
+
+  /** Returns a string representing the version of the plugin. */
+  virtual const int getUniqueID() const;
 
 
   // overrides for AudioPluginInstance baseclass:

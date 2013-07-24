@@ -107,7 +107,7 @@ XmlElement* PluginSlot::getStateAsXml() const
     xmlState->setAttribute("manufacturer", description.manufacturerName);
     xmlState->setAttribute("version", description.version);
     xmlState->setAttribute("file", description.fileOrIdentifier);
-    xmlState->setAttribute("uid", String::toHexString (description.uid));
+    xmlState->setAttribute("uid", description.uid);
     xmlState->setAttribute("isInstrument", description.isInstrument);
     xmlState->setAttribute("numInputs", description.numInputChannels);
     xmlState->setAttribute("numOutputs", description.numOutputChannels);
@@ -126,10 +126,11 @@ XmlElement* PluginSlot::getStateAsXml() const
 
 void PluginSlot::setStateFromXml(const XmlElement& xmlState)
 {
-  int    uid      = xmlState.getIntAttribute("uid");
-  String name     = xmlState.getStringAttribute("name");
-  String format   = xmlState.getStringAttribute("format");
-  String fileName = xmlState.getStringAttribute("file");
+  int    uid          = xmlState.getIntAttribute("uid");
+  String name         = xmlState.getStringAttribute("name");
+  String format       = xmlState.getStringAttribute("format");
+  String fileName     = xmlState.getStringAttribute("file");
+  String manufacturer = xmlState.getStringAttribute("maunfacturer");
 
   String identifierString = createPluginIdentifierString(format, name, fileName, uid);
   
@@ -159,21 +160,31 @@ void PluginSlot::setStateFromXml(const XmlElement& xmlState)
     }
   }
 
-  /*
   // if loading from the filename also failed, prompt the user to locate the file:
   if( !pluginLoaded )
   {
-    File pluginFile = openLoadAudioPluginDialog();
-      // no - we should open the file-browser before showing a dialog/message-box
-
-    jassertfalse; 
-      // at this point, we should check if the file selected by the user is indeed the right plugin
-      // file - i.e. has the same uniqueID etc. ....
-
-    pluginLoaded = loadPlugin(pluginFile);
+    if( showPluginManualSearchAlert(format, name, manufacturer, fileName) == true )
+    {
+      while( true )
+      {
+        File pluginFile = openLoadAudioPluginDialog();
+        if( pluginFile == File::nonexistent ) 
+          break; // user dimissed filechooser
+        else if( doesPluginFileHaveUniqueId(pluginFile, uid) )
+        {
+          pluginLoaded = loadPlugin(pluginFile);
+          break;
+        }
+        else
+        {
+          bool tryAgain = showWrongPluginFileAlert(format, name, manufacturer, 
+            pluginFile.getFullPathName());
+          if( tryAgain == false )
+            break;
+        }
+      }
+    }
   }
-  */
-
 
   // if loading the plugin still failed (i.e. the user dismissed the filebrowser dialog), we put a 
   // dummy plugin into the slot which just stores the information about the plugin and its state, 
@@ -232,6 +243,44 @@ void PluginSlot::insertDummyPlugin(const XmlElement& xmlState)
   DummyAudioPlugin *dummy = new DummyAudioPlugin();
   dummy->setPluginDescriptionFromXml(xmlState);
   setPlugin(dummy, true);
+}
+
+bool PluginSlot::showPluginManualSearchAlert(const String& format, const String& name, 
+  const String& manufacturer, const String& path)
+{
+  String message;
+  message += "The " + format + " plugin by" + manufacturer + 
+    "could not be found in the standard plugin directory or in " + path + 
+    ". Do you want to locate it manually?";
+  return AlertWindow::showOkCancelBox(AlertWindow::WarningIcon, "Plugin not found!", message, 
+    "Yes", "No");
+}
+
+bool PluginSlot::showWrongPluginFileAlert(const String& format, const String& name, 
+    const String& manufacturer, const String& path)
+{
+  String message;
+  message += "The file " + path + " is not the right file for the " + format + " plugin " 
+    + name + " by " + manufacturer + ". Do you want to choose another file?";
+  return AlertWindow::showOkCancelBox(AlertWindow::WarningIcon, "Wrong plugin file!", message, 
+    "Yes", "No");
+}
+
+bool PluginSlot::doesPluginFileHaveUniqueId(const File& pluginFile, int uid)
+{
+  AudioPluginInstance* tmpInstance = getVSTPluginInstanceFromFile(pluginFile);
+  if( tmpInstance == nullptr )
+    return false;
+  else
+  {
+    PluginDescription description;
+    tmpInstance->fillInPluginDescription(description);
+    delete tmpInstance;
+    if( uid == description.uid  )
+      return true;
+    else
+      return false;
+  }
 }
 
 //=================================================================================================
@@ -318,7 +367,7 @@ void PluginChain::processBlock(const AudioSourceChannelInfo &bufferToFill,
   for(int i = 0; i < bufferToFill.buffer->getNumChannels(); i++)
     channelArray[i] -= bufferToFill.startSample;
 
-  // \todo: later, when we have one thread per track, we should to this offset stuff only once
+  // \todo: later, when we have one thread per track, we should do this offset stuff only once
   // in the audio callback of Arrangement. the tracks should always receive/fill buffers with
   // zero offset
 }

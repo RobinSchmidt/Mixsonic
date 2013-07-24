@@ -9,7 +9,7 @@ void DummyAudioPlugin::setPluginDescriptionFromXml(const XmlElement& xml)
   description.manufacturerName  = xml.getStringAttribute("manufacturer");
   description.version           = xml.getStringAttribute("version");
   description.fileOrIdentifier  = xml.getStringAttribute("file");
-  description.uid               = xml.getStringAttribute("uid").getHexValue32();
+  description.uid               = xml.getIntAttribute("uid");
   description.isInstrument      = xml.getBoolAttribute("isInstrument");
   description.numInputChannels  = xml.getIntAttribute("numInputs");
   description.numOutputChannels = xml.getIntAttribute("numOutputs");
@@ -20,9 +20,24 @@ const String DummyAudioPlugin::getFormatName() const
   return description.pluginFormatName;
 }
 
+const String DummyAudioPlugin::getPluginName() const
+{
+  return description.name;
+}
+
 const String DummyAudioPlugin::getManufacturerName() const
 {
   return description.manufacturerName;
+}
+
+const String DummyAudioPlugin::getVersion() const
+{
+  return description.version;
+}
+
+const int DummyAudioPlugin::getUniqueID() const
+{
+  return description.uid;
 }
 
 void DummyAudioPlugin::fillInPluginDescription(PluginDescription& d) const
@@ -56,8 +71,7 @@ void DummyAudioPlugin::setStateInformation(const void *data, int sizeInBytes)
  
 const String DummyAudioPlugin::getName() const
 {
-  //return description.name + String(" (not found)");
-  return  String("Error: ") + description.name;
+  return String("Error: ") + description.name;
 }
  
 void DummyAudioPlugin::prepareToPlay(double sampleRate, int estimatedSamplesPerBlock)
@@ -165,7 +179,6 @@ void DummyAudioPlugin::changeProgramName(int index, const String& newName)
 
 }
 
-
 //=================================================================================================
 
 DummyAudioPluginEditor::DummyAudioPluginEditor(AudioProcessor *owner) : AudioProcessorEditor(owner)
@@ -177,16 +190,16 @@ DummyAudioPluginEditor::DummyAudioPluginEditor(AudioProcessor *owner) : AudioPro
   formatLabel->setText(dummyPlugin->getFormatName() + String(" Plugin is unavailable."), false);
 
   addAndMakeVisible(nameLabel = new RLabel);
-  nameLabel->setText(String("Plugin Name: ") + dummyPlugin->getName(), false);
+  nameLabel->setText(String("Plugin Name: ") + dummyPlugin->getPluginName(), false);
 
   addAndMakeVisible(manufacturerLabel = new RLabel);
-  manufacturerLabel->setText(String("Manufacturer ") + dummyPlugin->getManufacturerName(), false);
+  manufacturerLabel->setText(String("Manufacturer: ") + dummyPlugin->getManufacturerName(), false);
 
   addAndMakeVisible(versionLabel = new RLabel);
-  //versionLabel->setText(String("Version: ") + dummyPlugin->getVersionString(), false);
+  versionLabel->setText(String("Version: ") + dummyPlugin->getVersion(), false);
 
   addAndMakeVisible(uidLabel = new RLabel);
-  //uidLabel->setText(String("Unique ID: ") + dummyPlugin->getUidString(), false);
+  uidLabel->setText(String("Unique ID: ") + dummyPlugin->getUniqueID(), false);
 
   setSize(300, numLabels*labelHeight);
 }
@@ -194,6 +207,11 @@ DummyAudioPluginEditor::DummyAudioPluginEditor(AudioProcessor *owner) : AudioPro
 DummyAudioPluginEditor::~DummyAudioPluginEditor()
 {
   deleteAllChildren();
+
+  dummyPlugin->editorBeingDeleted(this);
+    // if we don't do this, juce triggers a breakpoint in 
+    // AudioProcessorEditor::~AudioProcessorEditor() when closing the app (if we have opened an 
+    // editor before)
 }
 
 void DummyAudioPluginEditor::resized()
