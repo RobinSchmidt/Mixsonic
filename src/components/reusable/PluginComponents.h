@@ -28,7 +28,9 @@ public:
   /** Retrieves the current value of the parameter from the plugin and triggers a repaint. */
   virtual void updateValue();
 
-  // we need to override paint in order to display not the normalized, but the mapped value
+  /** We override paint in order to display not the normalized but the mapped value and also
+  draw the parameter name, etc. */
+  virtual void paint(Graphics& g);
 
 protected:
 
@@ -57,7 +59,7 @@ public:
 
   // overrides for Component baseclass
   virtual void resized();
-  //virtual void paint(Graphics& g);
+  virtual void paint(Graphics& g);
 
 protected:
 

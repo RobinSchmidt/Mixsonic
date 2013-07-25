@@ -14,7 +14,7 @@ MixsonicSlider::MixsonicSlider(const String& name)
   isVertical           = false;
   backgroundColour     = ::widgetBackgroundColor;
   outlineColour        = ::outlineColor;
-  thumbColour          = outlineColor;
+  thumbColour          = ::widgetHandleColor;
   positionMarkerColour = highlightOutlineColor;
 }
 

@@ -28,6 +28,24 @@ void AudioProcessorParameterSlider::updateValue()
   repaint();
 }
 
+void AudioProcessorParameterSlider::paint(Graphics& g)
+{
+  g.fillAll(backgroundColour);
+
+  g.setColour(thumbColour);
+  float thumbWidth = (float) (getWidth() * valueToProportionOfLength(getValue()));
+  g.fillRect(0.f, 0.f, thumbWidth, (float)getHeight());
+
+  //g.setFont...
+  g.setColour(::textColor);
+  g.drawText(owner->getParameterName(parameterIndex), 4, 0, getWidth()-4, getHeight(), 
+    Justification::centredLeft, false); 
+  g.drawText(owner->getParameterText(parameterIndex), 0, 0, getWidth()-4, getHeight(), 
+    Justification::centredRight, false); 
+  // maybe, we should draw a physical unit here, or is getParameterText supposed to return the 
+  // value including the unit?
+}
+
 //=================================================================================================
 // class AudioProcessorParameterEditor:
 
@@ -87,6 +105,13 @@ void AudioProcessorParameterEditor::resized()
     y += sliderHeight + sliderDistance;
   }
   // \todo - when there are many parameters, we should arrange them in columns
+}
+
+void AudioProcessorParameterEditor::paint(Graphics& g)
+{
+  g.fillAll(::backgroundColor);
+  g.setColour(::outlineColor);
+  g.drawRect(0, 0, getWidth(), getHeight(), 2);
 }
 
 //=================================================================================================
@@ -435,13 +460,8 @@ void AudioPluginSlotComponent::openParameterEditor()
     parameterEditor->showInFrontOfAppWindow();
     return; 
   }
-
-  //GenericAudioProcessorEditor *pluginEditor = 
-  //  new GenericAudioProcessorEditor(slotToEdit->getPlugin());
-
   AudioProcessorParameterEditor *pluginEditor = 
     new AudioProcessorParameterEditor(slotToEdit->getPlugin());
-
   wrapPluginEditorIntoContainerAndShow(parameterEditor, pluginEditor, true);
 }
 
