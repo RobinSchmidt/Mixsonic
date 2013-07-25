@@ -7,7 +7,68 @@
 #include "../../control/MixsonicGlobals.h"
 #include "../widgets/RLabel.h"
 #include "../widgets/RButton.h"
+#include "../widgets/MixsonicSlider.h"
 
+/** A slider subclass, specifically for plugin parameters. The slider itself will take care of 
+updating the corresponding parameter inside the plugin. */
+
+class AudioProcessorParameterSlider : public MixsonicSlider
+{
+
+public:
+
+  /** Constructor. You have to pass a pointer to the plugin and the index of the parameter, such 
+  that the slider can itself take care of updating the parameter inside the plugin. */
+  AudioProcessorParameterSlider(AudioProcessor *owner, int parameterIndex);
+
+  /** Overriden, to set up the associated parameter in the plugin. */
+  virtual void setValue(double newValue, const bool sendUpdateMessage = true, 
+    const bool sendMessageSynchronously = false);
+
+  /** Retrieves the current value of the parameter from the plugin and triggers a repaint. */
+  virtual void updateValue();
+
+  // we need to override paint in order to display not the normalized, but the mapped value
+
+protected:
+
+  int parameterIndex;
+  AudioProcessor *owner; 
+
+  JUCE_LEAK_DETECTOR(AudioProcessorParameterSlider);
+};
+
+//=================================================================================================
+
+/** A parameter editor for plugins, to be used primarily for GUI-less plugins. */
+
+class AudioProcessorParameterEditor : public AudioProcessorEditor, public AudioProcessorListener
+{
+
+public:
+
+  AudioProcessorParameterEditor(AudioProcessor* owner);
+  virtual ~AudioProcessorParameterEditor();
+
+  // overrides for AudioProcessorListener baseclass
+  virtual void audioProcessorParameterChanged(AudioProcessor* processor, int parameterIndex,                                             
+    float newValue);  
+  virtual void audioProcessorChanged(AudioProcessor* processor);
+
+  // overrides for Component baseclass
+  virtual void resized();
+  //virtual void paint(Graphics& g);
+
+protected:
+
+  static const int sliderHeight   = 16;
+  static const int sliderDistance = 4;
+  static const int margin         = 8; // later chanche this to 4 as well
+
+  JUCE_LEAK_DETECTOR(AudioProcessorParameterEditor);
+};
+
+//=================================================================================================
 
 /** A Component subclass that wraps an AudioProcessorEditor into a window that can be placed on
 the desktop, moved around, closed and re-opened. 

@@ -21,7 +21,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicSlider(const String& componentName);
+  MixsonicSlider(const String& componentName = String::empty);
 
   /** Destructor. */
   virtual ~MixsonicSlider();

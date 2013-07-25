@@ -199,7 +199,7 @@ DummyAudioPluginEditor::DummyAudioPluginEditor(AudioProcessor *owner) : AudioPro
   versionLabel->setText(String("Version: ") + dummyPlugin->getVersion(), false);
 
   addAndMakeVisible(uidLabel = new RLabel);
-  uidLabel->setText(String("Unique ID: ") + dummyPlugin->getUniqueID(), false);
+  uidLabel->setText(String("Unique ID: ") + String(dummyPlugin->getUniqueID()), false);
 
   setSize(300, numLabels*labelHeight);
 }

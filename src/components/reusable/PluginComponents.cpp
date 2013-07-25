@@ -1,5 +1,97 @@
 #include "PluginComponents.h"
 
+AudioProcessorParameterSlider::AudioProcessorParameterSlider(AudioProcessor *owner, 
+  int parameterIndex)
+{
+  this->owner          = owner;
+  this->parameterIndex = parameterIndex;
+
+  // we set up the range and related stuff directly without calling setRange, because this would 
+  // cause our overriden setValue function to be called which modifies the value inside the plugin:
+  currentValue = owner->getParameter(parameterIndex);
+  defaultValue = 0.5;
+  minValue     = 0.0;
+  maxValue     = 1.0;
+  interval     = 0.0;
+}
+
+void AudioProcessorParameterSlider::setValue(double newValue, const bool sendUpdateMessage, 
+  const bool sendMessageSynchronously)
+{
+  MixsonicSlider::setValue(newValue, sendUpdateMessage, sendMessageSynchronously);
+  owner->setParameterNotifyingHost(parameterIndex, (float) currentValue);
+}
+
+void AudioProcessorParameterSlider::updateValue()
+{
+  currentValue = owner->getParameter(parameterIndex);
+  repaint();
+}
+
+//=================================================================================================
+// class AudioProcessorParameterEditor:
+
+AudioProcessorParameterEditor::AudioProcessorParameterEditor(AudioProcessor* owner)
+  : AudioProcessorEditor(owner)
+{
+  int numParams = owner->getNumParameters();
+
+  for(int i = 0; i < numParams; i++)
+  {
+    AudioProcessorParameterSlider *slider = new AudioProcessorParameterSlider(owner, i);
+    addAndMakeVisible(slider);
+  }
+
+  int width  = 300;
+  int height = sliderHeight*numParams + sliderDistance*(numParams-1) + 2*margin;
+  setSize(width, height);
+}
+
+AudioProcessorParameterEditor::~AudioProcessorParameterEditor()
+{
+  deleteAllChildren();
+}
+  
+void AudioProcessorParameterEditor::audioProcessorParameterChanged(AudioProcessor* processor, 
+  int parameterIndex, float newValue)
+{
+  ((AudioProcessorParameterSlider*) getChildComponent(parameterIndex))->updateValue();
+  // Remark:
+  // The implementation is currently kept simple, but may lead to performance issues (crackle), if
+  // parameters are automated. If this is the case, look at juce::GenericAudioProcessorEditor and 
+  // handle the parameter-update on the GUI in the way like it's done there.
+  // JUCE says:
+  // IMPORTANT NOTE: this will be called synchronously when a parameter changes, and
+  // many audio processors will change their parameter during their audio callback.
+  // This means that not only has your handler code got to be completely thread-safe,
+  // but it's also got to be VERY fast, and avoid blocking. If you need to handle
+  // this event on your message thread, use this callback to trigger an AsyncUpdater
+  // or ChangeBroadcaster which you can respond to on the message thread.
+}
+ 
+void AudioProcessorParameterEditor::audioProcessorChanged(AudioProcessor* processor)
+{
+  // don't know what this callback is good for, but if we do something here, the same remark as in
+  // audioProcessorParameterChanged applies
+}
+
+void AudioProcessorParameterEditor::resized()
+{
+  int x = margin;
+  int y = margin;
+  int w = getWidth() - 2*margin;
+  int h = sliderHeight;
+  for(int i = 0; i < getNumChildComponents(); i++)
+  {
+    getChildComponent(i)->setBounds(x, y, w, h);
+    y += sliderHeight + sliderDistance;
+  }
+  // \todo - when there are many parameters, we should arrange them in columns
+}
+
+//=================================================================================================
+// class AudioProcessorEditorContainer:
+
 AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap,  
   bool shouldTakeOwnership, DeletionManager *deletor, Activatable *ownerToWatchForActivation) 
 : editor(editorToWrap)
@@ -343,8 +435,13 @@ void AudioPluginSlotComponent::openParameterEditor()
     parameterEditor->showInFrontOfAppWindow();
     return; 
   }
-  GenericAudioProcessorEditor *pluginEditor = 
-    new GenericAudioProcessorEditor(slotToEdit->getPlugin());
+
+  //GenericAudioProcessorEditor *pluginEditor = 
+  //  new GenericAudioProcessorEditor(slotToEdit->getPlugin());
+
+  AudioProcessorParameterEditor *pluginEditor = 
+    new AudioProcessorParameterEditor(slotToEdit->getPlugin());
+
   wrapPluginEditorIntoContainerAndShow(parameterEditor, pluginEditor, true);
 }
 
