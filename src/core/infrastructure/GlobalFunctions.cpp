@@ -208,6 +208,11 @@ File getAudioFileFromPath(const String& path)
   return file;
 }
 
+Colour getGrayValue(int value)
+{
+  return Colour::Colour((uint8)value, (uint8)value, (uint8)value, (uint8)255);
+}
+
 bool hasDirectoryFiles(const File& directoryToCheck)
 {
 	if( !directoryToCheck.exists() )

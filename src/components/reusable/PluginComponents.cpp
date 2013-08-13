@@ -37,7 +37,8 @@ void AudioProcessorParameterSlider::paint(Graphics& g)
   g.fillRect(0.f, 0.f, thumbWidth, (float)getHeight());
 
   //g.setFont...
-  g.setColour(::textColor);
+  //g.setColour(::textColor);
+  g.setColour(Skin::getInstance()->textColor);
   g.drawText(owner->getParameterName(parameterIndex), 4, 0, getWidth()-4, getHeight(), 
     Justification::centredLeft, false); 
   g.drawText(owner->getParameterText(parameterIndex), 0, 0, getWidth()-4, getHeight(), 
@@ -109,8 +110,8 @@ void AudioProcessorParameterEditor::resized()
 
 void AudioProcessorParameterEditor::paint(Graphics& g)
 {
-  g.fillAll(::backgroundColor);
-  g.setColour(::outlineColor);
+  g.fillAll(Skin::getInstance()->backgroundColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight(), 2);
 }
 
@@ -232,9 +233,10 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
   slotIsRemovable = true;
 
   addAndMakeVisible( nameLabel = new RLabel() );
-  nameLabel->setColour(Label::outlineColourId, outlineColor);
-  nameLabel->setColour(Label::backgroundColourId, backgroundColor);
-  nameLabel->setColour(Label::textColourId, textColor);
+  nameLabel->setColour(Label::outlineColourId, Skin::getInstance()->outlineColor);
+  nameLabel->setColour(Label::backgroundColourId, 
+                       Skin::getInstance()->backgroundColor);
+  nameLabel->setColour(Label::textColourId, Skin::getInstance()->textColor);
   nameLabel->addMouseListener(this, false);
 
   updateLabelText();
@@ -324,7 +326,7 @@ void AudioPluginSlotComponent::paintOverChildren(Graphics &g)
 {
   if( slotToEdit->isBypassed() )
   {
-    g.setColour(outlineColor);
+    g.setColour(Skin::getInstance()->outlineColor);
     g.drawLine(0.f, 0.f, (float) getWidth(), (float) getHeight(), 1.f);
     g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f, 1.f);
       // maybe draw a cross-hatch pattern instead

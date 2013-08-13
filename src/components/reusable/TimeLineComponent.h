@@ -2,6 +2,8 @@
 #define TimeLineComponent_h
 
 #include "GlobalTimeFrameComponent.h"
+#include "../../control/Skin.h"
+
 
 /**
 

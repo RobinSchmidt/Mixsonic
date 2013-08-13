@@ -101,23 +101,24 @@ void RButton::paint2D(Graphics &g) const
   if( getToggleState() || isDown() )
   {
     //g.fillAll(highlightBackgroundColor);
-    g.fillAll(onStateColour);
-    g.setColour(highlightOutlineColor);
+    //g.fillAll(onStateColour);
+    g.fillAll(Skin::getInstance()->widgetHandleColor);
+    g.setColour(Skin::getInstance()->highlightOutlineColor);
     g.drawRect(0.f, 0.f, w, h, 1.f);
-    g.setColour(highlightTextColor);
+    g.setColour(Skin::getInstance()->highlightTextColor);
   }
   else
   {
     //g.fillAll(widgetBackgroundColor);
-    g.fillAll(backgroundColor);
-    g.setColour(outlineColor);
+    g.fillAll(Skin::getInstance()->backgroundColor);
+    g.setColour(Skin::getInstance()->outlineColor);
     g.drawRect(0.f, 0.f, w, h, 1.f);
-    g.setColour(textColor);
+    g.setColour(Skin::getInstance()->textColor);
   }
 
   if( isMouseOver() )
   {
-    g.setColour(highlightOutlineColor);
+    g.setColour(Skin::getInstance()->highlightOutlineColor);
     g.drawRect(0.f, 0.f, w, h, 1.f);
   }
 

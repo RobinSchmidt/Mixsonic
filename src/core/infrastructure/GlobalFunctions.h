@@ -11,6 +11,7 @@
 
 #define MIN_CLIPWIDTH 2
 
+/*
 // colors - move into a a colorscheme class:
 static Colour widgetBackgroundColor    = Colour::Colour((uint8)  0, (uint8)  0, (uint8)  0, (uint8)255);
 static Colour widgetHandleColor        = Colour::Colour((uint8) 96, (uint8) 96, (uint8) 96, (uint8)255);
@@ -20,7 +21,7 @@ static Colour outlineColor             = Colour::Colour((uint8)192, (uint8)192, 
 static Colour highlightOutlineColor    = Colour::Colour((uint8)255, (uint8)255, (uint8)255, (uint8)255);
 static Colour textColor                = Colour::Colour((uint8)192, (uint8)192, (uint8)192, (uint8)255);
 static Colour highlightTextColor       = Colour::Colour((uint8)255, (uint8)255, (uint8)255, (uint8)255);
-
+*/
 
 /** A class to hold objects that should be accessible application wide. A pointer to an object of 
 this class "mixsonicGlobals" is declared here and will be assigned to an object which will be 
@@ -95,6 +96,10 @@ String getApplicationDirectoryAsString();
 /** Returns a file object if the file with the path given by 'path' exists and is a valid 
 audio file, otherwise it returns File::nonexistent. */
 File getAudioFileFromPath(const String& path);
+  
+/** Returns an opaque grayscale Colour value with the given brightness which should be in the 
+range 0...255.  */
+Colour getGrayValue(int brightness);
 
 /** Checks whether a directory or any of its subdirectories (if any) has files in it and returns 
 true, if so and false otherwise. */

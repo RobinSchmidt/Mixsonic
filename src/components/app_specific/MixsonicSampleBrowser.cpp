@@ -21,13 +21,18 @@ MixsonicSampleBrowser::MixsonicSampleBrowser(const File &sampleDirectoryToUse)
 	int dummy = 0;
 	while( contentsList->isStillLoading() )
 		dummy++;		
-    // hangs the app up in windows release builds
+    // hangs the app up in windows release builds (that wasn't the case with the old version of 
+    // juce, but with the new one i don't see the incomplete draw anymore anyway, so we may not 
+    // need it anymore
   */
 
   addAndMakeVisible( fileTreeComponent = new RFileTreeComponent(*contentsList) );
-  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, backgroundColor);
-  fileTreeComponent->setColour(FileTreeComponent::textColourId,       textColor);
-  fileTreeComponent->setColour(FileTreeComponent::linesColourId,      textColor);
+  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, 
+                               Skin::getInstance()->backgroundColor);
+  fileTreeComponent->setColour(FileTreeComponent::textColourId,       
+                               Skin::getInstance()->textColor);
+  fileTreeComponent->setColour(FileTreeComponent::linesColourId,      
+                               Skin::getInstance()->textColor);
   fileTreeComponent->setRootItemVisible(false);
   fileTreeComponent->setDefaultOpenness(false);
   fileTreeComponent->addListener(this); // do we need this?
@@ -100,9 +105,8 @@ void MixsonicSampleBrowser::resized()
 
 void MixsonicSampleBrowser::paint(Graphics &g)
 {
-  g.setColour(outlineColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), 2.f);
-
 
   /*
   g.fillAll(backgroundColor);

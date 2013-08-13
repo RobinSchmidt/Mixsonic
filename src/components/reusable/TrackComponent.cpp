@@ -12,7 +12,7 @@ TrackBodyComponent::TrackBodyComponent(Track* newTrackToEdit)
   trackToEdit      = newTrackToEdit;
   grabber          = NULL;
   descriptionField = NULL;
-  backgroundColour = ::backgroundColor;
+  backgroundColour = Skin::getInstance()->backgroundColor;
 
   // \todo: if the track initially has some clips on it, we should create the ClipComponents for
   // them now and add them as child components - where is this done on opening a project?
@@ -345,7 +345,7 @@ void TrackBodyComponent::resized()
 void TrackBodyComponent::paint(Graphics &g)
 {
   g.fillAll(backgroundColour);
-  g.setColour(outlineColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight());
 }
 
@@ -613,7 +613,7 @@ void MixsonicTrackControlComponent::resized()
 
 void MixsonicTrackControlComponent::paint(Graphics &g)
 {  
-  g.setColour(outlineColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight());
   // \todo: gray out all track components which currently are not audible - but maybe do this for 
   // the actual track components - not the control-components

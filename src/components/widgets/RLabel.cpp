@@ -1,18 +1,14 @@
 #include "RLabel.h"
 
 //-------------------------------------------------------------------------------------------------
-// construction/destruction and static member initialization:
-
-Colour RLabel::backgroundColour = textColor;
-Colour RLabel::outlineColour    = textColor; 
-Colour RLabel::textColour       = backgroundColor;
+// construction/destruction:
 
 RLabel::RLabel(const String& componentName, const String& labelText) 
 : Label(componentName, labelText)
 {
-  setColour(Label::backgroundColourId, backgroundColour);
-  setColour(Label::outlineColourId, outlineColour);
-  setColour(Label::textColourId, textColour);
+  setColour(Label::backgroundColourId, Skin::getInstance()->backgroundColor);
+  setColour(Label::outlineColourId, Skin::getInstance()->outlineColor);
+  setColour(Label::textColourId, Skin::getInstance()->textColor);
 }
 
 RLabel::~RLabel()

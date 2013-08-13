@@ -34,12 +34,10 @@ void TimeLineComponent::mouseDown(const MouseEvent &e)
 
 void TimeLineComponent::paint(Graphics &g)
 {
-  //g.fillAll(Colour((uint8)255, (uint8)226, (uint8)181));
-
-  g.fillAll(backgroundColor);
-  g.setColour(outlineColor);
+  g.fillAll(Skin::getInstance()->backgroundColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawLine(0.f, (float) getHeight(), (float) getWidth(), (float) getHeight(), 1.f);
-  g.setColour(textColor);
+  g.setColour(Skin::getInstance()->textColor);
 
   double tMin, tMax, tRange, tStep;
   int    i = 0;

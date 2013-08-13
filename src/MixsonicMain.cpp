@@ -1,5 +1,5 @@
 #include "components/app_specific/MixsonicContentComponent.h"
-#include "components/app_specific/MixsonicLookAndFeel.h"
+#include "control/MixsonicLookAndFeel.h"
 
 /** 
 
@@ -124,11 +124,7 @@ public:
 
     /*  ..and now return, which will fall into to the main event
     dispatch loop, and this will run until something calls
-    JUCEAppliction::quit().
-
-    In this case, JUCEAppliction::quit() will be called by the
-    hello world window being clicked.
-    */
+    JUCEAppliction::quit(). */
   }
 
   void shutdown()
@@ -137,6 +133,7 @@ public:
     if (theWindow != 0)
       delete theWindow;
     delete mixsonicGlobals;
+    Skin::releaseInstance(); // manual release of singleton to avoid the leak-detector to fire
   }
 
   const String getApplicationName()

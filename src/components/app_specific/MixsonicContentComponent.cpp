@@ -600,8 +600,8 @@ void MixsonicContentComponent::resized()
 
 void MixsonicContentComponent::paint(Graphics &g)
 {
-  g.fillAll(backgroundColor);
-  g.setColour(outlineColor);
+  g.fillAll(Skin::getInstance()->backgroundColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   //g.drawRect(1.f, 1.f, (float)getWidth()-2.f, (float)getHeight()-2.f, 2.f);
 }
 
@@ -786,7 +786,11 @@ void MixsonicContentComponent::showGlobalSettingsDialog()
 {
   MixsonicGlobalSettingsDialog *dialog = 
     new MixsonicGlobalSettingsDialog(&mixsonicGlobals->settings);
+
   addAndMakeVisible(dialog);
+    // maybe, we should add it directly to the desktop such that it appears in front of plugin 
+    // windows
+
   dialog->setCentreRelative(0.5f, 0.5f);
   dialog->setDescriptionField(infoLineTextField);
 

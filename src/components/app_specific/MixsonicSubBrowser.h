@@ -2,6 +2,7 @@
 #define MixsonicSubBrowser_h
 
 #include "../../core/infrastructure/GlobalFunctions.h"
+#include "../../control/Skin.h"
 
 /**
 

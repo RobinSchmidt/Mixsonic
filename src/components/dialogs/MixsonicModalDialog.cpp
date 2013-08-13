@@ -25,10 +25,8 @@ void MixsonicModalDialog::setHeadline(const String& newHeadline)
 
 void MixsonicModalDialog::paint(Graphics &g)
 {
-  //g.fillAll(Colours::white);
-  //g.setColour(mixsonicOrange);
-  g.fillAll(backgroundColor);
-  g.setColour(outlineColor);
+  g.fillAll(Skin::getInstance()->backgroundColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight(), 3);
 }
 

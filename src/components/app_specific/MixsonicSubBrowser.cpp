@@ -11,8 +11,10 @@ MixsonicSubBrowser::MixsonicSubBrowser(const FileFilter *const fileFilter,
 	contentsList->refresh();
 
   addAndMakeVisible( fileListComponent = new FileListComponent(*contentsList) );
-  fileListComponent->setColour(FileListComponent::backgroundColourId, backgroundColor);
-  fileListComponent->setColour(FileListComponent::outlineColourId, outlineColor);
+  fileListComponent->setColour(FileListComponent::backgroundColourId, 
+                               Skin::getInstance()->backgroundColor);
+  fileListComponent->setColour(FileListComponent::outlineColourId, 
+                               Skin::getInstance()->outlineColor);
   fileListComponent->addListener(this);
 }
 

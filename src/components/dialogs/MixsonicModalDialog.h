@@ -1,7 +1,7 @@
 #ifndef MixsonicModalDialog_h
 #define MixsonicModalDialog_h
 
-#include "../../core/infrastructure/GlobalFunctions.h"
+#include "../../control/Skin.h"
 
 /**
 

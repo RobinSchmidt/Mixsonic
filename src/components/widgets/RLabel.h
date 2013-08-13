@@ -44,8 +44,6 @@ public:
 
 protected:
 
-  // color-scheme management:
-  static Colour backgroundColour, outlineColour, textColour;
   //static int instanceCounter;
 
 };

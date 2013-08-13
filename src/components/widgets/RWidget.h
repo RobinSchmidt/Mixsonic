@@ -2,6 +2,7 @@
 #define RWidget_h
 
 #include "../../core/infrastructure/DescribedItem.h"
+#include "../../control/Skin.h"
 
 /**
 

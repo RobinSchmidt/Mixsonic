@@ -17,11 +17,11 @@ void MixsonicLookAndFeel::drawFileBrowserRow(Graphics& g,
 {
   if(isItemSelected)
   {
-    g.fillAll(highlightBackgroundColor);
-    g.setColour(highlightTextColor);
+    g.fillAll(Skin::getInstance()->highlightBackgroundColor);
+    g.setColour(Skin::getInstance()->highlightTextColor);
   }
   else
-    g.setColour(textColor);
+    g.setColour(Skin::getInstance()->textColor);
   g.setFont(height * 0.7f);
   g.drawText(filename, 0, 0, width, height, Justification::centredLeft, 1);
 }

@@ -635,9 +635,9 @@ void MixsonicArrangementPanel::paintOverChildren(Graphics& g)
 {
   int y = timeLine->getBottom();
   int w = timeLine->getX();
-  g.setColour(backgroundColor);
+  g.setColour(Skin::getInstance()->backgroundColor);
   g.fillRect(0, 0, w, timeLine->getHeight());
-  g.setColour(outlineColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawLine(0.f, (float)y, (float)getWidth(), (float)y, 2.f);
 }
 

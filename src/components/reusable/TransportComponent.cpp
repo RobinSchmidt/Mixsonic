@@ -83,9 +83,7 @@ void TransportComponent::buttonClicked(Button *button)
 
 void TransportComponent::paint(Graphics& g)
 {
-  //g.fillAll(Colours::red);
-  //g.fillAll(Colours::red);
-  g.setColour(outlineColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), 2.f);
 }
 

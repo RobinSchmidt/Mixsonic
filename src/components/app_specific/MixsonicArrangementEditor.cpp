@@ -274,7 +274,7 @@ void MixsonicArrangementEditor::resized()
 void MixsonicArrangementEditor::paintOverChildren(Graphics &g)
 {
   //g.fillAll(backgroundColor);
-  g.setColour(outlineColor);
+  g.setColour(Skin::getInstance()->outlineColor);
   g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), 2.f);
 
   //int y = arrangementNavigator->getBottom() - arrangementNavigator->getWidgetSize();

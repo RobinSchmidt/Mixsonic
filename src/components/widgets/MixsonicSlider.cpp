@@ -12,10 +12,13 @@ MixsonicSlider::MixsonicSlider(const String& name)
   maxValue             = 1.0;
   interval             = 0.01;
   isVertical           = false;
-  backgroundColour     = ::widgetBackgroundColor;
-  outlineColour        = ::outlineColor;
-  thumbColour          = ::widgetHandleColor;
-  positionMarkerColour = highlightOutlineColor;
+
+  // maybe we should get rid of these members and use the colors from the Skin singleton directly 
+  // in the paint method:
+  backgroundColour     = Skin::getInstance()->widgetBackgroundColor;
+  outlineColour        = Skin::getInstance()->outlineColor;
+  thumbColour          = Skin::getInstance()->widgetHandleColor;
+  positionMarkerColour = Skin::getInstance()->highlightOutlineColor;
 }
 
 MixsonicSlider::~MixsonicSlider()
@@ -176,7 +179,8 @@ void MixsonicSlider::paint(Graphics& g)
     double thumbHeight = h * valueToProportionOfLength(getValue());
 
     // new:
-    ColourGradient gradient(backgroundColor, 0.f, (float) getHeight(), Colours::white, 0.f, 0.f, false);
+    ColourGradient gradient(backgroundColour, 0.f, (float) getHeight(), Colours::white, 0.f, 0.f, 
+      false);
     g.setGradientFill(gradient);
 
     g.fillRect(0.f, (float) (h-thumbHeight), (float) w, (float) thumbHeight);

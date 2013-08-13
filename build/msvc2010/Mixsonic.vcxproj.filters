@@ -204,9 +204,6 @@
     <ClCompile Include="..\..\src\components\app_specific\MixsonicContentComponent.cpp">
       <Filter>src\components\app_specific</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\components\app_specific\MixsonicLookAndFeel.cpp">
-      <Filter>src\components\app_specific</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\components\app_specific\MixsonicProjectComponent.cpp">
       <Filter>src\components\app_specific</Filter>
     </ClCompile>
@@ -335,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\core\infrastructure\DummyAudioPlugin.cpp">
       <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\MixsonicLookAndFeel.cpp">
+      <Filter>src\control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -509,9 +509,6 @@
     <ClInclude Include="..\..\src\components\app_specific\MixsonicContentComponent.h">
       <Filter>src\components\app_specific</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\components\app_specific\MixsonicLookAndFeel.h">
-      <Filter>src\components\app_specific</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\components\app_specific\MixsonicProjectComponent.h">
       <Filter>src\components\app_specific</Filter>
     </ClInclude>
@@ -619,6 +616,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\core\infrastructure\DummyAudioPlugin.h">
       <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\MixsonicLookAndFeel.h">
+      <Filter>src\control</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

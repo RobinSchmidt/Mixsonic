@@ -80,6 +80,7 @@
     <ClCompile Include="..\..\src\control\ActivationObserver.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicGlobals.cpp" />
+    <ClCompile Include="..\..\src\control\MixsonicLookAndFeel.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicSettings.cpp" />
     <ClCompile Include="..\..\src\control\Skin.cpp" />
     <ClCompile Include="..\..\src\control\TransportController.cpp" />
@@ -161,7 +162,6 @@
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
     </ClCompile>
     <ClCompile Include="..\..\src\components\app_specific\MixsonicContentComponent.cpp" />
-    <ClCompile Include="..\..\src\components\app_specific\MixsonicLookAndFeel.cpp" />
     <ClCompile Include="..\..\src\components\app_specific\MixsonicProjectComponent.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
@@ -211,6 +211,7 @@
     <ClInclude Include="..\..\src\control\ActivationObserver.h" />
     <ClInclude Include="..\..\src\control\MixsonicCommandManager.h" />
     <ClInclude Include="..\..\src\control\MixsonicGlobals.h" />
+    <ClInclude Include="..\..\src\control\MixsonicLookAndFeel.h" />
     <ClInclude Include="..\..\src\control\MixsonicSettings.h" />
     <ClInclude Include="..\..\src\control\Skin.h" />
     <ClInclude Include="..\..\src\control\TransportController.h" />
@@ -275,7 +276,6 @@
     <ClInclude Include="..\..\src\components\app_specific\MixsonicArrangementScroller.h" />
     <ClInclude Include="..\..\src\components\app_specific\MixsonicBrowserBase.h" />
     <ClInclude Include="..\..\src\components\app_specific\MixsonicContentComponent.h" />
-    <ClInclude Include="..\..\src\components\app_specific\MixsonicLookAndFeel.h" />
     <ClInclude Include="..\..\src\components\app_specific\MixsonicProjectComponent.h" />
     <ClInclude Include="..\..\src\components\app_specific\MixsonicSampleBrowser.h" />
     <ClInclude Include="..\..\src\components\app_specific\MixsonicSubBrowser.h" />

@@ -1,7 +1,7 @@
 #ifndef MixsonicLookAndFeel_h
 #define MixsonicLookAndFeel_h
 
-#include "../../core/infrastructure/GlobalFunctions.h"
+#include "../../control/Skin.h"
 
 /**
 

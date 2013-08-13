@@ -25,8 +25,10 @@ MixsonicMoveFileDialog::MixsonicMoveFileDialog(const File& navigationRootDirecto
   contentsList->refresh();
 
   addAndMakeVisible( fileTreeComponent = new FileTreeComponent(*contentsList) );
-  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, backgroundColor);
-  fileTreeComponent->setColour(FileTreeComponent::linesColourId, outlineColor);
+  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, 
+                               Skin::getInstance()->backgroundColor);
+  fileTreeComponent->setColour(FileTreeComponent::linesColourId, 
+                               Skin::getInstance()->outlineColor);
   fileTreeComponent->setDefaultOpenness(true);
   fileTreeComponent->addListener(this);
 

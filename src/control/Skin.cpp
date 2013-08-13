@@ -1,18 +1,34 @@
 #include "Skin.h"
 
-  
-ColorScheme::ColorScheme()
+Skin* Skin::instance = nullptr;
+
+Skin::Skin() 
 {
-  initColors();
+  initialize();
+  // \todo load skin from xml-file
+}   
+
+Skin* Skin::getInstance()
+{
+  if( instance == nullptr )
+    instance = new Skin();
+  return instance;
 }
- 
-void ColorScheme::initColors()
+
+void Skin::releaseInstance()
 {
-  widgetBackgroundColor    = Colour::Colour((uint8)  0, (uint8)  0, (uint8)  0, (uint8)255);
-  backgroundColor          = Colour::Colour((uint8) 64, (uint8) 64, (uint8) 64, (uint8)255);
-  highlightBackgroundColor = Colour::Colour((uint8) 96, (uint8) 96, (uint8) 96, (uint8)255);
-  outlineColor             = Colour::Colour((uint8)192, (uint8)192, (uint8)192, (uint8)255);
-  highlightOutlineColor    = Colour::Colour((uint8)255, (uint8)255, (uint8)255, (uint8)255);
-  textColor                = Colour::Colour((uint8)192, (uint8)192, (uint8)192, (uint8)255);
-  highlightTextColor       = Colour::Colour((uint8)255, (uint8)255, (uint8)255, (uint8)255);
+  delete instance;
+  instance = nullptr;
+}
+
+void Skin::initialize()
+{
+  backgroundColor          = getGrayValue( 64);
+  highlightBackgroundColor = getGrayValue( 96);
+  widgetBackgroundColor    = getGrayValue(  0); 
+  widgetHandleColor        = getGrayValue( 96);
+  outlineColor             = getGrayValue(192);
+  highlightOutlineColor    = getGrayValue(255);
+  textColor                = getGrayValue(192);
+  highlightTextColor       = getGrayValue(255);
 }
