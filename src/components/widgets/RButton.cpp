@@ -103,9 +103,9 @@ void RButton::paint2D(Graphics &g) const
     //g.fillAll(highlightBackgroundColor);
     //g.fillAll(onStateColour);
     g.fillAll(Skin::getInstance()->widgetHandleColor);
-    g.setColour(Skin::getInstance()->highlightOutlineColor);
+    g.setColour(Skin::getInstance()->outlineHighlightColor);
     g.drawRect(0.f, 0.f, w, h, 1.f);
-    g.setColour(Skin::getInstance()->highlightTextColor);
+    g.setColour(Skin::getInstance()->textHighlightColor);
   }
   else
   {
@@ -118,12 +118,16 @@ void RButton::paint2D(Graphics &g) const
 
   if( isMouseOver() )
   {
-    g.setColour(Skin::getInstance()->highlightOutlineColor);
+    g.setColour(Skin::getInstance()->outlineHighlightColor);
     g.drawRect(0.f, 0.f, w, h, 1.f);
   }
 
   if( symbolIndex <= 0 || symbolIndex > NUM_SYMBOLS )
-    g.drawText(getButtonText(), 3, 2, (int)w-6, (int)h-6, Justification::centred, false);
+  {
+    g.setFont(Skin::getInstance()->widgetFont);
+    g.drawText(getButtonText(), 4, 4, (int)w-8, (int)h-8, Justification::centred, false);
+    //g.drawText(getButtonText(), 3, 2, (int)w-6, (int)h-6, Justification::centred, false);
+  }
   else
     drawSymbol(g);
 }

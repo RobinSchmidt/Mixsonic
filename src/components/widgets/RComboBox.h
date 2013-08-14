@@ -45,7 +45,7 @@ protected:
 
   // color-scheme management:
   static Colour backgroundColour, outlineColour, textColour, buttonColour, arrowColour;
-  static int instanceCounter;
+  static int instanceCounter; //what is this good for?
 
 };
 

@@ -182,6 +182,9 @@ File openLoadFileDialog(const String& dialogTitle, const File& initialFileOrDirc
 /** Calls openLoadFileDialog with parameters suitable for audio plugin-files.  */
 File openLoadAudioPluginDialog();
 
+/** Returns a String that contains only letters and numbers. All other characters are removed. */
+String retainOnlyAlhpanumericCharacters(const String& s);
+
 /** Returns the nearest integer (as double). */
 double round(double x);
 

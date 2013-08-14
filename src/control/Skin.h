@@ -24,25 +24,44 @@ public:
   /** Function to eventually delete the singleton instance. */
   static void releaseInstance();
 
+  /** Returns an XML description of the skin. */
+  XmlElement* getAsXml();
 
-  // \todo getAsXml, setFromXml, loadFromXmlFile, saveAsXmlFile, etc....
+  /** Sets up the skin from an XML description. */
+  void setFromXml(const XmlElement& xml);
+
+  /** Sets up the skin from an XML file. */
+  void loadFromXmlFile(const File& file);
+
+  /** Saves an XML description of the skin into a file.  */
+  void saveAsXmlFile(const File& file);
+
+  /** Adds an attribute for a font to the given XmlElement which stores the name of the font and 
+  also creates a corresponding font-file in the appropriate font folder, if such a file is not
+  already there for the font in question. */
+  static void addFontToXmlAndSerialise(XmlElement& xml, const Font& theFont, 
+    const String& attributeName);
+
 
 
   // data:
   Colour backgroundColor, 
-         highlightBackgroundColor,         
+         backgroundHighlightColor,         
          widgetBackgroundColor, 
          widgetHandleColor,
          outlineColor, 
-         highlightOutlineColor, 
+         outlineHighlightColor, 
          textColor, 
-         highlightTextColor;
+         textHighlightColor;
+  // clipBackgroundColor, clipForegroundColor - maybe use the more general "plot" instead of 
+  // "clip"
 
-  //Typeface headlineTypeFace, widgetTypeface, infoTypeFace, etc... - or maybe use
-  //class Font instead of Typeface
+  Font textFont, widgetFont, headlineFont;
 
   // int widgetOutlineThickness, smallButtonSize, standardButtonSize, bigButtonSize
 
+  File lastUsedSkinFile; // maybe get rid of this and have a skinFile filed in the setting file 
+                         // instead
 
 protected:
   

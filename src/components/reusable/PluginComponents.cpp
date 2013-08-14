@@ -36,9 +36,8 @@ void AudioProcessorParameterSlider::paint(Graphics& g)
   float thumbWidth = (float) (getWidth() * valueToProportionOfLength(getValue()));
   g.fillRect(0.f, 0.f, thumbWidth, (float)getHeight());
 
-  //g.setFont...
-  //g.setColour(::textColor);
   g.setColour(Skin::getInstance()->textColor);
+  g.setFont(Skin::getInstance()->widgetFont);
   g.drawText(owner->getParameterName(parameterIndex), 4, 0, getWidth()-4, getHeight(), 
     Justification::centredLeft, false); 
   g.drawText(owner->getParameterText(parameterIndex), 0, 0, getWidth()-4, getHeight(), 

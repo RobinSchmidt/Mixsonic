@@ -17,8 +17,8 @@ void MixsonicLookAndFeel::drawFileBrowserRow(Graphics& g,
 {
   if(isItemSelected)
   {
-    g.fillAll(Skin::getInstance()->highlightBackgroundColor);
-    g.setColour(Skin::getInstance()->highlightTextColor);
+    g.fillAll(Skin::getInstance()->backgroundHighlightColor);
+    g.setColour(Skin::getInstance()->textHighlightColor);
   }
   else
     g.setColour(Skin::getInstance()->textColor);

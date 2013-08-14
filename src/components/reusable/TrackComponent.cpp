@@ -576,8 +576,9 @@ void MixsonicTrackControlComponent::resized()
 {
   int sliderSize = 12;
   int buttonSize = 16;
-  int margin = 4;
+  int margin     = 4;
 
+  /*
   int x = margin;
   int y = margin;
   int w = sliderSize;
@@ -609,6 +610,37 @@ void MixsonicTrackControlComponent::resized()
   // plugins, i.e. the plugins are in post-fader configuration. it should probably be the other way 
   // around, or better, selectable by the user with pre-fader configuration as default. the widget
   // arrangement adapt according to the setting
+  */
+
+  int x = 0;
+  int y = 0;
+  int w = getWidth() - sliderSize - 2*margin;
+  int h = buttonSize;
+  nameLabel->setBounds(x, y, w, buttonSize);
+
+  x = nameLabel->getRight() - 2*buttonSize;
+  y = nameLabel->getBottom() + margin; 
+  soloButton->setBounds(x, y, buttonSize, buttonSize);
+  x += buttonSize;
+  muteButton->setBounds(x, y, buttonSize, buttonSize);
+
+  x -= buttonSize;
+  y += buttonSize + margin;
+  w  = 2*buttonSize;
+  h  = sliderSize;
+  panSlider->setBounds(x, y, w, h);
+
+  x = nameLabel->getRight() + margin;
+  y = margin;
+  w = sliderSize;
+  h = getHeight() - 2*margin;
+  levelSlider->setBounds(x, y, w, h); 
+
+  x = margin;
+  y = nameLabel->getBottom() + margin;
+  w = panSlider->getX() - x - margin;
+  h = getHeight() - y - margin;
+  pluginChainComponent->setBounds(x, y, w, h);
 }
 
 void MixsonicTrackControlComponent::paint(Graphics &g)

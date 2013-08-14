@@ -420,6 +420,11 @@ File openLoadAudioPluginDialog()
     // use a system-specific extension - write a function getPluginFileExtensions()
 }
 
+String retainOnlyAlhpanumericCharacters(const String& s)
+{
+  return s.retainCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890");
+}
+
 double round(double x)
 {
   if( x-floor(x) >= 0.5 )

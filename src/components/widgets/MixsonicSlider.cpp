@@ -18,7 +18,7 @@ MixsonicSlider::MixsonicSlider(const String& name)
   backgroundColour     = Skin::getInstance()->widgetBackgroundColor;
   outlineColour        = Skin::getInstance()->outlineColor;
   thumbColour          = Skin::getInstance()->widgetHandleColor;
-  positionMarkerColour = Skin::getInstance()->highlightOutlineColor;
+  positionMarkerColour = Skin::getInstance()->outlineHighlightColor;
 }
 
 MixsonicSlider::~MixsonicSlider()
