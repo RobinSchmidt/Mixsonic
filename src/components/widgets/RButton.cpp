@@ -125,7 +125,8 @@ void RButton::paint2D(Graphics &g) const
   if( symbolIndex <= 0 || symbolIndex > NUM_SYMBOLS )
   {
     g.setFont(Skin::getInstance()->widgetFont);
-    g.drawText(getButtonText(), 4, 4, (int)w-8, (int)h-8, Justification::centred, false);
+    g.drawText(getButtonText(), 0, 0, (int)w, (int)h, Justification::centred, false);
+    //g.drawText(getButtonText(), 4, 4, (int)w-8, (int)h-8, Justification::centred, false);
     //g.drawText(getButtonText(), 3, 2, (int)w-6, (int)h-6, Justification::centred, false);
   }
   else

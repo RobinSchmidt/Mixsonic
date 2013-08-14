@@ -52,13 +52,16 @@ public:
   // inquiry:
 
   /** Returns the directory in which the projects will be saved. */
-  File getProjectsParentDirectory();
+  File getProjectsParentDirectory() const;
 
   /** Returns the root directory for the sample-content. */
-  File getSampleContentDirectory();
+  File getSampleContentDirectory() const;
+
+  /** Returns the skin-file. */
+  File getSkinFile() const;
 
   /** Returns an array with the plugin directories. */
-  StringArray getPluginDirectories();
+  StringArray getPluginDirectories() const;
 
   //-----------------------------------------------------------------------------------------------
   // others:
@@ -91,10 +94,8 @@ protected:
   void sendPluginDirectoriesChangeMessage();
   void sendAllChangeMessages();
 
-
-  File projectsParentDirectory, sampleContentDirectory;
+  File projectsParentDirectory, sampleContentDirectory, skinFile;
   StringArray pluginDirectories;
-  //Skin skin; // not yet used
 
   Array<MixsonicSettingsObserver*> observers;
 

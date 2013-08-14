@@ -116,15 +116,12 @@ public:
   void initialise (const String& commandLine)
   {
     mixsonicGlobals = new MixsonicGlobals();
-
+    Skin::getInstance()->loadFromXmlFile(mixsonicGlobals->settings.getSkinFile());
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
-
-    // just create the main window...
     theWindow = new MixsonicWindow();
 
-    /*  ..and now return, which will fall into to the main event
-    dispatch loop, and this will run until something calls
-    JUCEAppliction::quit(). */
+    // ..and now return, which will fall into to the main event dispatch loop, and this will run 
+    // until something calls JUCEAppliction::quit().
   }
 
   void shutdown()
@@ -133,6 +130,9 @@ public:
     if (theWindow != 0)
       delete theWindow;
     delete mixsonicGlobals;
+
+    File skinSaveFile = File(getApplicationDirectoryAsString() + "/Skins/_LastUsed.xml");
+    Skin::getInstance()->saveAsXmlFile(skinSaveFile);
     Skin::releaseInstance(); // manual release of singleton to avoid the leak-detector to fire
   }
 

@@ -42,7 +42,11 @@ public:
   static void addFontToXmlAndSerialise(XmlElement& xml, const Font& theFont, 
     const String& attributeName);
 
-
+  /** Assigns theFont to a font that is retrieved from the passed xml-element by the 
+  attributeName. The value of the attribute with name "attributeName" should be a name of some 
+  font which either exists as a .jff file in [ApplicationDirectory]/Skins/Fonts or is a name of an 
+  installed font. */
+  static void retrieveFontFromXml(XmlElement& xml, Font& theFont, String& attributeName);
 
   // data:
   Colour backgroundColor, 
@@ -56,12 +60,9 @@ public:
   // clipBackgroundColor, clipForegroundColor - maybe use the more general "plot" instead of 
   // "clip"
 
-  Font textFont, widgetFont, headlineFont;
+  Font textFont, widgetFont, headlineFont; // maybe have a labelFont
 
-  // int widgetOutlineThickness, smallButtonSize, standardButtonSize, bigButtonSize
-
-  File lastUsedSkinFile; // maybe get rid of this and have a skinFile filed in the setting file 
-                         // instead
+  //int widgetOutlineThickness, smallButtonSize, standardButtonSize, bigButtonSize
 
 protected:
   

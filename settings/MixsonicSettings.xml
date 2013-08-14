@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MIXSONICSETTINGS sampleContentDirectory="D:\Samples-2012-06-05\RobsFreeSamplePool"
+                  projectsParentDirectory="D:\Programming\C++\Clients\Urs\Mixsonic\MixsonicOutput\Debug"
+				  skinFile="Default.xml"
+                  pluginDirectories="D:\Programming\C++\Clients\Urs\TestPlugins"/>

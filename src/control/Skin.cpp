@@ -1,17 +1,10 @@
 #include "Skin.h"
 
-Skin* Skin::instance        = nullptr;
-//File  Skin::defaultSkinFile = File::nonexistent; 
+Skin* Skin::instance = nullptr;
 
 Skin::Skin() 
 {
   initialize();
-
-  // load default skin from file (if present):
-  lastUsedSkinFile = File(getApplicationDirectoryAsString() + "/Skins/LastUsed.xml");
-  loadFromXmlFile(lastUsedSkinFile);
-    // we should probably have a skinFile field in the preferences file which contains the name
-    // of the skin to be loaded
 }   
 
 Skin* Skin::getInstance()
@@ -23,11 +16,6 @@ Skin* Skin::getInstance()
 
 void Skin::releaseInstance()
 {
-  // \todo - maybe save the current skin into the default skin file
-  // maybe it should be named LastUsed or something, and we should not do this in releaseInstance
-  if( instance != nullptr )
-    instance->saveAsXmlFile(instance->lastUsedSkinFile);
-
   delete instance;
   instance = nullptr;
 }
@@ -50,32 +38,14 @@ XmlElement* Skin::getAsXml()
 
   // fonts:
   XmlElement *xmlFonts = new XmlElement("FONTS");
-
-  addFontToXmlAndSerialise(*xmlFonts, textFont, "textFont");
-  xmlFonts->setAttribute("textFontHeight", textFont.getHeight());
-
-  addFontToXmlAndSerialise(*xmlFonts, widgetFont, "widgetFont");
-  xmlFonts->setAttribute("widgetFontHeight", widgetFont.getHeight());
-
+  addFontToXmlAndSerialise(*xmlFonts, textFont,     "textFont");
+  addFontToXmlAndSerialise(*xmlFonts, widgetFont,   "widgetFont");
   addFontToXmlAndSerialise(*xmlFonts, headlineFont, "headlineFont");
-  xmlFonts->setAttribute("headlineFontHeight", headlineFont.getHeight());
-
+  // maybe have an extra labelFont
   xmlSkin->addChildElement(xmlFonts);
 
-
-
-  //XmlElement *xmlSizes = new XmlElement("SIZES");
-  //...
-  //xmlSkin->addChildElement(xmlSizes);
-
-  //XmlElement *xmlImages = new XmlElement("IMAGES");
-  //...
-  //xmlSkin->addChildElement(xmlImages);
-
-
-  // control further aspects, like the gradient colors for the level/pan sliders, outline 
-  // thicknesses, etc.
-
+  // \todo control further aspects, like the gradient colors for the level/pan sliders, outline 
+  // thicknesses, images for buttons etc, widget sizes, etc.
 
   return xmlSkin;
 }
@@ -109,7 +79,15 @@ void Skin::setFromXml(const XmlElement& xml)
       textHighlightColor.toString()));
   }
 
-  // \todo retrieve sizes, fonts, images, etc.
+  child = xml.getChildByName("FONTS");
+  if( child != nullptr )
+  {
+    retrieveFontFromXml(*child, textFont,     String("textFont"));
+    retrieveFontFromXml(*child, widgetFont,   String("widgetFont"));
+    retrieveFontFromXml(*child, headlineFont, String("headlineFont"));
+  }
+
+  // \todo retrieve sizes, images, etc.
 }
 
 void Skin::loadFromXmlFile(const File& file)
@@ -132,6 +110,7 @@ void Skin::addFontToXmlAndSerialise(XmlElement& xml, const Font& theFont,
 {
   String fontName = retainOnlyAlhpanumericCharacters(theFont.getTypefaceName());
   xml.setAttribute(attributeName, fontName);
+  xml.setAttribute(attributeName + "Height", theFont.getHeight());
 
   String fontPath = "/Skins/Fonts/" + fontName + ".jff";
   File fontFile   = File(getApplicationDirectoryAsString() + fontPath);
@@ -146,6 +125,23 @@ void Skin::addFontToXmlAndSerialise(XmlElement& xml, const Font& theFont,
   }
 }
 
+void Skin::retrieveFontFromXml(XmlElement& xml, Font& theFont, String& attributeName)
+{
+  String fontName = xml.getStringAttribute(attributeName, Font::getDefaultSansSerifFontName());
+  String fontPath = "/Skins/Fonts/" + fontName + ".jff";
+  File fontFile   = File(getApplicationDirectoryAsString() + fontPath);
+  if( fontFile.existsAsFile() )
+  {
+    FileInputStream inStream(fontFile);
+    CustomTypeface *ctf = new CustomTypeface(inStream);
+    theFont = Font(ctf);
+    theFont.setTypefaceName(fontName);
+  }
+  else
+    theFont.setTypefaceName(fontName); // tries to find it among installed typefaces
+  theFont.setHeight((float)xml.getDoubleAttribute(attributeName + "Height", 14.0));
+}
+
 void Skin::initialize()
 {
   backgroundColor          = getGrayValue( 64);
@@ -157,28 +153,14 @@ void Skin::initialize()
   textColor                = getGrayValue(192);
   textHighlightColor       = getGrayValue(255);
 
-
   //widgetFont.setTypefaceName("Accidental Presidency");
   //widgetFont.setTypefaceName("Aurulent Sans"); // readable, simple
   //widgetFont.setTypefaceName("Berlin Email"); // too narrow
+  //widgetFont.setTypefaceName("Continuum"); // needs larger size
   //widgetFont.setTypefaceName("Familiar Pro");
   //widgetFont.setTypefaceName("Forgotten Futurist");
   //widgetFont.setTypefaceName("Frederic"); // readable, simple
   //widgetFont.setTypefaceName("Hall Fetica");
-
-  widgetFont.setTypefaceName("Kimberley"); // readable, stylish
-  //widgetFont.setHeight(16.f);
-  widgetFont.setHeight(14.f);
-  //widgetFont.setSizeAndStyle(16.f, 0, 1.f, 1.f),
-
-  //widgetFont.setTypefaceName("Nonserif");
-
-
-  //widgetFont.setTypefaceName("Segoe Script");
-  //widgetFont.setTypefaceName(Font::getDefaultSansSerifFontName());
-  //widgetFont.setTypefaceName(Font::getDefaultSerifFontName());
-  //widgetFont.setTypefaceName(Font::getDefaultMonospacedFontName());
-
+  //widgetFont.setTypefaceName("Kimberley"); // readable, stylish
+  //widgetFont.setHeight(14.f);
 }
-
-//

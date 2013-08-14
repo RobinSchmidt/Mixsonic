@@ -35,17 +35,22 @@ void MixsonicSettings::setPluginDirectoriesFromString(const String& directoriesS
 //-------------------------------------------------------------------------------------------------
 // inquiry:
 
-File MixsonicSettings::getProjectsParentDirectory()
+File MixsonicSettings::getProjectsParentDirectory() const
 {
   return projectsParentDirectory;
 }
 
-File MixsonicSettings::getSampleContentDirectory()
+File MixsonicSettings::getSampleContentDirectory() const
 {
   return sampleContentDirectory;
 }
 
-StringArray MixsonicSettings::getPluginDirectories()
+File MixsonicSettings::getSkinFile() const
+{
+  return skinFile;
+}
+
+StringArray MixsonicSettings::getPluginDirectories() const
 {
   return pluginDirectories;
 }
@@ -57,6 +62,7 @@ void MixsonicSettings::initToDefaults()
 {
   setSampleContentDirectory( File(getApplicationDirectory()));
   setProjectsParentDirectory(File(getApplicationDirectory()));
+  skinFile = File(getApplicationDirectoryAsString() + "/Skins/Default.xml");
   pluginDirectories.clear();
 }
 
@@ -118,6 +124,9 @@ bool MixsonicSettings::loadFromFile(const File &fileToLoadFrom)
       // \todo: maybe we can get rid of some code duplication here. maybe we should use a generic 
       // message box which takes the string as parameter
 
+      // retrieve the skin-file:
+      tmpString = xmlSettings->getStringAttribute("skinFile", String::empty);
+      skinFile  = File(getApplicationDirectoryAsString() + "/Skins/" + tmpString);
 
       // retrieve the plugin directories:
       tmpString = xmlSettings->getStringAttribute("pluginDirectories", String::empty);
@@ -129,9 +138,6 @@ bool MixsonicSettings::loadFromFile(const File &fileToLoadFrom)
       }
       else
         setPluginDirectoriesFromString(tmpString);
-
-
-
 
       delete xmlSettings;
     }
@@ -158,6 +164,8 @@ bool MixsonicSettings::saveToFile(const File &fileToSaveTo)
 
   xmlState->setAttribute("sampleContentDirectory",  sampleContentDirectory.getFullPathName());
   xmlState->setAttribute("projectsParentDirectory", projectsParentDirectory.getFullPathName());
+  xmlState->setAttribute("skinFile", skinFile.getRelativePathFrom(
+    File(getApplicationDirectoryAsString() + "/Skins/")));
   xmlState->setAttribute("pluginDirectories",       pluginDirectories.joinIntoString(";"));
 
   bool success = saveXmlToFile(*xmlState, settingsFile);
