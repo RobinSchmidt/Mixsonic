@@ -102,6 +102,38 @@ double dB2amp(double dB)
   //return pow(10.0, (0.05*dB)); // naive, inefficient version
 }
 
+void drawCrossHatches(Graphics &g, Component *c, float hatchDistanceX, float lineThickness)
+{  
+  drawUpwardHatches(  g, c, hatchDistanceX, lineThickness);
+  drawDownwardHatches(g, c, hatchDistanceX, lineThickness);
+}
+
+void drawDownwardHatches(Graphics &g, Component *c, float hatchDistanceX, float lineThickness)
+{  
+  float y2 = (float) c->getHeight();
+  float x1 = -y2;
+  float x2 = x1 + (float) c->getHeight();
+  while( x1 < (float) c->getWidth() )
+  {
+    g.drawLine(x1, 0.f, x2, y2, lineThickness);
+    x1 += hatchDistanceX;
+    x2 += hatchDistanceX;
+  }
+}
+
+void drawUpwardHatches(Graphics &g, Component *c, float hatchDistanceX, float lineThickness)
+{  
+  float y1 = (float) c->getHeight();
+  float x1 = -y1;
+  float x2 = x1 + (float) c->getHeight();
+  while( x1 < (float) c->getWidth() )
+  {
+    g.drawLine(x1, y1, x2, 0.f, lineThickness);
+    x1 += hatchDistanceX;
+    x2 += hatchDistanceX;
+  }
+}
+
 void fitLineToRectangle(double &x1, double &y1, double &x2, double &y2, 
                         double xMin, double yMin, double xMax, double yMax)
 {
@@ -420,7 +452,7 @@ File openLoadAudioPluginDialog()
     // use a system-specific extension - write a function getPluginFileExtensions()
 }
 
-String retainOnlyAlhpanumericCharacters(const String& s)
+String retainOnlyLettersAndNumbers(const String& s)
 {
   return s.retainCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890");
 }

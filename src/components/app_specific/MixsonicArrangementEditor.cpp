@@ -7,7 +7,6 @@ MixsonicArrangementEditor::MixsonicArrangementEditor(Arrangement* newArrangement
                                      SamplePool* samplePoolToUse) 
 : Component(String("MixsonicArrangementEditor"))
 {
-
   // create the headline label:
   addAndMakeVisible( headline = new RLabel(String("HeadlineLabel"), arrangerHeadlineStr) );
   headline->setFont(Font(20, Font::bold));
@@ -24,11 +23,14 @@ MixsonicArrangementEditor::MixsonicArrangementEditor(Arrangement* newArrangement
   arrangementPanel->setComponentGrabber(this);
 
   // set up the navigator - the constructor and addAndMakeVisible was pulled before the constructor 
-  // of the ArrangementPanel in order to have it in front - in order to intercept mousewheel? can
-  // this be done more elegantly? yes - it should be possible to create the both first and then 
-  // call addAndMakeVisible in the desired order...
+  // of the ArrangementPanel in order to have it in front in order to take precedence for the 
+  // handling of mouse events.
 
   arrangementNavigator->assignPanel(arrangementPanel);
+
+  // test:
+  //arrangementNavigator->toFront(false);
+  //arrangementNavigator->setVisible(false);
 
   draggedComponent = NULL;    
   descriptionField = NULL;
@@ -365,7 +367,9 @@ void MixsonicArrangementEditor::adjustArrangementLength()
 
 bool MixsonicArrangementEditor::setupArrangementPanelBounds(int desiredWidth, int desiredHeight)
 {
-  int margin = 5;
+  //int margin = 5;
+  int margin = 0;
+
   int scrollbarThickness = arrangementNavigator->getWidgetSize();
 
   int x = margin;

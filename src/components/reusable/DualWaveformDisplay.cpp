@@ -111,6 +111,24 @@ double DualWaveformDisplay::getCurrentRangeMaxX() const
   return waveDisplayL->getCurrentRangeMaxX();
 }
 
+void DualWaveformDisplay::setBackgroundColor(const Colour &newColor)
+{
+  waveDisplayL->setBackgroundColor(newColor);
+  waveDisplayR->setBackgroundColor(newColor);
+}
+ 
+void DualWaveformDisplay::setOutlineColor(const Colour &newColor)
+{
+  waveDisplayL->setOutlineColor(newColor);
+  waveDisplayR->setOutlineColor(newColor);
+}
+ 
+void DualWaveformDisplay::setGraphColor(const Colour &newColor)
+{
+  waveDisplayL->setGraphColor(newColor);
+  waveDisplayR->setGraphColor(newColor);
+}
+
 void DualWaveformDisplay::setMaximumRange(double newMinX, double newMaxX, 
                                           double newMinY, double newMaxY)
 {

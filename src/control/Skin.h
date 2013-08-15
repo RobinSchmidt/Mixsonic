@@ -56,9 +56,11 @@ public:
          outlineColor, 
          outlineHighlightColor, 
          textColor, 
-         textHighlightColor;
-  // clipBackgroundColor, clipForegroundColor - maybe use the more general "plot" instead of 
-  // "clip"
+         textHighlightColor,
+         markerColor,
+         plotBackgroundColor,
+         plotForegroundColor;
+
 
   Font textFont, widgetFont, headlineFont; // maybe have a labelFont
 

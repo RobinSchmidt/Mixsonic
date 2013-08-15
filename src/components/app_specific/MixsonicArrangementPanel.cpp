@@ -33,7 +33,10 @@ MixsonicArrangementPanel::MixsonicArrangementPanel(Arrangement* newArrangementTo
     // avoids getting track-components in front of it when scrolling down
 
   // create the component that represents the time cursor:
-  addAndMakeVisible( timeCursor = new RectangleComponent(Colours::lightgrey, Colours::lightgrey) );
+  //addAndMakeVisible( timeCursor = new RectangleComponent(Colours::lightgrey, Colours::lightgrey) );
+  addAndMakeVisible( timeCursor = new RectangleComponent() );
+  timeCursor->setFillColor(   Skin::getInstance()->markerColor);
+  timeCursor->setOutlineColor(Skin::getInstance()->markerColor);
   timeCursor->setAlwaysOnTop(true);
 
   // create all the track-components and add them as child components here:
@@ -544,6 +547,7 @@ ComponentDragContainer* MixsonicArrangementPanel::grabSelectedClips(bool grabCop
   // create the container, set up its bounds and 
   ComponentDragContainer* returnedContainer = new ComponentDragContainer();
   returnedContainer->setBounds(enclosingRectangle);
+  returnedContainer->setOutlineColor(Skin::getInstance()->outlineHighlightColor);
 
   // add the ClipComponents to it as child components
   for(c=0; c<allClips.size(); c++)  

@@ -82,6 +82,15 @@ Point<int> constrainPositionToScreen(Point<int> desiredPosition, int width, int 
 /** Converts a value in decibels to a raw amplitude value/factor. */
 double dB2amp(double x);
 
+/** Draws a cross-hatch pattern over the component. */
+void drawCrossHatches(Graphics &g, Component *c, float hatchDistanceX, float lineThickness);
+
+/** Draws a downward-hatch pattern over the component. */
+void drawDownwardHatches(Graphics &g, Component *c, float hatchDistanceX, float lineThickness);
+
+/** Draws an upward-hatch pattern over the component. */
+void drawUpwardHatches(Graphics &g, Component *c, float hatchDistanceX, float lineThickness);
+
 /** Prolongs and/or shortens the line through x1,y1 and x2,y2 such that it fits into the rectangle
 bounded by xMin, yMin, and xMax yMax. */
 void fitLineToRectangle(double &x1, double &y1, double &x2, double &y2, 
@@ -183,7 +192,7 @@ File openLoadFileDialog(const String& dialogTitle, const File& initialFileOrDirc
 File openLoadAudioPluginDialog();
 
 /** Returns a String that contains only letters and numbers. All other characters are removed. */
-String retainOnlyAlhpanumericCharacters(const String& s);
+String retainOnlyLettersAndNumbers(const String& s);
 
 /** Returns the nearest integer (as double). */
 double round(double x);

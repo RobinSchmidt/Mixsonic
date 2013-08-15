@@ -13,6 +13,10 @@ WaveformDisplay::WaveformDisplay(AudioFileBuffer *newBuffer)
   lastChannelToPlot  = 7; // restrict plot to 8 channels by default
   //setValueFieldPopup(false);
 
+  backgroundColor = Colours::black;
+  graphColor      = Colours::white;
+  outlineColor    = Colours::white;
+
   if( bufferToUse != NULL )
   {
     double maxTime = jmax(bufferToUse->getLengthInSeconds(), 0.0001); // 1/10 ms minimum range
@@ -39,6 +43,24 @@ WaveformDisplay::WaveformDisplay(AudioFileBuffer *newBuffer)
 
 //-------------------------------------------------------------------------------------------------
 // setup:
+
+void WaveformDisplay::setBackgroundColor(const Colour &newColor)
+{
+  backgroundColor = newColor;
+  setDirty();
+}
+ 
+void WaveformDisplay::setOutlineColor(const Colour &newColor)
+{
+  outlineColor = newColor;
+  setDirty();
+}
+
+void WaveformDisplay::setGraphColor(const Colour &newColor)
+{
+  graphColor = newColor;
+  setDirty();
+}
 
 void WaveformDisplay::assignAudioFileBuffer(AudioFileBuffer *newBuffer)
 {
@@ -116,8 +138,10 @@ void WaveformDisplay::setDirty(bool shouldBeSetToDirty)
 
 void WaveformDisplay::drawComponent(Image* imageToDrawOnto)
 {
-  plotWaveform(imageToDrawOnto);
   Graphics g(*imageToDrawOnto);
+  g.fillAll(backgroundColor);
+  plotWaveform(imageToDrawOnto);
+  g.setColour(outlineColor);
   g.drawRect(0, 0, imageToDrawOnto->getWidth(), imageToDrawOnto->getHeight(), 1);
 }
 
@@ -165,7 +189,8 @@ void WaveformDisplay::plotWaveform(Image *targetImage)
   double tSec, tSmp;
   double x1, x2, y1, y2;
   int    nMin, nMax;
-	g.setColour(Colours::blue);	
+  float  thickness = 2.f;
+	g.setColour(graphColor);	
   for(int c=cMin ; c<=cMax; c++)
   {
     // inner loop over pixels:
@@ -183,7 +208,7 @@ void WaveformDisplay::plotWaveform(Image *targetImage)
 		
       transformToComponentsCoordinates(x1, y1);
       transformToComponentsCoordinates(x2, y2);
-      g.drawLine((float)x1, (float)y1, (float)x2, (float)y2);
+      g.drawLine((float)x1, (float)y1, (float)x2, (float)y2, thickness);
 
       tSec += tSecInc;
       tSmp += tSmpInc;

@@ -51,6 +51,11 @@ public:
   virtual double getMaximumRangeMaxX() const;
   virtual double getCurrentRangeMinX() const;
   virtual double getCurrentRangeMaxX() const;
+
+  virtual void setBackgroundColor(const Colour &newColor);
+  virtual void setOutlineColor(   const Colour &newColor);
+  virtual void setGraphColor(     const Colour &newColor);
+
   virtual void setMaximumRange(double newMinX, double newMaxX, double newMinY, double newMaxY);
   virtual void setMaximumRangeX(double newMinX, double newMaxX);
   virtual void setMaximumRangeY(double newMinY, double newMaxY);

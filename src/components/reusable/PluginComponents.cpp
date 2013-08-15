@@ -325,10 +325,13 @@ void AudioPluginSlotComponent::paintOverChildren(Graphics &g)
 {
   if( slotToEdit->isBypassed() )
   {
+    // old (draw a cross over the component):
+    //g.setColour(Skin::getInstance()->markerColor);
+    //g.drawLine(0.f, 0.f, (float) getWidth(), (float) getHeight(), 1.f);
+    //g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f, 1.f);
+     
     g.setColour(Skin::getInstance()->outlineColor);
-    g.drawLine(0.f, 0.f, (float) getWidth(), (float) getHeight(), 1.f);
-    g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f, 1.f);
-      // maybe draw a cross-hatch pattern instead
+    drawCrossHatches(g, this, 8.f, 1.f);
   }
 }
 

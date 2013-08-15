@@ -6,7 +6,7 @@
 /**
 
 This class is component which has the sole purpose to draw itself as an rectangle filled with some
-colour and draw an outline with another colour.
+color and draw an outline with another color.
 
 */
 
@@ -15,25 +15,21 @@ class RectangleComponent : public Component
 
 public:
 
-  /** The of colour IDs to use to change fill and outline colour of the rectangle. */
-  enum ColourIds
-  {
-    fillColourId = 1,
-    outlineColourId
-  };
-
   //-----------------------------------------------------------------------------------------------
   // construction/destruction:
 
-  /** Constructor. Initializes the colours to be used for drawing the rectangle. */
-  RectangleComponent(const Colour &newFillColour = Colours::white, 
-    const Colour &newOutlineColour = Colours::black);
+  /** Constructor. Initializes the colors to be used for drawing the rectangle. */
+  RectangleComponent(const Colour &newFillColor = Colours::white, 
+    const Colour &newOutlineColor = Colours::black);
 
   //-----------------------------------------------------------------------------------------------
   // setup:
-                     
-  /** Sets the colour either for the filling or for the outline. @see ColourIds */
-  virtual void setColour(const int  colourId,  const Colour &colour);
+
+  /** Sets the color with which the rectangle will be filled. */
+  virtual void setFillColor(const Colour &newFillColor);
+
+  /** Sets the color for the outline of the rectangle. */
+  virtual void setOutlineColor(const Colour &newOutlineColor);
 
   //-----------------------------------------------------------------------------------------------
   // others:
@@ -41,14 +37,15 @@ public:
   /** Paints the rectangle. */
   virtual void paint(Graphics &g);
 
-  //===============================================================================================
-  juce_UseDebuggingNewOperator;
 
 protected:
 
   /** The colours to use. */
-  Colour fillColour, outlineColour;
+  Colour fillColor, outlineColor;
 
+  // float outlineThickness; // maybe add later, if desired
+
+  JUCE_LEAK_DETECTOR(RectangleComponent);
 };
 
 #endif  

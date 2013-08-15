@@ -261,7 +261,7 @@ void AudioClipComponent::clipIsToBeDeleted(Clip *clipToBeDeleted)
 
 void AudioClipComponent::paint(Graphics &g)
 {
-  g.fillAll(Colours::white);
+  //g.fillAll(Colours::red); // not necessary to do anything
 }
 
 void AudioClipComponent::paintOverChildren(Graphics &g)
@@ -279,8 +279,7 @@ void AudioClipComponent::paintOverChildren(Graphics &g)
   float x2, y2, x3, y3;
   getFadeInHandleCenter(x2, y2);
   getFadeOutHandleCenter(x3, y3);
-  //g.setColour(Colours::indigo);
-  g.setColour(Colours::green);
+  g.setColour(Skin::getInstance()->markerColor.withAlpha(0.75f));
   g.drawLine(x1, y1, x2, y2, 2.f);
   g.drawLine(x2, y2, x3, y3, 2.f);
   g.drawLine(x3, y3, x4, y4, 2.f);
@@ -320,6 +319,10 @@ void AudioClipComponent::initialize()
     waveDisplay = new DualWaveformDisplay(NULL);
   else
     waveDisplay = new DualWaveformDisplay(audioClipToEdit->getUsedBuffer());
+
+  waveDisplay->setBackgroundColor(Skin::getInstance()->plotBackgroundColor);
+  waveDisplay->setGraphColor(     Skin::getInstance()->plotForegroundColor);
+  waveDisplay->setOutlineColor(   Skin::getInstance()->outlineColor);
 
   addAndMakeVisible( waveDisplay  );
   waveDisplay->setMaximumRangeY(-1.1, 1.1);

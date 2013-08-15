@@ -108,7 +108,7 @@ void Skin::saveAsXmlFile(const File& file)
 void Skin::addFontToXmlAndSerialise(XmlElement& xml, const Font& theFont, 
                                     const String& attributeName)
 {
-  String fontName = retainOnlyAlhpanumericCharacters(theFont.getTypefaceName());
+  String fontName = retainOnlyLettersAndNumbers(theFont.getTypefaceName());
   xml.setAttribute(attributeName, fontName);
   xml.setAttribute(attributeName + "Height", theFont.getHeight());
 
@@ -152,6 +152,10 @@ void Skin::initialize()
   outlineHighlightColor    = getGrayValue(255);
   textColor                = getGrayValue(192);
   textHighlightColor       = getGrayValue(255);
+  markerColor              = getGrayValue(255);
+  plotBackgroundColor      = getGrayValue( 96);
+  plotForegroundColor      = getGrayValue(192);
+
 
   //widgetFont.setTypefaceName("Accidental Presidency");
   //widgetFont.setTypefaceName("Aurulent Sans"); // readable, simple

@@ -24,6 +24,12 @@ public:
   virtual ~ComponentDragContainer();
 
   //-----------------------------------------------------------------------------------------------
+  // setup:
+
+  /** Sets the color for the outline of the rectangle. */
+  virtual void setOutlineColor(const Colour &newOutlineColor);
+
+  //-----------------------------------------------------------------------------------------------
   // callbacks:
 
   /** Overrides paints in order to draw an outlining reactangle. */
@@ -31,6 +37,10 @@ public:
 
   //===============================================================================================
   juce_UseDebuggingNewOperator;
+
+protected:
+
+  Colour outlineColor;
 
 };
 

@@ -3,22 +3,25 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-RectangleComponent::RectangleComponent(const Colour &newFillColour, const Colour &newOutlineColour)
+RectangleComponent::RectangleComponent(const Colour &newFillColor, const Colour &newOutlineColor)
 : Component(String("RectangleComponent"))
 {
-  fillColour    = newFillColour;
-  outlineColour = newOutlineColour;
+  fillColor    = newFillColor;
+  outlineColor = newOutlineColor;
 }
 
 //-------------------------------------------------------------------------------------------------
 // setup:
-
-void RectangleComponent::setColour(const int colourId, const Colour &colour)
+ 
+void RectangleComponent::setFillColor(const Colour &newFillColor)
 {
-  if( colourId == fillColourId )
-    fillColour = colour;
-  else if( colourId == outlineColourId )
-    outlineColour = colour;
+  fillColor = newFillColor;
+  repaint();
+}
+
+void RectangleComponent::setOutlineColor(const Colour &newOutlineColor)
+{
+  outlineColor = newOutlineColor;
   repaint();
 }
 
@@ -27,8 +30,8 @@ void RectangleComponent::setColour(const int colourId, const Colour &colour)
 
 void RectangleComponent::paint(Graphics &g)
 {
-  g.setColour(fillColour);
+  g.setColour(fillColor);
   g.fillRect(0, 0, getWidth(), getHeight());
-  g.setColour(outlineColour);
+  g.setColour(outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight());
 }

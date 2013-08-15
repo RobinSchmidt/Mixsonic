@@ -8,6 +8,8 @@
 
 This class is intended to be used as a graphical display for a waveform.
 
+\todo factor out a general function plotting class
+
 */
 
 class WaveformDisplay	: public ThreadedDrawingPanel, public AudioFileBufferUser
@@ -23,6 +25,15 @@ public:
 
   //-----------------------------------------------------------------------------------------------
   // setup:
+
+  /** Sets the background color. */
+  virtual void setBackgroundColor(const Colour &newColor);
+
+  /** Sets the outline color. */
+  virtual void setOutlineColor(const Colour &newColor);
+
+  /** Sets the graph color. */
+  virtual void setGraphColor(const Colour &newColor);
 
   /** Sets the waveform-data from an AudioSampleBuffer and informs about success. */
   virtual void assignAudioFileBuffer(AudioFileBuffer *newBuffer);
@@ -77,6 +88,8 @@ protected:
   double minVisibleTime, maxVisibleTime;
   int    numChannels, numSamples;
   double sampleRate; // probably to be deprecated, because redundant withe info in the bufferToUse
+
+  Colour backgroundColor, graphColor, outlineColor;
 
 };
 

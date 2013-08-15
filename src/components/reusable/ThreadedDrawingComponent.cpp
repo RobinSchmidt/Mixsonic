@@ -148,8 +148,7 @@ void ThreadedDrawingComponent::renderClientAreaImageInternal()
 
   // initialize the image as a white canvas and set the dirty flag:
   Graphics g(*clientAreaImage);
-  g.fillAll(Colours::white);
-  //clientAreaImageIsDirty = true;
+  //g.fillAll(Colours::white);
 
   // call the actual drawing rutine (which is supposed to be overriden by subclasses):
   drawComponent(clientAreaImage);

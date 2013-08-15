@@ -232,14 +232,19 @@ void ClipComponent::paintOverChildren(Graphics &g)
   if( clipToEdit == NULL )
     return;
 
-  // draw the cross which indicates the mute state:
+  // draw the cross-hatch pattern which indicates the mute state:
   if( clipToEdit->isMuted() )
   {
-    g.setColour(Colours::red.withAlpha(0.5f));
-    g.drawLine(0.f, 0.f,                 (float) getWidth(), (float) getHeight(), 2.f);
-    g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f,                 2.f);
+    // old:
+    //g.setColour(Skin::getInstance()->markerColor);
+    //g.drawLine(0.f, 0.f,                 (float) getWidth(), (float) getHeight(), 2.f);
+    //g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f,                 2.f);
+
+    g.setColour(Skin::getInstance()->outlineColor);
+    drawCrossHatches(g, this, 16.f, 1.f);
   }
 
+  // drw the caption - needs refinement:
   Rectangle<int> r = caption.getBounds();
   float w = (float) r.getWidth();
   float h = (float) r.getHeight();
@@ -254,8 +259,8 @@ void ClipComponent::paintOverChildren(Graphics &g)
   // draw (or don't draw) the frame which indicates the selection state:
   if( clipToEdit->isSelected() || clipToEdit->isTemporarilySelected() )
   {
-    g.setColour(Colours::green.withAlpha(0.2f));
-    g.drawRect(0, 0, getWidth(), getHeight(), 6);
+    g.setColour(Skin::getInstance()->outlineHighlightColor);
+    g.drawRect(0, 0, getWidth(), getHeight(), 2);
   }
 }
 
