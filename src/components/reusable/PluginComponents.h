@@ -142,7 +142,7 @@ protected:
     // window. we want to keep track of (de)activation of this owning window in order to ourselves
     // invisible on deactivation
 
-  RLabel *nameLabel;
+  RHeadlineLabel *nameLabel;
     // label to show the name of the plugin
 
   RButton *closeButton;

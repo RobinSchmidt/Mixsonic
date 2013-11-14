@@ -9,8 +9,8 @@ MixsonicBrowserBase::MixsonicBrowserBase(const File &directoryToUse)
   ResamplingAudioSource(&inputSource, false)
 {
   // create the headline label:
-  addAndMakeVisible( headline = new RLabel(String("HeadlineLabel"), String("BrowserBase")) );
-  headline->setFont(Font(20, Font::bold));
+  addAndMakeVisible( headline = new RHeadlineLabel(String("HeadlineLabel"), String("BrowserBase")) );
+  //headline->setFont(Font(20, Font::bold));
   headline->setJustificationType(Justification::centred);
 
   // create the preview buttons:

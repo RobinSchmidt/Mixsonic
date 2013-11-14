@@ -131,7 +131,6 @@ public:
   /** Paints the track component. */
   virtual void paint(Graphics &g);
 
-  juce_UseDebuggingNewOperator;
 
 protected:
 
@@ -189,6 +188,8 @@ protected:
   // an index for the mode of operation of the mouse:
   int mouseMode;
 
+
+  JUCE_LEAK_DETECTOR(TrackBodyComponent);
 };
 
 //=================================================================================================
@@ -246,15 +247,13 @@ public:
   virtual void trackSoloStateChanged(Track *track, bool isSolo);
 
 
-  juce_UseDebuggingNewOperator;
-
 protected:
 
   /** Pointer to the track component, for which we implement some controls. */
   Track* trackToEdit;
 
-  RLabel *nameLabel;
-  RButton *muteButton, *soloButton;
+  RHeadlineLabel *nameLabel;
+  RButton        *muteButton, *soloButton;
   MixsonicSlider *levelSlider, *panSlider;
   AudioPluginChainComponent *pluginChainComponent;
 
@@ -264,6 +263,7 @@ private:
   MixsonicTrackControlComponent (const MixsonicTrackControlComponent&);  
   const MixsonicTrackControlComponent& operator= (const MixsonicTrackControlComponent&);
 
+  JUCE_LEAK_DETECTOR(MixsonicTrackControlComponent);
 };
 
 //=================================================================================================
@@ -314,7 +314,6 @@ public:
   virtual void selectClipsInPixelRegion(bool shouldBeSelected, int x1, int x2, 
     bool temporarily = false);
 
-  juce_UseDebuggingNewOperator;
 
 protected:
 
@@ -322,6 +321,7 @@ protected:
   MixsonicTrackControlComponent *outputComponent; // later call this outputComponent and also have an 
                                                   // inputComponent
 
+  JUCE_LEAK_DETECTOR(TrackComponent);
 };
 
 

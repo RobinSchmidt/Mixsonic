@@ -144,7 +144,7 @@ protected:
   MixsonicArrangementPanel *arrangementPanel;
   ArrangementScroller *arrangementNavigator;// rename to arrangementScroller
 
-  RLabel *headline, *descriptionField;
+  RLabel *descriptionField;
 
   // these things are used to create and drag around a temporary clip object when an audio file
   // is clicked or some audio clip is grabbed from the arrangement:

@@ -50,19 +50,23 @@ public:
 
   // data:
   Colour backgroundColor, 
-         backgroundHighlightColor,         
-         widgetBackgroundColor, 
-         widgetHandleColor,
+         backgroundHighlightColor,
+         headlineBackgroundColor,
+         headlineTextColor,
+         markerColor,
          outlineColor, 
          outlineHighlightColor, 
+         plotBackgroundColor,
+         plotForegroundColor,
          textColor, 
          textHighlightColor,
-         markerColor,
-         plotBackgroundColor,
-         plotForegroundColor;
+         widgetBackgroundColor, 
+         widgetHandleColor;
 
-
-  Font textFont, widgetFont, headlineFont; // maybe have a labelFont
+  Font  headlineFont, 
+        labelFont, 
+        textFont, 
+        widgetFont;
 
   //int widgetOutlineThickness, smallButtonSize, standardButtonSize, bigButtonSize
 

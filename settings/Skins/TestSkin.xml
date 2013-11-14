@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SKIN>
+  <COLORS background="ff303040" backgroundHighlight="ff606060" widgetBackground="ff000000"
+          widgetHandle="ff606060" outline="ffa0a0c0" outlineHighlight="ffffc0c0"
+          text="ffc0c0c0" textHighlight="ffffc0c0"/>
+  <FONTS textFont="Coolvetica" textFontHeight="14" widgetFont="Kimberley"
+         widgetFontHeight="14" headlineFont="SansSerif" headlineFontHeight="14"/>
+</SKIN>

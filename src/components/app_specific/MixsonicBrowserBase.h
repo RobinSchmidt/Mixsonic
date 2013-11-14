@@ -66,13 +66,11 @@ public:
   /** Restarts the preview-playback from the beginning of the audiofile. */
   virtual void restartPlayback();
 
-  //===============================================================================================
-  juce_UseDebuggingNewOperator;
 
 protected:
 
-  // the headline for the component ('Navigateur'):
-  RLabel *headline;
+  // the headline for the component:
+  RHeadlineLabel *headline;
 
   // the buttons themselves:
   MixsonicButton *pauseButton, *playButton, *rewindButton; 
@@ -85,6 +83,8 @@ protected:
   ImmediatePlaybackAudioSource inputSource;
   AudioFileBuffer              audioBuffer;
 
+
+  JUCE_LEAK_DETECTOR(MixsonicBrowserBase);
 };
 
 #endif  

@@ -7,12 +7,6 @@ MixsonicArrangementEditor::MixsonicArrangementEditor(Arrangement* newArrangement
                                      SamplePool* samplePoolToUse) 
 : Component(String("MixsonicArrangementEditor"))
 {
-  // create the headline label:
-  addAndMakeVisible( headline = new RLabel(String("HeadlineLabel"), arrangerHeadlineStr) );
-  headline->setFont(Font(20, Font::bold));
-  //headline->setColour(Label::textColourId, textColor);
-  headline->setJustificationType(Justification::centred);
-
   addAndMakeVisible( arrangementNavigator = new ArrangementScroller() );
 
   addAndMakeVisible( arrangementPanel     
@@ -27,10 +21,6 @@ MixsonicArrangementEditor::MixsonicArrangementEditor(Arrangement* newArrangement
   // handling of mouse events.
 
   arrangementNavigator->assignPanel(arrangementPanel);
-
-  // test:
-  //arrangementNavigator->toFront(false);
-  //arrangementNavigator->setVisible(false);
 
   draggedComponent = NULL;    
   descriptionField = NULL;

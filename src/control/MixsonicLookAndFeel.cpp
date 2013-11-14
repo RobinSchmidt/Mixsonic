@@ -15,13 +15,13 @@ void MixsonicLookAndFeel::drawFileBrowserRow(Graphics& g,
                                              int itemIndex,
                                              DirectoryContentsDisplayComponent& component)
 {
-  if(isItemSelected)
+  if( isItemSelected )
   {
     g.fillAll(Skin::getInstance()->backgroundHighlightColor);
     g.setColour(Skin::getInstance()->textHighlightColor);
   }
   else
     g.setColour(Skin::getInstance()->textColor);
-  g.setFont(height * 0.7f);
+  g.setFont(Skin::getInstance()->textFont);
   g.drawText(filename, 0, 0, width, height, Justification::centredLeft, 1);
 }

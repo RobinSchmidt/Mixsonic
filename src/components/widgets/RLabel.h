@@ -27,10 +27,6 @@ public:
   //-----------------------------------------------------------------------------------------------
   // others:
 
-  /** Triggers loading of a color-scheme from a file ColorScheme.xml - if the file doesn't exist,
-  it will do nothing. */
-  //virtual void loadColorScheme();
-
   /** Overrides the mouseEnter callback in order to show the description in the dedicated field 
   when the mouse enters the widget. */
   virtual void mouseEnter(const MouseEvent &e);
@@ -39,13 +35,21 @@ public:
   leaves the widget. */
   virtual void mouseExit(const MouseEvent &e);
 
-  //===============================================================================================
-  juce_UseDebuggingNewOperator;
+protected:
+  JUCE_LEAK_DETECTOR(RLabel);
+};
+
+
+/** Subclass of Rlabel which may use different colors, fonts, etc. */
+class RHeadlineLabel : public RLabel
+{
+public:
+  RHeadlineLabel(const String& componentName = String("RLabel"), 
+    const String& labelText = String("RLabelText"));
 
 protected:
-
-  //static int instanceCounter;
-
+  JUCE_LEAK_DETECTOR(RHeadlineLabel);
 };
+
 
 #endif  

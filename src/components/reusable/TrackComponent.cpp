@@ -461,7 +461,7 @@ MixsonicTrackControlComponent::MixsonicTrackControlComponent(Track* newTrackToEd
 {
   trackToEdit = newTrackToEdit;
 
-  addAndMakeVisible( nameLabel = new RLabel() );
+  addAndMakeVisible( nameLabel = new RHeadlineLabel() );
   nameLabel->setEditable(false, true);
   nameLabel->addListener(this);
   if( trackToEdit != nullptr )

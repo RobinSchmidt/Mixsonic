@@ -131,11 +131,8 @@ AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEdito
   if( visibilityController != nullptr )
     visibilityController->registerActivationObserver(this);
 
-  addAndMakeVisible( nameLabel = new RLabel() );
+  addAndMakeVisible( nameLabel = new RHeadlineLabel() );
   nameLabel->setText(editor->getAudioProcessor()->getName(), false);
-  //nameLabel->setColour(Label::outlineColourId, outlineColor);
-  //nameLabel->setColour(Label::backgroundColourId, backgroundColor);
-  //nameLabel->setColour(Label::textColourId, textColor);
   nameLabel->addMouseListener(this, false);
 
   addAndMakeVisible( closeButton = new RButton("X") );

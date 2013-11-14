@@ -28,6 +28,8 @@ XmlElement* Skin::getAsXml()
   XmlElement *xmlColors = new XmlElement("COLORS");
   xmlColors->setAttribute("background",          backgroundColor.toString());
   xmlColors->setAttribute("backgroundHighlight", backgroundHighlightColor.toString());
+  xmlColors->setAttribute("headlineBackground",  headlineBackgroundColor.toString());
+  xmlColors->setAttribute("headlineText",        headlineTextColor.toString());
   xmlColors->setAttribute("widgetBackground",    widgetBackgroundColor.toString());
   xmlColors->setAttribute("widgetHandle",        widgetHandleColor.toString());
   xmlColors->setAttribute("outline",             outlineColor.toString());
@@ -39,9 +41,9 @@ XmlElement* Skin::getAsXml()
   // fonts:
   XmlElement *xmlFonts = new XmlElement("FONTS");
   addFontToXmlAndSerialise(*xmlFonts, textFont,     "textFont");
+  addFontToXmlAndSerialise(*xmlFonts, labelFont,    "labelFont");
   addFontToXmlAndSerialise(*xmlFonts, widgetFont,   "widgetFont");
   addFontToXmlAndSerialise(*xmlFonts, headlineFont, "headlineFont");
-  // maybe have an extra labelFont
   xmlSkin->addChildElement(xmlFonts);
 
   // \todo control further aspects, like the gradient colors for the level/pan sliders, outline 
@@ -65,6 +67,10 @@ void Skin::setFromXml(const XmlElement& xml)
       backgroundColor.toString()));
     backgroundHighlightColor = Colour::fromString(child->getStringAttribute("backgroundHighlight",    
       backgroundHighlightColor.toString()));
+    headlineBackgroundColor = Colour::fromString(child->getStringAttribute("headlineBackground",    
+      headlineBackgroundColor.toString()));
+    headlineTextColor = Colour::fromString(child->getStringAttribute("headlineText",    
+      headlineTextColor.toString()));
     widgetBackgroundColor = Colour::fromString(child->getStringAttribute("widgetBackground",    
       widgetBackgroundColor.toString()));
     widgetHandleColor = Colour::fromString(child->getStringAttribute("widgetHandle",    
@@ -83,6 +89,7 @@ void Skin::setFromXml(const XmlElement& xml)
   if( child != nullptr )
   {
     retrieveFontFromXml(*child, textFont,     String("textFont"));
+    retrieveFontFromXml(*child, labelFont,    String("labelFont"));
     retrieveFontFromXml(*child, widgetFont,   String("widgetFont"));
     retrieveFontFromXml(*child, headlineFont, String("headlineFont"));
   }
@@ -146,6 +153,8 @@ void Skin::initialize()
 {
   backgroundColor          = getGrayValue( 64);
   backgroundHighlightColor = getGrayValue( 96);
+  headlineBackgroundColor  = getGrayValue(192);
+  headlineTextColor        = getGrayValue( 64);
   widgetBackgroundColor    = getGrayValue(  0); 
   widgetHandleColor        = getGrayValue( 96);
   outlineColor             = getGrayValue(192);
@@ -156,6 +165,8 @@ void Skin::initialize()
   plotBackgroundColor      = getGrayValue( 96);
   plotForegroundColor      = getGrayValue(192);
 
+
+  //textFont.setTypefaceName("Kimberley"); // readable, stylish
 
   //widgetFont.setTypefaceName("Accidental Presidency");
   //widgetFont.setTypefaceName("Aurulent Sans"); // readable, simple

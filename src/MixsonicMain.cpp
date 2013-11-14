@@ -131,8 +131,12 @@ public:
       delete theWindow;
     delete mixsonicGlobals;
 
+
+    // comment/remove this automatic skin-saving later:
     File skinSaveFile = File(getApplicationDirectoryAsString() + "/Skins/_LastUsed.xml");
     Skin::getInstance()->saveAsXmlFile(skinSaveFile);
+
+
     Skin::releaseInstance(); // manual release of singleton to avoid the leak-detector to fire
   }
 
