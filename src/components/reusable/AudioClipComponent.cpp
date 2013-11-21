@@ -279,7 +279,10 @@ void AudioClipComponent::paintOverChildren(Graphics &g)
   float x2, y2, x3, y3;
   getFadeInHandleCenter(x2, y2);
   getFadeOutHandleCenter(x3, y3);
-  g.setColour(Skin::getInstance()->markerColor.withAlpha(0.75f));
+  //g.setColour(Skin::getInstance()->markerColor.withAlpha(0.75f));
+  //g.setColour(skin->handleColor.withAlpha(0.75f));
+  g.setColour(skin->foregroundColor.withAlpha(0.75f)); // maybe get rid of the withAlpha - this can
+                                                       // be defined in the xml itself
   g.drawLine(x1, y1, x2, y2, 2.f);
   g.drawLine(x2, y2, x3, y3, 2.f);
   g.drawLine(x3, y3, x4, y4, 2.f);
@@ -320,9 +323,9 @@ void AudioClipComponent::initialize()
   else
     waveDisplay = new DualWaveformDisplay(audioClipToEdit->getUsedBuffer());
 
-  waveDisplay->setBackgroundColor(Skin::getInstance()->plotBackgroundColor);
-  waveDisplay->setGraphColor(     Skin::getInstance()->plotForegroundColor);
-  waveDisplay->setOutlineColor(   Skin::getInstance()->outlineColor);
+  waveDisplay->setBackgroundColor(skin->backgroundColor);
+  waveDisplay->setGraphColor(     skin->middlegroundColor);
+  waveDisplay->setOutlineColor(   skin->outlineColor);
 
   addAndMakeVisible( waveDisplay  );
   waveDisplay->setMaximumRangeY(-1.1, 1.1);

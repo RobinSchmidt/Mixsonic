@@ -1,18 +1,20 @@
 #include "MixsonicEnterNameDialog.h"
 
-MixsonicEnterNameDialog::MixsonicEnterNameDialog(const String& defaultName)
-: MixsonicTextEntryDialog(enterNameStr)
+MixsonicEnterNameDialog::MixsonicEnterNameDialog(SectionSkin *skinToUse, const String& defaultName)
+: MixsonicTextEntryDialog(skinToUse, enterNameStr)
 {
   setHeadline(enterNameHeadlineStr);
 
   setDescription(enterNameStr);
 
-  addAndMakeVisible( okButton = new RButton(okStr) );
+  okButton = new RButton(&skin->widgetSkin, okStr);
+  addAndMakeVisible(okButton);
   okButton->setDescription(createProjectHelpStr);
   okButton->setClickingTogglesState(false);
   okButton->addListener(this);
 
-  addAndMakeVisible( cancelButton = new RButton(cancelStr) );
+  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);
   cancelButton->addListener(this);

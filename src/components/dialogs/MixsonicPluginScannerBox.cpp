@@ -1,9 +1,10 @@
 #include "MixsonicPluginScannerBox.h"
 
-MixsonicPluginScannerBox::MixsonicPluginScannerBox()
+MixsonicPluginScannerBox::MixsonicPluginScannerBox(SectionSkin *skinToUse)
+: MixsonicModalDialog(skinToUse)
 {
-  // the widgets:
-  addAndMakeVisible( currentFileLabel = new RLabel );
+  currentFileLabel = new RLabel(&skinToUse->labelSkin);
+  addAndMakeVisible(currentFileLabel);
 
   setHeadline("Scanning Plugins");
 

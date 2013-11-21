@@ -18,7 +18,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicTextEntryField(const String& initialText = String::empty);
+  MixsonicTextEntryField(Skin *skinToUse, const String& initialText = String::empty);
 
   /** Destructor. */
   virtual ~MixsonicTextEntryField();
@@ -28,11 +28,11 @@ public:
 
   /** Overrides the mouseEnter callback in order to show the description in the dedicated field 
   when the mouse enters the widget. */
-  virtual void mouseEnter(const MouseEvent &e);
+  //virtual void mouseEnter(const MouseEvent &e);
 
   /** Overrides the mouseExit callback in order to make the description disappear when the mouse 
   leaves the widget. */
-  virtual void mouseExit(const MouseEvent &e);
+  //virtual void mouseExit(const MouseEvent &e);
 
   //===============================================================================================
   juce_UseDebuggingNewOperator;

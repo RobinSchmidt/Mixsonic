@@ -4,6 +4,7 @@
 #include "../../control/MixsonicGlobals.h"
 
 #include "../reusable/ComponentGrabber.h"
+#include "../reusable/UserInterfaceSection.h" // may be removed later
 #include "MixsonicArrangementPanel.h"
 #include "MixsonicArrangementScroller.h"
 #include "MixsonicTrackControlComponent.h"
@@ -16,8 +17,9 @@ This class implements a GUI editor for an Arrangement object.
 
 */
 
-class MixsonicArrangementEditor : public Component, public ButtonListener, public ChangeListener, 
-  public ComponentGrabber, public ChangeBroadcaster, public Timer
+class MixsonicArrangementEditor : virtual public Component, virtual public UserInterfaceSection, 
+  public ButtonListener, public ChangeListener, public ComponentGrabber, public ChangeBroadcaster, 
+  public Timer
 {  
 
   friend class MixsonicContentComponent;
@@ -28,7 +30,8 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicArrangementEditor(Arrangement* newArrangementToEdit, SamplePool* samplePoolToUse);  
+  MixsonicArrangementEditor(SectionSkin *skinToUse, Arrangement* newArrangementToEdit, 
+    SamplePool* samplePoolToUse);  
 
   /** Destructor. */
   virtual ~MixsonicArrangementEditor();           

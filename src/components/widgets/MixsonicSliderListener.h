@@ -8,8 +8,9 @@ class MixsonicSliderListener
 
 public:
 
-    virtual void mSliderValueChanged(MixsonicSlider* mSlider) = 0;
+  virtual void mSliderValueChanged(MixsonicSlider* mSlider) = 0;
 
+  JUCE_LEAK_DETECTOR(MixsonicSliderListener);
 };
 
 #endif

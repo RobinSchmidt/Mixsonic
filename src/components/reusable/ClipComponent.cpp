@@ -240,7 +240,7 @@ void ClipComponent::paintOverChildren(Graphics &g)
     //g.drawLine(0.f, 0.f,                 (float) getWidth(), (float) getHeight(), 2.f);
     //g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f,                 2.f);
 
-    g.setColour(Skin::getInstance()->outlineColor);
+    g.setColour(skin->outlineColor);
     drawCrossHatches(g, this, 16.f, 1.f);
   }
 
@@ -259,7 +259,7 @@ void ClipComponent::paintOverChildren(Graphics &g)
   // draw (or don't draw) the frame which indicates the selection state:
   if( clipToEdit->isSelected() || clipToEdit->isTemporarilySelected() )
   {
-    g.setColour(Skin::getInstance()->outlineHighlightColor);
+    g.setColour(skin->outlineColorHighlight);
     g.drawRect(0, 0, getWidth(), getHeight(), 2);
   }
 }
@@ -302,7 +302,8 @@ void ClipComponent::initialize()
 
   currentlyDraggedHandle = NONE;
 
-  addAndMakeVisible( muteButton = new HalfTransparentButton(clipMuteStr) );
+  muteButton = new HalfTransparentButton(clipMuteStr);
+  addAndMakeVisible(muteButton);
   muteButton->setDescription(clipMuteHelpStr);
   muteButton->setClickingTogglesState(true);
   muteButton->addListener(this);

@@ -2,6 +2,7 @@
 #define DummyAudioPlugin_h
 
 #include "../../components/widgets/RLabel.h"
+#include "../../components/reusable/UserInterfaceSection.h"
 
 /** A dummy plugin class that is used when a plugin can't be found when a stored state of a 
 PluginSlot is restored via PluginSlot::setStateFromXml. The purpose of the dummy plugin is to
@@ -79,7 +80,7 @@ protected:
 /** An "editor" class for the DummyAudioPlugin class. Actually, it just shows some information 
 about the plugin - there's nothing to edit. */
 
-class DummyAudioPluginEditor : public AudioProcessorEditor
+class DummyAudioPluginEditor : public AudioProcessorEditor, public UserInterfaceSection
 {
 
 public:

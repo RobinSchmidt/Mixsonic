@@ -9,7 +9,7 @@ This class is a RButton which is drawn half-transparently.
 
 */
 
-class HalfTransparentButton : public TextButton, public RWidget
+class HalfTransparentButton : public TextButton, public DescribedMouseListener /*, public RWidget*/
 {
 
 public:
@@ -18,7 +18,7 @@ public:
   // construction/destruction:
 
   /** Constructs a button with text. */
-  HalfTransparentButton(const String& buttonName);
+  HalfTransparentButton(/*Skin *skinToUse, */const String& buttonName);
 
   /** Destructor. */
   virtual ~HalfTransparentButton();

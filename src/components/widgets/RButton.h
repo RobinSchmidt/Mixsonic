@@ -32,10 +32,10 @@ public:
   // construction/destruction:
 
   /** Constructs a button with a symbol. */
-  RButton(int newSymbolIndex);    
+  RButton(Skin *skinToUse, int newSymbolIndex);    
 
   /** Constructs a button with text. */
-  RButton(const String& componentName = String("RButton"));
+  RButton(Skin *skinToUse, const String& componentName = String("RButton"));
 
   /** Destructor. */
   virtual ~RButton();

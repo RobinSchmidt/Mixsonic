@@ -20,7 +20,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicPluginScannerBox();
+  MixsonicPluginScannerBox(SectionSkin *skinToUse);
 
   /** Destructor. */
   virtual ~MixsonicPluginScannerBox();

@@ -2,7 +2,9 @@
 #define TimeLineComponent_h
 
 #include "GlobalTimeFrameComponent.h"
-#include "../../control/Skin.h"
+//#include "../../control/Skin.h"
+//#include "../../components/reusable/UserInterfaceSection.h"
+#include "../../components/widgets/RWidget.h"
 
 
 /**
@@ -11,7 +13,9 @@ This class is a component which serves as timeline-ruler for sequencer applicati
 
 */
 
-class TimeLineComponent : public GlobalTimeFrameComponent, public ChangeBroadcaster
+class TimeLineComponent : public GlobalTimeFrameComponent, public ChangeBroadcaster,
+  public RWidget
+  //public UserInterfaceSection // maybe derive from RWidget instead
 {  
 
 public:
@@ -20,7 +24,8 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  TimeLineComponent(const String &componentName = String("TimeLineComponent"));  
+  TimeLineComponent(Skin *skinToUse, const String &componentName = String("TimeLineComponent"));  
+  //TimeLineComponent(const String &componentName = String("TimeLineComponent"));  
 
   /** Destructor. */
   virtual ~TimeLineComponent();                             

@@ -3,8 +3,9 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-MixsonicSlider::MixsonicSlider(const String& name) 
+MixsonicSlider::MixsonicSlider(Skin *skinToUse, const String& name) 
 : Component(name)
+, RWidget(skinToUse)
 {
   currentValue         = 0.5;
   defaultValue         = 0.5;
@@ -13,12 +14,17 @@ MixsonicSlider::MixsonicSlider(const String& name)
   interval             = 0.01;
   isVertical           = false;
 
-  // maybe we should get rid of these members and use the colors from the Skin singleton directly 
-  // in the paint method:
+  // get rid of these members and use the colors from the Skin directly in the paint method:
+  backgroundColour     = skin->backgroundColor;
+  outlineColour        = skin->outlineColor;
+  thumbColour          = skin->middlegroundColor;
+  positionMarkerColour = skin->foregroundColor;
+  /*
   backgroundColour     = Skin::getInstance()->widgetBackgroundColor;
   outlineColour        = Skin::getInstance()->outlineColor;
   thumbColour          = Skin::getInstance()->widgetHandleColor;
   positionMarkerColour = Skin::getInstance()->markerColor;
+  */
 }
 
 MixsonicSlider::~MixsonicSlider()
@@ -95,7 +101,7 @@ void MixsonicSlider::removeListener(MixsonicSliderListener* const listener) thro
 
 //-------------------------------------------------------------------------------------------------
 // callbacks:
-
+/*
 void MixsonicSlider::mouseEnter(const MouseEvent &e)
 {
   RWidget::mouseEnter(e);
@@ -105,7 +111,7 @@ void MixsonicSlider::mouseExit(const MouseEvent &e)
 {
   RWidget::mouseExit(e);
 }
-
+*/
 void MixsonicSlider::mouseDown(const MouseEvent& e)
 {
   if( isEnabled() )

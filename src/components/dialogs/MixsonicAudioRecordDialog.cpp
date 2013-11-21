@@ -1,14 +1,15 @@
 #include "MixsonicAudioRecordDialog.h"
 
-MixsonicAudioRecordDialog::MixsonicAudioRecordDialog(AudioDeviceManager* deviceManagerToUse, 
-                                                     const File& defaultTargetFile)
-: MixsonicAudioFileSettingsDialog(defaultTargetFile)
+MixsonicAudioRecordDialog::MixsonicAudioRecordDialog(SectionSkin *skinToUse, 
+  AudioDeviceManager* deviceManagerToUse, const File& defaultTargetFile)
+: MixsonicAudioFileSettingsDialog(skinToUse, defaultTargetFile)
 {
   setHeadline(recordHeadlineStr);
   deviceManager = deviceManagerToUse;
 
   // create the additional button:
-  addAndMakeVisible( recordButton = new RButton(recordButtonStr) );
+  recordButton = new RButton(&skin->widgetSkin, recordButtonStr);
+  addAndMakeVisible(recordButton);
   recordButton->setDescription(recordButtonHelpStr);
   recordButton->setClickingTogglesState(true);
   recordButton->addListener(this);

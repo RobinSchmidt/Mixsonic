@@ -1,7 +1,10 @@
 #include "MixsonicButton.h"
 
-MixsonicButton::MixsonicButton () 
-  : RButton (NO_SYMBOL), normalImage(0), pressedImage(0), hoverImage(0)
+MixsonicButton::MixsonicButton(Skin *skinToUse) 
+: RButton(skinToUse, NO_SYMBOL)
+, normalImage(0)
+, pressedImage(0)
+, hoverImage(0)
 {
 
 }

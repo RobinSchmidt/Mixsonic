@@ -22,6 +22,8 @@ public:
     bool isDirectory, bool isItemSelected, int itemIndex,
     DirectoryContentsDisplayComponent& component);
 
+  // have a Skin *skin member
+
 };
 
 #endif  

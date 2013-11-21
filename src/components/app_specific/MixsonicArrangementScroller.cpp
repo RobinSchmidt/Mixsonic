@@ -3,8 +3,8 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-PanelScroller::PanelScroller(const String &componentName) 
-  : Component(componentName)
+PanelScroller::PanelScroller(Skin *skinToUse, const String &componentName) 
+: Component(componentName)
 {
   thePanel            = NULL;
 
@@ -16,49 +16,49 @@ PanelScroller::PanelScroller(const String &componentName)
 
   widgetSize          = 16;
 
-  scrollBarX = new ScrollBar(false, true);
+  scrollBarX = new ScrollBar(false, true); // make class RScrollBar, pass the (widget)skin
   scrollBarX->setRangeLimits(0.0, 1.0);
   scrollBarX->setAutoHide(false);
   scrollBarX->addListener(this);
   addAndMakeVisible(scrollBarX);
 
-  scrollBarY = new ScrollBar(true, true);
+  scrollBarY = new ScrollBar(true, true); 
   scrollBarY->setRangeLimits(0.0, 1.0);
   scrollBarY->setAutoHide(false);
   scrollBarY->addListener(this);
   addAndMakeVisible(scrollBarY);
 
-  zoomOutButtonX = new RButton(RButton::MINUS);
+  zoomOutButtonX = new RButton(skinToUse, RButton::MINUS);
   zoomOutButtonX->setClickingTogglesState(false);
   zoomOutButtonX->addListener(this);
   addAndMakeVisible(zoomOutButtonX);
 
-  zoomToAllButtonX = new RButton("A");
+  zoomToAllButtonX = new RButton(skinToUse, "A");
   zoomToAllButtonX->setClickingTogglesState(false);
   zoomToAllButtonX->addListener(this);
   addAndMakeVisible(zoomToAllButtonX);
 
-  zoomInButtonX = new RButton(RButton::PLUS);
+  zoomInButtonX = new RButton(skinToUse, RButton::PLUS);
   zoomInButtonX->setClickingTogglesState(false);
   zoomInButtonX->addListener(this);
   addAndMakeVisible(zoomInButtonX);
 
-  zoomOutButtonY = new RButton(RButton::MINUS);
+  zoomOutButtonY = new RButton(skinToUse, RButton::MINUS);
   zoomOutButtonY->setClickingTogglesState(false);
   zoomOutButtonY->addListener(this);
   addAndMakeVisible(zoomOutButtonY);
 
-  zoomToAllButtonY = new RButton("A");
+  zoomToAllButtonY = new RButton(skinToUse, "A");
   zoomToAllButtonY->setClickingTogglesState(false);
   zoomToAllButtonY->addListener(this);
   addAndMakeVisible(zoomToAllButtonY);
 
-  zoomInButtonY = new RButton(RButton::PLUS);
+  zoomInButtonY = new RButton(skinToUse, RButton::PLUS);
   zoomInButtonY->setClickingTogglesState(false);
   zoomInButtonY->addListener(this);
   addAndMakeVisible(zoomInButtonY);
 
-  zoomToAllButtonXY = new RButton("A");
+  zoomToAllButtonXY = new RButton(skinToUse, "A");
   zoomToAllButtonXY->setClickingTogglesState(false);
   zoomToAllButtonXY->addListener(this);
   addAndMakeVisible(zoomToAllButtonXY);

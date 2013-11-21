@@ -18,7 +18,9 @@ This class is a component for arranging ClipComponents inside TrackComponents.
 
 */
 
-class MixsonicArrangementPanel : public Panel, public SelectionListener, public SamplePoolClient, 
+class MixsonicArrangementPanel : public Panel, 
+  public UserInterfaceSection,
+  public SelectionListener, public SamplePoolClient, 
   public ChangeListener, public ChangeBroadcaster
 {  
 
@@ -31,7 +33,8 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicArrangementPanel(Arrangement* newArrangementToEdit, SamplePool* samplePoolToUse);  
+  MixsonicArrangementPanel(SectionSkin *skinToUse, Arrangement* newArrangementToEdit, 
+    SamplePool* samplePoolToUse);  
 
   /** Destructor. */
   virtual ~MixsonicArrangementPanel();                             

@@ -20,7 +20,8 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicTextEntryDialog(const String& labelText, const String& initialText = String::empty);
+  MixsonicTextEntryDialog(SectionSkin *skinToUse, const String& labelText, 
+    const String& initialText = String::empty);
 
   /** Destructor. */
   virtual ~MixsonicTextEntryDialog();

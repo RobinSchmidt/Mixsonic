@@ -28,7 +28,8 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicAudioFileSettingsDialog(const File& defaultTargetFile = File::nonexistent);
+  MixsonicAudioFileSettingsDialog(SectionSkin *skinToUse, 
+    const File& defaultTargetFile = File::nonexistent);
 
   /** Destructor. */
   virtual ~MixsonicAudioFileSettingsDialog();

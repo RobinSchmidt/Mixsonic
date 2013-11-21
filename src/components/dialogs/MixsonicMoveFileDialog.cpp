@@ -1,8 +1,9 @@
 #include "MixsonicMoveFileDialog.h"
 
-MixsonicMoveFileDialog::MixsonicMoveFileDialog(const File& navigationRootDirectory, 
-                                               const File& fileToBeMoved)
-: browserUpdateThread(String("MoveDialogBrowserUpdateThread"))
+MixsonicMoveFileDialog::MixsonicMoveFileDialog(SectionSkin *skinToUse, 
+  const File& navigationRootDirectory, const File& fileToBeMoved)
+: MixsonicModalDialog(skinToUse)
+, browserUpdateThread(String("MoveDialogBrowserUpdateThread"))
 {
   setHeadline(moveFileHeadlineStr);
 
@@ -10,12 +11,14 @@ MixsonicMoveFileDialog::MixsonicMoveFileDialog(const File& navigationRootDirecto
   fileToMove        = fileToBeMoved;
   directoryToMoveTo = rootDirectory;
 
-  addAndMakeVisible( moveButton = new RButton(moveButtonStr) );
+  moveButton = new RButton(&skin->widgetSkin, moveButtonStr);
+  addAndMakeVisible(moveButton);
   moveButton->setDescription(moveButtonHelpStr);
   moveButton->setClickingTogglesState(false);
   moveButton->addListener(this);
 
-  addAndMakeVisible( cancelButton = new RButton(cancelStr) );
+  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);
   cancelButton->addListener(this);
@@ -25,10 +28,8 @@ MixsonicMoveFileDialog::MixsonicMoveFileDialog(const File& navigationRootDirecto
   contentsList->refresh();
 
   addAndMakeVisible( fileTreeComponent = new FileTreeComponent(*contentsList) );
-  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, 
-                               Skin::getInstance()->backgroundColor);
-  fileTreeComponent->setColour(FileTreeComponent::linesColourId, 
-                               Skin::getInstance()->outlineColor);
+  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, skin->backgroundColor);
+  fileTreeComponent->setColour(FileTreeComponent::linesColourId,      skin->outlineColor);
   fileTreeComponent->setDefaultOpenness(true);
   fileTreeComponent->addListener(this);
 

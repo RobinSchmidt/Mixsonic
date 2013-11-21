@@ -19,7 +19,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicEnterNameDialog(const String& defaultName = String::empty);
+  MixsonicEnterNameDialog(SectionSkin *skinToUse, const String& defaultName = String::empty);
 
   /** Destructor. */
   virtual ~MixsonicEnterNameDialog();

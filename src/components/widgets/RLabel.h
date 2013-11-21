@@ -18,7 +18,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  RLabel(const String& componentName = String("RLabel"), 
+  RLabel(Skin *skinToUse, const String& componentName = String("RLabel"), 
     const String& labelText = String("RLabelText"));
 
   /** Destructor. */
@@ -40,11 +40,13 @@ protected:
 };
 
 
-/** Subclass of Rlabel which may use different colors, fonts, etc. */
+/** Subclass of Rlabel which may use different colors, fonts, etc. 
+maybe, get rid of this subclass
+*/
 class RHeadlineLabel : public RLabel
 {
 public:
-  RHeadlineLabel(const String& componentName = String("RLabel"), 
+  RHeadlineLabel(Skin *skinToUse, const String& componentName = String("RLabel"), 
     const String& labelText = String("RLabelText"));
 
 protected:

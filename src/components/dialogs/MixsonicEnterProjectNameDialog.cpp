@@ -1,7 +1,8 @@
 #include "MixsonicEnterProjectNameDialog.h"
 
-MixsonicEnterProjectNameDialog::MixsonicEnterProjectNameDialog(const File& projectParentDirectory)
-: MixsonicTextEntryDialog(enterProjectNameStr)
+MixsonicEnterProjectNameDialog::MixsonicEnterProjectNameDialog(SectionSkin *skinToUse, 
+  const File& projectParentDirectory)
+: MixsonicTextEntryDialog(skinToUse, enterProjectNameStr)
 {
   setHeadline(enterProjectNameHeadlineStr);
 
@@ -10,12 +11,14 @@ MixsonicEnterProjectNameDialog::MixsonicEnterProjectNameDialog(const File& proje
 
   setDescription(enterProjectNameHelpStr);
 
-  addAndMakeVisible( okButton = new RButton(okStr) );
+  okButton = new RButton(&skin->widgetSkin, okStr);
+  addAndMakeVisible(okButton);
   okButton->setDescription(createProjectHelpStr);
   okButton->setClickingTogglesState(false);
   okButton->addListener(this);
 
-  addAndMakeVisible( cancelButton = new RButton(cancelStr) );
+  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);
   cancelButton->addListener(this);

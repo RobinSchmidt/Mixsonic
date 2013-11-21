@@ -12,7 +12,10 @@ TrackBodyComponent::TrackBodyComponent(Track* newTrackToEdit)
   trackToEdit      = newTrackToEdit;
   grabber          = NULL;
   descriptionField = NULL;
-  backgroundColour = Skin::getInstance()->backgroundColor;
+
+  // preliminary:
+  backgroundColor  = Colours::cyan;
+  outlineColor     = Colours::magenta;
 
   // \todo: if the track initially has some clips on it, we should create the ClipComponents for
   // them now and add them as child components - where is this done on opening a project?
@@ -65,9 +68,11 @@ void TrackBodyComponent::setComponentGrabber(ComponentGrabber *newGrabber)
   audioClipComponents.getLock().exit();
 }
 
-void TrackBodyComponent::setBackgroundColour(Colour newColour)
+void TrackBodyComponent::setColors(Colour newBackgroundColor, Colour newOutlineColor)
 {
-  backgroundColour = newColour;
+  backgroundColor = newBackgroundColor;
+  outlineColor    = newOutlineColor;
+  // repaint(); // necessary?
 }
 
 void TrackBodyComponent::addAudioClipComponent(AudioClipComponent *componentToAdd)
@@ -300,8 +305,8 @@ void TrackBodyComponent::handleDeletionRequest(Clip *clip)
   audioClipComponents.getLock().exit();
 }
 
-void TrackBodyComponent::handleSplitRequest(Clip* clip, double timeInstantAtWhichToSplit, int timeUnit, 
-                                        bool inLocalTime)
+void TrackBodyComponent::handleSplitRequest(Clip* clip, double timeInstantAtWhichToSplit, 
+                                            int timeUnit, bool inLocalTime)
 {
   audioClipComponents.getLock().enter();
   int componentIndex = findComponentForClip(clip);
@@ -344,8 +349,8 @@ void TrackBodyComponent::resized()
 
 void TrackBodyComponent::paint(Graphics &g)
 {
-  g.fillAll(backgroundColour);
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.fillAll(backgroundColor);
+  g.setColour(outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight());
 }
 
@@ -456,44 +461,59 @@ void TrackBodyComponent::alignClipToTimeLine(AudioClipComponent *clipToAlign,
 
 // construction/destruction:
 
-MixsonicTrackControlComponent::MixsonicTrackControlComponent(Track* newTrackToEdit) 
+MixsonicTrackControlComponent::MixsonicTrackControlComponent(SectionSkin *skinToUse, 
+  Track* newTrackToEdit) 
 : Component(String("MixsonicTrackControlComponent"))
+, UserInterfaceSection(skinToUse)
 {
   trackToEdit = newTrackToEdit;
-
-  addAndMakeVisible( nameLabel = new RHeadlineLabel() );
+ 
+  nameLabel = new RHeadlineLabel(&skin->labelSkin);
+  addAndMakeVisible(nameLabel);
   nameLabel->setEditable(false, true);
   nameLabel->addListener(this);
   if( trackToEdit != nullptr )
     nameLabel->setText(trackToEdit->getName(), false);
 
-  addAndMakeVisible( muteButton = new RButton("M") );
+  muteButton = new RButton(&skin->widgetSkin, "M");
+  addAndMakeVisible(muteButton);
   muteButton->setDescription(muteStr);
   muteButton->setClickingTogglesState(true);
   muteButton->addListener(this);
 
-  addAndMakeVisible( soloButton = new RButton("S") );
+  soloButton = new RButton(&skin->widgetSkin, "S");
+  addAndMakeVisible(soloButton);
   soloButton->setDescription(soloStr);
   soloButton->setClickingTogglesState(true);
   soloButton->addListener(this);
 
-  addAndMakeVisible( levelSlider = new MixsonicSlider(levelStr) );
+  levelSlider = new MixsonicSlider(&skin->widgetSkin, levelStr);
+  addAndMakeVisible(levelSlider);
   levelSlider->setDescription(levelSliderStr);
   levelSlider->setRange(-30.0, 6.0, 0.1, 0.0, true);
   levelSlider->setVertical(true);
   levelSlider->addListener(this);
 
-  addAndMakeVisible( panSlider = new MixsonicSlider(panStr) );
+  panSlider = new MixsonicSlider(&skin->widgetSkin, panStr);
+  addAndMakeVisible(panSlider);
   panSlider->setDescription(panSliderStr);
   panSlider->setRange(-1.0, 1.0, 0.01, 0.0, true);
   panSlider->setThumbColour(Colours::transparentBlack);
   panSlider->addListener(this);
 
-  pluginChainComponent = new AudioPluginChainComponent(&trackToEdit->pluginChain);
+
+  SectionSkin *pluginEditorSkin = MixsonicSkin::getInstance()->getSectionSkin("Plugin");
+    // \todo - try to get rid of reaching for the singleton here to make the class reusable
+
+  pluginChainComponent = new AudioPluginChainComponent(&trackToEdit->pluginChain, &skin->labelSkin, 
+    pluginEditorSkin);
   addAndMakeVisible(pluginChainComponent);
   //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
   //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
   //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
+
+
+
 
   trackToEdit->registerObserver(this);
 
@@ -645,7 +665,7 @@ void MixsonicTrackControlComponent::resized()
 
 void MixsonicTrackControlComponent::paint(Graphics &g)
 {  
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.setColour(skin->outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight());
   // \todo: gray out all track components which currently are not audible - but maybe do this for 
   // the actual track components - not the control-components
@@ -659,13 +679,16 @@ void MixsonicTrackControlComponent::trackSoloStateChanged(Track *track, bool isS
 //=================================================================================================
 // class TrackComponent:
   
-TrackComponent::TrackComponent(Track* newTrackToEdit)
+TrackComponent::TrackComponent(SectionSkin *skinToUse, Track* newTrackToEdit)
+: UserInterfaceSection(skinToUse)
 {
   bodyComponent = new TrackBodyComponent(newTrackToEdit);
+  bodyComponent->setColors(skinToUse->backgroundColor, skinToUse->outlineColor);
+    // \todo let every other track be brighter/darker than the previous one (maybe)
   addAndMakeVisible(bodyComponent);
 
 
-  outputComponent = new MixsonicTrackControlComponent(newTrackToEdit);
+  outputComponent = new MixsonicTrackControlComponent(skinToUse, newTrackToEdit);
   addAndMakeVisible(outputComponent);
 }
 

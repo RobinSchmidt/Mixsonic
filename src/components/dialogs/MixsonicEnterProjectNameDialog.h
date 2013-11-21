@@ -19,7 +19,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicEnterProjectNameDialog(const File& projectParentDirectory);
+  MixsonicEnterProjectNameDialog(SectionSkin *skinToUse, const File& projectParentDirectory);
 
   /** Destructor. */
   virtual ~MixsonicEnterProjectNameDialog();

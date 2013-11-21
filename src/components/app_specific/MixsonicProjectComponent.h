@@ -11,7 +11,10 @@
 
 /**
 
-This class implements the project component in the upper right part Mixsonic's GUI.
+This class implements the browser for the audiofiles which are already part of the project (i.e.
+inside the sample-pool).
+
+\todo rename to SamplePoolBrowser (or similar)
 
 \todo edit the comments, factor out a class ManipulativeFileBrowser (or something) - manipulations
 are deletions, movements of files, creation of directories etc.
@@ -29,7 +32,8 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicProjectComponent(SamplePool *samplePoolToUse, const File& rootDirectory);  
+  MixsonicProjectComponent(SectionSkin *skinToUse, SamplePool *samplePoolToUse, 
+    const File& rootDirectory);  
 
   /** Destructor. */
   virtual ~MixsonicProjectComponent();           

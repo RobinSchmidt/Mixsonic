@@ -42,8 +42,8 @@ public:
   /** Assigns a ComponentGrabber to all the ClipComponents on this TrackBodyComponent. */
   virtual void setComponentGrabber(ComponentGrabber* newGrabber);
 
-  /** Sets up the background colour for this TrackBodyComponent. */
-  virtual void setBackgroundColour(Colour newColour);
+  /** Sets up the colors. */
+  virtual void setColors(Colour newBackgroundColor, Colour newOutlineColor);
 
   /** Chooses one of the modes of operation for the mouse. @see ClipComponent::mouseModes */
   //virtual void setMouseMode(int newMouseMode);
@@ -182,8 +182,9 @@ protected:
   // the TimeSliceThread that will be used for redrawing the ClipComponents:
   TimeSliceThread* drawingThread;
 
-  /** The background colour for the track. */
-  Colour backgroundColour;
+  /** Colors for the track. */
+  Colour backgroundColor, outlineColor; // maybe use brightness multipliers instead of direct
+                                          // colors
 
   // an index for the mode of operation of the mouse:
   int mouseMode;
@@ -204,7 +205,7 @@ panorama, mute- and solo buttons, etc.
 
 class MixsonicTrackControlComponent : public Component, public LabelListener, 
   public ButtonListener, public MixsonicSliderListener, public ChangeBroadcaster, 
-  public TrackObserver 
+  public TrackObserver, public UserInterfaceSection
 {  
 
   friend class MixsonicArrangementEditor; 
@@ -216,7 +217,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicTrackControlComponent(Track* newTrackToEdit);  
+  MixsonicTrackControlComponent(SectionSkin *skinToUse, Track* newTrackToEdit);  
 
   /** Destructor. */
   virtual ~MixsonicTrackControlComponent();                             
@@ -271,7 +272,7 @@ private:
 /** Assmbles a TrackControlComponent and TrackBodyComponent into a single object (as in the 
 "Facade" pattern). */
 
-class TrackComponent : public Component
+class TrackComponent : public Component, public UserInterfaceSection
 {
 
   friend class MixsonicArrangementPanel; // maybe get rid of this and provide access functions
@@ -281,7 +282,7 @@ public:
   //-----------------------------------------------------------------------------------------------
   // construction/destruction:
 
-  TrackComponent(Track* newTrackToEdit);
+  TrackComponent(SectionSkin *skinToUse, Track* newTrackToEdit);
 
   virtual ~TrackComponent();
 

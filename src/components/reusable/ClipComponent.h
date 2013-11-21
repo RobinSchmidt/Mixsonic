@@ -152,6 +152,9 @@ protected:
   // an index for the mode of operation of the mouse:
   int mouseMode;
 
+  // pointer to skin, defining colors, font, etc.:
+  Skin *skin;
+
 };
 
 #endif  

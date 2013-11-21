@@ -3,15 +3,21 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-MixsonicArrangementEditor::MixsonicArrangementEditor(Arrangement* newArrangementToEdit, 
-                                     SamplePool* samplePoolToUse) 
-: Component(String("MixsonicArrangementEditor"))
+MixsonicArrangementEditor::MixsonicArrangementEditor(SectionSkin *skinToUse, 
+  Arrangement* newArrangementToEdit, SamplePool* samplePoolToUse)
+: UserInterfaceSection(skinToUse)
 {
-  addAndMakeVisible( arrangementNavigator = new ArrangementScroller() );
+  arrangementNavigator = new ArrangementScroller(&skin->widgetSkin);
+  addAndMakeVisible(arrangementNavigator);
 
-  addAndMakeVisible( arrangementPanel     
-    = new MixsonicArrangementPanel(newArrangementToEdit, samplePoolToUse) );
-  arrangementPanel->addMouseListener(this, true);
+
+  arrangementPanel = new MixsonicArrangementPanel(skinToUse,newArrangementToEdit,samplePoolToUse);
+  addAndMakeVisible(arrangementPanel);
+
+  // not sure which typecast to use - try both, see how they behave:
+  //arrangementPanel->addMouseListener((DescribedMouseListener*) this, true);
+  arrangementPanel->addMouseListener((Component*) this, true);
+
   arrangementPanel->addChangeListener(this);
   arrangementPanel->addMouseListener(arrangementNavigator, true);
   arrangementPanel->setComponentGrabber(this);
@@ -183,8 +189,11 @@ bool MixsonicArrangementEditor::componentRequestsToBeGrabbed(
     if( draggedComponent != NULL )
     {
       addAndMakeVisible(draggedComponent);            // this is now our child-component
-      draggedComponent->addMouseListener(this, true); // we must receive its mouseUp events
 
+      //draggedComponent->addMouseListener(this, true); // we must receive its mouseUp events
+      draggedComponent->addMouseListener((Component*) this, true); // we must receive its mouseUp events
+
+     
       // the bounds of the container were set up with respect to the ArrangementPanel, we need to
       // convert them to our own coordinate system, then start the dragging:
       int x = draggedComponent->getX();
@@ -266,7 +275,9 @@ void MixsonicArrangementEditor::resized()
 void MixsonicArrangementEditor::paintOverChildren(Graphics &g)
 {
   //g.fillAll(backgroundColor);
-  g.setColour(Skin::getInstance()->outlineColor);
+
+  //g.setColour(MixsonicSkin::getInstance()->outlineColor);
+  g.setColour(skin->outlineColor);
   g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), 2.f);
 
   //int y = arrangementNavigator->getBottom() - arrangementNavigator->getWidgetSize();

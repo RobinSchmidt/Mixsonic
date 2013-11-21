@@ -1,14 +1,15 @@
 #include "MixsonicAudioExportDialog.h"
 
-MixsonicAudioExportDialog::MixsonicAudioExportDialog(Arrangement *arrangementToExport, 
-                                                     const File& defaultTargetFile) 
-: MixsonicAudioFileSettingsDialog(defaultTargetFile)
+MixsonicAudioExportDialog::MixsonicAudioExportDialog(SectionSkin *skinToUse, 
+  Arrangement *arrangementToExport, const File& defaultTargetFile) 
+: MixsonicAudioFileSettingsDialog(skinToUse, defaultTargetFile)
 {
   setHeadline(renderHeadlineStr);
   theArrangement = arrangementToExport;
 
   // create the additional button:
-  addAndMakeVisible( renderButton = new RButton(renderButtonStr) );
+  renderButton = new RButton(&skin->widgetSkin, renderButtonStr);
+  addAndMakeVisible(renderButton);
   renderButton->setDescription(renderButtonHelpStr);
   renderButton->setClickingTogglesState(false);
   renderButton->addListener(this);

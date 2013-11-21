@@ -38,7 +38,7 @@ public:
   // construction/destruction:
 
   /** Constructor. \todo:  assign the panel in the constructor..*/
-  PanelScroller(const String &componentName = String("PanelScroller"));    
+  PanelScroller(Skin *skinToUse, const String &componentName = String("PanelScroller"));    
   //PanelScroller(Panel* panelToAssign);    
 
   /** Destructor. */
@@ -175,6 +175,8 @@ class ArrangementScroller : public PanelScroller
 {
 
 public:
+
+  ArrangementScroller(Skin *skinToUse) : PanelScroller(skinToUse) {}
 
   // overrides:
   virtual void assignPanel(Panel* newPanelToAssign);

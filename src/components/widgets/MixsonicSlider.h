@@ -12,6 +12,7 @@ which could not be overriden.
 
 */
 
+//class MixsonicSlider : public RWidget, protected AsyncUpdater
 class MixsonicSlider : public Component, public RWidget, protected AsyncUpdater
 {
 
@@ -21,7 +22,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicSlider(const String& componentName = String::empty);
+  MixsonicSlider(Skin *skinToUse, const String& componentName = String::empty);
 
   /** Destructor. */
   virtual ~MixsonicSlider();
@@ -74,11 +75,11 @@ public:
 
   /** Overrides mouseEnter in order to call the method from the baseclass RWidget (as opposed to 
   Component). */
-  virtual void mouseEnter(const MouseEvent &e);
+  //virtual void mouseEnter(const MouseEvent &e);
 
   /** Overrides mouseExit in order to call the method from the baseclass RWidget (as opposed to 
   Component). */
-  virtual void mouseExit(const MouseEvent &e);
+  //virtual void mouseExit(const MouseEvent &e);
 
   /** Overrides mouseDown to update the slider according to the mouse-position. */
   virtual void mouseDown (const MouseEvent& e);

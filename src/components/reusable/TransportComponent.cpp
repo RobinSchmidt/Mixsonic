@@ -1,30 +1,36 @@
 #include "TransportComponent.h"
 
-TransportComponent::TransportComponent(TransportController *controllerToUse)
+TransportComponent::TransportComponent(SectionSkin *skinToUse, 
+  TransportController *controllerToUse)
+: UserInterfaceSection(skinToUse)
 {
   transportController = controllerToUse;
 
-  addAndMakeVisible( playButton = new RButton(RButton::PLAY) );
+  playButton = new RButton(&skin->widgetSkin, RButton::PLAY);
+  addAndMakeVisible(playButton);
   playButton->setDescription("Start or stop playback");
   playButton->addShortcut(KeyPress::spaceKey);
   playButton->addShortcut(KeyPress::playKey);
   playButton->setClickingTogglesState(true);
   playButton->addListener(this);
 
-  addAndMakeVisible( rewindButton = new RButton() );
+  rewindButton = new RButton(&skin->widgetSkin); // \todo 2nd parameter RButton::REWIND
+  addAndMakeVisible(rewindButton);
   rewindButton->setDescription("Rewind to start");
   rewindButton->addShortcut(KeyPress::homeKey);
   rewindButton->setClickingTogglesState(false);
   rewindButton->addListener(this);
 
-  addAndMakeVisible( largeBackwardStepButton = new RButton(RButton::SKIP_BACK) );
+  largeBackwardStepButton = new RButton(&skin->widgetSkin, RButton::SKIP_BACK);
+  addAndMakeVisible(largeBackwardStepButton);
   largeBackwardStepButton->setDescription("Skip back to previous marker");
   largeBackwardStepButton->addShortcut(KeyPress::leftKey);
   largeBackwardStepButton->addShortcut(KeyPress::rewindKey);
   largeBackwardStepButton->setClickingTogglesState(false);
   largeBackwardStepButton->addListener(this);
 
-  addAndMakeVisible( largeForwardStepButton = new RButton(RButton::SKIP_FORWARD) );
+  largeForwardStepButton = new RButton(&skin->widgetSkin, RButton::SKIP_FORWARD);
+  addAndMakeVisible(largeForwardStepButton);
   largeForwardStepButton->setDescription("Skip forward to next marker");
   largeForwardStepButton->addShortcut(KeyPress::rightKey);
   largeForwardStepButton->addShortcut(KeyPress::fastForwardKey);
@@ -83,7 +89,9 @@ void TransportComponent::buttonClicked(Button *button)
 
 void TransportComponent::paint(Graphics& g)
 {
-  g.setColour(Skin::getInstance()->outlineColor);
+  //g.setColour(skin->outlineColor);
+  g.setColour(Colours::red); // preliminary
+
   g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), 2.f);
 }
 

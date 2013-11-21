@@ -1,12 +1,15 @@
 #include "MixsonicTextEntryDialog.h"
 
-MixsonicTextEntryDialog::MixsonicTextEntryDialog(const String& labelText,
-                                                 const String& initialText)
+MixsonicTextEntryDialog::MixsonicTextEntryDialog(SectionSkin *skinToUse, const String& labelText,                                               
+  const String& initialText)
+: MixsonicModalDialog(skinToUse)
 {
-  addAndMakeVisible( textEntryLabel = new RLabel(labelText, labelText)        );
+  textEntryLabel = new RLabel(&skin->labelSkin, labelText, labelText);
+  addAndMakeVisible(textEntryLabel);
   textEntryLabel->setJustificationType(Justification::centredRight);
 
-  addAndMakeVisible( textEntryField = new MixsonicTextEntryField(initialText) );
+  textEntryField = new MixsonicTextEntryField(&skin->widgetSkin, initialText);
+  addAndMakeVisible(textEntryField);
 }
 
 MixsonicTextEntryDialog::~MixsonicTextEntryDialog()

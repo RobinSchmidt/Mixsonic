@@ -3,13 +3,14 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-RLabel::RLabel(const String& componentName, const String& labelText) 
+RLabel::RLabel(Skin *skinToUse, const String& componentName, const String& labelText) 
 : Label(componentName, labelText)
+, RWidget(skinToUse, labelText) // \todo maybe replace labelText with a description here
 {
-  setColour(Label::outlineColourId,    Skin::getInstance()->outlineColor);
-  setColour(Label::backgroundColourId, Skin::getInstance()->backgroundColor);
-  setColour(Label::textColourId,       Skin::getInstance()->textColor);
-  setFont(Skin::getInstance()->labelFont);
+  setColour(Label::outlineColourId,    skin->outlineColor);
+  setColour(Label::backgroundColourId, skin->backgroundColor);
+  setColour(Label::textColourId,       skin->foregroundColor);
+  setFont(skin->normalFont);
 }
 
 RLabel::~RLabel()
@@ -32,10 +33,16 @@ void RLabel::mouseExit(const MouseEvent &e)
 
 //=================================================================================================
   
-RHeadlineLabel::RHeadlineLabel(const String& componentName,  const String& labelText)
-: RLabel(componentName, labelText)
+RHeadlineLabel::RHeadlineLabel(Skin *skinToUse, const String& componentName,  
+  const String& labelText)
+: RLabel(skinToUse, componentName, labelText)
 {
+  setColour(Label::backgroundColourId, skin->backgroundColor);
+  setColour(Label::textColourId,       skin->foregroundColor);
+  setFont(skin->bigFont);
+  /*
   setColour(Label::backgroundColourId, Skin::getInstance()->headlineBackgroundColor);
   setColour(Label::textColourId,       Skin::getInstance()->headlineTextColor);
   setFont(Skin::getInstance()->headlineFont);
+  */
 }

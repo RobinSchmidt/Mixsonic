@@ -8,6 +8,7 @@
 #include "../widgets/RLabel.h"
 #include "../widgets/RButton.h"
 #include "../widgets/MixsonicSlider.h"
+#include "../reusable/UserInterfaceSection.h"
 
 /** A slider subclass, specifically for plugin parameters. The slider itself will take care of 
 updating the corresponding parameter inside the plugin. */
@@ -19,7 +20,7 @@ public:
 
   /** Constructor. You have to pass a pointer to the plugin and the index of the parameter, such 
   that the slider can itself take care of updating the parameter inside the plugin. */
-  AudioProcessorParameterSlider(AudioProcessor *owner, int parameterIndex);
+  AudioProcessorParameterSlider(Skin *skinToUse, AudioProcessor *owner, int parameterIndex);
 
   /** Overriden, to set up the associated parameter in the plugin. */
   virtual void setValue(double newValue, const bool sendUpdateMessage = true, 
@@ -44,12 +45,13 @@ protected:
 
 /** A parameter editor for plugins, to be used primarily for GUI-less plugins. */
 
-class AudioProcessorParameterEditor : public AudioProcessorEditor, public AudioProcessorListener
+class AudioProcessorParameterEditor : public AudioProcessorEditor, public UserInterfaceSection,
+  public AudioProcessorListener
 {
 
 public:
 
-  AudioProcessorParameterEditor(AudioProcessor* owner);
+  AudioProcessorParameterEditor(AudioProcessor* owner, SectionSkin *skinToUse);
   virtual ~AudioProcessorParameterEditor();
 
   // overrides for AudioProcessorListener baseclass
@@ -79,8 +81,8 @@ the desktop, moved around, closed and re-opened.
 
 */
 
-class AudioProcessorEditorContainer : public Component, public ActivationObserver, 
-  public ButtonListener, public DeletionRequester
+class AudioProcessorEditorContainer : public Component, public UserInterfaceSection,
+  public ActivationObserver, public ButtonListener, public DeletionRequester
 {
 
 public:
@@ -96,8 +98,9 @@ public:
   supposed to be some window that has openend this editor window and should be watched for 
   (de)activation, to which this object responds with making itself (in)visible - it may be a 
   nullptr, in which case it won't become invisible.  */
-  AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap, bool shouldTakeOwnership, 
-     DeletionManager *deletor, Activatable *ownerToWatchForActivation = nullptr);
+  AudioProcessorEditorContainer(SectionSkin *skinToUse, AudioProcessorEditor *editorToWrap, 
+    bool shouldTakeOwnership, DeletionManager *deletor, 
+    Activatable *ownerToWatchForActivation = nullptr);
 
   /** Destructor */
   virtual ~AudioProcessorEditorContainer();
@@ -167,8 +170,8 @@ plugin-editors)
 
 */
 
-class AudioPluginSlotComponent : public Component, public ChangeListener, public DeletionManager,
-  public DeletionRequester
+class AudioPluginSlotComponent : public Component, public RWidget, public ChangeListener, 
+  public DeletionManager, public DeletionRequester
 {
 
   friend class AudioPluginChainComponent;
@@ -178,7 +181,8 @@ public:
   //-----------------------------------------------------------------------------------------------
   // construction/destruction:
 
-  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit);
+  AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, Skin *skinToUse, 
+    SectionSkin *skinToUseForEditor);
 
   virtual ~AudioPluginSlotComponent();
 
@@ -290,6 +294,8 @@ protected:
   /** Flag to indicate, if this slot is removable. */
   bool slotIsRemovable;
 
+  /** Skin to be used for the plugin-editor windows. */
+  SectionSkin *editorSkin;
 
   JUCE_LEAK_DETECTOR(AudioPluginSlotComponent);
 };
@@ -299,7 +305,8 @@ protected:
 /** A component showing an arbitrary number of AudioPluginSlotComponents in a vertical column. It
 also takes care to always have an empty slot at the bottom, for a new plugin to be plugged in. */
 
-class AudioPluginChainComponent : public Component, public ChangeListener, public DeletionManager
+class AudioPluginChainComponent : public Component, public RWidget, public ChangeListener, 
+  public DeletionManager
 {
 
 public:
@@ -307,7 +314,8 @@ public:
   //-----------------------------------------------------------------------------------------------
   // construction/destruction:
 
-  AudioPluginChainComponent(PluginChain *chainToEdit);
+  AudioPluginChainComponent(PluginChain *chainToEdit, Skin *skinToUse, 
+    SectionSkin *skinToUseForEditors);
 
   virtual ~AudioPluginChainComponent();
 
@@ -375,6 +383,10 @@ protected:
 
 
   int slotHeight; // height for one plugin slot
+
+
+    
+  SectionSkin *editorSkin;
 
   JUCE_LEAK_DETECTOR(AudioPluginChainComponent);
 };

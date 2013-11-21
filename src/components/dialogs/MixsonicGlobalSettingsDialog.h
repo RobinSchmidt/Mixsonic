@@ -24,7 +24,7 @@ public:
 
   /** Constructor. You must pass a pointer to a MixsonicSettings object - this object will be 
   manipulated by the dialog. */
-  MixsonicGlobalSettingsDialog(MixsonicSettings* settingsToManipulate);
+  MixsonicGlobalSettingsDialog(SectionSkin *skinToUse, MixsonicSettings* settingsToManipulate);
 
   /** Destructor. */
   virtual ~MixsonicGlobalSettingsDialog();

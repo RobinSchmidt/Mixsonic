@@ -3,28 +3,33 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-MixsonicBrowserBase::MixsonicBrowserBase(const File &directoryToUse) 
-: Component(String("MixsonicBrowserBase")), 
-  browserUpdateThread(String("MixsonicBrowserUpdateThread")), 
-  ResamplingAudioSource(&inputSource, false)
+MixsonicBrowserBase::MixsonicBrowserBase(SectionSkin *skinToUse, const File &directoryToUse) 
+: Component(String("MixsonicBrowserBase"))
+, browserUpdateThread(String("MixsonicBrowserUpdateThread"))
+, ResamplingAudioSource(&inputSource, false)
+, UserInterfaceSection(skinToUse)
 {
   // create the headline label:
-  addAndMakeVisible( headline = new RHeadlineLabel(String("HeadlineLabel"), String("BrowserBase")) );
+  headline = new RHeadlineLabel(&skin->labelSkin, String("HeadlineLabel"), String("BrowserBase"));
+  addAndMakeVisible(headline);
   //headline->setFont(Font(20, Font::bold));
   headline->setJustificationType(Justification::centred);
 
   // create the preview buttons:
-  addAndMakeVisible( pauseButton = new MixsonicButton() );
+  pauseButton = new MixsonicButton(&skinToUse->widgetSkin);
+  addAndMakeVisible(pauseButton);
   pauseButton->setDescription(browserPauseButtonStr);
   pauseButton->setClickingTogglesState(true);
   pauseButton->addListener(this);
 
-  addAndMakeVisible( playButton = new MixsonicButton() );
+  playButton = new MixsonicButton(&skinToUse->widgetSkin);
+  addAndMakeVisible(playButton);
   playButton->setDescription(browserPlayButtonStr);
   playButton->setClickingTogglesState(true);
   playButton->addListener(this);
 
-  addAndMakeVisible( rewindButton = new MixsonicButton() );
+  rewindButton = new MixsonicButton(&skinToUse->widgetSkin);
+  addAndMakeVisible(rewindButton);
   rewindButton->setDescription(browserRewindButtonStr);
   rewindButton->setClickingTogglesState(false);
   rewindButton->addListener(this);

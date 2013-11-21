@@ -20,7 +20,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicAudioRecordDialog(AudioDeviceManager* deviceManagerToUse, 
+  MixsonicAudioRecordDialog(SectionSkin *skinToUse, AudioDeviceManager* deviceManagerToUse, 
     const File& defaultTargetFile = File::nonexistent);
 
   /** Destructor. */

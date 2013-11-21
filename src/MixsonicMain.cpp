@@ -13,10 +13,11 @@ class MixsonicWindow : public DocumentWindow, public ChangeListener, public Acti
 
 public:
 
-  MixsonicWindow() : DocumentWindow("Mixsonic", Colours::lightgrey, 
-    DocumentWindow::allButtons, true)
+  MixsonicWindow() 
+    : DocumentWindow("Mixsonic", Colours::lightgrey, DocumentWindow::allButtons, true)
   {
-    contentComponent = new MixsonicContentComponent(String("Mixsonic"));
+    MixsonicSkin *skin = MixsonicSkin::getInstance();
+    contentComponent = new MixsonicContentComponent(String("Mixsonic"), skin);
     setName(String("Mixsonic - ") + contentComponent->getProjectName());
     contentComponent->addChangeListener(this);
 
@@ -116,7 +117,7 @@ public:
   void initialise (const String& commandLine)
   {
     mixsonicGlobals = new MixsonicGlobals();
-    Skin::getInstance()->loadFromXmlFile(mixsonicGlobals->settings.getSkinFile());
+    MixsonicSkin::getInstance()->loadFromXmlFile(mixsonicGlobals->settings.getSkinFile());
     LookAndFeel::setDefaultLookAndFeel(&lookAndFeel);
     theWindow = new MixsonicWindow();
 
@@ -134,10 +135,10 @@ public:
 
     // comment/remove this automatic skin-saving later:
     File skinSaveFile = File(getApplicationDirectoryAsString() + "/Skins/_LastUsed.xml");
-    Skin::getInstance()->saveAsXmlFile(skinSaveFile);
+    MixsonicSkin::getInstance()->saveAsXmlFile(skinSaveFile);
 
 
-    Skin::releaseInstance(); // manual release of singleton to avoid the leak-detector to fire
+    MixsonicSkin::releaseInstance(); // release singleton to avoid leak-detector to fire
   }
 
   const String getApplicationName()

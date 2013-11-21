@@ -51,14 +51,13 @@ void MixsonicMenuBarModel::menuItemSelected(int menuItemID, int topLevelMenuInde
   // callback
 }
 
-
-
-
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName) 
+MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName, 
+  ApplicationSkin *skinToUse) 
 : Component(newEditorName)
+, ApplicationUserInterface(skinToUse)
 , SamplePoolClient(NULL)
 , drawingThread(String("DrawingThread"))
 , menuBarModel(&commandManager)
@@ -94,23 +93,28 @@ MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName)
 
   // create the info line at the bottom of the GUI:
   logMessage("create infoLine");
-  addAndMakeVisible(infoLineLabel = new RLabel(String("InfoLineLabel"), infoLineStr) );
-  addAndMakeVisible(infoLineTextField = new RLabel(String("InfoLineTextField"), String::empty ));
+  addAndMakeVisible(infoLineLabel = new RLabel(&skin->labelSkin, String("InfoLineLabel"), 
+    infoLineStr));
+  addAndMakeVisible(infoLineTextField = new RLabel(&skin->labelSkin, String("InfoLineTextField"), 
+    String::empty));
 
   logMessage("create sampleBrowser");
-  sampleBrowser = new MixsonicSampleBrowser(mixsonicGlobals->settings.getSampleContentDirectory());
-  //sampleBrowser = new MixsonicSampleBrowser(getApplicationDirectory());
-  addAndMakeVisible(sampleBrowser );
+  sampleBrowser = new MixsonicSampleBrowser(skin->getSectionSkin("Browser"), 
+    mixsonicGlobals->settings.getSampleContentDirectory());
+  addAndMakeVisible(sampleBrowser);
   sampleBrowser->setDescriptionField(infoLineTextField);
-  sampleBrowser->addMouseListener(this, true); // to receive its drag events
+  //sampleBrowser->addMouseListener(this, true); // to receive its drag events
+  sampleBrowser->addMouseListener((Component*)this, true); // to receive its drag events
   sampleBrowser->addFileBrowserListener(this);
 
   // create sub-editors:
   logMessage("create projectComponent");
-  projectComponent = new MixsonicProjectComponent(samplePool, getApplicationDirectory());
+  projectComponent = new MixsonicProjectComponent(skin->getSectionSkin("Browser"), samplePool, 
+    getApplicationDirectory());
   addAndMakeVisible(projectComponent);
   projectComponent->setDescriptionField(infoLineTextField);
-  projectComponent->addMouseListener(this, true); // to receive its drag events
+  //projectComponent->addMouseListener(this, true); // to receive its drag events
+  projectComponent->addMouseListener((Component*)this, true); // to receive its drag events
   projectComponent->addFileBrowserListener(this);
   projectComponent->createDirectoryButton->addListener(this);
   projectComponent->eraseSampleButton->addListener(this);
@@ -125,11 +129,16 @@ MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName)
 
   transportController.registerObserver(this); // later: add the arrangementPlayer as observer 
                                               // instead
-  transportComponent = new TransportComponent(&transportController);
+  transportComponent = new TransportComponent(skin->getSectionSkin("Arranger"), 
+    &transportController); // maybe use a seperate GUI-section label for the transport section 
+                           // later (instead of "Arranger"), so th transport-section may use a 
+                           // different skin
   addAndMakeVisible(transportComponent);
 
   logMessage("create arrangementEditor");
-  addAndMakeVisible(arrangementEditor = new MixsonicArrangementEditor(theArrangement, samplePool));
+  arrangementEditor = new MixsonicArrangementEditor(skin->getSectionSkin("Arranger"), 
+    theArrangement, samplePool);
+  addAndMakeVisible(arrangementEditor);
   arrangementEditor->setDescriptionField(infoLineTextField);
   arrangementEditor->setDrawingThread(&drawingThread);
   arrangementEditor->addChangeListener(this);
@@ -161,8 +170,6 @@ MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName)
   AudioDeviceManager::AudioDeviceSetup deviceSetup;
   deviceManager.getAudioDeviceSetup(deviceSetup);
   //-----------------------------------------------------
-
-
 
   logMessage("create temporary project");
   createTemporaryProject();
@@ -600,8 +607,8 @@ void MixsonicContentComponent::resized()
 
 void MixsonicContentComponent::paint(Graphics &g)
 {
-  g.fillAll(Skin::getInstance()->backgroundColor);
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.fillAll(skin->backgroundColor);
+  g.setColour(skin->outlineColor);
   //g.drawRect(1.f, 1.f, (float)getWidth()-2.f, (float)getHeight()-2.f, 2.f);
 }
 
@@ -630,7 +637,8 @@ void MixsonicContentComponent::showExportDialog()
   File exportedFile = projectFile.withFileExtension(String("wav"));
 
   // create the modal dialog:
-  MixsonicAudioExportDialog *dialog = new MixsonicAudioExportDialog(theArrangement, exportedFile);
+  MixsonicAudioExportDialog *dialog = new MixsonicAudioExportDialog(skin->getSectionSkin("Dialog"),
+    theArrangement, exportedFile);
   addAndMakeVisible(dialog);
   dialog->setCentreRelative(0.5f, 0.5f);
   dialog->setDescriptionField(infoLineTextField);
@@ -661,7 +669,8 @@ void MixsonicContentComponent::showRecordDialog()
   File targetFile = File(targetPath).getNonexistentSibling();
 
   // create the modal dialog:
-  MixsonicAudioRecordDialog *dialog = new MixsonicAudioRecordDialog(&deviceManager, targetFile);
+  MixsonicAudioRecordDialog *dialog = new MixsonicAudioRecordDialog(skin->getSectionSkin("Dialog"),
+    &deviceManager, targetFile);
   addAndMakeVisible(dialog);
   dialog->setCentreRelative(0.5f, 0.5f);
   dialog->setDescriptionField(infoLineTextField);
@@ -690,7 +699,8 @@ void MixsonicContentComponent::showNewProjectDialog()
 {
  
   MixsonicNewProjectDialog *dialog 
-    = new MixsonicNewProjectDialog(mixsonicGlobals->settings.getProjectsParentDirectory());
+    = new MixsonicNewProjectDialog(skin->getSectionSkin("Dialog"), 
+    mixsonicGlobals->settings.getProjectsParentDirectory());
   addAndMakeVisible(dialog);
   dialog->setCentreRelative(0.5f, 0.5f);
   dialog->setDescriptionField(infoLineTextField);
@@ -753,7 +763,7 @@ void MixsonicContentComponent::showCreateDirectoryDialog()
 	*/
 	
   MixsonicCreateDirectoryDialog *dialog 
-    = new MixsonicCreateDirectoryDialog(rootDir);
+    = new MixsonicCreateDirectoryDialog(skin->getSectionSkin("Dialog"), rootDir);
 
   addAndMakeVisible(dialog);
   dialog->setCentreRelative(0.5f, 0.5f);
@@ -785,7 +795,7 @@ void MixsonicContentComponent::showCreateDirectoryDialog()
 void MixsonicContentComponent::showGlobalSettingsDialog()
 {
   MixsonicGlobalSettingsDialog *dialog = 
-    new MixsonicGlobalSettingsDialog(&mixsonicGlobals->settings);
+    new MixsonicGlobalSettingsDialog(skin->getSectionSkin("Dialog"), &mixsonicGlobals->settings);
 
   addAndMakeVisible(dialog);
     // maybe, we should add it directly to the desktop such that it appears in front of plugin 
@@ -838,7 +848,8 @@ void MixsonicContentComponent::saveProject()
   {
     // factor out into a function:
     MixsonicEnterProjectNameDialog *dialog 
-      = new MixsonicEnterProjectNameDialog(projectDirectory.getParentDirectory());
+      = new MixsonicEnterProjectNameDialog(skin->getSectionSkin("Dialog"), 
+      projectDirectory.getParentDirectory());
 
     addAndMakeVisible(dialog);
     dialog->setCentreRelative(0.5f, 0.5f);
@@ -1019,7 +1030,8 @@ void MixsonicContentComponent::createTemporaryClipComponentAt(const MouseEvent& 
       addAndMakeVisible(draggedComponent);           // will be removed/deleted in mouseUp
 
       // let us receive the mouseDrag callback here:
-      draggedComponent->addMouseListener(this, true);
+      //draggedComponent->addMouseListener(this, true);
+      draggedComponent->addMouseListener((Component*)this, true);
 
       componentDragger.startDraggingComponent(draggedComponent, e2);
     }

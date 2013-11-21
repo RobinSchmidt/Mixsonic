@@ -19,7 +19,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicCreateDirectoryDialog(const File& parentDirectory);
+  MixsonicCreateDirectoryDialog(SectionSkin *skinToUse, const File& parentDirectory);
 
   /** Destructor. */
   virtual ~MixsonicCreateDirectoryDialog();

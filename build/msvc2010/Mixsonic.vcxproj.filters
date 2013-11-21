@@ -336,6 +336,9 @@
     <ClCompile Include="..\..\src\control\MixsonicLookAndFeel.cpp">
       <Filter>src\control</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\UserInterfaceSection.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
@@ -619,6 +622,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\control\MixsonicLookAndFeel.h">
       <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\UserInterfaceSection.h">
+      <Filter>src\components\reusable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

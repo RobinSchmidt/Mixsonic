@@ -3,8 +3,9 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-TimeLineComponent::TimeLineComponent(const String &componentName) 
+TimeLineComponent::TimeLineComponent(Skin *skinToUse, const String &componentName) 
 : GlobalTimeFrameComponent(componentName)
+, RWidget(skinToUse)
 {
   Component::setName(componentName);
 }
@@ -34,10 +35,10 @@ void TimeLineComponent::mouseDown(const MouseEvent &e)
 
 void TimeLineComponent::paint(Graphics &g)
 {
-  g.fillAll(Skin::getInstance()->backgroundColor);
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.fillAll(skin->backgroundColor);
+  g.setColour(skin->outlineColor);
   g.drawLine(0.f, (float) getHeight(), (float) getWidth(), (float) getHeight(), 1.f);
-  g.setColour(Skin::getInstance()->textColor);
+  g.setColour(skin->foregroundColor);
 
   double tMin, tMax, tRange, tStep;
   int    i = 0;
@@ -85,6 +86,7 @@ void TimeLineComponent::paint(Graphics &g)
   String s;
 
   //double t = floor(tMin);
+  g.setFont(skin->normalFont);
   double t = floor(tMin - fmod(tMin, tBiggestStepFactor) );  // start at some large time division
   while( t <= tMax )
   {

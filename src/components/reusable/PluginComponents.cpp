@@ -1,7 +1,8 @@
 #include "PluginComponents.h"
 
-AudioProcessorParameterSlider::AudioProcessorParameterSlider(AudioProcessor *owner, 
-  int parameterIndex)
+AudioProcessorParameterSlider::AudioProcessorParameterSlider(Skin *skinToUse, 
+  AudioProcessor *owner, int parameterIndex)
+: MixsonicSlider(skinToUse)
 {
   this->owner          = owner;
   this->parameterIndex = parameterIndex;
@@ -36,8 +37,9 @@ void AudioProcessorParameterSlider::paint(Graphics& g)
   float thumbWidth = (float) (getWidth() * valueToProportionOfLength(getValue()));
   g.fillRect(0.f, 0.f, thumbWidth, (float)getHeight());
 
-  g.setColour(Skin::getInstance()->textColor);
-  g.setFont(Skin::getInstance()->widgetFont);
+  g.setColour(skin->foregroundColor);
+  g.setFont(  skin->normalFont);
+
   g.drawText(owner->getParameterName(parameterIndex), 4, 0, getWidth()-4, getHeight(), 
     Justification::centredLeft, false); 
   g.drawText(owner->getParameterText(parameterIndex), 0, 0, getWidth()-4, getHeight(), 
@@ -49,14 +51,17 @@ void AudioProcessorParameterSlider::paint(Graphics& g)
 //=================================================================================================
 // class AudioProcessorParameterEditor:
 
-AudioProcessorParameterEditor::AudioProcessorParameterEditor(AudioProcessor* owner)
-  : AudioProcessorEditor(owner)
+AudioProcessorParameterEditor::AudioProcessorParameterEditor(AudioProcessor* owner, 
+  SectionSkin *skinToUse)
+: AudioProcessorEditor(owner)
+, UserInterfaceSection(skinToUse)
 {
   int numParams = owner->getNumParameters();
 
   for(int i = 0; i < numParams; i++)
   {
-    AudioProcessorParameterSlider *slider = new AudioProcessorParameterSlider(owner, i);
+    AudioProcessorParameterSlider *slider = new AudioProcessorParameterSlider(&skin->widgetSkin, 
+      owner, i);
     addAndMakeVisible(slider);
   }
 
@@ -109,17 +114,19 @@ void AudioProcessorParameterEditor::resized()
 
 void AudioProcessorParameterEditor::paint(Graphics& g)
 {
-  g.fillAll(Skin::getInstance()->backgroundColor);
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.fillAll(  skin->backgroundColor);
+  g.setColour(skin->outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight(), 2);
 }
 
 //=================================================================================================
 // class AudioProcessorEditorContainer:
 
-AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEditor *editorToWrap,  
-  bool shouldTakeOwnership, DeletionManager *deletor, Activatable *ownerToWatchForActivation) 
-: editor(editorToWrap)
+AudioProcessorEditorContainer::AudioProcessorEditorContainer(SectionSkin *skinToUse, 
+  AudioProcessorEditor *editorToWrap,  bool shouldTakeOwnership, DeletionManager *deletor, 
+  Activatable *ownerToWatchForActivation) 
+: UserInterfaceSection(skinToUse)
+, editor(editorToWrap)
 , DeletionRequester(deletor)
 {
   titleBarHeight = 18;
@@ -131,11 +138,14 @@ AudioProcessorEditorContainer::AudioProcessorEditorContainer(AudioProcessorEdito
   if( visibilityController != nullptr )
     visibilityController->registerActivationObserver(this);
 
-  addAndMakeVisible( nameLabel = new RHeadlineLabel() );
+  nameLabel = new RHeadlineLabel(&skin->labelSkin);
+  addAndMakeVisible(nameLabel);
   nameLabel->setText(editor->getAudioProcessor()->getName(), false);
-  nameLabel->addMouseListener(this, false);
+  //nameLabel->addMouseListener(this, false);
+  nameLabel->addMouseListener((RWidget*)this, false);
 
-  addAndMakeVisible( closeButton = new RButton("X") );
+  closeButton = new RButton(&skin->widgetSkin, "X");
+  addAndMakeVisible(closeButton);
   closeButton->setDescription("Close pugin editor");
   closeButton->addListener(this);
 
@@ -213,9 +223,13 @@ void AudioProcessorEditorContainer::mouseDrag(const MouseEvent &e)
 //=================================================================================================
 // class AudioPluginSlotComponent:
 
-AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
+AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, Skin *skinToUse, 
+  SectionSkin *skinToUseForEditor)
+: RWidget(skinToUse)
 {
   jassert(pluginSlotToEdit != nullptr);
+
+  editorSkin = skinToUseForEditor;
 
   slotToEdit = pluginSlotToEdit;
   slotToEdit->enterLock();
@@ -228,12 +242,12 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit)
   knownPluginList = nullptr;
   slotIsRemovable = true;
 
-  addAndMakeVisible( nameLabel = new RLabel() );
-  nameLabel->setColour(Label::outlineColourId, Skin::getInstance()->outlineColor);
-  nameLabel->setColour(Label::backgroundColourId, 
-                       Skin::getInstance()->backgroundColor);
-  nameLabel->setColour(Label::textColourId, Skin::getInstance()->textColor);
-  nameLabel->addMouseListener(this, false);
+  nameLabel = new RLabel(skin);
+  addAndMakeVisible(nameLabel);
+  nameLabel->setColour(Label::outlineColourId,    skin->outlineColor);
+  nameLabel->setColour(Label::backgroundColourId, skin->backgroundColor);
+  nameLabel->setColour(Label::textColourId,       skin->foregroundColor);
+  nameLabel->addMouseListener((DescribedMouseListener*)this, false);
 
   updateLabelText();
 
@@ -327,7 +341,7 @@ void AudioPluginSlotComponent::paintOverChildren(Graphics &g)
     //g.drawLine(0.f, 0.f, (float) getWidth(), (float) getHeight(), 1.f);
     //g.drawLine(0.f, (float) getHeight(), (float) getWidth(), 0.f, 1.f);
      
-    g.setColour(Skin::getInstance()->outlineColor);
+    g.setColour(skin->outlineColor);
     drawCrossHatches(g, this, 8.f, 1.f);
   }
 }
@@ -462,7 +476,7 @@ void AudioPluginSlotComponent::openParameterEditor()
     return; 
   }
   AudioProcessorParameterEditor *pluginEditor = 
-    new AudioProcessorParameterEditor(slotToEdit->getPlugin());
+    new AudioProcessorParameterEditor(slotToEdit->getPlugin(), editorSkin);
   wrapPluginEditorIntoContainerAndShow(parameterEditor, pluginEditor, true);
 }
 
@@ -472,8 +486,8 @@ void AudioPluginSlotComponent::wrapPluginEditorIntoContainerAndShow(
 {
   int styleFlags = ComponentPeer::windowHasDropShadow;
   Activatable *containerOwner = dynamic_cast<Activatable*>(getTopLevelComponent());
-  container = new AudioProcessorEditorContainer(pluginEditor, shouldTakeOwnership, this, 
-                                                containerOwner);
+  container = new AudioProcessorEditorContainer(editorSkin, pluginEditor, shouldTakeOwnership, 
+    this, containerOwner);
   container->setOpaque(true);
   container->setAlwaysOnTop(true);  
   container->addToDesktop(styleFlags); // after this call, pluginEditor has correct size
@@ -505,11 +519,16 @@ void AudioPluginSlotComponent::closeParameterEditor()
 //=================================================================================================
 // class AudioPluginChainComponent:
 
-AudioPluginChainComponent::AudioPluginChainComponent(PluginChain *chainToEdit)
+AudioPluginChainComponent::AudioPluginChainComponent(PluginChain *chainToEdit, Skin *skinToUse,   
+  SectionSkin *skinToUseForEditors)
+: RWidget(skinToUse)
 {
-  jassert(chainToEdit != nullptr);
+  jassert(chainToEdit         != nullptr);
+  jassert(skinToUseForEditors != nullptr);
+
   slotHeight  = 14;
   pluginChain = chainToEdit;
+  editorSkin  = skinToUseForEditors;
 
   pluginChain->enterLock();
   for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
@@ -570,13 +589,13 @@ void AudioPluginChainComponent::updateSlotComponents()
   for(int i = 0; i < pluginChain->pluginSlots.size(); i++)
   {
     AudioPluginSlotComponent *slotComponent = 
-      new AudioPluginSlotComponent(pluginChain->pluginSlots[i]);
+      new AudioPluginSlotComponent(pluginChain->pluginSlots[i], skin, editorSkin);
     slotComponent->setDeletionManager(this);
     addAndMakeVisible(slotComponent);
   }
   pluginChain->exitLock();
 
-  tempSlotComponent = new AudioPluginSlotComponent(tempSlot);
+  tempSlotComponent = new AudioPluginSlotComponent(tempSlot, skin, editorSkin);
   tempSlotComponent->setRemovable(false);
   addAndMakeVisible(tempSlotComponent);
   updateSize();
@@ -596,7 +615,7 @@ void AudioPluginChainComponent::changeListenerCallback(ChangeBroadcaster* source
       tempSlot->addChangeListener(this);
       tempSlotComponent->setRemovable(true);
       tempSlotComponent->setDeletionManager(this);
-      tempSlotComponent = new AudioPluginSlotComponent(tempSlot);
+      tempSlotComponent = new AudioPluginSlotComponent(tempSlot, skin, editorSkin);
       tempSlotComponent->setRemovable(false);
       addAndMakeVisible(tempSlotComponent);
       updateSize();

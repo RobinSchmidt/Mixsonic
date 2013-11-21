@@ -1,19 +1,22 @@
 #include "MixsonicCreateDirectoryDialog.h"
 
-MixsonicCreateDirectoryDialog::MixsonicCreateDirectoryDialog(const File& newParentDirectory)
-: MixsonicTextEntryDialog(enterDirectoryNameStr)
+MixsonicCreateDirectoryDialog::MixsonicCreateDirectoryDialog(SectionSkin *skinToUse, 
+  const File& newParentDirectory)
+: MixsonicTextEntryDialog(skinToUse, enterDirectoryNameStr)
 {
   setHeadline(createDirectoryHeadlineStr);
 
   parentDirectory   = newParentDirectory;
   directoryToCreate = File::nonexistent;
 
-  addAndMakeVisible( createButton = new RButton(createStr) );
+  createButton = new RButton(&skin->widgetSkin, createStr);
+  addAndMakeVisible(createButton);
   createButton->setDescription(createDirectoryHelpStr);
   createButton->setClickingTogglesState(false);
   createButton->addListener(this);
 
-  addAndMakeVisible( cancelButton = new RButton(cancelStr) );
+  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);
   cancelButton->addListener(this);

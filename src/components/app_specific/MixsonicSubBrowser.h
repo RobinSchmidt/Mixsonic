@@ -2,18 +2,18 @@
 #define MixsonicSubBrowser_h
 
 #include "../../core/infrastructure/GlobalFunctions.h"
-#include "../../control/Skin.h"
+//#include "../../control/Skin.h"
+#include "../reusable/UserInterfaceSection.h"
 
 /**
 
-This class implements a sub-browser to be used as one of the 3 columns in the MixsonicFileBrowser 
-class and the MixsonicProjectComponent. It can either show directories (as in the left and middle 
-column of MixsonicFileBrowser) or files (as in the right column of MixsonicFileBrowser and the 
-MixsonicProjectComponent).
+This class implements a sub-browser to be used either as browser for the audio-library or the pool
+of audiofiles in the current project.
 
 */
 
-class MixsonicSubBrowser : public Component, public FileBrowserListener, public ChangeBroadcaster
+class MixsonicSubBrowser : public Component, public FileBrowserListener, public ChangeBroadcaster,
+    public UserInterfaceSection
 {  
 
 public:

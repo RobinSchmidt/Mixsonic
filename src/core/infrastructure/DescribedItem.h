@@ -21,9 +21,6 @@ public:
   /** Constructor. */
   DescribedItem(const String& newDescription = String("some item"));   
 
-  /** Destructor. */
-  virtual ~DescribedItem(); 
-
   //-----------------------------------------------------------------------------------------------
   // setup:
 
@@ -43,9 +40,6 @@ public:
   /** Returns the description field for this item (or NULL if none). */
   virtual Label* getDescriptionField() const;
 
-  //===============================================================================================
-  juce_UseDebuggingNewOperator;
-
 protected:
 
   /** A description of the parameter. */
@@ -53,6 +47,36 @@ protected:
 
   /** A label where the description will appear when the mouse is over the parameter. */
   Label* descriptionField;
+
+  JUCE_LEAK_DETECTOR(DescribedItem);
+
+};
+
+//=================================================================================================
+
+/**
+
+Subclass of DescribedItem to be used as baseclass for GUI-objects which are juce::MouseListeners
+
+*/
+
+class DescribedMouseListener : public DescribedItem, virtual public MouseListener
+{
+
+public:
+
+  /** Constructor. */
+  DescribedMouseListener(const String& newDescription = String("No description available"));
+
+  /** Overrides the mouseEnter callback in order to show the description in the dedicated field 
+  when the mouse enters the widget. */
+  virtual void mouseEnter(const MouseEvent &e);
+
+  /** Overrides the mouseExit callback in order to make the description disappear when the mouse 
+  leaves the widget. */
+  virtual void mouseExit(const MouseEvent &e);
+
+  JUCE_LEAK_DETECTOR(DescribedMouseListener);
 
 };
 

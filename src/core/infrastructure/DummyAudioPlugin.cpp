@@ -181,24 +181,34 @@ void DummyAudioPlugin::changeProgramName(int index, const String& newName)
 
 //=================================================================================================
 
-DummyAudioPluginEditor::DummyAudioPluginEditor(AudioProcessor *owner) : AudioProcessorEditor(owner)
+DummyAudioPluginEditor::DummyAudioPluginEditor(AudioProcessor *owner) 
+: AudioProcessorEditor(owner)
 {
+  skin = MixsonicSkin::getInstance()->getSectionSkin("Plugin");
+    // it's a bit dirty to reach for the singleton here - maybe refactor somehow to avoid this
+
+
   dummyPlugin = dynamic_cast<DummyAudioPlugin*> (owner);
   jassert(dummyPlugin != nullptr);
 
-  addAndMakeVisible(formatLabel = new RLabel);
+  formatLabel = new RLabel(&skin->labelSkin);
+  addAndMakeVisible(formatLabel);
   formatLabel->setText(dummyPlugin->getFormatName() + String(" Plugin is unavailable."), false);
 
-  addAndMakeVisible(nameLabel = new RLabel);
+  nameLabel = new RLabel(&skin->labelSkin);
+  addAndMakeVisible(nameLabel);
   nameLabel->setText(String("Plugin Name: ") + dummyPlugin->getPluginName(), false);
 
-  addAndMakeVisible(manufacturerLabel = new RLabel);
+  manufacturerLabel = new RLabel(&skin->labelSkin);
+  addAndMakeVisible(manufacturerLabel);
   manufacturerLabel->setText(String("Manufacturer: ") + dummyPlugin->getManufacturerName(), false);
 
-  addAndMakeVisible(versionLabel = new RLabel);
+  versionLabel = new RLabel(&skin->labelSkin);
+  addAndMakeVisible(versionLabel);
   versionLabel->setText(String("Version: ") + dummyPlugin->getVersion(), false);
 
-  addAndMakeVisible(uidLabel = new RLabel);
+  uidLabel = new RLabel(&skin->labelSkin);
+  addAndMakeVisible(uidLabel);
   uidLabel->setText(String("Unique ID: ") + String(dummyPlugin->getUniqueID()), false);
 
   setSize(300, numLabels*labelHeight);

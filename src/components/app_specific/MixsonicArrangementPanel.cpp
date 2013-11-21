@@ -6,8 +6,10 @@
 
 const double MixsonicArrangementPanel::autoScrollThreshold = 0.8;
 
-MixsonicArrangementPanel::MixsonicArrangementPanel(Arrangement* newArrangementToEdit, SamplePool* samplePoolToUse) 
+MixsonicArrangementPanel::MixsonicArrangementPanel(SectionSkin *skinToUse, 
+  Arrangement* newArrangementToEdit, SamplePool* samplePoolToUse) 
 : Panel(String("MixsonicArrangementPanel")), SamplePoolClient(samplePoolToUse)
+, UserInterfaceSection(skinToUse)
 {
   trackHeight  = TrackComponent::getMinimumHeight(); // maybe use a function getOptimumHeight()
   trackOffsetY = 0.0;
@@ -27,16 +29,16 @@ MixsonicArrangementPanel::MixsonicArrangementPanel(Arrangement* newArrangementTo
   grabber = NULL;
 
   // create the timeline:
-  addAndMakeVisible( timeLine = new TimeLineComponent() );
+  timeLine = new TimeLineComponent(&skin->widgetSkin); // maybe pass the labelSkin instead
+  addAndMakeVisible(timeLine);
   timeLine->addChangeListener(this);
   timeLine->setAlwaysOnTop(true); 
     // avoids getting track-components in front of it when scrolling down
 
   // create the component that represents the time cursor:
-  //addAndMakeVisible( timeCursor = new RectangleComponent(Colours::lightgrey, Colours::lightgrey) );
   addAndMakeVisible( timeCursor = new RectangleComponent() );
-  timeCursor->setFillColor(   Skin::getInstance()->markerColor);
-  timeCursor->setOutlineColor(Skin::getInstance()->markerColor);
+  timeCursor->setFillColor(   skin->foregroundColor);
+  timeCursor->setOutlineColor(skin->foregroundColor);
   timeCursor->setAlwaysOnTop(true);
 
   // create all the track-components and add them as child components here:
@@ -423,7 +425,7 @@ void MixsonicArrangementPanel::createTrackComponents()
   TrackComponent* tc;
   for(int t=0; t<arrangementToEdit->tracks.size(); t++)
   {
-    addAndMakeVisible( tc = new TrackComponent(arrangementToEdit->tracks[t]) );
+    addAndMakeVisible( tc = new TrackComponent(skin, arrangementToEdit->tracks[t]) );
     tc->bodyComponent->setComponentGrabber(grabber);
     //tc->setMouseMode(mouseMode); //deprecated
     tc->bodyComponent->setDescriptionField(descriptionField);
@@ -547,7 +549,9 @@ ComponentDragContainer* MixsonicArrangementPanel::grabSelectedClips(bool grabCop
   // create the container, set up its bounds and 
   ComponentDragContainer* returnedContainer = new ComponentDragContainer();
   returnedContainer->setBounds(enclosingRectangle);
-  returnedContainer->setOutlineColor(Skin::getInstance()->outlineHighlightColor);
+
+  returnedContainer->setOutlineColor(skin->outlineColorHighlight);
+  // use skin->outlin...
 
   // add the ClipComponents to it as child components
   for(c=0; c<allClips.size(); c++)  
@@ -639,9 +643,9 @@ void MixsonicArrangementPanel::paintOverChildren(Graphics& g)
 {
   int y = timeLine->getBottom();
   int w = timeLine->getX();
-  g.setColour(Skin::getInstance()->backgroundColor);
+  g.setColour(skin->backgroundColor);
   g.fillRect(0, 0, w, timeLine->getHeight());
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.setColour(skin->outlineColor);
   g.drawLine(0.f, (float)y, (float)getWidth(), (float)y, 2.f);
 }
 

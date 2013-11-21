@@ -10,7 +10,9 @@ Colour RComboBox::textColour       = Colour(0xff000000);
 Colour RComboBox::buttonColour     = Colour(0xff7777ff);
 Colour RComboBox::arrowColour      = Colour(0xff000000);
 
-RComboBox::RComboBox(const String& componentName) : ComboBox(componentName)
+RComboBox::RComboBox(Skin *skinToUse, const String& componentName) 
+: ComboBox(componentName)
+, RWidget(skinToUse)
 {
   instanceCounter++;
   if( instanceCounter == 1 )

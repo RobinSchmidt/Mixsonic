@@ -1,6 +1,7 @@
 #include "MixsonicModalDialog.h"
 
-MixsonicModalDialog::MixsonicModalDialog()
+MixsonicModalDialog::MixsonicModalDialog(SectionSkin *skinToUse)
+: UserInterfaceSection(skinToUse)
 {
   addAndMakeVisible( headlineLabel = new Label(String("Headline"), String("Headline")) );
   headlineLabel->setFont(Font(18, Font::bold));
@@ -25,8 +26,8 @@ void MixsonicModalDialog::setHeadline(const String& newHeadline)
 
 void MixsonicModalDialog::paint(Graphics &g)
 {
-  g.fillAll(Skin::getInstance()->backgroundColor);
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.fillAll(skin->backgroundColor);
+  g.setColour(skin->outlineColor);
   g.drawRect(0, 0, getWidth(), getHeight(), 3);
 }
 

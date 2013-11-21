@@ -1,7 +1,7 @@
 #ifndef MixsonicModalDialog_h
 #define MixsonicModalDialog_h
 
-#include "../../control/Skin.h"
+#include "../reusable/UserInterfaceSection.h"
 
 /**
 
@@ -9,7 +9,7 @@ This class serves as baseclass for various modal dialogs in the Mixsonic applica
 
 */
 
-class MixsonicModalDialog : public Component
+class MixsonicModalDialog : public Component, virtual public UserInterfaceSection
 {
 
 public:
@@ -18,7 +18,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicModalDialog();
+  MixsonicModalDialog(SectionSkin *skinToUse);
 
   /** Destructor. */
   virtual ~MixsonicModalDialog();

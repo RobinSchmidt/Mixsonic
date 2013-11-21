@@ -3,9 +3,10 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-MixsonicProjectComponent::MixsonicProjectComponent(SamplePool *samplePoolToUse, 
-  const File& rootDirectory)                                                 
-: SamplePoolClient(samplePoolToUse), MixsonicSampleBrowser(rootDirectory)
+MixsonicProjectComponent::MixsonicProjectComponent(SectionSkin *skinToUse, 
+  SamplePool *samplePoolToUse, const File& rootDirectory)                                                 
+: SamplePoolClient(samplePoolToUse)
+, MixsonicSampleBrowser(skinToUse, rootDirectory)
 {
   fileTreeComponent->setDefaultOpenness(true);
 
@@ -13,32 +14,38 @@ MixsonicProjectComponent::MixsonicProjectComponent(SamplePool *samplePoolToUse,
   headline->setText("Pool", false);
 
   // create the additional buttons which are specific to this subclass:
-  addAndMakeVisible( createDirectoryButton = new MixsonicButton() );
+  createDirectoryButton = new MixsonicButton(&skin->widgetSkin);
+  addAndMakeVisible(createDirectoryButton);
   createDirectoryButton->setDescription(createDirButtonHelpStr);
   createDirectoryButton->setClickingTogglesState(false);
   createDirectoryButton->addListener(this);
 
-  addAndMakeVisible( eraseSampleButton = new MixsonicButton() );
+  eraseSampleButton = new MixsonicButton(&skin->widgetSkin);
+  addAndMakeVisible(eraseSampleButton);
   eraseSampleButton->setDescription(deleteSampleButtonHelpStr);
   eraseSampleButton->setClickingTogglesState(false);
   eraseSampleButton->addListener(this);
 
-  addAndMakeVisible( newButton = new MixsonicButton() );
+  newButton = new MixsonicButton(&skin->widgetSkin);
+  addAndMakeVisible(newButton);
   newButton->setDescription(createProjectButtonHelpStr);
   newButton->setClickingTogglesState(false);
   newButton->addListener(this);
 
-  addAndMakeVisible( openButton = new MixsonicButton() );
+  openButton = new MixsonicButton(&skin->widgetSkin);
+  addAndMakeVisible(openButton);
   openButton->setDescription(openProjectButtonHelpStr);
   openButton->setClickingTogglesState(false);
   openButton->addListener(this);
 
-  addAndMakeVisible( recordButton = new MixsonicButton() );
+  recordButton = new MixsonicButton(&skin->widgetSkin);
+  addAndMakeVisible(recordButton);
   recordButton->setDescription(recordButtonHelpStr1);
   recordButton->setClickingTogglesState(false);
   recordButton->addListener(this);
 
-  addAndMakeVisible( saveButton = new MixsonicButton() );
+  saveButton = new MixsonicButton(&skin->widgetSkin);
+  addAndMakeVisible(saveButton);
   saveButton->setDescription(saveButtonHelpStr);
   saveButton->setClickingTogglesState(false);
   saveButton->addListener(this);
@@ -221,8 +228,11 @@ bool MixsonicProjectComponent::showRenameDialog()
   if( file == File::nonexistent )
     return false;
 
-  MixsonicEnterNameDialog *dialog 
-    = new MixsonicEnterNameDialog(file.getFileName());
+  MixsonicEnterNameDialog *dialog = new MixsonicEnterNameDialog(skin, file.getFileName()); 
+  jassertfalse;
+  // passing our skin here is preliminary, we actually should pass the skin to be used for dialogs
+  // but this is defined on the toplevel but here we are already inside a subsection of the GUI - 
+  // we perhaps need a means to access the parent-skin
 
   Component* parent = this->getParentComponent();
   parent->addAndMakeVisible(dialog);
@@ -259,7 +269,11 @@ bool MixsonicProjectComponent::showMoveFileDialog()
     return false;
 
   MixsonicMoveFileDialog *dialog 
-    = new MixsonicMoveFileDialog(samplePool->getSampleDirectory().getParentDirectory(), file);
+    = new MixsonicMoveFileDialog(skin, samplePool->getSampleDirectory().getParentDirectory(), file);
+  jassertfalse;
+  // passing our skin here is preliminary, we actually should pass the skin to be used for dialogs
+  // but this is defined on the toplevel but here we are already inside a subsection of the GUI - 
+  // we perhaps need a means to access the parent-skin
   
   Component* parent = this->getParentComponent();
   parent->addAndMakeVisible(dialog);

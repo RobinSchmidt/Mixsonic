@@ -19,7 +19,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicAudioExportDialog(Arrangement *arrangementToExport, 
+  MixsonicAudioExportDialog(SectionSkin *skinToUse, Arrangement *arrangementToExport, 
     const File& defaultTargetFile = File::nonexistent);
 
   /** Destructor. */

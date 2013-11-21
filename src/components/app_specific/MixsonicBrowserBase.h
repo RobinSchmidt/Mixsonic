@@ -15,7 +15,8 @@ the Mixsonic application. It contains their common code.
 
 */
 
-class MixsonicBrowserBase : public Component, public ButtonListener, public ResamplingAudioSource
+class MixsonicBrowserBase : public Component, public ButtonListener, public ResamplingAudioSource,
+  public UserInterfaceSection
 {  
 
 public:
@@ -24,7 +25,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicBrowserBase(const File &directoryToUse);  
+  MixsonicBrowserBase(SectionSkin *skinToUse, const File &directoryToUse);  
     // \todo the parameter directoryToUse can be dropped
 
   /** Destructor. */

@@ -13,7 +13,9 @@ Colour RButton::onStateColour    = Colour(0xffaaaaaa);
 Colour RButton::offStateColour   = Colour(0xffcccccc);
  // maybe, we should have an onStateTextColour (bright) and an offStateTextColour (dark)
 
-RButton::RButton(int newSymbolIndex) : ToggleButton(String("SymbolButton"))
+RButton::RButton(Skin *skinToUse, int newSymbolIndex) 
+: ToggleButton(String("SymbolButton"))
+, RWidget(skinToUse)
 {
   symbolIndex = newSymbolIndex;
   instanceCounter++;
@@ -21,7 +23,9 @@ RButton::RButton(int newSymbolIndex) : ToggleButton(String("SymbolButton"))
     loadColorScheme();
 }
 
-RButton::RButton(const String& componentName) : ToggleButton(componentName)
+RButton::RButton(Skin *skinToUse, const String& componentName) 
+: ToggleButton(componentName)
+, RWidget(skinToUse)
 {
   symbolIndex = 0;
   instanceCounter++;
@@ -100,31 +104,28 @@ void RButton::paint2D(Graphics &g) const
 
   if( getToggleState() || isDown() )
   {
-    //g.fillAll(highlightBackgroundColor);
-    //g.fillAll(onStateColour);
-    g.fillAll(Skin::getInstance()->widgetHandleColor);
-    g.setColour(Skin::getInstance()->outlineHighlightColor);
+    g.fillAll(skin->middlegroundColor);
+    g.setColour(skin->outlineColorHighlight);
     g.drawRect(0.f, 0.f, w, h, 1.f);
-    g.setColour(Skin::getInstance()->textHighlightColor);
+    g.setColour(skin->foregroundColorHighlight);
   }
   else
   {
-    //g.fillAll(widgetBackgroundColor);
-    g.fillAll(Skin::getInstance()->backgroundColor);
-    g.setColour(Skin::getInstance()->outlineColor);
+    g.fillAll(skin->backgroundColor);
+    g.setColour(skin->outlineColor);
     g.drawRect(0.f, 0.f, w, h, 1.f);
-    g.setColour(Skin::getInstance()->textColor);
+    g.setColour(skin->foregroundColor);
   }
 
   if( isMouseOver() )
   {
-    g.setColour(Skin::getInstance()->outlineHighlightColor);
+    g.setColour(skin->outlineColorHighlight);
     g.drawRect(0.f, 0.f, w, h, 1.f);
   }
 
   if( symbolIndex <= 0 || symbolIndex > NUM_SYMBOLS )
   {
-    g.setFont(Skin::getInstance()->widgetFont);
+    g.setFont(skin->normalFont);
     g.drawText(getButtonText(), 0, 0, (int)w, (int)h, Justification::centred, false);
     //g.drawText(getButtonText(), 4, 4, (int)w-8, (int)h-8, Justification::centred, false);
     //g.drawText(getButtonText(), 3, 2, (int)w-6, (int)h-6, Justification::centred, false);

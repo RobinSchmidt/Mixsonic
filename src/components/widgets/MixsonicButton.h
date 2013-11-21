@@ -10,8 +10,10 @@ This is a juce::Button subclass to be used in Mixsonic. You can (and should) pas
 objects to it via setImages() - one for the normal (unpressed) state and one for the pressed 
 state.
 
-\todo rename to ImageButton, have also a hoverImage (whcih may point to the same image as the
+\todo rename to ImageButton, have also a hoverImage (which may point to the same image as the
 normalImage
+
+\maybe get rid of this subclass entirely
 
 */
 
@@ -24,7 +26,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicButton();
+  MixsonicButton(Skin *skinToUse);
 
   /** Destructor. */
   virtual ~MixsonicButton();

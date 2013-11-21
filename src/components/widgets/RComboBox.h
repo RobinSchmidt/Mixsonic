@@ -18,7 +18,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  RComboBox(const String& componentName = String("RComboBox"));
+  RComboBox(Skin *skinToUse, const String& componentName = String("RComboBox"));
 
   /** Destructor. */
   virtual ~RComboBox();

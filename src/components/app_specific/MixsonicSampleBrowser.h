@@ -30,7 +30,7 @@ public:
 
   /** Constructor. Yo must pass a directory to be used as topmost hierachical level for this 
   browser. */
-  MixsonicSampleBrowser(const File &sampleDirectoryToUse);  
+  MixsonicSampleBrowser(SectionSkin *skinToUse, const File &sampleDirectoryToUse);  
 
   /** Destructor. */
   virtual ~MixsonicSampleBrowser();     

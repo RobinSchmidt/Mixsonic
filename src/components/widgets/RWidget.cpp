@@ -1,30 +1,11 @@
 #include "RWidget.h"
 
-//-------------------------------------------------------------------------------------------------
-// construction/destruction:
-
-RWidget::RWidget(const String& newDescription) 
-{
-  // init the function poinetr for the string conversion:
-  stringConversionFunction = &valueToString2;
-}
-
-RWidget::~RWidget()
+RWidget::RWidget(Skin *skinToUse, const String& newDescription) 
+: DescribedMouseListener(newDescription)
 {
 
-}
+  stringConversionFunction = &valueToString2;  // function pointer for string conversion
 
-//-------------------------------------------------------------------------------------------------
-// callbacks:
-
-void RWidget::mouseEnter(const juce::MouseEvent &e)
-{
-  if( descriptionField != NULL )
-    descriptionField->setText(description, false);
-}
-
-void RWidget::mouseExit(const MouseEvent &e)
-{
-  if( descriptionField != NULL )
-    descriptionField->setText(String::empty, false);
+  skin = skinToUse;
+  jassert(skin != nullptr); // you should pass a valid pointer to a Skin object
 }

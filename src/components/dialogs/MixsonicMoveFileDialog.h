@@ -22,7 +22,8 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicMoveFileDialog(const File& navigationRootDirectory, const File& fileToBeMoved);
+  MixsonicMoveFileDialog(SectionSkin *skinToUse, const File& navigationRootDirectory, 
+    const File& fileToBeMoved);
 
   /** Destructor. */
   virtual ~MixsonicMoveFileDialog();

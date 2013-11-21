@@ -2,13 +2,14 @@
 #define TransportComponent_h
 
 #include "../../control/TransportController.h"
+#include "../reusable/UserInterfaceSection.h"
 #include "../widgets/RButton.h"
 
-class TransportComponent : public Component, public ButtonListener
+class TransportComponent : public Component, public ButtonListener, public UserInterfaceSection
 {
 public:
 
-  TransportComponent(TransportController *controllerToUse);
+  TransportComponent(SectionSkin *skinToUse, TransportController *controllerToUse);
 
   virtual ~TransportComponent();
 

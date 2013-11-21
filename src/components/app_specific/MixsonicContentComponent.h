@@ -42,6 +42,7 @@ This program implements a very basic and easy to use audio sequencer application
 */
 
 class MixsonicContentComponent : public Component, public ButtonListener, 
+  public ApplicationUserInterface,
   public ChangeListener,public FileBrowserListener,
   public ApplicationCommandTarget, public TransportControlObserver,
   public ChangeBroadcaster, public StateFileManager, public SamplePoolClient
@@ -55,7 +56,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  MixsonicContentComponent(const String &newEditorName);  
+  MixsonicContentComponent(const String &newEditorName, ApplicationSkin *skinToUse);  
 
   /** Destructor. */
   virtual ~MixsonicContentComponent();              

@@ -1,44 +1,48 @@
 #include "MixsonicGlobalSettingsDialog.h"
 
-MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(MixsonicSettings* settingsToManipulate) 
+MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(SectionSkin *skinToUse, 
+  MixsonicSettings* settingsToManipulate) 
+: MixsonicModalDialog(skinToUse)
 {
   setHeadline(globalSettingsHeadlineStr);
   settings    = settingsToManipulate;
   settingsTmp = *settings;
 
-  projectsParentDirectoryLabel = new RLabel(projectsParentDirStr, projectsParentDirStr);
+  projectsParentDirectoryLabel = new RLabel(&skin->labelSkin, projectsParentDirStr, 
+    projectsParentDirStr);
   addAndMakeVisible(projectsParentDirectoryLabel);
   projectsParentDirectoryLabel->setDescription(projectsParentDirHelpStr);
   projectsParentDirectoryLabel->setJustificationType(Justification::centredLeft);
 
   String directoryName = settings->getProjectsParentDirectory().getFullPathName();
-  projectsParentDirectoryTextField = new MixsonicTextEntryField(directoryName);
+  projectsParentDirectoryTextField = new MixsonicTextEntryField(&skin->widgetSkin, directoryName);
   addAndMakeVisible(projectsParentDirectoryTextField);
   projectsParentDirectoryTextField->setDescription(projectsParentDirHelpStr);
   projectsParentDirectoryTextField->setColour(Label::backgroundColourId, Colours::white);
   projectsParentDirectoryTextField->setColour(Label::outlineColourId, Colours::black);
   projectsParentDirectoryTextField->setReadOnly(true);
 
-  projectsParentDirectoryBrowseButton = new RButton(browseButtonStr);
+  projectsParentDirectoryBrowseButton = new RButton(&skin->widgetSkin, browseButtonStr);
   addAndMakeVisible(projectsParentDirectoryBrowseButton);
   projectsParentDirectoryBrowseButton->setDescription(browseButtonStr);
   projectsParentDirectoryBrowseButton->setClickingTogglesState(false);
   projectsParentDirectoryBrowseButton->addListener(this);
 
-  sampleContentDirectoryLabel = new RLabel(sampleContentDirStr, sampleContentDirStr);
+  sampleContentDirectoryLabel = new RLabel(&skin->labelSkin, sampleContentDirStr, 
+    sampleContentDirStr);
   addAndMakeVisible(sampleContentDirectoryLabel);
   sampleContentDirectoryLabel->setDescription(sampleContentDirHelpStr);
   sampleContentDirectoryLabel->setJustificationType(Justification::centredLeft);
 
   directoryName = settings->getSampleContentDirectory().getFullPathName();
-  sampleContentDirectoryTextField = new MixsonicTextEntryField(directoryName);
+  sampleContentDirectoryTextField = new MixsonicTextEntryField(&skin->widgetSkin, directoryName);
   addAndMakeVisible(sampleContentDirectoryTextField);
   sampleContentDirectoryTextField->setDescription(sampleContentDirHelpStr);
   sampleContentDirectoryTextField->setColour(Label::backgroundColourId, Colours::white);
   sampleContentDirectoryTextField->setColour(Label::outlineColourId, Colours::black);
   sampleContentDirectoryTextField->setReadOnly(true);
 
-  sampleContentDirectoryBrowseButton = new RButton(browseButtonStr);
+  sampleContentDirectoryBrowseButton = new RButton(&skin->widgetSkin, browseButtonStr);
   addAndMakeVisible(sampleContentDirectoryBrowseButton);
   sampleContentDirectoryBrowseButton->setDescription(browseButtonStr);
   sampleContentDirectoryBrowseButton->setClickingTogglesState(false);
@@ -51,17 +55,14 @@ MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(MixsonicSettings* set
   //addAndMakeVisible(pluginDirectoriesList);
 
 
-
-
-
-
-
-  addAndMakeVisible( cancelButton = new RButton(cancelStr) );
+  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);
   cancelButton->addListener(this);
 
-  addAndMakeVisible( okButton = new RButton(okStr) );
+  okButton = new RButton(&skin->widgetSkin, okStr);
+  addAndMakeVisible(okButton);
   okButton->setDescription(okStr);
   okButton->setClickingTogglesState(false);
   okButton->addListener(this);

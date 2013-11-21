@@ -3,8 +3,9 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-MixsonicSampleBrowser::MixsonicSampleBrowser(const File &sampleDirectoryToUse)
-: MixsonicBrowserBase(sampleDirectoryToUse)
+MixsonicSampleBrowser::MixsonicSampleBrowser(
+  SectionSkin *skinToUse, const File &sampleDirectoryToUse)
+: MixsonicBrowserBase(skinToUse, sampleDirectoryToUse)
 {
   playButton->setSymbolIndex(RButton::PLAY);  // move to baseclass
 
@@ -27,12 +28,9 @@ MixsonicSampleBrowser::MixsonicSampleBrowser(const File &sampleDirectoryToUse)
   */
 
   addAndMakeVisible( fileTreeComponent = new RFileTreeComponent(*contentsList) );
-  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, 
-                               Skin::getInstance()->backgroundColor);
-  fileTreeComponent->setColour(FileTreeComponent::textColourId,       
-                               Skin::getInstance()->textColor);
-  fileTreeComponent->setColour(FileTreeComponent::linesColourId,      
-                               Skin::getInstance()->textColor);
+  fileTreeComponent->setColour(FileTreeComponent::backgroundColourId, skin->backgroundColor);
+  fileTreeComponent->setColour(FileTreeComponent::textColourId,       skin->foregroundColor);
+  fileTreeComponent->setColour(FileTreeComponent::linesColourId,      skin->middlegroundColor);
   fileTreeComponent->setRootItemVisible(false);
   fileTreeComponent->setDefaultOpenness(false);
   fileTreeComponent->addListener(this); // do we need this?
@@ -105,7 +103,7 @@ void MixsonicSampleBrowser::resized()
 
 void MixsonicSampleBrowser::paint(Graphics &g)
 {
-  g.setColour(Skin::getInstance()->outlineColor);
+  g.setColour(skin->outlineColor);
   g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), 2.f);
 
   /*
