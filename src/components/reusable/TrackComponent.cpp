@@ -5,9 +5,11 @@
 
 // construction/destruction:
 
-TrackBodyComponent::TrackBodyComponent(Track* newTrackToEdit) 
+TrackBodyComponent::TrackBodyComponent(Track* newTrackToEdit, Skin* clipSkinToUse) 
 : GlobalTimeFrameComponent(String("TrackBodyComponent"))
 {
+  clipSkin = clipSkinToUse;
+
   Component::setName(String("TrackBodyComponent"));
   trackToEdit      = newTrackToEdit;
   grabber          = NULL;
@@ -173,7 +175,7 @@ void TrackBodyComponent::refreshClipComponents()
   AudioClipComponent *newClipComponent;
   for(int c=0; c<trackToEdit->audioClips.size(); c++)
   {
-    newClipComponent = new AudioClipComponent(trackToEdit->audioClips[c]);
+    newClipComponent = new AudioClipComponent(trackToEdit->audioClips[c], clipSkin);
     addAudioClipComponent(newClipComponent);
   }
 
@@ -505,8 +507,8 @@ MixsonicTrackControlComponent::MixsonicTrackControlComponent(SectionSkin *skinTo
   SectionSkin *pluginEditorSkin = MixsonicSkin::getInstance()->getSectionSkin("Plugin");
     // \todo - try to get rid of reaching for the singleton here to make the class reusable
 
-  pluginChainComponent = new AudioPluginChainComponent(&trackToEdit->pluginChain, &skin->labelSkin, 
-    pluginEditorSkin);
+  pluginChainComponent = new AudioPluginChainComponent(&trackToEdit->pluginChain, 
+    &skin->widgetSkin, pluginEditorSkin);
   addAndMakeVisible(pluginChainComponent);
   //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
   //pluginChainComponent->addSlotComponent(new AudioPluginSlotComponent);
@@ -682,7 +684,7 @@ void MixsonicTrackControlComponent::trackSoloStateChanged(Track *track, bool isS
 TrackComponent::TrackComponent(SectionSkin *skinToUse, Track* newTrackToEdit)
 : UserInterfaceSection(skinToUse)
 {
-  bodyComponent = new TrackBodyComponent(newTrackToEdit);
+  bodyComponent = new TrackBodyComponent(newTrackToEdit, &skinToUse->plotSkin);
   bodyComponent->setColors(skinToUse->backgroundColor, skinToUse->outlineColor);
     // \todo let every other track be brighter/darker than the previous one (maybe)
   addAndMakeVisible(bodyComponent);

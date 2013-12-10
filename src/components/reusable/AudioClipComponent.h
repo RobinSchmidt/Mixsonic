@@ -32,7 +32,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  AudioClipComponent(AudioClip* newClipToEdit); 
+  AudioClipComponent(AudioClip* newClipToEdit, Skin* skinToUse); 
 
   /** Copy Constructor. */
   AudioClipComponent(const AudioClipComponent &other);

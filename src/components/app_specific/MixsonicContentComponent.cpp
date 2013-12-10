@@ -1007,7 +1007,11 @@ void MixsonicContentComponent::createTemporaryClipComponentAt(const MouseEvent& 
       MouseEvent e2 = e.getEventRelativeTo(this); 
 
       tmpAudioClip                         = new AudioClip(&tmpAudioFileBuffer);
-      AudioClipComponent* newClipComponent = new AudioClipComponent(tmpAudioClip);
+
+      //AudioClipComponent* newClipComponent = new AudioClipComponent(tmpAudioClip);
+      AudioClipComponent* newClipComponent = new AudioClipComponent(tmpAudioClip, 
+        &skin->getSectionSkin("Arranger")->plotSkin);
+
       //newClipComponent->setSelected(true, false, false); // new since switching from 1.46
       draggedComponent                     = newClipComponent;
       draggedComponent->setDrawingThread(&drawingThread);

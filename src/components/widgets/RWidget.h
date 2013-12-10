@@ -14,7 +14,7 @@ not rely on some juce-widget, you may consider to derive it form RWidgetComponen
 
 */
 
-class RWidget : public DescribedMouseListener /*, public ChangeBroadcaster*/ /*, virtual public MouseListener*/
+class RWidget : public DescribedMouseListener
 {
 
 public:

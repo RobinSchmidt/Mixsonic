@@ -16,13 +16,13 @@ PanelScroller::PanelScroller(Skin *skinToUse, const String &componentName)
 
   widgetSize          = 16;
 
-  scrollBarX = new ScrollBar(false, true); // make class RScrollBar, pass the (widget)skin
+  scrollBarX = new RScrollBar(false, true, skinToUse);
   scrollBarX->setRangeLimits(0.0, 1.0);
   scrollBarX->setAutoHide(false);
   scrollBarX->addListener(this);
   addAndMakeVisible(scrollBarX);
 
-  scrollBarY = new ScrollBar(true, true); 
+  scrollBarY = new RScrollBar(true, true, skinToUse);
   scrollBarY->setRangeLimits(0.0, 1.0);
   scrollBarY->setAutoHide(false);
   scrollBarY->addListener(this);

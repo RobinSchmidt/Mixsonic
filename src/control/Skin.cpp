@@ -274,6 +274,13 @@ ApplicationSkin::ApplicationSkin()
   appName = "Application";
 }
 
+void ApplicationSkin::initialize()
+{
+  SectionSkin::initialize();
+  for(int i = 0; i < sectionSkins.size(); i++)
+    sectionSkins[i]->initialize();
+}
+
 XmlElement* ApplicationSkin::getAsXml()
 {
   XmlElement *xmlSkin = SectionSkin::getAsXml(appName.toUpperCase() + "SKIN"); 
@@ -332,7 +339,11 @@ MixsonicSkin* MixsonicSkin::instance = nullptr;
 
 MixsonicSkin::MixsonicSkin() 
 {
-  initialize();
+  appName = "Mixsonic";
+  addSectionSkin("Browser");
+  addSectionSkin("Arranger");
+  addSectionSkin("Plugin");
+  addSectionSkin("Dialog");
 }   
 
 MixsonicSkin* MixsonicSkin::getInstance()
@@ -347,7 +358,7 @@ void MixsonicSkin::releaseInstance()
   delete instance;
   instance = nullptr;
 }
-
+/*
 void MixsonicSkin::initialize()
 {
   appName = "Mixsonic";
@@ -356,3 +367,4 @@ void MixsonicSkin::initialize()
   addSectionSkin("Plugin");
   addSectionSkin("Dialog");
 }
+*/

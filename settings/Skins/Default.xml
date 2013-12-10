@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<SKIN>
-  <COLORS background="ff404040" backgroundHighlight="ff606060" widgetBackground="ff000000"
-          widgetHandle="ff606060" outline="ffc0c0c0" outlineHighlight="ffffffff"
-          text="ffc0c0c0" textHighlight="ffffffff"/>
-  <FONTS textFont="SansSerif" textFontHeight="14" widgetFont="Kimberley"
-         widgetFontHeight="14" headlineFont="SansSerif" headlineFontHeight="14"/>
-</SKIN>
+<MIXSONICSKIN>
+  <COLORS background="ff404040" backgroundSemiHighlight="ff606060" backgroundHighlight="ff808080"
+          middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
+          middlegroundHighlight="ffc0c0c0" foreground="ffc0c0c0" foregroundSemiHighlight="ffe0e0e0"
+          foregroundHighlight="ffffffff" outline="ffc0c0c0" outlineSemiHighlight="ffe0e0e0"
+          outlineHighlight="ffffffff"/>
+  <FONTS smallFont="SansSerif" smallFontHeight="12" normalFont="SansSerif"
+         normalFontHeight="14" bigFont="SansSerif" bigFontHeight="17"/>
+  <WIDGETS>
+    <COLORS background="ff404040" backgroundSemiHighlight="ff606060" backgroundHighlight="ff808080"
+            middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
+            middlegroundHighlight="ffc0c0c0" foreground="ffc0c0c0" foregroundSemiHighlight="ffe0e0e0"
+            foregroundHighlight="ffffffff" outline="ffc0c0c0" outlineSemiHighlight="ffe0e0e0"
+            outlineHighlight="ffffffff"/>
+    <FONTS smallFont="SansSerif" smallFontHeight="12" normalFont="SansSerif"
+           normalFontHeight="14" bigFont="SansSerif" bigFontHeight="17"/>
+  </WIDGETS>
+  <LABELS>
+    <COLORS background="ff404040" backgroundSemiHighlight="ff606060" backgroundHighlight="ff808080"
+            middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
+            middlegroundHighlight="ffc0c0c0" foreground="ffc0c0c0" foregroundSemiHighlight="ffe0e0e0"
+            foregroundHighlight="ffffffff" outline="ffc0c0c0" outlineSemiHighlight="ffe0e0e0"
+            outlineHighlight="ffffffff"/>
+    <FONTS smallFont="SansSerif" smallFontHeight="12" normalFont="SansSerif"
+           normalFontHeight="14" bigFont="SansSerif" bigFontHeight="17"/>
+  </LABELS>
+  <PLOTS>
+    <COLORS background="ff404040" backgroundSemiHighlight="ff606060" backgroundHighlight="ff808080"
+            middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
+            middlegroundHighlight="ffc0c0c0" foreground="ffc0c0c0" foregroundSemiHighlight="ffe0e0e0"
+            foregroundHighlight="ffffffff" outline="ffc0c0c0" outlineSemiHighlight="ffe0e0e0"
+            outlineHighlight="ffffffff"/>
+    <FONTS smallFont="SansSerif" smallFontHeight="12" normalFont="SansSerif"
+           normalFontHeight="14" bigFont="SansSerif" bigFontHeight="17"/>
+  </PLOTS>
+</MIXSONICSKIN>

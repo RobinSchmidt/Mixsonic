@@ -25,7 +25,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  TrackBodyComponent(Track* newTrackToEdit);  
+  TrackBodyComponent(Track* newTrackToEdit, Skin* clipSkinToUse);  
 
   /** Destructor. */
   virtual ~TrackBodyComponent();   
@@ -184,7 +184,9 @@ protected:
 
   /** Colors for the track. */
   Colour backgroundColor, outlineColor; // maybe use brightness multipliers instead of direct
-                                          // colors
+                                        // colors
+
+  Skin *clipSkin; // skin to be used fo the clip-components
 
   // an index for the mode of operation of the mouse:
   int mouseMode;

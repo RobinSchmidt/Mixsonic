@@ -142,7 +142,8 @@ AudioProcessorEditorContainer::AudioProcessorEditorContainer(SectionSkin *skinTo
   addAndMakeVisible(nameLabel);
   nameLabel->setText(editor->getAudioProcessor()->getName(), false);
   //nameLabel->addMouseListener(this, false);
-  nameLabel->addMouseListener((RWidget*)this, false);
+  nameLabel->addMouseListener((UserInterfaceSection*)this, false);
+  //nameLabel->addMouseListener((RWidget*)this, false);
 
   closeButton = new RButton(&skin->widgetSkin, "X");
   addAndMakeVisible(closeButton);

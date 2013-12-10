@@ -78,6 +78,7 @@
     <ClCompile Include="..\..\src\components\reusable\RFileTreeComponent.cpp" />
     <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp" />
     <ClCompile Include="..\..\src\components\reusable\UserInterfaceSection.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RScrollBar.cpp" />
     <ClCompile Include="..\..\src\control\ActivationObserver.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
     <ClCompile Include="..\..\src\control\MixsonicGlobals.cpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="..\..\src\components\reusable\RFileTreeComponent.h" />
     <ClInclude Include="..\..\src\components\reusable\TransportComponent.h" />
     <ClInclude Include="..\..\src\components\reusable\UserInterfaceSection.h" />
+    <ClInclude Include="..\..\src\components\widgets\RScrollBar.h" />
     <ClInclude Include="..\..\src\control\ActivationObserver.h" />
     <ClInclude Include="..\..\src\control\MixsonicCommandManager.h" />
     <ClInclude Include="..\..\src\control\MixsonicGlobals.h" />

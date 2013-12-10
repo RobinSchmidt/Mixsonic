@@ -134,6 +134,10 @@ public:
   /** Constructor */  
   ApplicationSkin();   
 
+
+    
+  virtual void initialize();
+
   /** Returns an XML description of the skin. */
   XmlElement* getAsXml();
 
@@ -189,7 +193,7 @@ public:
 
 protected:
 
-  virtual void initialize();
+  //virtual void initialize();
 
   /** Inaccessible constructor. */
   MixsonicSkin();   

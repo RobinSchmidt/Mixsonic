@@ -6,8 +6,8 @@
 const double AudioClipComponent::minLevel = -35.0;
 const double AudioClipComponent::maxLevel =  12.0;
 
-AudioClipComponent::AudioClipComponent(AudioClip* newClipToEdit) 
-: ClipComponent(newClipToEdit), AudioFileBufferUser(newClipToEdit->bufferToUse)
+AudioClipComponent::AudioClipComponent(AudioClip* newClipToEdit, Skin* skinToUse) 
+: ClipComponent(newClipToEdit, skinToUse), AudioFileBufferUser(newClipToEdit->bufferToUse)
 {
   Component::setName(String("AudioClipComponent"));
 
@@ -18,7 +18,7 @@ AudioClipComponent::AudioClipComponent(AudioClip* newClipToEdit)
 }
 
 AudioClipComponent::AudioClipComponent(const AudioClipComponent &other)
-: ClipComponent(NULL), AudioFileBufferUser(other.bufferToUse)
+  : ClipComponent(NULL, other.skin), AudioFileBufferUser(other.bufferToUse)
 {
   Component::setName(String("CopiedAudioClipComponent"));
 

@@ -339,6 +339,9 @@
     <ClCompile Include="..\..\src\components\reusable\UserInterfaceSection.cpp">
       <Filter>src\components\reusable</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RScrollBar.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
@@ -625,6 +628,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\components\reusable\UserInterfaceSection.h">
       <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RScrollBar.h">
+      <Filter>src\components\widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

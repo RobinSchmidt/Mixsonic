@@ -46,7 +46,7 @@ public:
   // construction/destruction:
 
   /** Constructor. */
-  ClipComponent(Clip* newClipToEdit); 
+  ClipComponent(Clip* newClipToEdit, Skin* skinToUse); 
 
   /** Copy Constructor. */
   ClipComponent(const ClipComponent &other);

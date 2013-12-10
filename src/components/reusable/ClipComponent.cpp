@@ -3,11 +3,12 @@
 //-------------------------------------------------------------------------------------------------
 // construction/destruction:
 
-ClipComponent::ClipComponent(Clip* newClipToEdit)
+ClipComponent::ClipComponent(Clip* newClipToEdit, Skin* skinToUse)
 : GrabbableComponent(String("ClipComponent")), ClipManipulator(newClipToEdit)
 {
   Component::setName(String("ClipComponent"));
   //mouseMode = MOVE_CLIPS;
+  skin = skinToUse;
   initialize();
 }
 
@@ -15,6 +16,7 @@ ClipComponent::ClipComponent(const ClipComponent &other) : ClipManipulator(other
 {
   // assign the ComponentGrabber to be the same as in the other ClipComponent:
   grabber = other.grabber;
+  skin = other.skin;
   initialize();
 }
 

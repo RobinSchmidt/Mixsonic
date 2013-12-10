@@ -3,6 +3,7 @@
 
 #include "../reusable/Panel.h"
 #include "../widgets/RButton.h"
+#include "../widgets/RScrollBar.h"
 
 #include "MixsonicArrangementPanel.h"
 
@@ -160,7 +161,8 @@ protected:
   Panel *thePanel;
 
   // widgets:
-  ScrollBar *scrollBarX, *scrollBarY;
+  //ScrollBar *scrollBarX, *scrollBarY;
+  RScrollBar *scrollBarX, *scrollBarY;
   RButton *zoomOutButtonX, *zoomToAllButtonX, *zoomInButtonX;
   RButton *zoomOutButtonY, *zoomToAllButtonY, *zoomInButtonY;
   RButton *zoomToAllButtonXY;
