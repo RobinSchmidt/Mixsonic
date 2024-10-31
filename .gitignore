@@ -10,3 +10,4 @@ build/MixsonicOutput/Debug/build.log
 *.ilk
 *.pdb
 *.idb
+MixsonicOutput/Debug/CrashedPlugins.txt

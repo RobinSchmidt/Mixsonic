@@ -52,14 +52,21 @@ void MixsonicGlobals::pluginDirectoriesChanged(const StringArray& newDirectories
   String crashedPluginsPath = getApplicationDirectoryAsString() + String(File::separatorString)
                         + String("CrashedPlugins.txt");
   File crashedPluginsFile(crashedPluginsPath); 
-    // later, specify a file here, where the crashed plugins shall be listed - this is used by the 
-    // scanner (the scanner writes and reads to/from this file)
+  // ToDo: later, specify a file here, where the crashed plugins shall be listed - this is used 
+  // by the scanner (the scanner writes and reads to/from this file)
+  // The file may not yet exist. Then, it will be created in the code below if any of the plugins 
+  // crash.
+  // ToDo: Document behavior when the file already exists (like froma previous run of the program). 
+  // Will the new information be appended or will the file be overwritten or anything else?
 
   PluginDirectoryScanner scanner(knownPlugins, vstFormat, path, true, crashedPluginsFile);
   String nextFile;
   do
     nextFile = scanner.getNextPluginFileThatWillBeScanned();
   while( scanner.scanNextFile(true) );
+  // Hmm - the code seems to always create a file - but it is empty. Maybe the file will always be
+  // created regardless of whether or not any plugin crashes and if none crashes, the file will be 
+  // just empty? ToDo: Document that behavior!
 
   /*
   // todo: open a message box "Scanning Plugins" with progress bar, like:
