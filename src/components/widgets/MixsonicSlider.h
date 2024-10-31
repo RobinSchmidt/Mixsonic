@@ -1,7 +1,7 @@
 #ifndef MixsonicSlider_h
 #define MixsonicSlider_h
 
-#include "RWidget.h"
+#include "MWidget.h"
 #include "MixsonicSliderListener.h"
 
 /**
@@ -12,8 +12,7 @@ which could not be overriden.
 
 */
 
-//class MixsonicSlider : public RWidget, protected AsyncUpdater
-class MixsonicSlider : public Component, public RWidget, protected AsyncUpdater
+class MixsonicSlider : public Component, public MWidget, protected AsyncUpdater
 {
 
 public:
@@ -73,11 +72,11 @@ public:
   //-----------------------------------------------------------------------------------------------
   // callbacks:
 
-  /** Overrides mouseEnter in order to call the method from the baseclass RWidget (as opposed to 
+  /** Overrides mouseEnter in order to call the method from the baseclass MWidget (as opposed to 
   Component). */
   //virtual void mouseEnter(const MouseEvent &e);
 
-  /** Overrides mouseExit in order to call the method from the baseclass RWidget (as opposed to 
+  /** Overrides mouseExit in order to call the method from the baseclass MWidget (as opposed to 
   Component). */
   //virtual void mouseExit(const MouseEvent &e);
 

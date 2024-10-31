@@ -11,7 +11,7 @@
 #include "MixsonicArrangementEditor.h"
 #include "MixsonicSampleBrowser.h"
 #include "MixsonicProjectComponent.h"
-#include "../widgets/RComboBox.h"
+#include "../widgets/MComboBox.h"
 #include "../dialogs/MixsonicAudioExportDialog.h"
 #include "../dialogs/MixsonicAudioRecordDialog.h"
 #include "../dialogs/MixsonicCreateDirectoryDialog.h" // \todo to be thrown out
@@ -240,7 +240,7 @@ protected:
   TransportController        transportController;
   TransportComponent        *transportComponent;
   MixsonicArrangementEditor *arrangementEditor;
-  RLabel                    *infoLineLabel, *infoLineTextField;
+  MLabel                    *infoLineLabel, *infoLineTextField;
   // maybe have a toolbar
 
   // these things are used to create and drag around a temporary clip object when an audio file

@@ -7,7 +7,7 @@ MixsonicSampleBrowser::MixsonicSampleBrowser(
   SectionSkin *skinToUse, const File &sampleDirectoryToUse)
 : MixsonicBrowserBase(skinToUse, sampleDirectoryToUse)
 {
-  playButton->setSymbolIndex(RButton::PLAY);  // move to baseclass
+  playButton->setSymbolIndex(MButton::PLAY);  // move to baseclass
 
   // customize the inherited headline label:
   //headline->setText("Browser", false);

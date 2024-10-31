@@ -8,7 +8,7 @@ MixsonicAudioExportDialog::MixsonicAudioExportDialog(SectionSkin *skinToUse,
   theArrangement = arrangementToExport;
 
   // create the additional button:
-  renderButton = new RButton(&skin->widgetSkin, renderButtonStr);
+  renderButton = new MButton(&skin->widgetSkin, renderButtonStr);
   addAndMakeVisible(renderButton);
   renderButton->setDescription(renderButtonHelpStr);
   renderButton->setClickingTogglesState(false);

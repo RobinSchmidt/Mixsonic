@@ -6,7 +6,7 @@ TransportComponent::TransportComponent(SectionSkin *skinToUse,
 {
   transportController = controllerToUse;
 
-  playButton = new RButton(&skin->widgetSkin, RButton::PLAY);
+  playButton = new MButton(&skin->widgetSkin, MButton::PLAY);
   addAndMakeVisible(playButton);
   playButton->setDescription("Start or stop playback");
   playButton->addShortcut(KeyPress::spaceKey);
@@ -14,14 +14,14 @@ TransportComponent::TransportComponent(SectionSkin *skinToUse,
   playButton->setClickingTogglesState(true);
   playButton->addListener(this);
 
-  rewindButton = new RButton(&skin->widgetSkin); // \todo 2nd parameter RButton::REWIND
+  rewindButton = new MButton(&skin->widgetSkin); // \todo 2nd parameter MButton::REWIND
   addAndMakeVisible(rewindButton);
   rewindButton->setDescription("Rewind to start");
   rewindButton->addShortcut(KeyPress::homeKey);
   rewindButton->setClickingTogglesState(false);
   rewindButton->addListener(this);
 
-  largeBackwardStepButton = new RButton(&skin->widgetSkin, RButton::SKIP_BACK);
+  largeBackwardStepButton = new MButton(&skin->widgetSkin, MButton::SKIP_BACK);
   addAndMakeVisible(largeBackwardStepButton);
   largeBackwardStepButton->setDescription("Skip back to previous marker");
   largeBackwardStepButton->addShortcut(KeyPress::leftKey);
@@ -29,7 +29,7 @@ TransportComponent::TransportComponent(SectionSkin *skinToUse,
   largeBackwardStepButton->setClickingTogglesState(false);
   largeBackwardStepButton->addListener(this);
 
-  largeForwardStepButton = new RButton(&skin->widgetSkin, RButton::SKIP_FORWARD);
+  largeForwardStepButton = new MButton(&skin->widgetSkin, MButton::SKIP_FORWARD);
   addAndMakeVisible(largeForwardStepButton);
   largeForwardStepButton->setDescription("Skip forward to next marker");
   largeForwardStepButton->addShortcut(KeyPress::rightKey);
@@ -38,21 +38,21 @@ TransportComponent::TransportComponent(SectionSkin *skinToUse,
   largeForwardStepButton->addListener(this);
 
   /*
-  addAndMakeVisible( smallBackwardStepButton = new RButton(RButton::SKIP_BACK) );
+  addAndMakeVisible( smallBackwardStepButton = new MButton(MButton::SKIP_BACK) );
   smallBackwardStepButton->setDescription("Skip back one measure"); // or 10 seconds?
   smallBackwardStepButton->addShortcut(KeyPress::leftKey);
   smallBackwardStepButton->addShortcut(KeyPress::rewindKey);
   smallBackwardStepButton->setClickingTogglesState(false);
   smallBackwardStepButton->addListener(this);
 
-  addAndMakeVisible( smallForwardStepButton = new RButton(RButton::SKIP_FORWARD) );
+  addAndMakeVisible( smallForwardStepButton = new MButton(MButton::SKIP_FORWARD) );
   smallForwardStepButton->setDescription("Skip forward one measure"); // or 10 seconds?
   smallForwardStepButton->addShortcut(KeyPress::rightKey);
   smallForwardStepButton->addShortcut(KeyPress::fastForwardKey);
   smallForwardStepButton->setClickingTogglesState(false);
   smallForwardStepButton->addListener(this);
 
-  addAndMakeVisible( forwardToEndButton = new RButton() );
+  addAndMakeVisible( forwardToEndButton = new MButton() );
   forwardToEndButton->setDescription("Forward to end");
   forwardToEndButton->addShortcut(KeyPress::endKey);
   forwardToEndButton->setClickingTogglesState(false);

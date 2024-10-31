@@ -130,7 +130,7 @@ void PluginSlot::setStateFromXml(const XmlElement& xmlState)
   String name         = xmlState.getStringAttribute("name");
   String format       = xmlState.getStringAttribute("format");
   String fileName     = xmlState.getStringAttribute("file");
-  String manufacturer = xmlState.getStringAttribute("maunfacturer");
+  String manufacturer = xmlState.getStringAttribute("manufacturer");
 
   String identifierString = createPluginIdentifierString(format, name, fileName, uid);
   

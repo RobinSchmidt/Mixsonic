@@ -1,7 +1,7 @@
 #ifndef MixsonicTextEntryDialog_h
 #define MixsonicTextEntryDialog_h
 
-#include "../widgets/RLabel.h"
+#include "../widgets/MLabel.h"
 #include "../widgets/MixsonicTextEntryField.h"
 #include "MixsonicModalDialog.h"
 
@@ -54,7 +54,7 @@ public:
 protected:
 
   // the widgets:
-  RLabel                 *textEntryLabel;
+  MLabel                 *textEntryLabel;
   MixsonicTextEntryField *textEntryField;
 
 };

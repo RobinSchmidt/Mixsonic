@@ -11,13 +11,13 @@ MixsonicMoveFileDialog::MixsonicMoveFileDialog(SectionSkin *skinToUse,
   fileToMove        = fileToBeMoved;
   directoryToMoveTo = rootDirectory;
 
-  moveButton = new RButton(&skin->widgetSkin, moveButtonStr);
+  moveButton = new MButton(&skin->widgetSkin, moveButtonStr);
   addAndMakeVisible(moveButton);
   moveButton->setDescription(moveButtonHelpStr);
   moveButton->setClickingTogglesState(false);
   moveButton->addListener(this);
 
-  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  cancelButton = new MButton(&skin->widgetSkin, cancelStr);
   addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);

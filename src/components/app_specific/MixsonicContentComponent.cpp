@@ -93,9 +93,9 @@ MixsonicContentComponent::MixsonicContentComponent(const String &newEditorName,
 
   // create the info line at the bottom of the GUI:
   logMessage("create infoLine");
-  addAndMakeVisible(infoLineLabel = new RLabel(&skin->labelSkin, String("InfoLineLabel"), 
+  addAndMakeVisible(infoLineLabel = new MLabel(&skin->labelSkin, String("InfoLineLabel"), 
     infoLineStr));
-  addAndMakeVisible(infoLineTextField = new RLabel(&skin->labelSkin, String("InfoLineTextField"), 
+  addAndMakeVisible(infoLineTextField = new MLabel(&skin->labelSkin, String("InfoLineTextField"), 
     String::empty));
 
   logMessage("create sampleBrowser");

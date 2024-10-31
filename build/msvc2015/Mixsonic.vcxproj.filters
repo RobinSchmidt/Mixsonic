@@ -1,0 +1,672 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{9a826c68-da3a-4938-80e4-bb0ac2c7274a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libs">
+      <UniqueIdentifier>{b160740b-225a-43c1-8fed-1c669dd793db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libs\juce">
+      <UniqueIdentifier>{762fee56-b69e-4657-95c7-6fb517fe4aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{937fd231-348e-4797-a336-9ea84aa033bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\audio">
+      <UniqueIdentifier>{867d758d-ca1c-4e22-93a7-59c8515ec620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core\infrastructure">
+      <UniqueIdentifier>{12568985-0d37-47ab-a718-469f66c8d421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components">
+      <UniqueIdentifier>{cba8f099-a8fd-4134-b357-9a5432ba73fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\widgets">
+      <UniqueIdentifier>{844d5aba-116b-4b63-98f6-f0af114b8be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\dialogs">
+      <UniqueIdentifier>{52a79e65-7d6f-4339-87c4-41ccf53ffc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\app_specific">
+      <UniqueIdentifier>{08dbd1bf-9df5-466b-be0c-8e2f5f4e41cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\reusable">
+      <UniqueIdentifier>{9f396314-4bb1-4f6b-9297-004bfebe1cc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\control">
+      <UniqueIdentifier>{3e49849d-231b-4936-9bb4-75ca395ac11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components\widgets\deprecated_soon">
+      <UniqueIdentifier>{75f9f803-ddd7-4912-abab-7d8b88079546}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\MixsonicMain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\audio\AudioFileBuffer.cpp">
+      <Filter>src\core\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\audio\AudioFileBufferUser.cpp">
+      <Filter>src\core\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\audio\AudioFileInfo.cpp">
+      <Filter>src\core\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\audio\AudioRecorder.cpp">
+      <Filter>src\core\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\audio\AudioRenderingThread.cpp">
+      <Filter>src\core\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\audio\AudioSampleBufferFunctions.cpp">
+      <Filter>src\core\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\audio\ImmediatePlaybackAudioSource.cpp">
+      <Filter>src\core\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\Arrangement.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\AudioClip.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\Clip.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\ClipDeletionWatcher.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\ClipInstantiationManager.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\ClipManipulator.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\DescribedItem.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\FileManager.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\GlobalFunctions.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\MessageBoxes.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\MixsonicStrings.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\SamplePool.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\SamplePoolClient.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\SelectableItem.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\SelectionListener.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\StateFileManager.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\TimeFrame.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\TimeUnitConverter.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\Track.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicAudioExportDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicAudioFileSettingsDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicAudioRecordDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicCreateDirectoryDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicEnterNameDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicEnterProjectNameDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicGlobalSettingsDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicModalDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicMoveFileDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicNewProjectDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicTextEntryDialog.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicArrangementEditor.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicArrangementPanel.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicArrangementScroller.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicBrowserBase.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicContentComponent.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicProjectComponent.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicSampleBrowser.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicSubBrowser.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicTrackControlComponent.cpp">
+      <Filter>src\components\app_specific</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\AudioClipComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\ClipComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\ComponentDragContainer.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\ComponentGrabber.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\DirectoryTreeComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\DualWaveformDisplay.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\GlobalTimeFrameComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\GrabbableComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\Panel.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\PanelRange.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\RectangleComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\ThreadedDrawingComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\ThreadedDrawingPanel.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\TimeLineComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\TrackComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\WaveformDisplay.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_basics\juce_audio_basics.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_devices\juce_audio_devices.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_formats\juce_audio_formats.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_processors\juce_audio_processors.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_utils\juce_audio_utils.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_core\juce_core.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_data_structures\juce_data_structures.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_events\juce_events.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_graphics\juce_graphics.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_gui_basics\juce_gui_basics.cpp">
+      <Filter>src\libs\juce</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\RFileTreeComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\TransportController.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\PluginChain.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\PluginComponents.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\ActivationObserver.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\Skin.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\MixsonicSettings.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\MixsonicGlobals.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.cpp">
+      <Filter>src\components\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\core\infrastructure\DummyAudioPlugin.cpp">
+      <Filter>src\core\infrastructure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\MixsonicLookAndFeel.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\UserInterfaceSection.cpp">
+      <Filter>src\components\reusable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\control\Parameter.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MWidget.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MScrollBar.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MLabel.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MComboBox.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MButton.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MixsonicTextEntryField.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MixsonicSlider.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MixsonicButton.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\HalfTransparentButton.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RWidget.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RButton.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RScrollBar.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RTextField.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RSlider.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RPopUpComponent.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RPopUpMenu.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RTreeView.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h">
+      <Filter>src\core\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\audio\AudioFileBufferUser.h">
+      <Filter>src\core\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\audio\AudioFileInfo.h">
+      <Filter>src\core\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\audio\AudioRecorder.h">
+      <Filter>src\core\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\audio\AudioRenderingThread.h">
+      <Filter>src\core\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\audio\AudioSampleBufferFunctions.h">
+      <Filter>src\core\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\audio\ImmediatePlaybackAudioSource.h">
+      <Filter>src\core\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\Arrangement.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\AudioClip.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\Clip.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\ClipDeletionWatcher.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\ClipInstantiationManager.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\ClipManipulator.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\DescribedItem.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\FileComparator.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\FileFilters.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\FileManager.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\GlobalFunctions.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\MessageBoxes.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\MixsonicStrings.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\SamplePool.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\SamplePoolClient.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\SelectableItem.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\SelectionListener.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\StateFileManager.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\TimeFrame.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\TimeUnitConverter.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\Track.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicAudioExportDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicAudioFileSettingsDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicAudioRecordDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicCreateDirectoryDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicEnterNameDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicEnterProjectNameDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicGlobalSettingsDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicModalDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicMoveFileDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicNewProjectDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicTextEntryDialog.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicArrangementEditor.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicArrangementPanel.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicArrangementScroller.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicBrowserBase.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicContentComponent.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicProjectComponent.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicSampleBrowser.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicSubBrowser.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicTrackControlComponent.h">
+      <Filter>src\components\app_specific</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\AudioClipComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\ClipComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\ComponentDragContainer.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\ComponentGrabber.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\DirectoryTreeComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\DualWaveformDisplay.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\GlobalTimeFrameComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\GrabbableComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\Panel.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\PanelRange.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\RectangleComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\ThreadedDrawingComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\ThreadedDrawingPanel.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\TimeLineComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\TrackComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\WaveformDisplay.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\libs\JuceIncludes.h">
+      <Filter>src\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\libs\juce\AppConfig.h">
+      <Filter>src\libs\juce</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\RFileTreeComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\MixsonicCommandManager.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\TransportController.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\TransportComponent.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\PluginChain.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\PluginComponents.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\ActivationObserver.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\DeletionManagement.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\Skin.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\Lockable.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\MixsonicSettings.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\MixsonicGlobals.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.h">
+      <Filter>src\components\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\core\infrastructure\DummyAudioPlugin.h">
+      <Filter>src\core\infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\MixsonicLookAndFeel.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\reusable\UserInterfaceSection.h">
+      <Filter>src\components\reusable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\Parameter.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\ScopedPointerLock.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MWidget.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MScrollBar.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MLabel.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MComboBox.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MButton.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicTextEntryField.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicSliderListener.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicSlider.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicButton.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\HalfTransparentButton.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RWidget.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RButton.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RScrollBar.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RTextField.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RSlider.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RPopUpComponent.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RPopUpMenu.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RTreeView.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

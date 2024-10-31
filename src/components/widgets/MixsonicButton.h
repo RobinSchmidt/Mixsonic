@@ -1,8 +1,8 @@
 #ifndef MixsonicButton_h
 #define MixsonicButton_h
 
-//#include "RWidget.h"
-#include "RButton.h"
+//#include "MWidget.h"
+#include "MButton.h"
 
 /**
 
@@ -17,7 +17,7 @@ normalImage
 
 */
 
-class MixsonicButton  : public RButton
+class MixsonicButton  : public MButton
 {
 
 public:
@@ -50,11 +50,11 @@ public:
     // hmm - this doesn't seem to be a baseclass method. maybe it's a method of LookAndFeel?
     // however, maybe, we should override paint instead
 
-  /** Overrides mouseEnter in order to call the method from the baseclass RWidget (as opposed to 
+  /** Overrides mouseEnter in order to call the method from the baseclass MWidget (as opposed to 
   Button). */
   //virtual void mouseEnter(const MouseEvent &e);
 
-  /** Overrides mouseExit in order to call the method from the baseclass RWidget (as opposed to 
+  /** Overrides mouseExit in order to call the method from the baseclass MWidget (as opposed to 
   Button). */
   //virtual void mouseExit(const MouseEvent &e);
 

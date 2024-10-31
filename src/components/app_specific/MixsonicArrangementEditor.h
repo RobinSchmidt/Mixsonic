@@ -8,8 +8,8 @@
 #include "MixsonicArrangementPanel.h"
 #include "MixsonicArrangementScroller.h"
 #include "MixsonicTrackControlComponent.h"
-#include "../widgets/MixsonicArrangementEditorResources.h"
-#include "../widgets/RLabel.h"
+//#include "../widgets/MixsonicArrangementEditorResources.h"
+#include "../widgets/MLabel.h"
 
 /**
 
@@ -40,7 +40,7 @@ public:
   // setup: 
 
   /** Sets the Label in which the descriptions for the clips will appear. */
-  virtual void setDescriptionField(RLabel* newDescriptionField);
+  virtual void setDescriptionField(MLabel* newDescriptionField);
 
   /** Sets the TimeSliceThread that will we used for redrawing. */
   virtual void setDrawingThread(TimeSliceThread* newDrawingThread);
@@ -147,7 +147,7 @@ protected:
   MixsonicArrangementPanel *arrangementPanel;
   ArrangementScroller *arrangementNavigator;// rename to arrangementScroller
 
-  RLabel *descriptionField;
+  MLabel *descriptionField;
 
   // these things are used to create and drag around a temporary clip object when an audio file
   // is clicked or some audio clip is grabbed from the arrangement:

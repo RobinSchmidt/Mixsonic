@@ -4,7 +4,7 @@
 #include "MixsonicBrowserBase.h"
 //#include "../reusable/DirectoryTreeComponent.h" // maybe, we can get rid of that class
 #include "../reusable/RFileTreeComponent.h"
-#include "../widgets/MixsonicSampleBrowserResources.h"
+//#include "../widgets/MixsonicSampleBrowserResources.h"
 
 /**
 

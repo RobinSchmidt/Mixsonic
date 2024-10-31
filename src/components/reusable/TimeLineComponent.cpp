@@ -5,7 +5,7 @@
 
 TimeLineComponent::TimeLineComponent(Skin *skinToUse, const String &componentName) 
 : GlobalTimeFrameComponent(componentName)
-, RWidget(skinToUse)
+, MWidget(skinToUse)
 {
   Component::setName(componentName);
 }
@@ -29,7 +29,7 @@ void TimeLineComponent::setSelectedTimeUnit(int newSelectedTimeUnit)
 
 void TimeLineComponent::mouseDown(const MouseEvent &e)
 {
-  currentTimeInBeats = pixelPositionToBeats(e.x);
+  currentTimeInBeats = pixelPositionToBeats(e.x, getWidth());
   sendChangeMessage();
 }
 
@@ -91,9 +91,9 @@ void TimeLineComponent::paint(Graphics &g)
   while( t <= tMax )
   {
     if( selectedTimeUnit == BEATS )
-      x = (float) beatsToPixelPosition(t);
+      x = (float) beatsToPixelPosition(t, getWidth());
     else
-      x = (float) secondsToPixelPosition(t);
+      x = (float) secondsToPixelPosition(t, getWidth());
 
 
     if( (i%tBiggestStepFactor) == 0 )

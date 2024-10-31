@@ -1,8 +1,8 @@
 #ifndef MixsonicGlobalSettingsDialog_h
 #define MixsonicGlobalSettingsDialog_h
 
-#include "../widgets/RLabel.h"
-#include "../widgets/RButton.h"
+#include "../widgets/MLabel.h"
+#include "../widgets/MButton.h"
 #include "../widgets/MixsonicTextEntryField.h"
 #include "../../control/MixsonicSettings.h"
 #include "MixsonicModalDialog.h"
@@ -50,13 +50,13 @@ public:
 protected:
 
   // the widgets specific to this dialog:
-  RLabel                 *projectsParentDirectoryLabel,        *sampleContentDirectoryLabel;;
+  MLabel                 *projectsParentDirectoryLabel,        *sampleContentDirectoryLabel;;
   MixsonicTextEntryField *projectsParentDirectoryTextField,    *sampleContentDirectoryTextField;
 
   //FileSearchPathListComponent *pluginDirectoriesList;
   //RListBox pluginDirectoriesList; // we need to write this class
 
-  RButton                *projectsParentDirectoryBrowseButton, *sampleContentDirectoryBrowseButton,
+  MButton                *projectsParentDirectoryBrowseButton, *sampleContentDirectoryBrowseButton,
                          *cancelButton, *okButton;
 
   MixsonicSettings *settings;      // the actual app-settings to be manipulated

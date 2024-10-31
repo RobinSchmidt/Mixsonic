@@ -1,7 +1,7 @@
 #ifndef MixsonicEnterProjectNameDialog_h
 #define MixsonicEnterProjectNameDialog_h
 
-#include "../widgets/RButton.h"
+#include "../widgets/MButton.h"
 #include "MixsonicTextEntryDialog.h"
 
 /**
@@ -52,7 +52,7 @@ public:
 protected:
 
   // the widgets:
-  RButton *cancelButton, *okButton;
+  MButton *cancelButton, *okButton;
 
   // the parent directory in which the project should be created:
   File parentDirectory;

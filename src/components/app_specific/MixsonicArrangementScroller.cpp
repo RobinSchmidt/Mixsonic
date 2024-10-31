@@ -16,49 +16,63 @@ PanelScroller::PanelScroller(Skin *skinToUse, const String &componentName)
 
   widgetSize          = 16;
 
-  scrollBarX = new RScrollBar(false, true, skinToUse);
+
+  /*
+  scrollBarX = new MScrollBar(false, true, skinToUse);
   scrollBarX->setRangeLimits(0.0, 1.0);
   scrollBarX->setAutoHide(false);
   scrollBarX->addListener(this);
   addAndMakeVisible(scrollBarX);
+  */
+  scrollBarX = new RScrollBar(false, skinToUse);
+  scrollBarX->setRangeLimits(0.0, 1.0);
+  scrollBarX->addListener(this);
+  addAndMakeVisible(scrollBarX);
 
-  scrollBarY = new RScrollBar(true, true, skinToUse);
+  /*
+  scrollBarY = new MScrollBar(true, true, skinToUse);
   scrollBarY->setRangeLimits(0.0, 1.0);
   scrollBarY->setAutoHide(false);
   scrollBarY->addListener(this);
   addAndMakeVisible(scrollBarY);
+  */
+  scrollBarY = new RScrollBar(true, skinToUse);
+  scrollBarY->setRangeLimits(0.0, 1.0);
+  scrollBarY->addListener(this);
+  addAndMakeVisible(scrollBarY);
 
-  zoomOutButtonX = new RButton(skinToUse, RButton::MINUS);
+
+  zoomOutButtonX = new MButton(skinToUse, MButton::MINUS);
   zoomOutButtonX->setClickingTogglesState(false);
   zoomOutButtonX->addListener(this);
   addAndMakeVisible(zoomOutButtonX);
 
-  zoomToAllButtonX = new RButton(skinToUse, "A");
+  zoomToAllButtonX = new MButton(skinToUse, "A");
   zoomToAllButtonX->setClickingTogglesState(false);
   zoomToAllButtonX->addListener(this);
   addAndMakeVisible(zoomToAllButtonX);
 
-  zoomInButtonX = new RButton(skinToUse, RButton::PLUS);
+  zoomInButtonX = new MButton(skinToUse, MButton::PLUS);
   zoomInButtonX->setClickingTogglesState(false);
   zoomInButtonX->addListener(this);
   addAndMakeVisible(zoomInButtonX);
 
-  zoomOutButtonY = new RButton(skinToUse, RButton::MINUS);
+  zoomOutButtonY = new MButton(skinToUse, MButton::MINUS);
   zoomOutButtonY->setClickingTogglesState(false);
   zoomOutButtonY->addListener(this);
   addAndMakeVisible(zoomOutButtonY);
 
-  zoomToAllButtonY = new RButton(skinToUse, "A");
+  zoomToAllButtonY = new MButton(skinToUse, "A");
   zoomToAllButtonY->setClickingTogglesState(false);
   zoomToAllButtonY->addListener(this);
   addAndMakeVisible(zoomToAllButtonY);
 
-  zoomInButtonY = new RButton(skinToUse, RButton::PLUS);
+  zoomInButtonY = new MButton(skinToUse, MButton::PLUS);
   zoomInButtonY->setClickingTogglesState(false);
   zoomInButtonY->addListener(this);
   addAndMakeVisible(zoomInButtonY);
 
-  zoomToAllButtonXY = new RButton(skinToUse, "A");
+  zoomToAllButtonXY = new MButton(skinToUse, "A");
   zoomToAllButtonXY->setClickingTogglesState(false);
   zoomToAllButtonXY->addListener(this);
   addAndMakeVisible(zoomToAllButtonXY);
@@ -92,8 +106,7 @@ void PanelScroller::invalidatePanelPointer()
 //-------------------------------------------------------------------------------------------------
 // callbacks:
 
-void PanelScroller::scrollBarMoved(ScrollBar *scrollBarThatHasMoved, 
-                                                 double newRangeStart)
+void PanelScroller::scrollBarMoved(RScrollBar *scrollBarThatHasMoved, double newRangeStart)
 {
   // check, if we have a valid pointer to a Panel:
   if( thePanel == NULL ) 

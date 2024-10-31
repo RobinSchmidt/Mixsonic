@@ -138,14 +138,14 @@ AudioProcessorEditorContainer::AudioProcessorEditorContainer(SectionSkin *skinTo
   if( visibilityController != nullptr )
     visibilityController->registerActivationObserver(this);
 
-  nameLabel = new RHeadlineLabel(&skin->labelSkin);
+  nameLabel = new MHeadlineLabel(&skin->labelSkin);
   addAndMakeVisible(nameLabel);
   nameLabel->setText(editor->getAudioProcessor()->getName(), false);
   //nameLabel->addMouseListener(this, false);
   nameLabel->addMouseListener((UserInterfaceSection*)this, false);
-  //nameLabel->addMouseListener((RWidget*)this, false);
+  //nameLabel->addMouseListener((MWidget*)this, false);
 
-  closeButton = new RButton(&skin->widgetSkin, "X");
+  closeButton = new MButton(&skin->widgetSkin, "X");
   addAndMakeVisible(closeButton);
   closeButton->setDescription("Close pugin editor");
   closeButton->addListener(this);
@@ -226,7 +226,7 @@ void AudioProcessorEditorContainer::mouseDrag(const MouseEvent &e)
 
 AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit, Skin *skinToUse, 
   SectionSkin *skinToUseForEditor)
-: RWidget(skinToUse)
+: MWidget(skinToUse)
 {
   jassert(pluginSlotToEdit != nullptr);
 
@@ -243,7 +243,7 @@ AudioPluginSlotComponent::AudioPluginSlotComponent(PluginSlot *pluginSlotToEdit,
   knownPluginList = nullptr;
   slotIsRemovable = true;
 
-  nameLabel = new RLabel(skin);
+  nameLabel = new MLabel(skin);
   addAndMakeVisible(nameLabel);
   nameLabel->setColour(Label::outlineColourId,    skin->outlineColor);
   nameLabel->setColour(Label::backgroundColourId, skin->backgroundColor);
@@ -522,7 +522,7 @@ void AudioPluginSlotComponent::closeParameterEditor()
 
 AudioPluginChainComponent::AudioPluginChainComponent(PluginChain *chainToEdit, Skin *skinToUse,   
   SectionSkin *skinToUseForEditors)
-: RWidget(skinToUse)
+: MWidget(skinToUse)
 {
   jassert(chainToEdit         != nullptr);
   jassert(skinToUseForEditors != nullptr);

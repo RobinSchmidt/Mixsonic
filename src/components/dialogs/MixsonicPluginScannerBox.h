@@ -2,7 +2,7 @@
 #define MixsonicPluginScannerBox_h
 
 #include "MixsonicModalDialog.h"
-#include "../widgets/RLabel.h"
+#include "../widgets/MLabel.h"
 
 /**
 
@@ -43,7 +43,7 @@ public:
 protected:
 
   // the widgets:
-  RLabel *currentFileLabel;
+  MLabel *currentFileLabel;
 
 };
 

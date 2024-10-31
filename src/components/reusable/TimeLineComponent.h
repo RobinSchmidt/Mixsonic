@@ -4,7 +4,7 @@
 #include "GlobalTimeFrameComponent.h"
 //#include "../../control/Skin.h"
 //#include "../../components/reusable/UserInterfaceSection.h"
-#include "../../components/widgets/RWidget.h"
+#include "../../components/widgets/MWidget.h"
 
 
 /**
@@ -13,9 +13,9 @@ This class is a component which serves as timeline-ruler for sequencer applicati
 
 */
 
-class TimeLineComponent : public GlobalTimeFrameComponent, public ChangeBroadcaster,
-  public RWidget
-  //public UserInterfaceSection // maybe derive from RWidget instead
+class TimeLineComponent : public Component, public GlobalTimeFrameComponent, public ChangeBroadcaster,
+  public MWidget
+  //public UserInterfaceSection // maybe derive from MWidget instead
 {  
 
 public:

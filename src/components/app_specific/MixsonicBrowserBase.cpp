@@ -10,7 +10,7 @@ MixsonicBrowserBase::MixsonicBrowserBase(SectionSkin *skinToUse, const File &dir
 , UserInterfaceSection(skinToUse)
 {
   // create the headline label:
-  headline = new RHeadlineLabel(&skin->labelSkin, String("HeadlineLabel"), String("BrowserBase"));
+  headline = new MHeadlineLabel(&skin->labelSkin, String("HeadlineLabel"), String("BrowserBase"));
   addAndMakeVisible(headline);
   //headline->setFont(Font(20, Font::bold));
   headline->setJustificationType(Justification::centred);

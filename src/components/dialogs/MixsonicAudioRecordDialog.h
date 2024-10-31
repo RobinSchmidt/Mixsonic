@@ -63,7 +63,7 @@ protected:
   virtual void stopRecording();
 
   // the widgets specific to this dialog:
-  RButton *recordButton;
+  MButton *recordButton;
 
   // stuff for the actual recording:
   AudioRecorder       recorder;

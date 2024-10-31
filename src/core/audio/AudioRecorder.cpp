@@ -29,8 +29,8 @@ void AudioRecorder::setRecordingOptions(const File& newTargetFile, double sample
     audioFormat = new WavAudioFormat;
   else if( targetFile.hasFileExtension(String("aiff")) )
     audioFormat = new AiffAudioFormat;
-  else if( targetFile.hasFileExtension(String("flac")) )
-    audioFormat = new FlacAudioFormat;
+  //else if( targetFile.hasFileExtension(String("flac")) )
+  //  audioFormat = new FlacAudioFormat;
 
   if( audioFormat != NULL )
   {

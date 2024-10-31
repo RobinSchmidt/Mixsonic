@@ -6,9 +6,9 @@
 #include "../../core/audio/AudioSampleBufferFunctions.h"
 #include "../../core/infrastructure/Arrangement.h"
 #include "MixsonicTextEntryDialog.h"
-#include "../widgets/RButton.h"
-//#include "../widgets/RLabel.h"
-#include "../widgets/RComboBox.h"
+#include "../widgets/MButton.h"
+//#include "../widgets/MLabel.h"
+#include "../widgets/MComboBox.h"
 
 /**
 
@@ -69,10 +69,10 @@ protected:
   AudioFileInfo fileInfo;
 
   // the widgets:
-  RLabel *targetDirectoryLabel, *targetDirectoryField, *formatLabel, *sampleRateLabel, 
+  MLabel *targetDirectoryLabel, *targetDirectoryField, *formatLabel, *sampleRateLabel, 
     *bitDepthLabel, *numChannelsLabel;
-  RComboBox *formatComboBox, *sampleRateComboBox, *bitDepthComboBox, *numChannelsComboBox;
-  RButton   *browseButton, *exitButton;
+  MComboBox *formatComboBox, *sampleRateComboBox, *bitDepthComboBox, *numChannelsComboBox;
+  MButton   *browseButton, *exitButton;
 
 };
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MIXSONICSKIN>
+  <COLORS background="ff202040" backgroundSemiHighlight="ff404060" backgroundHighlight="ff606080"
+          middleground="ff606080" middlegroundSemiHighlight="ff8080a0"
+          middlegroundHighlight="ffa0a0c0" foreground="ffa0a0c0" foregroundSemiHighlight="ffc0c0e0"
+          foregroundHighlight="ffe0e0ff" outline="ffa0a0c0" outlineSemiHighlight="ffc0c0e0"
+          outlineHighlight="ffe0e0ff"/>
+  <FONTS smallFont="Kimberley" smallFontHeight="12" normalFont="Kimberley"
+         normalFontHeight="14" bigFont="Kimberley" bigFontHeight="17"/>
+  <WIDGETS>
+    <COLORS background="ff000000" backgroundSemiHighlight="ff400000" backgroundHighlight="ff800000"
+            middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
+            middlegroundHighlight="ffc0c0c0" foreground="ffc0c0c0" foregroundSemiHighlight="ffe0e0e0"
+            foregroundHighlight="ffffffff" outline="ffc0c0c0" outlineSemiHighlight="ffe0e0e0"
+            outlineHighlight="ffffffff"/>
+    <FONTS smallFont="Kimberley" smallFontHeight="12" normalFont="Kimberley"
+           normalFontHeight="14" bigFont="Kimberley" bigFontHeight="17"/>		
+  </WIDGETS>
+  <LABELS>
+    <COLORS background="ffa0a0c0" backgroundSemiHighlight="ffc0c0e0" backgroundHighlight="ffe0e0ff"
+            middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
+            middlegroundHighlight="ffc0c0c0" foreground="ff000000" foregroundSemiHighlight="ff000040"
+            foregroundHighlight="ff000080" outline="ffa0a0c0" outlineSemiHighlight="ffc0c0e0"
+            outlineHighlight="ffe0e0ff"/>
+    <FONTS smallFont="Kimberley" smallFontHeight="12" normalFont="Kimberley"
+           normalFontHeight="14" bigFont="Kimberley" bigFontHeight="17"/>			
+  </LABELS>
+  <PLOTS>
+    <COLORS background="ff404040" backgroundSemiHighlight="ff606060" backgroundHighlight="ff808080"
+            middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
+            middlegroundHighlight="ffc0c0c0" foreground="ffc0c0c0" foregroundSemiHighlight="ffe0e0e0"
+            foregroundHighlight="ffffffff" outline="ffc0c0c0" outlineSemiHighlight="ffe0e0e0"
+            outlineHighlight="ffffffff"/>
+    <FONTS smallFont="Kimberley" smallFontHeight="12" normalFont="Kimberley"
+           normalFontHeight="14" bigFont="Kimberley" bigFontHeight="17"/>			
+  </PLOTS>
+</MIXSONICSKIN>

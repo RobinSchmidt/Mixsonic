@@ -1,15 +1,15 @@
 #ifndef MixsonicTextEntryField_h
 #define MixsonicTextEntryField_h
 
-#include "RWidget.h"
+#include "MWidget.h"
 
 /**
 
-This class is a juce::TextEditor extended by the functionality of RWidget. 
+This class is a juce::TextEditor extended by the functionality of MWidget. 
 
 */
 
-class MixsonicTextEntryField : public TextEditor, public RWidget
+class MixsonicTextEntryField : public TextEditor, public MWidget
 {
 
 public:

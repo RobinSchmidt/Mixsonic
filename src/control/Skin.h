@@ -33,6 +33,11 @@ public:
 
   virtual void initializeFonts();
 
+
+  /** First, i checks for a suitable fontfile (.jff) in the font directory, if so, it loads the 
+  font from there. If not, it looks into the installed fonts - if it finds a suitabel typeface, it
+  will load it from there (todo: create the fontfile then). If that also fails, it just leaves the
+  typeface as is. Then, it set up the height. */
   virtual void setFont(Font& fontToSet, const String& typefaceName, float height);
 
 
@@ -70,6 +75,8 @@ public:
 
   Font smallFont, normalFont, bigFont;
 
+  int outlineThickness; // not yet used everywhere
+
   //Font normalFont, strongFont, weakFont;
     // maybe rename to emphasized and deemphasizedFont
     // or smallFont, normalFont, bigFont
@@ -84,6 +91,8 @@ public:
 
   // maybe have sizes like outlineThickness, smallButtonSize, normalButtonSize, bigButtonSize,
   // scrollbarWidth, sliderWidth, ...
+
+  JUCE_LEAK_DETECTOR(Skin);
 };
 
 //=================================================================================================

@@ -1,7 +1,7 @@
 #ifndef MixsonicCreateDirectoryDialog_h
 #define MixsonicCreateDirectoryDialog_h
 
-#include "../widgets/RButton.h"
+#include "../widgets/MButton.h"
 #include "MixsonicTextEntryDialog.h"
 
 /**
@@ -52,7 +52,7 @@ public:
 protected:
 
   // the widgets:
-  RButton *cancelButton, *createButton;
+  MButton *cancelButton, *createButton;
 
   // the parent directory in which the directory should be created:
   File parentDirectory;

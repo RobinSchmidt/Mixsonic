@@ -1,8 +1,8 @@
 #ifndef MixsonicMoveFileDialog_h
 #define MixsonicMoveFileDialog_h
 
-#include "../widgets/RButton.h"
-#include "../widgets/RLabel.h"
+#include "../widgets/MButton.h"
+#include "../widgets/MLabel.h"
 #include "MixsonicModalDialog.h"
 #include "../../core/infrastructure/FileFilters.h"
 
@@ -74,7 +74,7 @@ protected:
   DirectoriesOnlyFilter directoriesOnlyFilter;
 
   // the widgets:
-  RButton *cancelButton, *moveButton;
+  MButton *cancelButton, *moveButton;
 
   // the root directory from which the user can navigate:
   File rootDirectory, fileToMove;

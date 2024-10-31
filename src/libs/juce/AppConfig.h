@@ -37,6 +37,8 @@
 #define JUCE_MODULE_AVAILABLE_juce_opengl                1
 #define JUCE_MODULE_AVAILABLE_juce_video                 1
 
+#define JUCE_USE_FLAC 0
+
 //==============================================================================
 // juce_audio_devices flags:
 

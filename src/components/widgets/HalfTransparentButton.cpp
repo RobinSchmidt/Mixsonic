@@ -8,7 +8,7 @@ Colour HalfTransparentButton::offStateColour   = Colour(0x00ffffff);
 
 HalfTransparentButton::HalfTransparentButton(/*Skin *skinToUse, */const String& buttonName) 
 : TextButton(buttonName)
-//, RWidget(skinToUse)
+//, MWidget(skinToUse)
 {
   transparency = 0.75f;
 }

@@ -10,25 +10,25 @@ MixsonicAudioFileSettingsDialog::MixsonicAudioFileSettingsDialog(
   setDescription(targetFileNameHelpStr);
 
   // the widgets:
-  targetDirectoryLabel = new RLabel(&skin->labelSkin, targetDirectoryStr, targetDirectoryStr);
+  targetDirectoryLabel = new MLabel(&skin->labelSkin, targetDirectoryStr, targetDirectoryStr);
   addAndMakeVisible(targetDirectoryLabel);
   targetDirectoryLabel->setDescription(targetDirectoryHelpStr);
   targetDirectoryLabel->setJustificationType(Justification::centredRight);
   targetDirectoryLabel->addListener(this);
 
-  targetDirectoryField = new RLabel(&skin->widgetSkin, directoryName, directoryName);
+  targetDirectoryField = new MLabel(&skin->widgetSkin, directoryName, directoryName);
   addAndMakeVisible(targetDirectoryField);
   targetDirectoryField->setDescription(targetDirectoryHelpStr);
   targetDirectoryField->setColour(Label::backgroundColourId, Colours::white);
   targetDirectoryField->setColour(Label::outlineColourId, Colours::black);
   targetDirectoryField->setEditable(false);
 
-  formatLabel = new RLabel(&skin->labelSkin, formatStr1, formatStr1);
+  formatLabel = new MLabel(&skin->labelSkin, formatStr1, formatStr1);
   addAndMakeVisible(formatLabel);
   formatLabel->setDescription(formatStr2);
   formatLabel->setJustificationType(Justification::centredRight);
 
-  formatComboBox = new RComboBox(&skin->widgetSkin, String("formatComboBox"));
+  formatComboBox = new MComboBox(&skin->widgetSkin, String("formatComboBox"));
   addAndMakeVisible(formatComboBox);
   formatComboBox->setDescription(formatStr2);
   formatComboBox->addItem(String("wav"),   1);
@@ -37,12 +37,12 @@ MixsonicAudioFileSettingsDialog::MixsonicAudioFileSettingsDialog(
   formatComboBox->setSelectedId(1, true);
   formatComboBox->addListener(this);
 
-  numChannelsLabel = new RLabel(&skin->labelSkin, numChannelsStr1, numChannelsStr1);
+  numChannelsLabel = new MLabel(&skin->labelSkin, numChannelsStr1, numChannelsStr1);
   addAndMakeVisible(numChannelsLabel);
   numChannelsLabel->setDescription(numChannelsStr2);
   numChannelsLabel->setJustificationType(Justification::centredRight);
 
-  numChannelsComboBox = new RComboBox(&skin->widgetSkin, String("numChannelsComboBox"));
+  numChannelsComboBox = new MComboBox(&skin->widgetSkin, String("numChannelsComboBox"));
   addAndMakeVisible(numChannelsComboBox);
   numChannelsComboBox->setDescription(numChannelsStr2);
   numChannelsComboBox->addItem(monoStr,   1);
@@ -50,12 +50,12 @@ MixsonicAudioFileSettingsDialog::MixsonicAudioFileSettingsDialog(
   numChannelsComboBox->setSelectedId(2, true);
   numChannelsComboBox->addListener(this);
 
-  sampleRateLabel = new RLabel(&skin->labelSkin, sampleRateStr1, sampleRateStr1);
+  sampleRateLabel = new MLabel(&skin->labelSkin, sampleRateStr1, sampleRateStr1);
   addAndMakeVisible(sampleRateLabel);
   sampleRateLabel->setDescription(sampleRateStr2);
   sampleRateLabel->setJustificationType(Justification::centredRight);
 
-  sampleRateComboBox = new RComboBox(&skin->widgetSkin, String("sampleRateComboBox"));
+  sampleRateComboBox = new MComboBox(&skin->widgetSkin, String("sampleRateComboBox"));
   addAndMakeVisible(sampleRateComboBox);
   sampleRateComboBox->setDescription(sampleRateStr2);
   sampleRateComboBox->addItem(String("44.1 kHz"),   1);
@@ -65,12 +65,12 @@ MixsonicAudioFileSettingsDialog::MixsonicAudioFileSettingsDialog(
   sampleRateComboBox->setSelectedId(1, true);
   sampleRateComboBox->addListener(this);
 
-  bitDepthLabel = new RLabel(&skin->labelSkin, bitDepthStr1, bitDepthStr1);
+  bitDepthLabel = new MLabel(&skin->labelSkin, bitDepthStr1, bitDepthStr1);
   addAndMakeVisible(bitDepthLabel);
   bitDepthLabel->setDescription(bitDepthStr2);
   bitDepthLabel->setJustificationType(Justification::centredRight);
 
-  bitDepthComboBox = new RComboBox(&skin->widgetSkin, String("bitDepthComboBox"));
+  bitDepthComboBox = new MComboBox(&skin->widgetSkin, String("bitDepthComboBox"));
   addAndMakeVisible(bitDepthComboBox);
   bitDepthComboBox->setDescription(bitDepthStr2);
   bitDepthComboBox->addItem(String("16"),       1);
@@ -80,13 +80,13 @@ MixsonicAudioFileSettingsDialog::MixsonicAudioFileSettingsDialog(
   bitDepthComboBox->addListener(this);
 
   // the buttons:
-  browseButton = new RButton(&skin->widgetSkin, browseButtonStr);
+  browseButton = new MButton(&skin->widgetSkin, browseButtonStr);
   addAndMakeVisible(browseButton);
   browseButton->setDescription(directoryBrowseButtonHelpStr);
   browseButton->setClickingTogglesState(false);
   browseButton->addListener(this);
 
-  exitButton = new RButton(&skin->widgetSkin, exitStr);
+  exitButton = new MButton(&skin->widgetSkin, exitStr);
   addAndMakeVisible(exitButton);
   exitButton->setDescription(cancelStr);
   exitButton->setClickingTogglesState(false);

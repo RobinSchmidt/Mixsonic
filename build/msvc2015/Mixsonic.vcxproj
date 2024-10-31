@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D22D1E28-886D-4A11-87B4-D75073962765}</ProjectGuid>
+    <RootNamespace>Mixsonic</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\..\..\MixsonicOutput\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\..\..\MixsonicOutput\Debug\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)\..\..\MixsonicOutput\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)\..\..\MixsonicOutput\Release\</IntDir>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\..\..\src\libs\vstsdk2.4;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)\..\..\src\libs\vstsdk2.4;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <BuildLog>
+      <Path>$(ProjectDir)\..\..\MixsonicOutput\Debug\build.log</Path>
+    </BuildLog>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Program Files\Microsoft Platform SDK\Include;C:\Program Files\Microsoft Platform SDK\Include\crt;C:\Program Files\Microsoft Platform SDK\Include\mfc;$(ProjectDir)\..\..\src\libs\ASIOSDK2\common;$(ProjectDir)\..\..\src\libs\juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>JUCE_USE_CDBURNER=0;JUCE_QUICKTIME=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(VSInstallDir)VC\lib;C:\Program Files\Microsoft Platform SDK\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <BuildLog>
+      <Path>$(ProjectDir)\..\..\MixsonicOutput\Release\build.log</Path>
+    </BuildLog>
+    <ClCompile>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>C:\Program Files\Microsoft Platform SDK\Include;C:\Program Files\Microsoft Platform SDK\Include\crt;C:\Program Files\Microsoft Platform SDK\Include\mfc;$(ProjectDir)\..\..\src\libs\ASIOSDK2\common;$(ProjectDir)\..\..\src\libs\juce;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>JUCE_USE_CDBURNER=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(VSInstallDir)VC\lib;C:\Program Files\Microsoft Platform SDK\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\PluginComponents.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\RFileTreeComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\TransportComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\UserInterfaceSection.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RButton.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MScrollBar.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RPopUpComponent.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RPopUpMenu.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RScrollBar.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RSlider.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RTextField.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RTreeView.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\RWidget.cpp" />
+    <ClCompile Include="..\..\src\control\ActivationObserver.cpp" />
+    <ClCompile Include="..\..\src\control\MixsonicCommandManager.cpp" />
+    <ClCompile Include="..\..\src\control\MixsonicGlobals.cpp" />
+    <ClCompile Include="..\..\src\control\MixsonicLookAndFeel.cpp" />
+    <ClCompile Include="..\..\src\control\MixsonicSettings.cpp" />
+    <ClCompile Include="..\..\src\control\Parameter.cpp" />
+    <ClCompile Include="..\..\src\control\Skin.cpp" />
+    <ClCompile Include="..\..\src\control\TransportController.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\DeletionManagement.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\DummyAudioPlugin.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\PluginChain.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_basics\juce_audio_basics.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_devices\juce_audio_devices.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_formats\juce_audio_formats.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_processors\juce_audio_processors.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_audio_utils\juce_audio_utils.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_core\juce_core.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_data_structures\juce_data_structures.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_events\juce_events.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_graphics\juce_graphics.cpp" />
+    <ClCompile Include="..\..\src\libs\juce\modules\juce_gui_basics\juce_gui_basics.cpp" />
+    <ClCompile Include="..\..\src\MixsonicMain.cpp" />
+    <ClCompile Include="..\..\src\core\audio\AudioFileBuffer.cpp" />
+    <ClCompile Include="..\..\src\core\audio\AudioFileBufferUser.cpp" />
+    <ClCompile Include="..\..\src\core\audio\AudioFileInfo.cpp" />
+    <ClCompile Include="..\..\src\core\audio\AudioRecorder.cpp" />
+    <ClCompile Include="..\..\src\core\audio\AudioRenderingThread.cpp" />
+    <ClCompile Include="..\..\src\core\audio\AudioSampleBufferFunctions.cpp" />
+    <ClCompile Include="..\..\src\core\audio\ImmediatePlaybackAudioSource.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\Arrangement.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\AudioClip.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\Clip.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\ClipDeletionWatcher.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\ClipInstantiationManager.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\ClipManipulator.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\DescribedItem.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\FileManager.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\GlobalFunctions.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\MessageBoxes.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\MixsonicStrings.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\SamplePool.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\SamplePoolClient.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\SelectableItem.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\SelectionListener.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\StateFileManager.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\TimeFrame.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\TimeUnitConverter.cpp" />
+    <ClCompile Include="..\..\src\core\infrastructure\Track.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\HalfTransparentButton.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MixsonicButton.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MixsonicSlider.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MixsonicTextEntryField.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MButton.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MComboBox.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MLabel.cpp" />
+    <ClCompile Include="..\..\src\components\widgets\MWidget.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicAudioExportDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicAudioFileSettingsDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicAudioRecordDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicCreateDirectoryDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicEnterNameDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicEnterProjectNameDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicGlobalSettingsDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicModalDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicMoveFileDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicNewProjectDialog.cpp" />
+    <ClCompile Include="..\..\src\components\dialogs\MixsonicTextEntryDialog.cpp" />
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicArrangementEditor.cpp" />
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicArrangementPanel.cpp" />
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicArrangementScroller.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicBrowserBase.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicContentComponent.cpp" />
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicProjectComponent.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicSampleBrowser.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicSubBrowser.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\app_specific\MixsonicTrackControlComponent.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\reusable\AudioClipComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\ClipComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\ComponentDragContainer.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\ComponentGrabber.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\DirectoryTreeComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\DualWaveformDisplay.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\GlobalTimeFrameComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\GrabbableComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\Panel.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\PanelRange.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\RectangleComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\ThreadedDrawingComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\ThreadedDrawingPanel.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\TimeLineComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\TrackComponent.cpp" />
+    <ClCompile Include="..\..\src\components\reusable\WaveformDisplay.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicPluginScannerBox.h" />
+    <ClInclude Include="..\..\src\components\reusable\PluginComponents.h" />
+    <ClInclude Include="..\..\src\components\reusable\RFileTreeComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\TransportComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\UserInterfaceSection.h" />
+    <ClInclude Include="..\..\src\components\widgets\RButton.h" />
+    <ClInclude Include="..\..\src\components\widgets\MScrollBar.h" />
+    <ClInclude Include="..\..\src\components\widgets\RPopUpComponent.h" />
+    <ClInclude Include="..\..\src\components\widgets\RPopUpMenu.h" />
+    <ClInclude Include="..\..\src\components\widgets\RScrollBar.h" />
+    <ClInclude Include="..\..\src\components\widgets\RSlider.h" />
+    <ClInclude Include="..\..\src\components\widgets\RTextField.h" />
+    <ClInclude Include="..\..\src\components\widgets\RTreeView.h" />
+    <ClInclude Include="..\..\src\components\widgets\RWidget.h" />
+    <ClInclude Include="..\..\src\control\ActivationObserver.h" />
+    <ClInclude Include="..\..\src\control\MixsonicCommandManager.h" />
+    <ClInclude Include="..\..\src\control\MixsonicGlobals.h" />
+    <ClInclude Include="..\..\src\control\MixsonicLookAndFeel.h" />
+    <ClInclude Include="..\..\src\control\MixsonicSettings.h" />
+    <ClInclude Include="..\..\src\control\Parameter.h" />
+    <ClInclude Include="..\..\src\control\ScopedPointerLock.h" />
+    <ClInclude Include="..\..\src\control\Skin.h" />
+    <ClInclude Include="..\..\src\control\TransportController.h" />
+    <ClInclude Include="..\..\src\core\audio\AudioFileBuffer.h" />
+    <ClInclude Include="..\..\src\core\audio\AudioFileBufferUser.h" />
+    <ClInclude Include="..\..\src\core\audio\AudioFileInfo.h" />
+    <ClInclude Include="..\..\src\core\audio\AudioRecorder.h" />
+    <ClInclude Include="..\..\src\core\audio\AudioRenderingThread.h" />
+    <ClInclude Include="..\..\src\core\audio\AudioSampleBufferFunctions.h" />
+    <ClInclude Include="..\..\src\core\audio\ImmediatePlaybackAudioSource.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\Arrangement.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\AudioClip.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\Clip.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\ClipDeletionWatcher.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\ClipInstantiationManager.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\ClipManipulator.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\DeletionManagement.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\DescribedItem.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\DummyAudioPlugin.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\FileComparator.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\FileFilters.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\FileManager.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\GlobalFunctions.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\Lockable.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\MessageBoxes.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\MixsonicStrings.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\PluginChain.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\SamplePool.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\SamplePoolClient.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\SelectableItem.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\SelectionListener.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\StateFileManager.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\TimeFrame.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\TimeUnitConverter.h" />
+    <ClInclude Include="..\..\src\core\infrastructure\Track.h" />
+    <ClInclude Include="..\..\src\components\widgets\HalfTransparentButton.h" />
+    <ClInclude Include="..\..\src\components\widgets\MixsonicButton.h" />
+    <ClInclude Include="..\..\src\components\widgets\MixsonicSlider.h" />
+    <ClInclude Include="..\..\src\components\widgets\MixsonicSliderListener.h" />
+    <ClInclude Include="..\..\src\components\widgets\MixsonicTextEntryField.h" />
+    <ClInclude Include="..\..\src\components\widgets\MButton.h" />
+    <ClInclude Include="..\..\src\components\widgets\MComboBox.h" />
+    <ClInclude Include="..\..\src\components\widgets\MLabel.h" />
+    <ClInclude Include="..\..\src\components\widgets\MWidget.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicAudioExportDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicAudioFileSettingsDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicAudioRecordDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicCreateDirectoryDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicEnterNameDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicEnterProjectNameDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicGlobalSettingsDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicModalDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicMoveFileDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicNewProjectDialog.h" />
+    <ClInclude Include="..\..\src\components\dialogs\MixsonicTextEntryDialog.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicArrangementEditor.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicArrangementPanel.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicArrangementScroller.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicBrowserBase.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicContentComponent.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicProjectComponent.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicSampleBrowser.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicSubBrowser.h" />
+    <ClInclude Include="..\..\src\components\app_specific\MixsonicTrackControlComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\AudioClipComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\ClipComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\ComponentDragContainer.h" />
+    <ClInclude Include="..\..\src\components\reusable\ComponentGrabber.h" />
+    <ClInclude Include="..\..\src\components\reusable\DirectoryTreeComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\DualWaveformDisplay.h" />
+    <ClInclude Include="..\..\src\components\reusable\GlobalTimeFrameComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\GrabbableComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\Panel.h" />
+    <ClInclude Include="..\..\src\components\reusable\PanelRange.h" />
+    <ClInclude Include="..\..\src\components\reusable\RectangleComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\ThreadedDrawingComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\ThreadedDrawingPanel.h" />
+    <ClInclude Include="..\..\src\components\reusable\TimeLineComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\TrackComponent.h" />
+    <ClInclude Include="..\..\src\components\reusable\WaveformDisplay.h" />
+    <ClInclude Include="..\..\src\libs\JuceIncludes.h" />
+    <ClInclude Include="..\..\src\libs\juce\AppConfig.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

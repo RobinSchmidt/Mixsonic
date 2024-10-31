@@ -6,7 +6,7 @@
 
 MixsonicTextEntryField::MixsonicTextEntryField(Skin *skinToUse, const String& initialText) 
 : TextEditor()
-, RWidget(skinToUse)
+, MWidget(skinToUse)
 {
   setColour(Label::backgroundColourId, Colours::white);
   setColour(Label::outlineColourId, Colours::black);
@@ -23,11 +23,11 @@ MixsonicTextEntryField::~MixsonicTextEntryField()
 /*
 void MixsonicTextEntryField::mouseEnter(const juce::MouseEvent &e)
 {
-  RWidget::mouseEnter(e);
+  MWidget::mouseEnter(e);
 }
 
 void MixsonicTextEntryField::mouseExit(const MouseEvent &e)
 {
-  RWidget::mouseExit(e);
+  MWidget::mouseExit(e);
 }
 */

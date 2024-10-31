@@ -5,8 +5,8 @@
 #include "../../core/infrastructure/DeletionManagement.h"
 #include "../../control/ActivationObserver.h"
 #include "../../control/MixsonicGlobals.h"
-#include "../widgets/RLabel.h"
-#include "../widgets/RButton.h"
+#include "../widgets/MLabel.h"
+#include "../widgets/MButton.h"
 #include "../widgets/MixsonicSlider.h"
 #include "../reusable/UserInterfaceSection.h"
 
@@ -145,10 +145,10 @@ protected:
     // window. we want to keep track of (de)activation of this owning window in order to ourselves
     // invisible on deactivation
 
-  RHeadlineLabel *nameLabel;
+  MHeadlineLabel *nameLabel;
     // label to show the name of the plugin
 
-  RButton *closeButton;
+  MButton *closeButton;
     // button to close the editor-window
 
   ComponentDragger dragger;
@@ -170,7 +170,7 @@ plugin-editors)
 
 */
 
-class AudioPluginSlotComponent : public Component, public RWidget, public ChangeListener, 
+class AudioPluginSlotComponent : public Component, public MWidget, public ChangeListener, 
   public DeletionManager, public DeletionRequester
 {
 
@@ -277,7 +277,7 @@ protected:
 
 
   /** Label to show the name of the plugin */
-  RLabel *nameLabel;
+  MLabel *nameLabel;
 
   /** Pointer to the actual PluginSlot object which we edit. */
   PluginSlot *slotToEdit;
@@ -305,7 +305,7 @@ protected:
 /** A component showing an arbitrary number of AudioPluginSlotComponents in a vertical column. It
 also takes care to always have an empty slot at the bottom, for a new plugin to be plugged in. */
 
-class AudioPluginChainComponent : public Component, public RWidget, public ChangeListener, 
+class AudioPluginChainComponent : public Component, public MWidget, public ChangeListener, 
   public DeletionManager
 {
 

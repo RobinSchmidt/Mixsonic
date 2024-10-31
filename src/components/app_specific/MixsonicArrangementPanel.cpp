@@ -145,7 +145,8 @@ void MixsonicArrangementPanel::setComponentGrabber(ComponentGrabber *newGrabber)
 void MixsonicArrangementPanel::adjustTimeCursorPosition()
 {
   double t = arrangementToEdit->getCurrentTimeInBeats();
-  int    x = (int) round(timeLine->beatsToPixelPosition(t)) + timeLine->getX();
+  int    x = (int) round(timeLine->beatsToPixelPosition(t, timeLine->getWidth())) 
+                         + timeLine->getX();
   int    h = trackComponents[trackComponents.size()-1]->getBottom();
 
   //if( x < trackComponents[0]->getTrackBodyOffset() && x > getWidth() )
@@ -172,12 +173,12 @@ void MixsonicArrangementPanel::updateGuiAccordingToPlaybackPosition()
   if( arrangementToEdit->selectedTimeUnit == TimeUnitConverter::BEATS )
   {
     t = arrangementToEdit->getCurrentTimeInBeats();
-    x = (int) round(timeLine->beatsToPixelPosition(t));
+    x = (int) round(timeLine->beatsToPixelPosition(t, timeLine->getWidth()));
   }
   else
   {
     t = arrangementToEdit->getCurrentTimeInSeconds();
-    x = (int) round(timeLine->secondsToPixelPosition(t));
+    x = (int) round(timeLine->secondsToPixelPosition(t, timeLine->getWidth()));
   }
 
   //int    h = trackComponents[trackComponents.size()-1]->getBottom();
@@ -236,7 +237,7 @@ void MixsonicArrangementPanel::setTrackHeight(int newHeight)
 
 int MixsonicArrangementPanel::getDesiredClipWidth(Clip *theClip) const
 {
-  return timeLine->getDesiredClipWidth(theClip);
+  return timeLine->getDesiredClipWidth(theClip, timeLine->getWidth());
 }
 
 bool MixsonicArrangementPanel::canLassoSelectBeginHere(int x, int y) const
@@ -603,9 +604,13 @@ void MixsonicArrangementPanel::setCurrentRangeX(double newMinX, double newMaxX)
 
   // set up the child components:
   timeLine->setTimeRangeInSeconds(newMinX, newMaxX);
+  timeLine->repaint();
   trackComponents.getLock().enter();
   for(int t=0; t< trackComponents.size(); t++)
+  {
     trackComponents[t]->bodyComponent->setTimeRangeInSeconds(newMinX, newMaxX);
+    trackComponents[t]->repaint();
+  }
   trackComponents.getLock().exit();
 
   adjustTimeCursorPosition();
@@ -620,7 +625,7 @@ void MixsonicArrangementPanel::setCurrentRangeY(double newMinY, double newMaxY)
 
 void MixsonicArrangementPanel::gotoTimeLinePixelX(int x)
 {
-  double beat = timeLine->pixelPositionToBeats((double) x);
+  double beat = timeLine->pixelPositionToBeats((double) x, timeLine->getWidth());
   arrangementToEdit->setCurrentTimeInBeats(beat);
   adjustTimeCursorPosition();
 }
@@ -646,7 +651,8 @@ void MixsonicArrangementPanel::paintOverChildren(Graphics& g)
   g.setColour(skin->backgroundColor);
   g.fillRect(0, 0, w, timeLine->getHeight());
   g.setColour(skin->outlineColor);
-  g.drawLine(0.f, (float)y, (float)getWidth(), (float)y, 2.f);
+  //g.drawLine(0.f, (float)y, (float)getWidth(), (float)y, 2.f);
+  g.drawLine(0.f, (float)y, (float)getWidth(), (float)y, (float)skin->outlineThickness);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -705,8 +711,10 @@ Rectangle<int> MixsonicArrangementPanel::getEnclosingRectangle(juce::Array<Audio
     clip    = clipComponents[c];
 
     // \todo maybe we should initialize just with cLeft = clip->getX(); cRight = clip->getRight(); ?
-    cLeft   = (int) timeLine->beatsToPixelPosition(clip->getActiveRegionStart(TimeUnitConverter::BEATS, false) );
-    cRight  = (int) timeLine->beatsToPixelPosition(clip->getActiveRegionEnd(  TimeUnitConverter::BEATS, false) );
+    cLeft   = (int) timeLine->beatsToPixelPosition(
+      clip->getActiveRegionStart(TimeUnitConverter::BEATS, false), timeLine->getWidth());
+    cRight  = (int) timeLine->beatsToPixelPosition(
+      clip->getActiveRegionEnd(  TimeUnitConverter::BEATS, false), timeLine->getWidth());
     cTop    = clip->getY();
     cBottom = clip->getBottom();
 
@@ -753,7 +761,8 @@ void MixsonicArrangementPanel::convertClipBoundsToRectangle(Array<AudioClipCompo
   for(int c=0; c<clipComponents.size(); c++)
   {
     clip = clipComponents[c];
-    x    = (int) timeLine->beatsToPixelPosition(clip->getActiveRegionStart(TimeUnitConverter::BEATS, false) );
+    x    = (int) timeLine->beatsToPixelPosition(
+      clip->getActiveRegionStart(TimeUnitConverter::BEATS, false), timeLine->getWidth());
     y    = clip->getY(); 
 
     int t = clip->getHostingTrackIndex();

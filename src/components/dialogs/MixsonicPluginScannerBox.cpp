@@ -3,7 +3,7 @@
 MixsonicPluginScannerBox::MixsonicPluginScannerBox(SectionSkin *skinToUse)
 : MixsonicModalDialog(skinToUse)
 {
-  currentFileLabel = new RLabel(&skinToUse->labelSkin);
+  currentFileLabel = new MLabel(&skinToUse->labelSkin);
   addAndMakeVisible(currentFileLabel);
 
   setHeadline("Scanning Plugins");

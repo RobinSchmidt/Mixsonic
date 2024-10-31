@@ -5,11 +5,11 @@
 
 /**
 
-This class is a RButton which is drawn half-transparently.
+This class is a MButton which is drawn half-transparently.
 
 */
 
-class HalfTransparentButton : public TextButton, public DescribedMouseListener /*, public RWidget*/
+class HalfTransparentButton : public TextButton, public DescribedMouseListener /*, public MWidget*/
 {
 
 public:

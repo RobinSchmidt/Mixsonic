@@ -1,7 +1,7 @@
 #ifndef DummyAudioPlugin_h
 #define DummyAudioPlugin_h
 
-#include "../../components/widgets/RLabel.h"
+#include "../../components/widgets/MLabel.h"
 #include "../../components/reusable/UserInterfaceSection.h"
 
 /** A dummy plugin class that is used when a plugin can't be found when a stored state of a 
@@ -93,7 +93,7 @@ public:
 
 protected:
 
-  RLabel *formatLabel, *nameLabel, *manufacturerLabel, *versionLabel, *uidLabel;
+  MLabel *formatLabel, *nameLabel, *manufacturerLabel, *versionLabel, *uidLabel;
   static const int numLabels   = 5;
   static const int labelHeight = 20;
 

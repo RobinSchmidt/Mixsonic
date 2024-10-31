@@ -82,8 +82,8 @@ void saveAudioSampleBufferToFile(AudioSampleBuffer* bufferToSave, File fileToSav
   AudioFormat *audioFormat = NULL;
   if( fileToSaveTo.hasFileExtension(String("wav")) )
     audioFormat = new WavAudioFormat();
-  else if( fileToSaveTo.hasFileExtension(String("flac")) )
-    audioFormat = new FlacAudioFormat();
+  //else if( fileToSaveTo.hasFileExtension(String("flac")) )
+  //  audioFormat = new FlacAudioFormat();
   else if( fileToSaveTo.hasFileExtension(String("aiff")) )
     audioFormat = new AiffAudioFormat();
   else

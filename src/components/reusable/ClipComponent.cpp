@@ -255,7 +255,8 @@ void ClipComponent::paintOverChildren(Graphics &g)
     g.setColour(Colours::white.withAlpha(0.7f));
     g.fillRect(0.5f*getWidth()-0.5f*w-2.f, 1.f, w+4.f, h);
     g.setColour(Colours::black);
-    caption.drawAt(g, 0.5f*getWidth()-0.5f*w, 12, 1.f);
+    //caption.drawAt(g, 0.5f*getWidth()-0.5f*w, 12, 1.f);
+    caption.drawAt(g, 0.5f*getWidth()-0.5f*w, 0, 1.f);
   }
 
   // draw (or don't draw) the frame which indicates the selection state:

@@ -5,7 +5,7 @@
 
 MixsonicSlider::MixsonicSlider(Skin *skinToUse, const String& name) 
 : Component(name)
-, RWidget(skinToUse)
+, MWidget(skinToUse)
 {
   currentValue         = 0.5;
   defaultValue         = 0.5;
@@ -104,12 +104,12 @@ void MixsonicSlider::removeListener(MixsonicSliderListener* const listener) thro
 /*
 void MixsonicSlider::mouseEnter(const MouseEvent &e)
 {
-  RWidget::mouseEnter(e);
+  MWidget::mouseEnter(e);
 }
 
 void MixsonicSlider::mouseExit(const MouseEvent &e)
 {
-  RWidget::mouseExit(e);
+  MWidget::mouseExit(e);
 }
 */
 void MixsonicSlider::mouseDown(const MouseEvent& e)

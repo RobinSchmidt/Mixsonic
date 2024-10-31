@@ -1,7 +1,7 @@
 #include "MixsonicButton.h"
 
 MixsonicButton::MixsonicButton(Skin *skinToUse) 
-: RButton(skinToUse, NO_SYMBOL)
+: MButton(skinToUse, NO_SYMBOL)
 , normalImage(0)
 , pressedImage(0)
 , hoverImage(0)
@@ -64,11 +64,11 @@ void MixsonicButton::paintButton(Graphics &g, bool isMouseOverButton, bool isBut
 /*
 void MixsonicButton::mouseEnter(const MouseEvent &e)
 {
-  RWidget::mouseEnter(e);
+  MWidget::mouseEnter(e);
 }
 
 void MixsonicButton::mouseExit(const MouseEvent &e)
 {
-  RWidget::mouseExit(e);
+  MWidget::mouseExit(e);
 }
 */

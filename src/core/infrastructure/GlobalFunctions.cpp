@@ -245,6 +245,26 @@ Colour getGrayValue(int value)
   return Colour::Colour((uint8)value, (uint8)value, (uint8)value, (uint8)255);
 }
 
+Colour getMixedColour(const Colour colour1, const Colour colour2, double weight1, double weight2)
+{
+  float a1 = colour1.getFloatAlpha();
+  float r1 = colour1.getFloatRed();
+  float g1 = colour1.getFloatGreen();
+  float b1 = colour1.getFloatBlue();
+
+  float a2 = colour2.getFloatAlpha();
+  float r2 = colour2.getFloatRed();
+  float g2 = colour2.getFloatGreen();
+  float b2 = colour2.getFloatBlue();
+
+  uint8 a  = (uint8) (255.f * (weight1*a1 + weight2*a2));
+  uint8 r  = (uint8) (255.f * (weight1*r1 + weight2*r2));
+  uint8 g  = (uint8) (255.f * (weight1*g1 + weight2*g2));
+  uint8 b  = (uint8) (255.f * (weight1*b1 + weight2*b2));
+
+  return Colour(r, g, b, a);
+}
+
 bool hasDirectoryFiles(const File& directoryToCheck)
 {
 	if( !directoryToCheck.exists() )

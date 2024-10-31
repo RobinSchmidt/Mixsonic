@@ -7,6 +7,8 @@
 #include "../../core/infrastructure/ClipInstantiationManager.h"
 #include "PluginComponents.h"
 #include "../widgets/MixsonicSlider.h"
+#include "../widgets/RButton.h"
+#include "../widgets/RTextField.h"
 
 /**
 
@@ -15,7 +17,7 @@ the Mixsonic application.
 
 */
 
-class TrackBodyComponent : public GlobalTimeFrameComponent, public ChangeListener, 
+class TrackBodyComponent : public Component, public GlobalTimeFrameComponent, public ChangeListener, 
   public ClipInstantiationManager
 {  
 
@@ -205,8 +207,8 @@ panorama, mute- and solo buttons, etc.
 
 */
 
-class MixsonicTrackControlComponent : public Component, public LabelListener, 
-  public ButtonListener, public MixsonicSliderListener, public ChangeBroadcaster, 
+class MixsonicTrackControlComponent : public Component, /*public LabelListener, */ 
+  public RTextEntryFieldObserver, public RButtonListener, public MixsonicSliderListener, public ChangeBroadcaster, 
   public TrackObserver, public UserInterfaceSection
 {  
 
@@ -242,8 +244,10 @@ public:
   //-----------------------------------------------------------------------------------------------
   // callbacks:
 
-  virtual void labelTextChanged(Label *labelThatHasChanged);
-  virtual void buttonClicked(Button *buttonThatWasClicked);
+  //virtual void labelTextChanged(Label *labelThatHasChanged);
+
+  virtual void textChanged(RTextEntryField *rTextEntryFieldThatHasChanged);
+  virtual void rButtonClicked(RButton *buttonThatWasClicked);
   virtual void mSliderValueChanged(MixsonicSlider *mSliderThatHasChanged);
   virtual void resized();
   virtual void paint(Graphics &g);
@@ -255,8 +259,10 @@ protected:
   /** Pointer to the track component, for which we implement some controls. */
   Track* trackToEdit;
 
-  RHeadlineLabel *nameLabel;
-  RButton        *muteButton, *soloButton;
+  //MHeadlineLabel *nameLabel;
+  RTextEntryField *nameLabel;
+
+  RButton       *muteButton, *soloButton;
   MixsonicSlider *levelSlider, *panSlider;
   AudioPluginChainComponent *pluginChainComponent;
 

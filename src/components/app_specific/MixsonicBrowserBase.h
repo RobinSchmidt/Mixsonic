@@ -3,7 +3,7 @@
 
 #include "MixsonicSubBrowser.h"
 #include "../widgets/MixsonicButton.h"
-#include "../widgets/RLabel.h"
+#include "../widgets/MLabel.h"
 #include "../../core/audio/ImmediatePlaybackAudioSource.h"
 #include "../../core/infrastructure/TimeUnitConverter.h"
 #include "../../core/infrastructure/FileFilters.h"
@@ -71,7 +71,7 @@ public:
 protected:
 
   // the headline for the component:
-  RHeadlineLabel *headline;
+  MHeadlineLabel *headline;
 
   // the buttons themselves:
   MixsonicButton *pauseButton, *playButton, *rewindButton; 

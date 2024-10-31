@@ -40,7 +40,7 @@ MixsonicArrangementEditor::~MixsonicArrangementEditor()
 //-------------------------------------------------------------------------------------------------
 // setup:
 
-void MixsonicArrangementEditor::setDescriptionField(RLabel* newDescriptionField)
+void MixsonicArrangementEditor::setDescriptionField(MLabel* newDescriptionField)
 {
   descriptionField = newDescriptionField;
   arrangementPanel->setDescriptionField(newDescriptionField);
@@ -278,7 +278,7 @@ void MixsonicArrangementEditor::paintOverChildren(Graphics &g)
 
   //g.setColour(MixsonicSkin::getInstance()->outlineColor);
   g.setColour(skin->outlineColor);
-  g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), 2.f);
+  g.drawRect(0.f, 0.f, (float)getWidth(), (float)getHeight(), (float)skin->outlineThickness);
 
   //int y = arrangementNavigator->getBottom() - arrangementNavigator->getWidgetSize();
   //g.drawLine(0.f, (float)y, (float)getWidth(), (float)y, 2.f);
@@ -375,8 +375,8 @@ bool MixsonicArrangementEditor::setupArrangementPanelBounds(int desiredWidth, in
 
   int x = margin;
   int y = 0;
-  int w = jmin(desiredWidth, getWidth() - margin - scrollbarThickness - x);
-  int h = jmin(desiredHeight, getHeight() - scrollbarThickness - y);
+  int w = jmin(desiredWidth, getWidth() - margin - scrollbarThickness - x - skin->outlineThickness);
+  int h = jmin(desiredHeight, getHeight() - scrollbarThickness - y - skin->outlineThickness);
 
   arrangementPanel->setBounds(x, y, w, h);      
   arrangementNavigator->alignWidgetsToPanel();

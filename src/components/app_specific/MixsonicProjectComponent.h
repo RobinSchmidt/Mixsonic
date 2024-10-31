@@ -7,7 +7,7 @@
 #include "../dialogs/MixsonicMoveFileDialog.h"
 #include "../reusable/RFileTreeComponent.h"
 #include "../reusable/AudioClipComponent.h"
-#include "../widgets/MixsonicProjectComponentResources.h"
+//#include "../widgets/MixsonicProjectComponentResources.h"
 
 /**
 

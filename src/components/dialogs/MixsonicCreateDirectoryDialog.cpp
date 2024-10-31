@@ -9,13 +9,13 @@ MixsonicCreateDirectoryDialog::MixsonicCreateDirectoryDialog(SectionSkin *skinTo
   parentDirectory   = newParentDirectory;
   directoryToCreate = File::nonexistent;
 
-  createButton = new RButton(&skin->widgetSkin, createStr);
+  createButton = new MButton(&skin->widgetSkin, createStr);
   addAndMakeVisible(createButton);
   createButton->setDescription(createDirectoryHelpStr);
   createButton->setClickingTogglesState(false);
   createButton->addListener(this);
 
-  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  cancelButton = new MButton(&skin->widgetSkin, cancelStr);
   addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);

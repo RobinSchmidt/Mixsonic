@@ -8,7 +8,7 @@ MixsonicAudioRecordDialog::MixsonicAudioRecordDialog(SectionSkin *skinToUse,
   deviceManager = deviceManagerToUse;
 
   // create the additional button:
-  recordButton = new RButton(&skin->widgetSkin, recordButtonStr);
+  recordButton = new MButton(&skin->widgetSkin, recordButtonStr);
   addAndMakeVisible(recordButton);
   recordButton->setDescription(recordButtonHelpStr);
   recordButton->setClickingTogglesState(true);

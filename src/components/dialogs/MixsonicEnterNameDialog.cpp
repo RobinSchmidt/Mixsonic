@@ -7,13 +7,13 @@ MixsonicEnterNameDialog::MixsonicEnterNameDialog(SectionSkin *skinToUse, const S
 
   setDescription(enterNameStr);
 
-  okButton = new RButton(&skin->widgetSkin, okStr);
+  okButton = new MButton(&skin->widgetSkin, okStr);
   addAndMakeVisible(okButton);
   okButton->setDescription(createProjectHelpStr);
   okButton->setClickingTogglesState(false);
   okButton->addListener(this);
 
-  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  cancelButton = new MButton(&skin->widgetSkin, cancelStr);
   addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);

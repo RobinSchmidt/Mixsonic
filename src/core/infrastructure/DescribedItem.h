@@ -52,6 +52,8 @@ protected:
 
 };
 
+
+
 //=================================================================================================
 
 /**
@@ -77,7 +79,20 @@ public:
   virtual void mouseExit(const MouseEvent &e);
 
   JUCE_LEAK_DETECTOR(DescribedMouseListener);
+};
 
+
+//=================================================================================================
+
+/** Subclass of DescribedItem to be used as baseclass for GUI-Components */
+
+class DescribedComponent : public DescribedItem, virtual public Component
+{
+public:
+  DescribedComponent(const String& newDescription = String("No description available"));
+  virtual void mouseEnter(const MouseEvent &e);
+  virtual void mouseExit(const MouseEvent &e);
+  JUCE_LEAK_DETECTOR(DescribedComponent);
 };
 
 #endif  

@@ -49,7 +49,7 @@ protected:
   void renderNow();
 
   // the widgets specific to this dialog:
-  RButton *renderButton;
+  MButton *renderButton;
 
   /** Pointer to the Arrangement object which shall be exported. */
   Arrangement *theArrangement;

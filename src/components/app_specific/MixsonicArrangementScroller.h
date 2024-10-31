@@ -2,7 +2,8 @@
 #define PanelScroller_h
 
 #include "../reusable/Panel.h"
-#include "../widgets/RButton.h"
+#include "../widgets/MButton.h"
+//#include "../widgets/MScrollBar.h"
 #include "../widgets/RScrollBar.h"
 
 #include "MixsonicArrangementPanel.h"
@@ -29,7 +30,7 @@ visibility/position of the TrackControlComponents as well
 
 */
 
-class PanelScroller : public Component, public ScrollBarListener, public ButtonListener
+class PanelScroller : public Component, public RScrollBarListener, public ButtonListener
 
 {
 
@@ -75,7 +76,7 @@ public:
   //-----------------------------------------------------------------------------------------------
   // callbacks:
 
-  virtual void scrollBarMoved(ScrollBar *scrollBarThatHasMoved, double newRangeStart);
+  virtual void scrollBarMoved(RScrollBar *scrollBarThatHasMoved, double newRangeStart);
   virtual void buttonClicked(Button *buttonThatWasClicked);
 
   /** Overrides the mouseWheelMove()-method of the indirect MouseListener base-class to allow 
@@ -162,10 +163,11 @@ protected:
 
   // widgets:
   //ScrollBar *scrollBarX, *scrollBarY;
+  //MScrollBar *scrollBarX, *scrollBarY;
   RScrollBar *scrollBarX, *scrollBarY;
-  RButton *zoomOutButtonX, *zoomToAllButtonX, *zoomInButtonX;
-  RButton *zoomOutButtonY, *zoomToAllButtonY, *zoomInButtonY;
-  RButton *zoomToAllButtonXY;
+  MButton *zoomOutButtonX, *zoomToAllButtonX, *zoomInButtonX;
+  MButton *zoomOutButtonY, *zoomToAllButtonY, *zoomInButtonY;
+  MButton *zoomToAllButtonXY;
 
   int widgetSize;
 

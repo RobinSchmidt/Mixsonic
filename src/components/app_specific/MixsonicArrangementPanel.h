@@ -9,7 +9,7 @@
 #include "../reusable/Panel.h"
 #include "../../core/infrastructure/Arrangement.h"
 #include "../../core/infrastructure/SelectionListener.h"
-#include "../widgets/RComboBox.h"
+#include "../widgets/MComboBox.h"
 #include <limits.h>
 
 /**
@@ -214,7 +214,7 @@ public:
   widgets according to the size. */
   virtual void resized();
 
-  /** Overrides paintOverChildren in order to possibly draw the lasso rectangle. */
+  /** Overrides paintOverChildren in order to draw some cosmetic stuff over the timeline, etc. */
   virtual void paintOverChildren(Graphics& g);
 
   //-----------------------------------------------------------------------------------------------

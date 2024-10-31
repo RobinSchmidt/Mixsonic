@@ -42,8 +42,8 @@ void TrackBodyComponent::selectClipsInPixelRegion(bool shouldBeSelected, int x1,
                                                   bool temporarily)
 {
   audioClipComponents.getLock().enter();
-  double t1 = pixelPositionToBeats((double) x1);
-  double t2 = pixelPositionToBeats((double) x2);
+  double t1 = pixelPositionToBeats((double) x1, getWidth());
+  double t2 = pixelPositionToBeats((double) x2, getWidth());
   for(int c=0; c<audioClipComponents.size(); c++)
   {
     if( audioClipComponents[c]->hasActiveDataBetweenTimeInstants(t1, t2, BEATS, false) )
@@ -209,7 +209,7 @@ bool TrackBodyComponent::dropComponent(Component* droppedComponent, int x)
     //newClipComponent->unlockUnderlyingClip();
 
     // setup the corresponding ClipComponent and add it to the array:
-    double posInBeats = jmax(pixelPositionToBeats(x), 0.0); // do not allow positioning before zero
+    double posInBeats = jmax(pixelPositionToBeats(x, getWidth()), 0.0); // do not allow positioning before zero
     newClipComponent->setClipPosition(posInBeats-positionOffset, BEATS);
 
     addAudioClipComponent(newClipComponent);
@@ -262,6 +262,7 @@ void TrackBodyComponent::setTimeRangeInSeconds(double newMinTime, double newMaxT
 {
   GlobalTimeFrameComponent::setTimeRangeInSeconds(newMinTime, newMaxTime);
   alignAllClipsToTimeLine(true);
+  repaint();
 }
 
 void TrackBodyComponent::changeListenerCallback(ChangeBroadcaster *objectThatHasChanged)
@@ -430,8 +431,8 @@ void TrackBodyComponent::alignClipToTimeLine(AudioClipComponent *clipToAlign,
     double regionEndGlobal   = clipToAlign->getActiveRegionEnd(  BEATS, false); 
 
     // set up the bounds of the clip:
-    double xL = beatsToPixelPosition(regionStartGlobal);
-    double xR = beatsToPixelPosition(regionEndGlobal);
+    double xL = beatsToPixelPosition(regionStartGlobal, getWidth());
+    double xR = beatsToPixelPosition(regionEndGlobal, getWidth());
     //int xR = xL + (int) beatsToPixelPosition(endInTrack-startInTrack);
 
     if( restrictBoundsToVisibleRange == true )
@@ -468,26 +469,33 @@ MixsonicTrackControlComponent::MixsonicTrackControlComponent(SectionSkin *skinTo
 : Component(String("MixsonicTrackControlComponent"))
 , UserInterfaceSection(skinToUse)
 {
+  jassert( trackToEdit != nullptr );
   trackToEdit = newTrackToEdit;
  
-  nameLabel = new RHeadlineLabel(&skin->labelSkin);
+  nameLabel = new RTextEntryField(&skin->labelSkin, trackToEdit->getName());
   addAndMakeVisible(nameLabel);
-  nameLabel->setEditable(false, true);
-  nameLabel->addListener(this);
-  if( trackToEdit != nullptr )
-    nameLabel->setText(trackToEdit->getName(), false);
+  nameLabel->registerTextEntryFieldObserver(this);
 
-  muteButton = new RButton(&skin->widgetSkin, "M");
+
+  // old:
+  //nameLabel = new MHeadlineLabel(&skin->labelSkin);
+  //addAndMakeVisible(nameLabel);
+  //nameLabel->setEditable(false, true);
+  //nameLabel->addListener(this);
+  //if( trackToEdit != nullptr )
+  //  nameLabel->setText(trackToEdit->getName(), false);
+
+  muteButton = new RButton("M", &skin->widgetSkin);
   addAndMakeVisible(muteButton);
   muteButton->setDescription(muteStr);
   muteButton->setClickingTogglesState(true);
-  muteButton->addListener(this);
+  muteButton->addRButtonListener(this);
 
-  soloButton = new RButton(&skin->widgetSkin, "S");
+  soloButton = new RButton("S", &skin->widgetSkin);
   addAndMakeVisible(soloButton);
   soloButton->setDescription(soloStr);
   soloButton->setClickingTogglesState(true);
-  soloButton->addListener(this);
+  soloButton->addRButtonListener(this);
 
   levelSlider = new MixsonicSlider(&skin->widgetSkin, levelStr);
   addAndMakeVisible(levelSlider);
@@ -542,7 +550,8 @@ void MixsonicTrackControlComponent::updateWidgetsAccordingToState()
 {
   if( trackToEdit != NULL )
   {
-    nameLabel->setText(        trackToEdit->getName(),        false);
+    //nameLabel->setText(        trackToEdit->getName(),        false);
+    nameLabel->setText(        trackToEdit->getName());
     levelSlider->setValue(     trackToEdit->getVolumeLevel(), false, false);
     panSlider->setValue(       trackToEdit->getPan(),         false, false);
     soloButton->setToggleState(trackToEdit->isSolo(),         false);
@@ -554,6 +563,15 @@ void MixsonicTrackControlComponent::updateWidgetsAccordingToState()
 //-------------------------------------------------------------------------------------------------
 // callbacks:
 
+void MixsonicTrackControlComponent::textChanged(RTextEntryField *rTextEntryFieldThatHasChanged)
+{
+  if( trackToEdit == NULL )
+    return;
+  if( rTextEntryFieldThatHasChanged == nameLabel )
+    trackToEdit->setName(nameLabel->getText());
+}
+
+/*
 void MixsonicTrackControlComponent::labelTextChanged(Label *labelThatHasChanged)
 {
   if( trackToEdit == NULL )
@@ -561,8 +579,9 @@ void MixsonicTrackControlComponent::labelTextChanged(Label *labelThatHasChanged)
   if( labelThatHasChanged == nameLabel )
     trackToEdit->setName(nameLabel->getText());
 }
+*/
 
-void MixsonicTrackControlComponent::buttonClicked(Button *buttonThatWasClicked)
+void MixsonicTrackControlComponent::rButtonClicked(RButton *buttonThatWasClicked)
 {
   if( trackToEdit == NULL )
     return;
@@ -643,10 +662,11 @@ void MixsonicTrackControlComponent::resized()
   x = nameLabel->getRight() - 2*buttonSize;
   y = nameLabel->getBottom() + margin; 
   soloButton->setBounds(x, y, buttonSize, buttonSize);
-  x += buttonSize;
+  x += buttonSize + soloButton->getAdjacentButtonOffset();
   muteButton->setBounds(x, y, buttonSize, buttonSize);
 
-  x -= buttonSize;
+  //x -= buttonSize;
+  x = nameLabel->getRight() - 2*buttonSize;
   y += buttonSize + margin;
   w  = 2*buttonSize;
   h  = sliderSize;

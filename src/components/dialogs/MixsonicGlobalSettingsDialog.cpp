@@ -8,7 +8,7 @@ MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(SectionSkin *skinToUs
   settings    = settingsToManipulate;
   settingsTmp = *settings;
 
-  projectsParentDirectoryLabel = new RLabel(&skin->labelSkin, projectsParentDirStr, 
+  projectsParentDirectoryLabel = new MLabel(&skin->labelSkin, projectsParentDirStr, 
     projectsParentDirStr);
   addAndMakeVisible(projectsParentDirectoryLabel);
   projectsParentDirectoryLabel->setDescription(projectsParentDirHelpStr);
@@ -22,13 +22,13 @@ MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(SectionSkin *skinToUs
   projectsParentDirectoryTextField->setColour(Label::outlineColourId, Colours::black);
   projectsParentDirectoryTextField->setReadOnly(true);
 
-  projectsParentDirectoryBrowseButton = new RButton(&skin->widgetSkin, browseButtonStr);
+  projectsParentDirectoryBrowseButton = new MButton(&skin->widgetSkin, browseButtonStr);
   addAndMakeVisible(projectsParentDirectoryBrowseButton);
   projectsParentDirectoryBrowseButton->setDescription(browseButtonStr);
   projectsParentDirectoryBrowseButton->setClickingTogglesState(false);
   projectsParentDirectoryBrowseButton->addListener(this);
 
-  sampleContentDirectoryLabel = new RLabel(&skin->labelSkin, sampleContentDirStr, 
+  sampleContentDirectoryLabel = new MLabel(&skin->labelSkin, sampleContentDirStr, 
     sampleContentDirStr);
   addAndMakeVisible(sampleContentDirectoryLabel);
   sampleContentDirectoryLabel->setDescription(sampleContentDirHelpStr);
@@ -42,7 +42,7 @@ MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(SectionSkin *skinToUs
   sampleContentDirectoryTextField->setColour(Label::outlineColourId, Colours::black);
   sampleContentDirectoryTextField->setReadOnly(true);
 
-  sampleContentDirectoryBrowseButton = new RButton(&skin->widgetSkin, browseButtonStr);
+  sampleContentDirectoryBrowseButton = new MButton(&skin->widgetSkin, browseButtonStr);
   addAndMakeVisible(sampleContentDirectoryBrowseButton);
   sampleContentDirectoryBrowseButton->setDescription(browseButtonStr);
   sampleContentDirectoryBrowseButton->setClickingTogglesState(false);
@@ -55,13 +55,13 @@ MixsonicGlobalSettingsDialog::MixsonicGlobalSettingsDialog(SectionSkin *skinToUs
   //addAndMakeVisible(pluginDirectoriesList);
 
 
-  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  cancelButton = new MButton(&skin->widgetSkin, cancelStr);
   addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);
   cancelButton->addListener(this);
 
-  okButton = new RButton(&skin->widgetSkin, okStr);
+  okButton = new MButton(&skin->widgetSkin, okStr);
   addAndMakeVisible(okButton);
   okButton->setDescription(okStr);
   okButton->setClickingTogglesState(false);

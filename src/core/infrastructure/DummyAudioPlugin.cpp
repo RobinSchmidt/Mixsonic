@@ -191,23 +191,23 @@ DummyAudioPluginEditor::DummyAudioPluginEditor(AudioProcessor *owner)
   dummyPlugin = dynamic_cast<DummyAudioPlugin*> (owner);
   jassert(dummyPlugin != nullptr);
 
-  formatLabel = new RLabel(&skin->labelSkin);
+  formatLabel = new MLabel(&skin->labelSkin);
   addAndMakeVisible(formatLabel);
   formatLabel->setText(dummyPlugin->getFormatName() + String(" Plugin is unavailable."), false);
 
-  nameLabel = new RLabel(&skin->labelSkin);
+  nameLabel = new MLabel(&skin->labelSkin);
   addAndMakeVisible(nameLabel);
   nameLabel->setText(String("Plugin Name: ") + dummyPlugin->getPluginName(), false);
 
-  manufacturerLabel = new RLabel(&skin->labelSkin);
+  manufacturerLabel = new MLabel(&skin->labelSkin);
   addAndMakeVisible(manufacturerLabel);
   manufacturerLabel->setText(String("Manufacturer: ") + dummyPlugin->getManufacturerName(), false);
 
-  versionLabel = new RLabel(&skin->labelSkin);
+  versionLabel = new MLabel(&skin->labelSkin);
   addAndMakeVisible(versionLabel);
   versionLabel->setText(String("Version: ") + dummyPlugin->getVersion(), false);
 
-  uidLabel = new RLabel(&skin->labelSkin);
+  uidLabel = new MLabel(&skin->labelSkin);
   addAndMakeVisible(uidLabel);
   uidLabel->setText(String("Unique ID: ") + String(dummyPlugin->getUniqueID()), false);
 

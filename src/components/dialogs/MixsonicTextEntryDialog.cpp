@@ -4,7 +4,7 @@ MixsonicTextEntryDialog::MixsonicTextEntryDialog(SectionSkin *skinToUse, const S
   const String& initialText)
 : MixsonicModalDialog(skinToUse)
 {
-  textEntryLabel = new RLabel(&skin->labelSkin, labelText, labelText);
+  textEntryLabel = new MLabel(&skin->labelSkin, labelText, labelText);
   addAndMakeVisible(textEntryLabel);
   textEntryLabel->setJustificationType(Justification::centredRight);
 

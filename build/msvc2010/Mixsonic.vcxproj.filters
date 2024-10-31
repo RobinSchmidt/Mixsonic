@@ -37,6 +37,9 @@
     <Filter Include="src\control">
       <UniqueIdentifier>{3e49849d-231b-4936-9bb4-75ca395ac11f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\components\widgets\deprecated_soon">
+      <UniqueIdentifier>{75f9f803-ddd7-4912-abab-7d8b88079546}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\MixsonicMain.cpp">
@@ -119,42 +122,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\core\infrastructure\Track.cpp">
       <Filter>src\core\infrastructure</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\HalfTransparentButton.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\MixsonicArrangementEditorResources.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\MixsonicButton.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\MixsonicProjectComponentResources.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\MixsonicSampleBrowserResources.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\MixsonicSlider.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\MixsonicTextEntryField.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\MixsonicTrackControlComponentResources.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\RButton.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\RComboBox.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\RLabel.cpp">
-      <Filter>src\components\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\components\widgets\RWidget.cpp">
-      <Filter>src\components\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\components\dialogs\MixsonicAudioExportDialog.cpp">
       <Filter>src\components\dialogs</Filter>
@@ -339,7 +306,58 @@
     <ClCompile Include="..\..\src\components\reusable\UserInterfaceSection.cpp">
       <Filter>src\components\reusable</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\control\Parameter.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MWidget.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MScrollBar.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MLabel.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MComboBox.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MButton.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MixsonicTextEntryField.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MixsonicSlider.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\MixsonicButton.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\HalfTransparentButton.cpp">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RWidget.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RButton.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\components\widgets\RScrollBar.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RTextField.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RSlider.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RPopUpComponent.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RPopUpMenu.cpp">
+      <Filter>src\components\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\components\widgets\RTreeView.cpp">
       <Filter>src\components\widgets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -427,45 +445,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\core\infrastructure\Track.h">
       <Filter>src\core\infrastructure</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\HalfTransparentButton.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicArrangementEditorResources.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicButton.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicProjectComponentResources.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicSampleBrowserResources.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicSlider.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicSliderListener.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicTextEntryField.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\MixsonicTrackControlComponentResources.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\RButton.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\RComboBox.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\RLabel.h">
-      <Filter>src\components\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\components\widgets\RWidget.h">
-      <Filter>src\components\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\components\dialogs\MixsonicAudioExportDialog.h">
       <Filter>src\components\dialogs</Filter>
@@ -629,7 +608,64 @@
     <ClInclude Include="..\..\src\components\reusable\UserInterfaceSection.h">
       <Filter>src\components\reusable</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\control\Parameter.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\control\ScopedPointerLock.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MWidget.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MScrollBar.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MLabel.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MComboBox.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MButton.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicTextEntryField.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicSliderListener.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicSlider.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\MixsonicButton.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\HalfTransparentButton.h">
+      <Filter>src\components\widgets\deprecated_soon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RWidget.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RButton.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\components\widgets\RScrollBar.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RTextField.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RSlider.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RPopUpComponent.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RPopUpMenu.h">
+      <Filter>src\components\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\components\widgets\RTreeView.h">
       <Filter>src\components\widgets</Filter>
     </ClInclude>
   </ItemGroup>

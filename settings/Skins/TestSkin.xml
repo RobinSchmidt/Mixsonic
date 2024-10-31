@@ -18,10 +18,10 @@
            normalFontHeight="14" bigFont="Kimberley" bigFontHeight="17"/>		
   </WIDGETS>
   <LABELS>
-    <COLORS background="ffa0a0c0" backgroundSemiHighlight="ffc0c0e0" backgroundHighlight="ffe0e0ff"
+    <COLORS background="ffa0a0a0" backgroundSemiHighlight="ffc0c0c0" backgroundHighlight="ffe0e0e0"
             middleground="ff808080" middlegroundSemiHighlight="ffa0a0a0"
-            middlegroundHighlight="ffc0c0c0" foreground="ff000000" foregroundSemiHighlight="ff000040"
-            foregroundHighlight="ff000080" outline="ffa0a0c0" outlineSemiHighlight="ffc0c0e0"
+            middlegroundHighlight="ffc0c0c0" foreground="ffc0c0c0" foregroundSemiHighlight="ffe0e0e0"
+            foregroundHighlight="ffffffff" outline="ffa0a0c0" outlineSemiHighlight="ffc0c0e0"
             outlineHighlight="ffe0e0ff"/>
     <FONTS smallFont="Kimberley" smallFontHeight="12" normalFont="Kimberley"
            normalFontHeight="14" bigFont="Kimberley" bigFontHeight="17"/>			

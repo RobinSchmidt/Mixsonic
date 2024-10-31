@@ -3,7 +3,7 @@
 
 #include "../../control/TransportController.h"
 #include "../reusable/UserInterfaceSection.h"
-#include "../widgets/RButton.h"
+#include "../widgets/MButton.h"
 
 class TransportComponent : public Component, public ButtonListener, public UserInterfaceSection
 {
@@ -28,7 +28,7 @@ public:
 
 protected:
 
-  RButton *playButton, *rewindButton, *largeBackwardStepButton, *largeForwardStepButton;
+  MButton *playButton, *rewindButton, *largeBackwardStepButton, *largeForwardStepButton;
     /* *smallBackwardStepButton; *smallForwardStepButton, *forwardToEndButton; */
   // later: include: *loopButton
   // maybe we should get rid of the two different size steps (jump only to markers) and also

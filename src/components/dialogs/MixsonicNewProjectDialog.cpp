@@ -11,13 +11,13 @@ MixsonicNewProjectDialog::MixsonicNewProjectDialog(SectionSkin *skinToUse,
 
   setDescription(enterProjectNameHelpStr);
 
-  createButton = new RButton(&skin->widgetSkin, createStr);
+  createButton = new MButton(&skin->widgetSkin, createStr);
   addAndMakeVisible(createButton);
   createButton->setDescription(createProjectHelpStr);
   createButton->setClickingTogglesState(false);
   createButton->addListener(this);
 
-  cancelButton = new RButton(&skin->widgetSkin, cancelStr);
+  cancelButton = new MButton(&skin->widgetSkin, cancelStr);
   addAndMakeVisible(cancelButton);
   cancelButton->setDescription(cancelStr);
   cancelButton->setClickingTogglesState(false);

@@ -7,6 +7,7 @@ Skin::Skin()
   
 void Skin::initialize()
 {
+  outlineThickness = 1;
   initializeColors();
   initializeFonts();
 }
@@ -32,11 +33,19 @@ void Skin::initializeColors()
 
 void Skin::initializeFonts()
 {
-  /*
-  setFont(smallFont,  "SansSerif", 12.f);
-  setFont(normalFont, "SansSerif", 14.f);
-  setFont(bigFont,    "SansSerif", 17.f);
-  */
+
+  //// for test what happens when trying to set a font that doesn't exist as font-file:
+  //setFont(smallFont,  "NonExistent", 12.f);
+  //setFont(normalFont, "NonExistent", 14.f);
+  //setFont(bigFont,    "NonExistent", 17.f);
+  //  // on closing the app, it writes a font-file NonExistent.jff into the font directory, this 
+  //  // fontfile contains the standard serif font (Times?)
+
+
+
+  //setFont(smallFont,  "SansSerif", 12.f);
+  //setFont(normalFont, "SansSerif", 14.f);
+  //setFont(bigFont,    "SansSerif", 17.f);
 
   setFont(smallFont,  "Kimberley", 12.f);
   setFont(normalFont, "Kimberley", 14.f);
@@ -68,13 +77,36 @@ void Skin::setFont(Font& fontToSet, const String& typefaceName, float height)
     FileInputStream inStream(fontFile);
     CustomTypeface *ctf = new CustomTypeface(inStream);
     fontToSet = Font(ctf);
-    fontToSet.setTypefaceName(typefaceName);
+
+    //fontToSet.setTypefaceName(typefaceName);
+      // this is wrong - it tries to find the typeface among the installed ones and if i isnt found
+      // it falls back to a default font
+      // what we should do instead is to take care that the CustomTypeface object ctf already 
+      // includes the corrects name. ideally this name should be written into and retrieved fro the
+      // .jff font file
   }
   else
   {
-    fontToSet.setTypefaceName(typefaceName);
-    if( fontToSet.getTypeface() == nullptr )
-      fontToSet.setTypefaceName(Font::getDefaultSansSerifFontName());
+    //// old:
+    //fontToSet.setTypefaceName(typefaceName);
+    //if( fontToSet.getTypeface() == nullptr )
+    //  fontToSet.setTypefaceName(Font::getDefaultSansSerifFontName());
+    //// using setTypefaceName to select a font doesn't seem to work. it uses the system's default 
+    //// font if a suitabel typeface name isn't found. what we should od instead is to find out, if 
+    //// a suitable typeface is nstalled, if so, use it, if not do nothing
+
+    //// new:
+    //StringArray typefaces = Font::findAllTypefaceNames();
+    //for(int i = 0; i < typefaces.size(); i++)
+    //{
+    //  if(typefaces[i] == typefaceName)
+    //    fontToSet.setTypefaceName(typefaceName);
+    //}
+    //// this takes ages on startup..
+
+
+    //// test:
+    //fontToSet.setTypefaceName(Font::getDefaultSansSerifFontName());
   }
   fontToSet.setHeight(height);
 

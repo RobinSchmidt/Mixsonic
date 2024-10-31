@@ -110,6 +110,10 @@ File getAudioFileFromPath(const String& path);
 range 0...255.  */
 Colour getGrayValue(int brightness);
 
+/** Returns a colour that is a weighted mix of two other colours. It will simply linearly 
+interpolate the ARGB values separately. */
+Colour getMixedColour(const Colour colour1, const Colour colour2, double weight1, double weight2);
+
 /** Checks whether a directory or any of its subdirectories (if any) has files in it and returns 
 true, if so and false otherwise. */
 bool hasDirectoryFiles(const File& directoryToCheck);
