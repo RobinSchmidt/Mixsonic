@@ -1,0 +1,8 @@
+Ctrl-X:           cut selected clips and put them into the clipboard
+Ctrl-C:           copy selected clips into clipboard
+Ctrl-V:           paste clips from clipboard
+Ctrl-d:           duplicate selected clips
+Delete:           erase selected clips (seems not to work)
+Space:            Play on/off 
+Number-Pad Plus:  Zoom in
+Number-Pad Minus: Zoom out

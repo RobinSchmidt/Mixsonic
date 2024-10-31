@@ -1,0 +1,37 @@
+call stack for removing a sample from the SamplePool:
+
+MixsonicProjectComponent::attemptToDeleteSelectedFile
+->SamplePool::removeSampleFromPool
+  ->SamplePool::sendSampleToBeDeletedNotification (trigger callback to the the SamplePoolClients)
+    ->Arrangement::sampleIsToBeDeleted (the triggered callback function)
+      ->Track::removeAllClipsUsingBuffer (for all Tracks)
+        ->Track::removeClip() (will clear the Track's reference to and then delete the clip object)
+          ->AudioClip::~AudioClip (destructor)
+            ->AudioClipDeletionWatcher::clipIsToBeDeleted (trigger callback to all attached AudioClipDeletionWatchers 
+              which are the AudioClipComponents - this removes the components reference to the clip which makes it orphan)
+              ->AudioClip::removeDeletionWatcher
+          
+    ->MixsonicProjectComponent::sampleIsToBeDeleted  (the triggered callback function)
+
+    ->ArrangementPanel::sampleIsToBeDeleted  (the triggered callback function)
+      ->Track::refreshClipComponents (for all Tracks - removes the orphan AudioClipComponents)
+
+sample is now deleted from the pool - but we have an orphan AudioClipComponent...
+->
+
+
+Hacks to JUCE;
+
+in class FileListTreeItem:
+
+    bool mightContainSubItems() { return isDirectory; }
+    
+    changed to:
+
+    bool mightContainSubItems()                 
+    { 
+      if( !isDirectory )
+        return false;
+      else
+        return file.getNumberOfChildFiles(File::findDirectories) > 0; 
+    }

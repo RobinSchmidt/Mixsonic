@@ -1,0 +1,3 @@
+grayscale colors:
+outline: 128 (halfway between dark and bright backgrounds)
+background: 64

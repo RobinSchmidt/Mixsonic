@@ -1,0 +1,136 @@
+The MixsonicSettings.xml file (which supposed to reside next to the .exe) has 
+an attribute "skinFile", the value of which is the name of the skin-file to be
+ loaded on program startup. This skinfile should reside in a folder "Skins" 
+directly below the folder where the program executable resides. The "Skins" 
+folder may contain an arbitrary number of such skinfiles and has subfolders 
+which contain further skin-related stuff such as fonts (and later also 
+graphics). The skinfile itself is an .xml file which contains attributes for 
+colors, fonts and graphics which are to be used in various parts of the GUI. 
+
+Fonts:
+In the "FONTS" child XML-element, various fonts and their sizes are defined.
+The font-names should either correspond to a filename of a .jff file in the 
+"Fonts" directory or to a font-name that is installed on the system. These .jff 
+fonts are fonts stored in a JUCE specific file-format (which i dubbed .jff for 
+juce font format). If no corresponding .jff font is found, the font will be 
+looked for in the fonts which are installed on the system. If an appropriate 
+system font is found, a corresponding .jff file will be created from it and 
+this .jff file can subsequently be transfered to and used on other machines as 
+well (beware of copyright issues). If no appropriate system font is found, a 
+default font will be used. The fonts are in particular:
+-headlineFont: text for headlines (for the various sections and subsections of 
+ the GUI such as "Browser", "Pool", etc.)
+-labelFont: labels such as "Track 1", etc. (not yet used(?))
+-textFont: standard text (where is this used - maybe for clips?)
+-widgetFont: text on widgets (buttons, sliders, comboboxes, etc.)
+
+Colors:
+In the "FONTS" child XML-element, colors for various aspects of the GUI are 
+defined as ARGB (alpha/red/green/blue) values in hexadecimal notation for each
+of the 4 values.
+-background
+-backgroundHighlight
+-headlineBackground
+-headlineText
+-marker: song position marker, slider position marker
+-outline: outlines of GUI-parts, widgets, clips etc.
+-outlineHighlight: outlines for highlighted items such as selected clips (and 
+ the container while they is being dragged),
+-plotBackground: background for plots (including clips)
+-plotForeground: graphs for plots (including clips)
+-text: normal text
+-textHighlight: highlighted text
+-widgetBackground
+-widgetHandle
+
+
+
+
+
+TODO
+introduce another hierarchy-level in the SKIN element inside of which the 
+fonts, colors, etc. for various sections of the GUI are defined. Let there be
+a DEFAULT element where fallback values are defined and then there may be 
+optional elements BROWSER, ARRANGER, PLUGIN, etc. where these default settings
+can be overriden.
+
+For each section, we have the following child-elements 
+
+FONTS, with typefaces and sizes (heights) for 
+-text 
+-sectionLabel (formerly headline)
+-subSectionLabel (formerly label)
+-widget
+
+COLORS for: 
+-background
+-marker/Semi/Highlight (marker, markerSemiHighlight, markerHighlight)
+
+	 
+
+-plotBackground/Semi/Highlight
+-plotForeground/Semi/Highlight
+-plotHandle/Semi/Highlight
+-plotOutline/Semi/Highlight
+
+-sectionLabelBackground
+-sectionLabelText
+-sectionOutline	
+
+
+-subSectionLabelBackground/Semi/Highlight
+-subSectionLabelText/Semi/Highlight
+-subSectionBackground/Semi/Highlight
+-subSectionOutline/Semi/Highlight
+ (subsections are, for example, the individual tracks in the arranger
+
+-textBackground/Semi/Highlight
+-text/Semi/Highlight
+
+-widgetBackground/Semi/Highlight
+-widgetHandle/Semi/Highlight
+-widgetOutline/Semi/Highlight
+-widgetText/Semi/Highlight
+
+
+all the /Semi/Highlight definitions are optional, if not defined, 
+SemiHighlight defaults to Highlight and Highlight defaults to
+the non-highlighted color
+
+maybe let the tracks have alternating brightness-multiplicators, such that
+there's always a darker below a brighter track and vice versa (enhances visual
+distinction between the tracks), maybe such an brightness-alternation strategy
+can be used in other parts of the GUI as well (lines in the browser, divisions
+of the timeline into measures) - so maybe lets call the attribute 
+brightnessAlternation and let it have values between a = -1...1 and use a 
+brightness multiplier 1+a/2 if a >= 0 and 1/(1-a/2) if a < 0
+
+maybe, we should have a GUISection baseclass which contains (a pointer to) the 
+ColorScheme and Fonts (or UserInterfaceSection), maybe we can use this also for 
+subsections - or pointer to a Skin
+
+GUI-parts which do not yet make use of the skin (todo - let them use it):
+-MenuBar
+-Scrollbars
+-TrackBodyComponent (here, we should use setColors after the constructor)
+-HalfTransparentButton (perhaps doesn't need a skin)
+-Browser/FileTree/DirectoryContentsList?
+
+-try to get rid of reaching for the singleton MixsonicSkin::getInstance()
+ wherever possible (this breaks reusability)
+-in MixsonicProjectComponent, we open dialogs but fail to pass the proper
+ dialog-skin (it's not available there - fix this!)
+-or: reach for an ApplicationSkin baseclass singleton, have baseclass
+ SkinnableWidget which also reaches for this  ...but no - this doesn't
+ allow different skins in different sections
+
+
+
+
+
+
+
+
+
+
+

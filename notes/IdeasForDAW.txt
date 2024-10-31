@@ -1,0 +1,16 @@
+-provide a prelisten function for midi-clips similar 
+ to the audio prelisten function. pass the midi events
+ from the file to the currently selected track (on which
+ an instrument pluin may sit)
+ -this way, pre-produced midi sequences can be provided
+  for inpiration
+ -have a transpose field, such taht incoming midi notes
+  can be adjusted (maybe one for octaves and one for 
+  semitones), provide all pre-produced midi-sequences
+  in the same key (C, say)
+  
+-each track can have an arbitrary number of sub-tracks
+ -it is possible to open/close the subtracks in a way
+  similar to the file-browser's tree view
+  
+-clips may also have their own effect chain

@@ -1,0 +1,5 @@
+-there were build errors in stream_decoder.c, stream_encoder.c (files belong the flac codec)
+ ->i deactivated FLAC support by adding #define JUCE_USE_FLAC 0 to AppConfig.h
+ -had to comment some lines related to flac file loading saving:
+  AudioSampleBaufferFunctions.cpp: line 85,86
+  AudioRecorder.cpp: line 32,33

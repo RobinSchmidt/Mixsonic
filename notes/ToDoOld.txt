@@ -1,0 +1,25 @@
+
+-absorb ClipDeletionWatcher int ClipManipulator
+-in the top-left corner include a 'Setings' or 'Preferences' button to set up the project and sample-content directories
+-display volume in info-line when moving a volume slider (same for the buttons, and pan-stuff)
+-clean up the browser classes
+-MixsonicNewProjectDialog and MixsonicEnterProjectNameDialog are almost identical - we should be able to get rid of one...MixsonicEnterNameDialog is very similar as well
+
+-copy->paste->load triggers the breakpoint in the destructor ~AudioFileDisplayBuffer - the number of users is nonzero because the pasted clips seem not to properly deregister before they are destroyed
+-check if AudioClipComponent really needs to override deleteUnderlyingClip()
+-check if AudioClip still needs its copy-constructor
+-Track::addClipComponent(bool addAlsoUnderlyingClip), ...same for remove
+-move garbageClips to ClipInstantiationManager
+
+
+
+
+
+
+
+
+
+
+
+
+

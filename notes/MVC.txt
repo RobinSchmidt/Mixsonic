@@ -1,0 +1,18 @@
+from http://c2.com/cgi/wiki?ModelViewController
+-A model is an object representing data or even activity, e.g. a database table or even some plant-floor production-machine process. 
+-A view is some form of visualization of the state of the model. 
+-A controller offers facilities to change the state of the model. 
+A triad of three modules linked by the ObserverPattern. Elements within the View observe the Model. Elements within the Controller observe the View and Model, and elements within the Model observe the Controller.
+
+
+
+the PAC-pattern seems more suitable:
+http://www.vico.org/pages/PatronsDisseny/Pattern%20Presentation%20Abstra/
+http://de.wikipedia.org/wiki/Presentation-Abstraction-Control
+
+
+responsibilites of the controller:
+-threading (scheduling, synchronization, etc.)
+-state management (persistence, undo/redo, etc.)
+
+i don't want the model to observe the controller - instead, the controller should call set-methods of the model. the model should be completetly independent from the controller and does not even have to know anything about its existence

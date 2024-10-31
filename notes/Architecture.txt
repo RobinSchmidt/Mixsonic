@@ -1,0 +1,46 @@
+
+new (not yet implemented):
+
+Presentation-Abstraction-Control:
+
+Abstraction:
+-holds the core data
+-should be as decoupled from the (JUCE) framework as possible
+-classes: Clip, Track, Arrangement, etc. 
+
+Presentation:
+-presents the data to the user, this has two aspects:
+ -graphical user interface:
+  -shows the data visually
+  -handles user input
+  -classes: ClipComponent, TrackComponent, ArrangementComponent, etc.
+ -audio playback:
+  -classes for playing back the arrangement (or parts of it)
+  -classes: ClipPlayer, TrackPlayer, etc.
+
+Control:
+-mediates between abstraction and presentation - the presentation classes should access and 
+ manipulate the core (abstraction) data only through the control classes
+-handles thread synchronization
+-is responsible for persistence (i.e. save/load)
+-later: will be responsible for undo/redo
+-classes: ClipController, ...
+
+---------------------------------------------------------------------------------------------------
+
+Threading:
+-main thread: handle GUI input
+-audio thread: stream audio to the output
+ -later: shall have child threads to enable multicore support 
+  -in multithreaded mode, there shall be as many child threads as CPU-cores (each assigned to one 
+   particular core), playback of tracks should be distributed among these child-threads and the 
+   main audio thread shall manage them and sum their output signals. this should be handled in
+   ArrangementPlayer
+-drawing thread: handle expensive drawing operations, such that the GUI does not become 
+ unresponsive during such operations
+-maybe thread-sync can be centralized in class ArrangementController - it's overkill to acquire 
+ locks recursively for all embedded-objects (which is what we currently do)
+
+
+
+

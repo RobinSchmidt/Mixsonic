@@ -1,0 +1,292 @@
+-Employ a unity build system for faster build times
+
+-Before publishing the repo, clean it up.
+
+-Rename to something like OpenDAW, MiniDAW, EZDAW, SimpleDAW, ClappyDAW (if we only support clap - 
+ but maybe we should support other formats as well - just make use of what JUCE offers), SimpleSeq.
+ Remove traces of the old name.
+
+-If possible, try using the widgets from jura. It seems redundant to have these implementations here 
+ as well.
+
+-check, why it doesn't show the  installed plugins (has probably to do with the 
+ plugin-directory specified in the settings.xml - or something)
+
+-migrate to JUCE 6 (what the main RS-MET repo uses)
+-migrate to JUCE 3
+-migrate to x64
+-make it build on all 3 platforms
+
+-split out zFramework as .dll (?)
+
+-on initialization a lot of skins are created which each open files, load fonts etc.
+ (set breakpoint in Skin::setFont, observe how often it is called), this slows down 
+ app startup - find a better solution to intitialize without repeatedly reading the 
+ same files again and again 
+-look at comments in Skin::setFont - skin and font handling is crap at the moment
+
+ 
+
+-bug: when zooming in, setting the time-cursor somewhere right
+ and scrolling left, it jumps back such that the time-cursor is
+ always visible - but this should happen only during playback
+
+-consequently use the fonts and colors defined in the Skin in all
+ GUI elements
+-refine the drawing of the caption for clips
+-remove
+
+
+-let the timeline extend beyond the left side of the up/down scrollbar (we may
+ have to factor it out of ArrangementPanel and put it into ArrangementEditor to
+ achieve that, but maybe, we can also let the Scrollbar be drwan on top of the
+ tracks (i.e. overlap them) instead of to the right of them)
+
+
+
+-maybe use a monolithic format similar to the project file format for skins
+
+
+ 
+-1 thread per track 
+ 
+-when a plugin window is open, it may cover a modal dialog, 
+ making it inaccessible. maybe we should close the plugin 
+ windows when opening a modal dialog
+-add plugin path field to the directory-settings 
+-plugin-routing per drag-and-drop 
+
+-Snapshots für mixer- plugin-einstellungen, z.b. alle aus, etc.
+-copy via ctrl-drag
+-file-format - monolithic, scrambled 7z file conatining also the plugins
+
+-translator class
+
+
+
+
+
+ 
+ 
+ 
+Locking Strategy:
+ -have a global CriticalSection object (inside some global
+  applicationWideDataAndFunctions or appGlobals object)
+ -all objects that must lock a critical-sections receive a 
+  pointer to the global CriticalSection and use it
+ -for time-critical functions (i.e. getNextAudioBlock, etc.), 
+  there shall be a getNextAudioBlockUnsafe version which 
+  doesn't acquire the lock which is called by getNextAudioBlock
+ -if a higher level object (i.e. Arrangement) already has acquired
+  the lock, it my call the unsafe version on lower level objects
+  (i.e. Track)
+
+-move the AppConfig.h file out of the juce folder and 
+ add the new path to the compiler's serach path (so we
+ may replace the juce folder with new versions without
+ worrying about retaining our old AppConfig file)
+
+-fade in via power-rule (0.5: sqrt, 1.0: linear)
+ ->for the audio, this has to be done in AudioClip::getRampFactor
+ ->do it also for the AudioClipComponent
+
+-maybe make clip background semi-transparent - makes it easier
+ to spot overlapping clips
+ 
+-create a globally accessible mixsonicappController object
+ which holds application wide settings and handles application-wide
+ accessible callbacks
+
+-maybe factor out the symbol drawing - maybe into a 
+ SymbolDrawer class that has static methods to create
+ juce::Path objects - like
+ Path getPlaySymbol(const Rectangle& bounds)
+ or maybe Pictograms::play ...or something
+ 
+-for the prelistening function
+ -restart playback, when the file is clicked again
+ -use a loudspeake symbol for the prelisten function
+ -stop the prelistening on mouseUp
+ -handle prelistening with one button for both
+  sub-browsers
+  
+-maybe move the ApplicationComandTarget baseclass
+ to the Mixsonic application class
+-maybe also move the handling of opening some dialogs there
+ (new, open, save, etc.)
+-we really should refactor to a proper Model-View-Controller (MVC)
+ architechture instead of having the controller stuff also be 
+ done by the views. or maybe better a 
+ Presentation-Abstraction-Control (PAC) architechture
+ like:
+ Arrangement (abstraction)
+ ArrangementController (control)
+ ArrangementEditor (presentation)
+ ArrangementPlayer (presentation)
+ where the ArrangementController class holds the actual 
+ arrangement as member, manipulates it and sends suitable
+ callback-invocations to the ArrangementEditor. also, 
+ certain manipulations can be invoked from the editor, like
+ arrangementController->moveSelectedClips(...)
+ the controller then moves the clips in the underlying 
+ arrangement and invokes a callback to arrangementChanged 
+ (or something)
+ -"abstraction" holds the actual data
+ -"controller" takes care of persistence (and later maybe undo)
+ -"editor" serves as graphical user interface
+ -"player" plays back the audio stream
+ -maybe have a globally accessible appController object 
+ -maybe the ValueTree class can be used to implement this (but 
+  maybe not)
+
+refactoring:
+-factor out "Player" classes from Clip, Track, Arrangement that
+ take over the responsibility of playing back the respective 
+ object
+ -they belong into the "presentation" part in the PAC 
+  architecture
+ 
+-find all \todo statements and do it
+-check all the commented (un)lock-instructions
+ if they are indeed unnecessary, remove them
+
+-make a class HorizontalSplitComponent (for the 2 browsers,
+ the arrangement/context(clip-edit, etc.) component
+ -make also a VerticalSplitComponent
+ 
+ 
+easy but (maybe) tedious stuff:
+-create unity-build files to reduce build-time
+-change the name of the project
+-rename Arrangement to Song - hmm...maybe not
+-add comments to yet uncommented classes
+
+ 
+ 
+BUGS:
+
+-on the mac, when maximizing the window, it becomes too
+ large such that the right and bottom parts are out-of-screen
+
+-when clicking on a file in the sample-browser in quick 
+ succession with "prelisetn" active, it sometimes hits
+ the jassert (sampsInBuffer > 0); in 
+ ResamplingAudioSource::getNextAudioBlock - possibly, the 
+ file is not fully loaded yet (which is done in another 
+ thread?)
+
+-on Urs' PC, the audio-callback Arrangement::getNextAudioBlock
+ function is not called, at least not regularly, there are a
+ finite number of calls on app-startup
+ -may have to do with the audio-hardware - perhaps the 
+  default audio-device is not available
+ -calling deviceManager.playTestSound(); doesn't produce 
+  any sound either
+ -but it worked once for a short time - maybe it's a 
+  threading issue - there's a "Juce WASAPI" thread 
+  (apparently the audio-callback thread) which has
+  priority -7
+ -the old version (where it works) has a "Juce DSound"
+  thread instead with priority "Highest"
+ -when changing the standard output device from RME 
+  babyface to the display-integrated speakers, it works
+ -the outmost function-call that gives rise to our 
+  audio-callback is in juce_win32_WASAPI.cpp, line 877
+  actually, the whole "run" function is not called
+ -todo: make an audio-settings dialog where the user
+  can select the device
+ -check out the thread debug options in msvch is this 
+  flag - could this be helpful?
+ 
+-by default, when starting the app trying to open a saved project, 
+ the dialog opens in the temporary directory which is empty. perhaps 
+ we should store the last saved file in the PreferencesFile in 
+ order to open the directory of this file by default. also, when trying
+ to open a file, it starts in the temp directory, too. moreover, it 
+ doesn't delete the temp-project when opening an existing project
+
+-when using alt+drag (to copy) the copied clips are drawn 
+ without waveform during the drag 
+ -idea: in the copy-constructor of AudioClipComponent, we could copy 
+  the cached images - see comment in the constructor
+ 
+-check the implementation the prelisten function - maybe, we may 
+ get rid of the FileBrowserListener baseclass for 
+ MixsonicProjectComponent and MixsonicSampleBrowser and have a global 
+ "prelisten" button that affects both at the same time
+ 
+
+new features:
+-audio plugin hosting:
+ -have a class AudioPluginSlot that stores information about a plugged in
+  plugin, like name, uniqueID, filename (the .dll file but maybe without 
+  extension to make it platform agnostic) - the slot my be empty
+ -class Track should have an array of these AudioPluginSlot objects as 
+  member
+ -there should be a class AudioPluginController that takes care of 
+  retrieving and setting up the plugin state (get/setChunk, etc.) and
+  opening an AudioPluginEditor component
+ -there may be a class AudioPluginProcessor that actually applies the 
+  processing to a stream of audio samples (takes a similar role as 
+  TrackPlayer, etc)
+  
+-maybe have a toolbar to modify mouse-behavior (select, insert, delete, 
+ etc.)
+ 
+-later: maybe let gestures initiate commands (maybe with the LeapMotion 
+ device)
+ 
+-make it skinnable via an xml-file containing:
+ -the whole skin should be folder containing a main skin-file, a 
+  colorscheme file, one or more font files, and optional .png and/or
+  .svg graphics
+ -ColorScheme (which should have either type RGBA, or HSLA, one could 
+  have a global HueRotator or something)
+ -Fonts for various things, also Font-Sizes, bold/italic settings, etc.
+  -these fonts should reside as files in the same directory as the main 
+   skin file - 
+ -Sizes for various things (ScrollbarThickness, StandardLabelHeight, 
+  BigLabelHeight, SmallLabelHeight, etc.)
+ -perhaps also bitmaps for buttons, etc - should re
+ -the app itself may provide a skin editor (in the Setup menu) - or maybe 
+  this should be an extra-app
+ 
+ 
+  
+
+ 
+ 
+cosmetic changes:
+-use scopedLocks instead of lock.enter/exit whereever possible
+-get rid of unnecessary "virtual" declarations (maybe)
+-wrap all code into a namespace
+-rename all the BlaComponent into BlaView
+-rename ProjectComponent into SamplePoolView
+-avoid the 'delete' operator by using ScopedPointers, OwnedArrays,
+ ReferenceCountedObjects, etc.
+-get rid of the CharPointer_UTF8 stuff
+-some functions to show dialog-boxes use the convention 
+ openBlahDialog, others showBlahDialog - make these consistent
+-MixsonicContentComponent does a lot of non-GUI related stuff which
+ is actually application-logic - thsi should be factored out to 
+ somewhere else
+-maybe modify the architechture into a proper and explicit
+ Model/View/Controller pattern (i.e. have classes like AudioClip, 
+ AudioClipController, AudioClipView, etc.)
+-maybe have a source-tree that resembles the hierarchy of the app 
+ rather than distinguishing between GUI and "model" classes
+ have subdirectories
+ -DigitalAudioWorkstation
+  -Arrangement
+   -Track
+    -Clip
+  -SamplePool (or AudioFilePool)
+  -PlugInHosting
+   -PlugInRouting
+  -Transport
+  -InputOutput
+ the folder 'Clip'  would then contain Clip.h/cpp, AudioClip.h/cpp
+ AudioClipController.h/cpp, AudioClipView.h/.cpp, etc.
+-Clip and Track could use a 'composite' pattern
+	
+  
