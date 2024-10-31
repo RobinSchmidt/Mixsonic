@@ -488,7 +488,18 @@ void MixsonicContentComponent::playbackStarted()
     arrangementEditor->startPlayback(bufferSize, sampleRate);  
   }
   else
-    jassertfalse; // todo: open an error message - no valid audio-device or something
+  {
+    juce::AlertWindow("Audio Device Error", "No valid audio IO device available", 
+      juce::AlertWindow::AlertIconType::WarningIcon, this);
+    // ToDo: This message should be formulated better. Maybe "No valid audio IO device configured".
+    // Also give a hint for a solution - maybe the user should select a device in some config menu?
+
+    // BUG: The window doesn't pop up! I'm not sure, if I should pass the "this" pointer or 
+    // nothing at all. But it doesn't pop up either way.
+
+
+    jassertfalse; // ToDo: open an error message - no valid audio-device or something
+  }
 }
  
 void MixsonicContentComponent::playbackStopped()
