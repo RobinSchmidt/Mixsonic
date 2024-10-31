@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<MIXSONICSETTINGS sampleContentDirectory="E:\Programming\Temp\Mixsonic\TestSamples"
-                  projectsParentDirectory="E:\Programming\Temp\Mixsonic\MixsonicOutput\Debug"
-                  pluginDirectories="E:\Programming\Temp\Mixsonic\TestPlugins"/>
+<MIXSONICSETTINGS sampleContentDirectory="C:\Users\rob\data\GitRepos\Mixsonic\TestSamples"
+                  projectsParentDirectory="C:\Users\rob\data\GitRepos\Mixsonic\MixsonicOutput\Debug"
+                  pluginDirectories="C:\Users\rob\data\GitRepos\Mixsonic\TestPlugins"/>
