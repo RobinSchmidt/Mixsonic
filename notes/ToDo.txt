@@ -1,10 +1,14 @@
 -Employ a unity build system for faster build times
 
 -Before publishing the repo, clean it up.
+ -We need to remove the folder src\libs\vstsdk2.4\pluginterfaces\vst2.x. When building with VST2 
+  support, we need the user to specify a folder for the vst2 sdk and the user has to find the sdk
+  themselves because annoyingly we cannot redistribute it. Maybe we shouldn't support VST2 anyway.
+  In that case, the example plugins folder can also be removed
 
 -Rename to something like OpenDAW, MiniDAW, EZDAW, SimpleDAW, ClappyDAW (if we only support clap - 
  but maybe we should support other formats as well - just make use of what JUCE offers), SimpleSeq.
- Remove traces of the old name.
+ Remove traces of the old name. "Arranger", "Arrangeur", ClipPlacer
 
 -If possible, try using the widgets from jura. It seems redundant to have these implementations here 
  as well.
@@ -25,7 +29,8 @@
  same files again and again 
 -look at comments in Skin::setFont - skin and font handling is crap at the moment
 
- 
+-The info line at the bottom does nothing. 
+
 
 -bug: when zooming in, setting the time-cursor somewhere right
  and scrolling left, it jumps back such that the time-cursor is
