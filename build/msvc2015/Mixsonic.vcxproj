@@ -317,6 +317,18 @@
     <ClInclude Include="..\..\src\libs\JuceIncludes.h" />
     <ClInclude Include="..\..\src\libs\juce\AppConfig.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\notes\Architecture.txt" />
+    <Text Include="..\..\notes\IdeasForDAW.txt" />
+    <Text Include="..\..\notes\KeyboardShorcuts.txt" />
+    <Text Include="..\..\notes\MigrationToJuce3.txt" />
+    <Text Include="..\..\notes\MVC.txt" />
+    <Text Include="..\..\notes\Notes.txt" />
+    <Text Include="..\..\notes\SkinIdeas.txt" />
+    <Text Include="..\..\notes\SkinningInstructions.txt" />
+    <Text Include="..\..\notes\ToDo.txt" />
+    <Text Include="..\..\notes\ToDoOld.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

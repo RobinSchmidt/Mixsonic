@@ -40,6 +40,9 @@
     <Filter Include="src\components\widgets\deprecated_soon">
       <UniqueIdentifier>{75f9f803-ddd7-4912-abab-7d8b88079546}</UniqueIdentifier>
     </Filter>
+    <Filter Include="notes">
+      <UniqueIdentifier>{4e775988-6bea-42e9-8523-246ea175bc72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\MixsonicMain.cpp">
@@ -668,5 +671,37 @@
     <ClInclude Include="..\..\src\components\widgets\RTreeView.h">
       <Filter>src\components\widgets</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\notes\Architecture.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\IdeasForDAW.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\KeyboardShorcuts.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\MigrationToJuce3.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\MVC.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\Notes.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\SkinIdeas.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\SkinningInstructions.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\ToDo.txt">
+      <Filter>notes</Filter>
+    </Text>
+    <Text Include="..\..\notes\ToDoOld.txt">
+      <Filter>notes</Filter>
+    </Text>
   </ItemGroup>
 </Project>
