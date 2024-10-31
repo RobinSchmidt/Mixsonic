@@ -1,2 +1,12 @@
 notes
 misc
+build/mac_xcode/.DS_Store
+build/MixsonicOutput/Debug/build.log
+/build/msvc2015/.vs
+*.obj
+/MixsonicOutput/Debug/Mixsonic.tlog
+*.exe
+*.log
+*.ilk
+*.pdb
+*.idb
