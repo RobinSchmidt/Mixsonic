@@ -1,3 +1,5 @@
+-Maybe rename to ToyDaw
+
 -Employ a unity build system for faster build times
 
 -Before publishing the repo, clean it up.
